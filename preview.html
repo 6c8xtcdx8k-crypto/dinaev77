@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Catch Quest</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#e8e4f8;display:flex;justify-content:center;align-items:flex-start;min-height:100vh;padding:24px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+.phone{width:390px;min-height:844px;background:#f5f4ff;border-radius:44px;overflow:hidden;box-shadow:0 30px 80px rgba(108,71,255,0.25),0 0 0 8px #1a1a2e;position:relative;display:flex;flex-direction:column}
+/* header */
+.hdr{display:flex;align-items:center;justify-content:space-between;padding:16px 20px 10px;background:#fff}
+.hdr-title{font-size:16px;font-weight:900;letter-spacing:1px;color:#1a1a2e}
+.hdr-title span{color:#6c47ff}
+.hdr-btn{width:36px;height:36px;border-radius:10px;background:#f5f4ff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px}
+/* pages */
+.page{display:none;flex:1;overflow-y:auto;background:#f5f4ff;padding-bottom:80px}
+.page.active{display:block}
+/* bottom nav */
+.bnav{position:sticky;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #ede9ff;display:flex;z-index:100}
+.bnav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0;border:none;background:none;cursor:pointer;transition:all .2s;color:#9ca3af;font-size:10px;font-weight:600}
+.bnav-btn.active{color:#6c47ff}
+.bnav-btn svg,.bnav-btn .ni{font-size:22px}
+.bnav-btn.active .ni{filter:drop-shadow(0 0 4px rgba(108,71,255,0.5))}
+/* season pill */
+.season{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;background:#e8fdf1;color:#16a34a;font-size:11px;font-weight:700;margin:0 20px 12px}
+.season::before{content:'';width:7px;height:7px;border-radius:50%;background:#22c55e;display:block;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+/* cards */
+.card{background:#fff;border-radius:20px;margin:0 16px 12px;box-shadow:0 2px 16px rgba(108,71,255,0.08)}
+.card-p{padding:16px}
+/* purple btn */
+.btn-purple{width:calc(100% - 32px);margin:0 16px;background:linear-gradient(135deg,#6c47ff,#8b5cf6);color:#fff;border:none;border-radius:16px;padding:16px;font-size:16px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 20px rgba(108,71,255,0.4);transition:all .2s}
+.btn-purple:hover{transform:translateY(-1px);box-shadow:0 8px 30px rgba(108,71,255,0.5)}
+/* scenario cards */
+.sc-card{background:#fff;border-radius:16px;margin:0 16px 10px;display:flex;align-items:center;gap:12px;padding:12px;box-shadow:0 2px 12px rgba(0,0,0,0.06);cursor:pointer;transition:all .2s}
+.sc-card:hover{transform:translateX(4px);box-shadow:0 4px 20px rgba(108,71,255,0.15)}
+.sc-img{width:72px;height:72px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:32px}
+.sc-info{flex:1}
+.sc-name{font-size:15px;font-weight:700;color:#1a1a2e;margin-bottom:3px}
+.sc-desc{font-size:11px;color:#9ca3af;margin-bottom:6px;line-height:1.4}
+.sc-meta{display:flex;align-items:center;gap:8px}
+.xp-tag{font-size:11px;font-weight:700;color:#6c47ff;background:#ede9ff;padding:2px 8px;border-radius:999px}
+.star-tag{font-size:11px;color:#f59e0b;font-weight:700}
+.diff{font-size:10px;font-weight:700;padding:2px 8px;border-radius:999px}
+.diff.easy{background:#e8fdf1;color:#16a34a}
+.diff.med{background:#fef9ec;color:#d97706}
+.diff.hard{background:#ede9ff;color:#6c47ff}
+.sc-arrow{color:#d1d5db;font-size:18px}
+/* progress bar */
+.pbar{height:8px;background:#ede9ff;border-radius:999px;overflow:hidden}
+.pbar-fill{height:100%;background:linear-gradient(90deg,#6c47ff,#a78bfa);border-radius:999px}
+/* stat row */
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:12px 16px}
+.stat-box{background:#fff;border-radius:14px;padding:10px 6px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
+.stat-val{font-size:16px;font-weight:900;color:#1a1a2e}
+.stat-lbl{font-size:10px;color:#9ca3af;margin-top:2px}
+.stat-ico{font-size:18px;margin-bottom:3px}
+/* section title */
+.stitle{display:flex;align-items:center;justify-content:space-between;padding:14px 20px 8px}
+.stitle-txt{font-size:13px;font-weight:800;color:#1a1a2e;letter-spacing:.5px;text-transform:uppercase}
+.stitle-link{font-size:12px;color:#6c47ff;font-weight:600;cursor:pointer}
+/* filter tabs */
+.tabs{display:flex;gap:6px;padding:10px 16px;overflow-x:auto}
+.tab{padding:7px 16px;border-radius:999px;font-size:13px;font-weight:600;border:none;cursor:pointer;white-space:nowrap;transition:all .2s}
+.tab.active{background:#6c47ff;color:#fff;box-shadow:0 4px 12px rgba(108,71,255,0.35)}
+.tab:not(.active){background:#ede9ff;color:#6c47ff}
+/* leaderboard */
+.podium{display:flex;align-items:flex-end;justify-content:center;gap:10px;padding:20px 16px 10px;background:linear-gradient(180deg,#ede9ff 0%,#f5f4ff 100%)}
+.pod{display:flex;flex-direction:column;align-items:center;gap:4px}
+.pod-av{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;border:3px solid #fff;box-shadow:0 4px 16px rgba(0,0,0,0.15)}
+.pod-crown{font-size:18px;margin-bottom:-4px}
+.pod-name{font-size:11px;font-weight:700;color:#1a1a2e;text-align:center}
+.pod-xp{font-size:10px;color:#6c47ff;font-weight:700}
+.pod-base{border-radius:10px 10px 0 0;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;width:74px}
+.lb-row{display:flex;align-items:center;gap:10px;padding:12px 16px;background:#fff;margin:0 16px 6px;border-radius:14px;box-shadow:0 2px 8px rgba(0,0,0,0.04);cursor:pointer;transition:all .2s}
+.lb-row:hover{transform:translateX(3px)}
+.lb-row.me{background:linear-gradient(135deg,#ede9ff,#f5f4ff);border:1.5px solid #6c47ff}
+.lb-rank{font-size:14px;font-weight:800;color:#9ca3af;width:22px;text-align:center}
+.lb-rank.top{color:#6c47ff}
+.lb-av{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;background:#f5f4ff;flex-shrink:0}
+.lb-name{flex:1;font-size:14px;font-weight:700;color:#1a1a2e}
+.lb-name.me{color:#6c47ff}
+.lb-xp{font-size:13px;font-weight:800;color:#6c47ff}
+/* profile */
+.prof-hero{background:linear-gradient(160deg,#6c47ff 0%,#8b5cf6 100%);padding:24px 20px 30px;position:relative;overflow:hidden}
+.prof-hero::after{content:'';position:absolute;right:-30px;bottom:-20px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,0.08)}
+.prof-av{width:90px;height:90px;border-radius:24px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:52px;margin:0 auto 12px;box-shadow:0 8px 30px rgba(0,0,0,0.2)}
+.prof-name{text-align:center;font-size:20px;font-weight:900;color:#fff;margin-bottom:4px}
+.prof-badge{text-align:center;font-size:12px;color:rgba(255,255,255,0.8);margin-bottom:14px}
+.prof-level{background:rgba(255,255,255,0.15);border-radius:12px;padding:12px 16px;margin:0 4px}
+.prof-level-txt{font-size:13px;color:rgba(255,255,255,0.8);margin-bottom:6px}
+.pbar-white{height:6px;background:rgba(255,255,255,0.25);border-radius:999px;overflow:hidden}
+.pbar-white-fill{height:100%;background:#fff;border-radius:999px;width:68%}
+/* rank card */
+.rank-card{background:linear-gradient(135deg,#4338ca,#6c47ff);border-radius:16px;margin:0 16px 10px;padding:16px;display:flex;align-items:center;gap:12px;cursor:pointer}
+.rank-icon{width:44px;height:44px;background:rgba(255,255,255,0.2);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px}
+.rank-name{font-size:16px;font-weight:800;color:#fff}
+.rank-sub{font-size:12px;color:rgba(255,255,255,0.7)}
+/* achieve grid */
+.ach-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:0 16px}
+.ach-item{background:#fff;border-radius:14px;padding:10px 6px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.05)}
+.ach-ico{font-size:26px;margin-bottom:4px}
+.ach-name{font-size:10px;font-weight:700;color:#1a1a2e;margin-bottom:2px;line-height:1.2}
+.ach-prog{font-size:10px;color:#6c47ff;font-weight:700}
+/* dashboard */
+.dash-banner{background:linear-gradient(135deg,#6c47ff,#8b5cf6);margin:12px 16px;border-radius:20px;padding:18px;position:relative;overflow:hidden;cursor:pointer}
+.dash-banner::after{content:'🦊';position:absolute;right:12px;bottom:-4px;font-size:64px}
+.dash-banner-title{font-size:16px;font-weight:800;color:#fff;margin-bottom:4px}
+.dash-banner-sub{font-size:12px;color:rgba(255,255,255,0.8);margin-bottom:14px}
+.dash-banner-btn{background:rgba(255,255,255,0.2);border:1.5px solid rgba(255,255,255,0.5);color:#fff;padding:8px 18px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;border:none;color:#fff}
+/* progress cats */
+.cat-row{display:flex;align-items:center;gap:10px;padding:10px 16px;background:#fff;margin:0 16px 6px;border-radius:14px;cursor:pointer;transition:all .2s}
+.cat-row:hover{transform:translateX(3px)}
+.cat-ico{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.cat-info{flex:1}
+.cat-name{font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:4px}
+.cat-bar{height:5px;background:#ede9ff;border-radius:999px;overflow:hidden}
+.cat-fill{height:100%;background:linear-gradient(90deg,#6c47ff,#a78bfa);border-radius:999px}
+.cat-pct{font-size:12px;font-weight:700;color:#6c47ff;flex-shrink:0}
+/* goals */
+.goal-row{display:flex;align-items:center;gap:10px;padding:10px 0}
+.goal-ico{width:34px;height:34px;border-radius:10px;background:#ede9ff;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.goal-info{flex:1}
+.goal-name{font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:3px}
+.goal-bar{height:4px;background:#ede9ff;border-radius:999px;overflow:hidden;margin-bottom:2px}
+.goal-fill{height:100%;background:#6c47ff;border-radius:999px}
+.goal-xp{font-size:11px;font-weight:700;color:#6c47ff}
+/* reward timer */
+.reward-card{background:#fff;border-radius:18px;margin:0 16px 10px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,0.06);display:flex;align-items:center;gap:14px}
+.reward-chest{font-size:52px;animation:rock .6s ease-in-out infinite alternate}
+@keyframes rock{from{transform:rotate(-5deg)}to{transform:rotate(5deg)}}
+.reward-timer{font-size:22px;font-weight:900;color:#1a1a2e;font-family:monospace}
+/* test categories */
+.tcat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px}
+.tcat{background:#fff;border-radius:18px;padding:16px;text-align:center;cursor:pointer;transition:all .2s;box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.tcat:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(108,71,255,0.2)}
+.tcat-ico{font-size:36px;margin-bottom:8px}
+.tcat-name{font-size:14px;font-weight:700;color:#1a1a2e;margin-bottom:4px}
+.tcat-info{font-size:11px;color:#9ca3af;margin-bottom:8px}
+.tcat-xp{font-size:12px;font-weight:700;color:#6c47ff;background:#ede9ff;padding:3px 10px;border-radius:999px;display:inline-block}
+/* test question */
+.test-q-wrap{display:none;padding:16px}
+.q-card{background:#fff;border-radius:20px;padding:20px;margin-bottom:12px;box-shadow:0 2px 16px rgba(0,0,0,0.07)}
+.q-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.q-num{font-size:13px;color:#9ca3af;font-weight:600}
+.q-timer{background:#ede9ff;color:#6c47ff;padding:5px 12px;border-radius:999px;font-size:13px;font-weight:800}
+.q-pbar{height:5px;background:#ede9ff;border-radius:999px;overflow:hidden;margin-bottom:16px}
+.q-pfill{height:100%;background:linear-gradient(90deg,#6c47ff,#a78bfa);width:60%;border-radius:999px}
+.q-text{font-size:15px;font-weight:700;color:#1a1a2e;line-height:1.5;margin-bottom:18px}
+.q-opt{display:flex;align-items:center;gap:10px;padding:13px 14px;border-radius:14px;margin-bottom:8px;cursor:pointer;border:2px solid #ede9ff;transition:all .2s;background:#faf9ff}
+.q-opt:hover{border-color:#6c47ff;background:#ede9ff}
+.q-opt.correct{border-color:#22c55e;background:#e8fdf1}
+.q-opt.wrong{border-color:#ef4444;background:#fef2f2}
+.q-letter{width:30px;height:30px;border-radius:8px;background:#ede9ff;color:#6c47ff;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.q-letter.c{background:#e8fdf1;color:#16a34a}
+.q-letter.w{background:#fef2f2;color:#ef4444}
+/* info rows */
+.info-row{display:flex;align-items:center;justify-content:space-between;padding:11px 16px;border-bottom:1px solid #f5f4ff}
+.info-lbl{font-size:13px;color:#9ca3af}
+.info-val{font-size:13px;font-weight:700;color:#1a1a2e}
+/* reward modal */
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;align-items:center;justify-content:center}
+.modal.open{display:flex}
+.modal-box{background:#fff;border-radius:28px;padding:28px;text-align:center;width:300px;animation:popIn .4s cubic-bezier(.34,1.56,.64,1)}
+@keyframes popIn{from{transform:scale(0.7);opacity:0}to{transform:scale(1);opacity:1}}
+.modal-title{font-size:20px;font-weight:900;color:#1a1a2e;margin:12px 0 6px}
+.modal-sub{font-size:14px;color:#9ca3af;margin-bottom:20px}
+.modal-xp{font-size:32px;font-weight:900;color:#6c47ff;margin-bottom:16px}
+</style>
+</head>
+<body>
+<div class="phone">
+
+  <!-- HEADER -->
+  <div class="hdr">
+    <button class="hdr-btn">☰</button>
+    <div class="hdr-title">CATCH <span>QUEST</span></div>
+    <button class="hdr-btn">🔔</button>
+  </div>
+
+  <!-- ══════════ PAGE: QUESTS ══════════ -->
+  <div class="page active" id="page-quests">
+    <div class="season">SEASON 1 · LIVE</div>
+
+    <!-- hero -->
+    <div style="padding:0 20px 16px;display:flex;align-items:center;gap:8px">
+      <div style="flex:1">
+        <h1 style="font-size:26px;font-weight:900;color:#1a1a2e;line-height:1.2">
+          Английский<br>как <span style="color:#6c47ff">квест,</span><br>не как урок.
+        </h1>
+        <p style="font-size:12px;color:#9ca3af;margin-top:8px;line-height:1.5">Аэропорт, врач, аренда, банк — пройди реальные сценарии переезда.</p>
+      </div>
+      <div style="font-size:80px;line-height:1;flex-shrink:0">🦊</div>
+    </div>
+
+    <!-- 4 features -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:0 16px 14px">
+      <div style="background:#fff;border-radius:14px;padding:10px 6px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="font-size:22px;margin-bottom:4px">💼</div>
+        <div style="font-size:10px;font-weight:700;color:#1a1a2e;line-height:1.3">Реальные сценарии</div>
+      </div>
+      <div style="background:#fff;border-radius:14px;padding:10px 6px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="font-size:22px;margin-bottom:4px">⚡</div>
+        <div style="font-size:10px;font-weight:700;color:#1a1a2e;line-height:1.3">Прокачивай уровень</div>
+      </div>
+      <div style="background:#fff;border-radius:14px;padding:10px 6px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="font-size:22px;margin-bottom:4px">📍</div>
+        <div style="font-size:10px;font-weight:700;color:#1a1a2e;line-height:1.3">Открывай локации</div>
+      </div>
+      <div style="background:#fff;border-radius:14px;padding:10px 6px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="font-size:22px;margin-bottom:4px">🎁</div>
+        <div style="font-size:10px;font-weight:700;color:#1a1a2e;line-height:1.3">Получай награды</div>
+      </div>
+    </div>
+
+    <!-- progress -->
+    <div class="card card-p">
+      <div style="font-size:11px;font-weight:800;color:#9ca3af;letter-spacing:1px;margin-bottom:10px">ТВОЙ ПРОГРЕСС</div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="width:46px;height:46px;border-radius:14px;background:linear-gradient(135deg,#6c47ff,#a78bfa);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;flex-shrink:0">
+          <div style="font-size:9px;font-weight:600;opacity:.8">УР.</div>
+          <div style="font-size:20px;font-weight:900;line-height:1">12</div>
+        </div>
+        <div style="flex:1">
+          <div style="display:flex;justify-content:space-between;margin-bottom:5px">
+            <span style="font-size:14px;font-weight:800;color:#1a1a2e">2 450 / 3 600 XP</span>
+          </div>
+          <div class="pbar"><div class="pbar-fill" style="width:68%"></div></div>
+          <div style="font-size:11px;color:#9ca3af;margin-top:4px">До след. уровня: 1 150 XP</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- stats -->
+    <div class="stat-row">
+      <div class="stat-box"><div class="stat-ico">⚡</div><div class="stat-val" style="color:#6c47ff;font-size:13px">24 500</div><div class="stat-lbl">XP</div></div>
+      <div class="stat-box"><div class="stat-ico">⭐</div><div class="stat-val">37</div><div class="stat-lbl">Достижений</div></div>
+      <div class="stat-box"><div class="stat-ico">📍</div><div class="stat-val">8/24</div><div class="stat-lbl">Локаций</div></div>
+      <div class="stat-box"><div class="stat-ico">🔥</div><div class="stat-val">5</div><div class="stat-lbl">Дней подряд</div></div>
+    </div>
+
+    <!-- popular scenarios -->
+    <div class="stitle">
+      <div class="stitle-txt">Популярные сценарии</div>
+      <div class="stitle-link" onclick="showPage('scenarios')">Смотреть все</div>
+    </div>
+    <div class="sc-card" onclick="showPage('scenarios')">
+      <div class="sc-img" style="background:#dbeafe">✈️</div>
+      <div class="sc-info">
+        <div class="sc-name">Аэропорт</div>
+        <div class="sc-desc">Регистрация на рейс, багаж, паспортный контроль, таможня.</div>
+        <div class="sc-meta"><span class="xp-tag">XP 250</span><span class="star-tag">⭐ 50</span><span class="diff easy">Лёгкий</span></div>
+      </div>
+      <div class="sc-arrow">›</div>
+    </div>
+    <div class="sc-card" onclick="showPage('scenarios')">
+      <div class="sc-img" style="background:#dcfce7">🏥</div>
+      <div class="sc-info">
+        <div class="sc-name">Врач</div>
+        <div class="sc-desc">Запись на приём, симптомы, медицинские термины, рецепты.</div>
+        <div class="sc-meta"><span class="xp-tag">XP 300</span><span class="star-tag">⭐ 60</span><span class="diff easy">Лёгкий</span></div>
+      </div>
+      <div class="sc-arrow">›</div>
+    </div>
+    <div class="sc-card" onclick="showPage('scenarios')">
+      <div class="sc-img" style="background:#fef3c7">🏠</div>
+      <div class="sc-info">
+        <div class="sc-name">Аренда жилья</div>
+        <div class="sc-desc">Поиск квартиры, просмотр, договор аренды, депозит.</div>
+        <div class="sc-meta"><span class="xp-tag">XP 350</span><span class="star-tag">⭐ 70</span><span class="diff med">Средний</span></div>
+      </div>
+      <div class="sc-arrow">›</div>
+    </div>
+
+    <!-- daily reward -->
+    <div class="stitle"><div class="stitle-txt">Ежедневная награда</div></div>
+    <div class="reward-card">
+      <div class="reward-chest">🎁</div>
+      <div style="flex:1">
+        <div style="font-size:14px;font-weight:700;color:#1a1a2e;margin-bottom:3px">Заходи каждый день</div>
+        <div style="font-size:12px;color:#9ca3af;margin-bottom:10px">и получай XP и бонусы!</div>
+        <button class="btn-purple" style="width:auto;margin:0;padding:9px 20px;font-size:13px" onclick="openReward()">Получить</button>
+      </div>
+    </div>
+
+    <div style="height:12px"></div>
+    <button class="btn-purple" onclick="showPage('scenarios')">🗺️ Начать квест →</button>
+    <div style="height:16px"></div>
+  </div>
+
+  <!-- ══════════ PAGE: SCENARIOS ══════════ -->
+  <div class="page" id="page-scenarios">
+    <div class="tabs">
+      <button class="tab active">Все</button>
+      <button class="tab">Начальные</button>
+      <button class="tab">Продвинутые</button>
+      <button class="tab">Эксперт</button>
+    </div>
+    <div class="sc-card" onclick="openModal('✈️','Аэропорт',250)">
+      <div class="sc-img" style="background:#dbeafe">✈️</div>
+      <div class="sc-info">
+        <div class="sc-name">Аэропорт</div>
+        <div class="sc-desc">Регистрация на рейс, багаж, паспортный контроль, таможня.</div>
+        <div class="sc-meta"><span class="xp-tag">XP 250</span><span class="star-tag">⭐ 50</span><span class="diff easy">Лёгкий</span></div>
+      </div><div class="sc-arrow">›</div>
+    </div>
+    <div class="sc-card" onclick="openModal('🏥','Врач',300)">
+      <div class="sc-img" style="background:#dcfce7">🏥</div>
+      <div class="sc-info">
+        <div class="sc-name">Врач</div>
+        <div class="sc-desc">Запись на приём, симптомы, медицинские термины, рецепты.</div>
+        <div class="sc-meta"><span class="xp-tag">XP 300</span><span class="star-tag">⭐ 60</span><span class="diff easy">Лёгкий</span></div>
+      </div><div class="sc-arrow">›</div>
+    </div>
+    <div class="sc-card" onclick="openModal('🏠','Аренда жилья',350)">
+      <div class="sc-img" style="background:#fef3c7">🏠</div>
+      <div class="sc-info">
+        <div class="sc-name">Аренда жилья</div>
+        <div class="sc-desc">Поиск квартиры, просмотр, договор аренды, депозит.</div>
+        <div class="sc-meta"><span class="xp-tag">XP 350</span><span class="star-tag">⭐ 70</span><span class="diff med">Средний</span></div>
+      </div><div class="sc-arrow">›</div>
+    </div>
+    <div class="sc-card" onclick="openModal('🏦','Банк',400)">
+      <div class="sc-img" style="background:#ede9ff">🏦</div>
+      <div class="sc-info">
+        <div class="sc-name">Банк</div>
+        <div class="sc-desc">Открытие счёта, карты, онлайн-банкинг, переводы.</div>
+        <div class="sc-meta"><span class="xp-tag">XP 400</span><span class="star-tag">⭐ 80</span><span class="diff med">Средний</span></div>
+      </div><div class="sc-arrow">›</div>
+    </div>
+    <div class="sc-card" onclick="openModal('💼','Собеседование',500)">
+      <div class="sc-img" style="background:#fce7f3">💼</div>
+      <div class="sc-info">
+        <div class="sc-name">Собеседование</div>
+        <div class="sc-desc">Типичные вопросы, ответы о себе, навыки, опыт работы.</div>
+        <div class="sc-meta"><span class="xp-tag">XP 500</span><span class="star-tag">⭐ 100</span><span class="diff hard">Сложный</span></div>
+      </div><div class="sc-arrow">›</div>
+    </div>
+    <div class="sc-card" onclick="openModal('🚌','Транспорт',200)">
+      <div class="sc-img" style="background:#e0f2fe">🚌</div>
+      <div class="sc-info">
+        <div class="sc-name">Транспорт</div>
+        <div class="sc-desc">Автобус, метро, такси, аренда машины, навигация.</div>
+        <div class="sc-meta"><span class="xp-tag">XP 200</span><span class="star-tag">⭐ 40</span><span class="diff easy">Лёгкий</span></div>
+      </div><div class="sc-arrow">›</div>
+    </div>
+    <div class="sc-card" onclick="openModal('🎒','Школа',320)">
+      <div class="sc-img" style="background:#fef9ec">🎒</div>
+      <div class="sc-info">
+        <div class="sc-name">Школа</div>
+        <div class="sc-desc">Запись ребёнка, встреча с учителем, расписание.</div>
+        <div class="sc-meta"><span class="xp-tag">XP 320</span><span class="star-tag">⭐ 65</span><span class="diff med">Средний</span></div>
+      </div><div class="sc-arrow">›</div>
+    </div>
+    <div class="sc-card" onclick="openModal('🚨','Экстренные',450)">
+      <div class="sc-img" style="background:#fee2e2">🚨</div>
+      <div class="sc-info">
+        <div class="sc-name">Экстренные ситуации</div>
+        <div class="sc-desc">Звонок 911, пожар, авария, первая помощь.</div>
+        <div class="sc-meta"><span class="xp-tag">XP 450</span><span class="star-tag">⭐ 90</span><span class="diff hard">Сложный</span></div>
+      </div><div class="sc-arrow">›</div>
+    </div>
+
+    <!-- progress summary -->
+    <div class="card" style="margin:8px 16px;padding:16px;display:flex;align-items:center;gap:14px">
+      <div style="position:relative;width:60px;height:60px;flex-shrink:0">
+        <svg width="60" height="60" style="transform:rotate(-90deg)">
+          <circle cx="30" cy="30" r="24" stroke="#ede9ff" stroke-width="6" fill="none"/>
+          <circle cx="30" cy="30" r="24" stroke="#6c47ff" stroke-width="6" fill="none" stroke-dasharray="150" stroke-dashoffset="101" stroke-linecap="round"/>
+        </svg>
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#6c47ff">33%</div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:#9ca3af;letter-spacing:1px;margin-bottom:3px">ОБЩИЙ ПРОГРЕСС</div>
+        <div style="font-size:15px;font-weight:800;color:#1a1a2e">8 / 24 сценариев пройдено</div>
+      </div>
+    </div>
+
+    <!-- achievements -->
+    <div class="stitle"><div class="stitle-txt">Твои достижения</div><div class="stitle-link" onclick="showPage('profile')">Смотреть все</div></div>
+    <div class="ach-grid">
+      <div class="ach-item"><div class="ach-ico">🥾</div><div class="ach-name">Первые шаги</div><div class="ach-prog">3/3</div></div>
+      <div class="ach-item"><div class="ach-ico">✈️</div><div class="ach-name">Путешественник</div><div class="ach-prog">5/5</div></div>
+      <div class="ach-item"><div class="ach-ico">🏆</div><div class="ach-name">Стажёр</div><div class="ach-prog">1000/1000</div></div>
+      <div class="ach-item" style="opacity:.4"><div class="ach-ico">🔒</div><div class="ach-name">Мастер</div><div class="ach-prog">0/50</div></div>
+    </div>
+    <div style="height:12px"></div>
+    <button class="btn-purple" onclick="showPage('quests')">🚀 Начать квест →</button>
+    <div style="height:16px"></div>
+  </div>
+
+  <!-- ══════════ PAGE: TESTS ══════════ -->
+  <div class="page" id="page-tests">
+    <div style="padding:14px 16px 8px">
+      <div style="font-size:20px;font-weight:900;color:#1a1a2e;margin-bottom:4px">Тесты 📝</div>
+      <div style="font-size:13px;color:#9ca3af">Проверь свои знания по темам переезда</div>
+    </div>
+    <div id="test-categories">
+      <div class="tcat-grid">
+        <div class="tcat" onclick="startTest('Аэропорт','✈️')"><div class="tcat-ico">✈️</div><div class="tcat-name">Аэропорт</div><div class="tcat-info">10 вопросов</div><span class="tcat-xp">+150 XP</span></div>
+        <div class="tcat" onclick="startTest('Больница','🏥')"><div class="tcat-ico">🏥</div><div class="tcat-name">Больница</div><div class="tcat-info">10 вопросов</div><span class="tcat-xp">+150 XP</span></div>
+        <div class="tcat" onclick="startTest('Магазин','🛒')"><div class="tcat-ico">🛒</div><div class="tcat-name">Магазин</div><div class="tcat-info">8 вопросов</div><span class="tcat-xp">+120 XP</span></div>
+        <div class="tcat" onclick="startTest('Банк','🏦')"><div class="tcat-ico">🏦</div><div class="tcat-name">Банк</div><div class="tcat-info">10 вопросов</div><span class="tcat-xp">+160 XP</span></div>
+        <div class="tcat" onclick="startTest('Жильё','🏠')"><div class="tcat-ico">🏠</div><div class="tcat-name">Жильё</div><div class="tcat-info">10 вопросов</div><span class="tcat-xp">+160 XP</span></div>
+        <div class="tcat" onclick="startTest('Работа','💼')"><div class="tcat-ico">💼</div><div class="tcat-name">Работа</div><div class="tcat-info">12 вопросов</div><span class="tcat-xp">+200 XP</span></div>
+        <div class="tcat" onclick="startTest('Транспорт','🚌')"><div class="tcat-ico">🚌</div><div class="tcat-name">Транспорт</div><div class="tcat-info">8 вопросов</div><span class="tcat-xp">+120 XP</span></div>
+        <div class="tcat" onclick="startTest('Экстренные','🚨')"><div class="tcat-ico">🚨</div><div class="tcat-name">Экстренные</div><div class="tcat-info">8 вопросов</div><span class="tcat-xp">+200 XP</span></div>
+      </div>
+    </div>
+    <div class="test-q-wrap" id="test-question">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;cursor:pointer" onclick="document.getElementById('test-categories').style.display='';document.getElementById('test-question').style.display='none'">
+        <span style="font-size:18px;color:#6c47ff">‹</span>
+        <span style="font-size:14px;font-weight:700;color:#6c47ff">Назад</span>
+        <span id="test-title" style="flex:1;text-align:right;font-size:14px;font-weight:700;color:#1a1a2e"></span>
+      </div>
+      <div class="q-card">
+        <div class="q-header">
+          <span class="q-num">Вопрос 3 / 5</span>
+          <span class="q-timer" id="q-timer">⏱ 25s</span>
+        </div>
+        <div class="q-pbar"><div class="q-pfill"></div></div>
+        <div class="q-text">At customs, the officer asks: "Anything to ___?" Choose the correct word.</div>
+        <div class="q-opt" onclick="selectAnswer(this,true)"><div class="q-letter">A</div>declare</div>
+        <div class="q-opt" onclick="selectAnswer(this,false)"><div class="q-letter">B</div>decide</div>
+        <div class="q-opt" onclick="selectAnswer(this,false)"><div class="q-letter">C</div>delete</div>
+        <div class="q-opt" onclick="selectAnswer(this,false)"><div class="q-letter">D</div>deliver</div>
+      </div>
+      <div id="q-explanation" style="display:none;background:#e8fdf1;border-radius:14px;padding:14px;margin-bottom:12px">
+        <div style="font-size:13px;font-weight:700;color:#16a34a;margin-bottom:4px">✅ Правильно!</div>
+        <div style="font-size:12px;color:#374151">Declare — декларировать. "Nothing to declare" = нечего задекларировать на таможне.</div>
+      </div>
+      <button class="btn-purple" id="q-next-btn" style="display:none" onclick="nextQuestion()">Следующий →</button>
+    </div>
+    <div style="height:16px"></div>
+  </div>
+
+  <!-- ══════════ PAGE: LEADERBOARD ══════════ -->
+  <div class="page" id="page-leaderboard">
+    <div class="tabs">
+      <button class="tab active">Игроки</button>
+      <button class="tab">Друзья</button>
+      <button class="tab">Страны</button>
+    </div>
+    <div style="margin:0 16px 10px;padding:10px 14px;background:linear-gradient(135deg,#6c47ff,#8b5cf6);border-radius:14px;display:flex;align-items:center;justify-content:space-between">
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.7);letter-spacing:1px">SEASON 1 · LIVE</div>
+        <div style="font-size:12px;color:#fff;font-weight:600">До конца сезона: 32 дн.</div>
+      </div>
+      <div style="font-size:13px;color:rgba(255,255,255,.9);cursor:pointer">🎁 Награды ›</div>
+    </div>
+
+    <!-- podium -->
+    <div class="podium">
+      <div class="pod">
+        <div class="pod-av" style="background:#e2e8f0">🐱</div>
+        <div style="font-size:16px">🥈</div>
+        <div class="pod-name">SkyWalker</div>
+        <div class="pod-xp">XP 18 450</div>
+        <div class="pod-base" style="height:72px;background:linear-gradient(180deg,#cbd5e1,#94a3b8);color:#fff">2</div>
+      </div>
+      <div class="pod">
+        <div style="font-size:20px;margin-bottom:2px">👑</div>
+        <div class="pod-av" style="background:#fef9c3;border:3px solid #fbbf24;width:66px;height:66px;font-size:34px;box-shadow:0 0 20px rgba(251,191,36,.5)">🦊</div>
+        <div style="font-size:18px">🥇</div>
+        <div class="pod-name" style="font-weight:900;color:#6c47ff">FoxLegend</div>
+        <div class="pod-xp" style="font-size:12px">XP 24 500</div>
+        <div class="pod-base" style="height:100px;background:linear-gradient(180deg,#fbbf24,#f59e0b);color:#fff;box-shadow:0 0 20px rgba(251,191,36,.4)">1</div>
+      </div>
+      <div class="pod">
+        <div class="pod-av" style="background:#e2e8f0">🐺</div>
+        <div style="font-size:16px">🥉</div>
+        <div class="pod-name">AeroNinja</div>
+        <div class="pod-xp">XP 22 300</div>
+        <div class="pod-base" style="height:58px;background:linear-gradient(180deg,#d97706,#b45309);color:#fff">3</div>
+      </div>
+    </div>
+
+    <div class="lb-row"><div class="lb-rank top">4</div><div class="lb-av">✈️</div><div class="lb-name">CloudChaser</div><div class="lb-xp">XP 17 890</div><div style="color:#d1d5db;margin-left:4px">›</div></div>
+    <div class="lb-row"><div class="lb-rank top">5</div><div class="lb-av">🎯</div><div class="lb-name">QuestRider</div><div class="lb-xp">XP 15 620</div><div style="color:#d1d5db;margin-left:4px">›</div></div>
+    <div class="lb-row me"><div class="lb-rank top">6</div><div class="lb-av">🦊</div><div class="lb-name me">CatchMaster (Вы)</div><div class="lb-xp">XP 12 450</div><div style="color:#6c47ff;margin-left:4px">›</div></div>
+    <div class="lb-row"><div class="lb-rank">7</div><div class="lb-av">🦆</div><div class="lb-name">TravelDuck</div><div class="lb-xp">XP 11 230</div><div style="color:#d1d5db;margin-left:4px">›</div></div>
+    <div class="lb-row"><div class="lb-rank">8</div><div class="lb-av">🚀</div><div class="lb-name">MilesAhead</div><div class="lb-xp">XP 9 870</div><div style="color:#d1d5db;margin-left:4px">›</div></div>
+    <div class="lb-row"><div class="lb-rank">9</div><div class="lb-av">🌟</div><div class="lb-name">JetSetGo</div><div class="lb-xp">XP 8 430</div><div style="color:#d1d5db;margin-left:4px">›</div></div>
+    <div class="lb-row"><div class="lb-rank">10</div><div class="lb-av">🐾</div><div class="lb-name">WanderFox</div><div class="lb-xp">XP 7 210</div><div style="color:#d1d5db;margin-left:4px">›</div></div>
+
+    <div class="card" style="margin:12px 16px;padding:16px">
+      <div style="font-size:11px;font-weight:800;color:#9ca3af;letter-spacing:1px;margin-bottom:12px">ВАША ПОЗИЦИЯ</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);text-align:center">
+        <div><div style="font-size:24px;font-weight:900;color:#6c47ff">6</div><div style="font-size:11px;color:#9ca3af">Место</div></div>
+        <div><div style="font-size:24px;font-weight:900;color:#6c47ff">12 450</div><div style="font-size:11px;color:#9ca3af">XP</div></div>
+        <div><div style="font-size:24px;font-weight:900;color:#6c47ff">Топ 7%</div><div style="font-size:11px;color:#9ca3af">Игроков</div></div>
+      </div>
+      <div style="margin-top:12px;padding:8px 12px;background:#ede9ff;border-radius:10px;font-size:12px;color:#6c47ff;font-weight:700;text-align:center">
+        +650 XP на этой неделе 📈
+      </div>
+    </div>
+    <div style="height:16px"></div>
+  </div>
+
+  <!-- ══════════ PAGE: DASHBOARD ══════════ -->
+  <div class="page" id="page-dashboard">
+    <div class="dash-banner" onclick="showPage('scenarios')">
+      <div style="max-width:220px">
+        <div class="dash-banner-title">Продолжай в том же духе!</div>
+        <div class="dash-banner-sub">Ты на верном пути к новым вершинам.</div>
+        <button class="dash-banner-btn">Продолжить квест</button>
+      </div>
+    </div>
+
+    <div class="stitle"><div class="stitle-txt">Твой прогресс</div><div class="stitle-link">За неделю ▾</div></div>
+    <div class="stat-row" style="padding:0 16px 12px">
+      <div class="stat-box"><div class="stat-ico">⚡</div><div class="stat-val" style="color:#6c47ff;font-size:14px">1 250</div><div style="font-size:9px;color:#22c55e;font-weight:700">+250 ↑20%</div><div class="stat-lbl">Заработано</div></div>
+      <div class="stat-box"><div class="stat-ico">🗺️</div><div class="stat-val">5/8</div><div style="font-size:9px;color:#22c55e;font-weight:700">+1 ↑12%</div><div class="stat-lbl">Сценариев</div></div>
+      <div class="stat-box"><div class="stat-ico">📍</div><div class="stat-val">3</div><div style="font-size:9px;color:#22c55e;font-weight:700">+1 ↑33%</div><div class="stat-lbl">Локации</div></div>
+      <div class="stat-box"><div class="stat-ico">🔥</div><div class="stat-val">2</div><div style="font-size:9px;color:#22c55e;font-weight:700">+1 ↑100%</div><div class="stat-lbl">Дня подряд</div></div>
+    </div>
+
+    <div class="stitle"><div class="stitle-txt">Прогресс по категориям</div><div class="stitle-link" onclick="showPage('scenarios')">Смотреть все</div></div>
+    <div class="cat-row" onclick="showPage('scenarios')"><div class="cat-ico" style="background:#dbeafe">✈️</div><div class="cat-info"><div class="cat-name">Аэропорт</div><div class="cat-bar"><div class="cat-fill" style="width:75%"></div></div></div><div class="cat-pct">75% · 6/8</div><div style="color:#d1d5db;margin-left:4px">›</div></div>
+    <div class="cat-row" onclick="showPage('scenarios')"><div class="cat-ico" style="background:#dcfce7">🏥</div><div class="cat-info"><div class="cat-name">Врач</div><div class="cat-bar"><div class="cat-fill" style="width:60%"></div></div></div><div class="cat-pct">60% · 4/8</div><div style="color:#d1d5db;margin-left:4px">›</div></div>
+    <div class="cat-row" onclick="showPage('scenarios')"><div class="cat-ico" style="background:#fef3c7">🏠</div><div class="cat-info"><div class="cat-name">Аренда жилья</div><div class="cat-bar"><div class="cat-fill" style="width:50%"></div></div></div><div class="cat-pct">50% · 3/5</div><div style="color:#d1d5db;margin-left:4px">›</div></div>
+    <div class="cat-row" onclick="showPage('scenarios')"><div class="cat-ico" style="background:#ede9ff">🏦</div><div class="cat-info"><div class="cat-name">Банк</div><div class="cat-bar"><div class="cat-fill" style="width:40%"></div></div></div><div class="cat-pct">40% · 2/5</div><div style="color:#d1d5db;margin-left:4px">›</div></div>
+    <div class="cat-row" onclick="showPage('scenarios')"><div class="cat-ico" style="background:#fce7f3">💼</div><div class="cat-info"><div class="cat-name">Собеседование</div><div class="cat-bar"><div class="cat-fill" style="width:30%"></div></div></div><div class="cat-pct">30% · 1/3</div><div style="color:#d1d5db;margin-left:4px">›</div></div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 16px">
+      <div style="background:#fff;border-radius:18px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,.06)">
+        <div style="font-size:12px;font-weight:800;color:#9ca3af;letter-spacing:.5px;margin-bottom:8px">ЕЖЕДНЕВНАЯ НАГРАДА</div>
+        <div style="font-size:36px;text-align:center;margin:6px 0;animation:rock .7s ease-in-out infinite alternate">🎁</div>
+        <div style="font-size:10px;color:#9ca3af;text-align:center;margin-bottom:8px">Заходи каждый день</div>
+        <div style="font-size:22px;font-weight:900;color:#1a1a2e;text-align:center;font-family:monospace" id="dash-timer">07:45:22</div>
+        <button style="width:100%;margin-top:10px;background:linear-gradient(135deg,#6c47ff,#8b5cf6);color:#fff;border:none;border-radius:10px;padding:9px;font-size:12px;font-weight:700;cursor:pointer" onclick="openReward()">Получить</button>
+      </div>
+      <div style="background:#fff;border-radius:18px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,.06)">
+        <div style="font-size:12px;font-weight:800;color:#9ca3af;letter-spacing:.5px;margin-bottom:10px">БЛИЖАЙШИЕ ЦЕЛИ</div>
+        <div class="goal-row">
+          <div class="goal-ico">🗺️</div>
+          <div class="goal-info">
+            <div class="goal-name">Пройди 5 сценариев в «Банк»</div>
+            <div class="goal-bar"><div class="goal-fill" style="width:40%"></div></div>
+          </div>
+          <div class="goal-xp">200</div>
+        </div>
+        <div class="goal-row">
+          <div class="goal-ico">📍</div>
+          <div class="goal-info">
+            <div class="goal-name">Открой 5 новых локаций</div>
+            <div class="goal-bar"><div class="goal-fill" style="width:60%"></div></div>
+          </div>
+          <div class="goal-xp">150</div>
+        </div>
+        <div class="goal-row">
+          <div class="goal-ico">⚡</div>
+          <div class="goal-info">
+            <div class="goal-name">Заработай 2000 XP</div>
+            <div class="goal-bar"><div class="goal-fill" style="width:63%"></div></div>
+          </div>
+          <div class="goal-xp">300</div>
+        </div>
+      </div>
+    </div>
+    <div style="height:16px"></div>
+  </div>
+
+  <!-- ══════════ PAGE: PROFILE ══════════ -->
+  <div class="page" id="page-profile">
+    <div class="prof-hero">
+      <div class="prof-av">🦊</div>
+      <div class="prof-name">CatchMaster ✏️</div>
+      <div class="prof-badge">🌍 Путешественник</div>
+      <div class="prof-level">
+        <div class="prof-level-txt">Уровень 12 &nbsp;·&nbsp; 2 450 / 3 600 XP</div>
+        <div class="pbar-white"><div class="pbar-white-fill"></div></div>
+        <div style="font-size:11px;color:rgba(255,255,255,.6);margin-top:5px">До след. уровня: 1 150 XP</div>
+      </div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-box"><div class="stat-ico">⚡</div><div class="stat-val" style="color:#6c47ff;font-size:13px">24 500</div><div class="stat-lbl">XP</div></div>
+      <div class="stat-box"><div class="stat-ico">⭐</div><div class="stat-val">37</div><div class="stat-lbl">Достижений</div></div>
+      <div class="stat-box"><div class="stat-ico">📍</div><div class="stat-val">8/24</div><div class="stat-lbl">Локаций</div></div>
+      <div class="stat-box"><div class="stat-ico">🔥</div><div class="stat-val">5</div><div class="stat-lbl">Дней подряд</div></div>
+    </div>
+
+    <div class="rank-card">
+      <div class="rank-icon">🛡️</div>
+      <div><div class="rank-name">Путешественник</div><div class="rank-sub">Топ 7% игроков</div></div>
+      <div style="margin-left:auto;color:rgba(255,255,255,.7);font-size:14px">Подробнее →</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 16px 10px">
+      <div style="background:#fff;border-radius:16px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="font-size:12px;font-weight:800;color:#9ca3af;letter-spacing:.5px;margin-bottom:8px">ИНФОРМАЦИЯ</div>
+        <div class="info-row" style="padding:7px 0"><span class="info-lbl">E-mail</span><span class="info-val" style="font-size:11px">catch@mail.com</span></div>
+        <div class="info-row" style="padding:7px 0"><span class="info-lbl">Страна</span><span class="info-val">Россия 🇷🇺</span></div>
+        <div class="info-row" style="padding:7px 0"><span class="info-lbl">Язык</span><span class="info-val">Русский</span></div>
+        <div class="info-row" style="padding:7px 0;border:none"><span class="info-lbl">Время в игре</span><span class="info-val">42ч 15м</span></div>
+      </div>
+      <div style="background:#fff;border-radius:16px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="font-size:12px;font-weight:800;color:#9ca3af;letter-spacing:.5px;margin-bottom:8px">КАТЕГОРИИ</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px"><span style="font-weight:600;color:#1a1a2e">✈️ Аэропорт</span><span style="color:#6c47ff;font-weight:700">75%</span></div><div class="cat-bar"><div class="cat-fill" style="width:75%"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px"><span style="font-weight:600;color:#1a1a2e">🏥 Врач</span><span style="color:#6c47ff;font-weight:700">60%</span></div><div class="cat-bar"><div class="cat-fill" style="width:60%"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px"><span style="font-weight:600;color:#1a1a2e">🏠 Жильё</span><span style="color:#6c47ff;font-weight:700">50%</span></div><div class="cat-bar"><div class="cat-fill" style="width:50%"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px"><span style="font-weight:600;color:#1a1a2e">🏦 Банк</span><span style="color:#6c47ff;font-weight:700">40%</span></div><div class="cat-bar"><div class="cat-fill" style="width:40%"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px"><span style="font-weight:600;color:#1a1a2e">💼 Работа</span><span style="color:#6c47ff;font-weight:700">30%</span></div><div class="cat-bar"><div class="cat-fill" style="width:30%"></div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stitle"><div class="stitle-txt">Мои достижения</div><div class="stitle-link">Смотреть все</div></div>
+    <div class="ach-grid">
+      <div class="ach-item"><div class="ach-ico">🥾</div><div class="ach-name">Первые шаги</div><div class="ach-prog">3/3 ✅</div></div>
+      <div class="ach-item"><div class="ach-ico">✈️</div><div class="ach-name">Авиатор</div><div class="ach-prog">1/1 ✅</div></div>
+      <div class="ach-item"><div class="ach-ico">🔍</div><div class="ach-name">Исследователь</div><div class="ach-prog">8/10</div></div>
+      <div class="ach-item"><div class="ach-ico">🏦</div><div class="ach-name">Банкир</div><div class="ach-prog">1/1 ✅</div></div>
+      <div class="ach-item"><div class="ach-ico">🏆</div><div class="ach-name">Мастер квестов</div><div class="ach-prog">12/50</div></div>
+      <div class="ach-item" style="opacity:.4"><div class="ach-ico">🔒</div><div class="ach-name">Легенда</div><div class="ach-prog">0/100</div></div>
+      <div class="ach-item" style="opacity:.4"><div class="ach-ico">🔒</div><div class="ach-name">Полиглот</div><div class="ach-prog">0/1</div></div>
+      <div class="ach-item" style="opacity:.4"><div class="ach-ico">🔒</div><div class="ach-name">Чемпион</div><div class="ach-prog">0/1</div></div>
+    </div>
+    <div style="height:16px"></div>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <div class="bnav">
+    <button class="bnav-btn active" onclick="showPage('quests');setNav(this)">
+      <span class="ni">🗺️</span>Квесты
+    </button>
+    <button class="bnav-btn" onclick="showPage('tests');setNav(this)">
+      <span class="ni">📝</span>Тесты
+    </button>
+    <button class="bnav-btn" onclick="showPage('leaderboard');setNav(this)">
+      <span class="ni">🏆</span>Рейтинг
+    </button>
+    <button class="bnav-btn" onclick="showPage('dashboard');setNav(this)">
+      <span class="ni">📊</span>Дашборд
+    </button>
+    <button class="bnav-btn" onclick="showPage('profile');setNav(this)">
+      <span class="ni">👤</span>Профиль
+    </button>
+  </div>
+</div>
+
+<!-- REWARD MODAL -->
+<div class="modal" id="reward-modal">
+  <div class="modal-box">
+    <div style="font-size:64px">🎁</div>
+    <div class="modal-title">Ежедневная награда!</div>
+    <div class="modal-sub">Ты заходишь 5 дней подряд 🔥</div>
+    <div class="modal-xp">+250 XP</div>
+    <button style="width:100%;background:linear-gradient(135deg,#6c47ff,#8b5cf6);color:#fff;border:none;border-radius:14px;padding:14px;font-size:15px;font-weight:700;cursor:pointer" onclick="closeModal()">Забрать! 🎉</button>
+  </div>
+</div>
+
+<!-- QUEST START MODAL -->
+<div class="modal" id="quest-modal">
+  <div class="modal-box">
+    <div style="font-size:52px" id="modal-icon">✈️</div>
+    <div class="modal-title" id="modal-name">Аэропорт</div>
+    <div class="modal-sub">NPC проведёт тебя через сценарий. Выполни задание и получи награду!</div>
+    <div class="modal-xp" id="modal-xp">+250 XP</div>
+    <button style="width:100%;background:linear-gradient(135deg,#6c47ff,#8b5cf6);color:#fff;border:none;border-radius:14px;padding:14px;font-size:15px;font-weight:700;cursor:pointer;margin-bottom:8px" onclick="closeModal()">▶ Начать квест</button>
+    <button style="width:100%;background:#f5f4ff;color:#6c47ff;border:none;border-radius:14px;padding:12px;font-size:14px;font-weight:600;cursor:pointer" onclick="closeModal()">Отмена</button>
+  </div>
+</div>
+
+<script>
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const pg=document.getElementById('page-'+id);
+  if(pg){pg.classList.add('active');pg.scrollTop=0}
+  // sync nav
+  const map={quests:0,scenarios:0,tests:1,leaderboard:2,dashboard:3,profile:4};
+  if(map[id]!==undefined){
+    const btns=document.querySelectorAll('.bnav-btn');
+    btns.forEach(b=>b.classList.remove('active'));
+    btns[map[id]].classList.add('active');
+  }
+}
+function setNav(el){
+  document.querySelectorAll('.bnav-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+}
+function openReward(){document.getElementById('reward-modal').classList.add('open')}
+function closeModal(){
+  document.querySelectorAll('.modal').forEach(m=>m.classList.remove('open'));
+}
+function openModal(ico,name,xp){
+  document.getElementById('modal-icon').textContent=ico;
+  document.getElementById('modal-name').textContent=name;
+  document.getElementById('modal-xp').textContent='+'+xp+' XP';
+  document.getElementById('quest-modal').classList.add('open');
+}
+// Test flow
+function startTest(name,ico){
+  document.getElementById('test-categories').style.display='none';
+  document.getElementById('test-question').style.display='block';
+  document.getElementById('test-title').textContent=ico+' '+name;
+  document.getElementById('q-explanation').style.display='none';
+  document.getElementById('q-next-btn').style.display='none';
+  document.querySelectorAll('.q-opt').forEach(o=>{
+    o.classList.remove('correct','wrong');
+    o.querySelector('.q-letter').classList.remove('c','w');
+  });
+  startTimer();
+}
+let timerInterval;
+function startTimer(){
+  clearInterval(timerInterval);
+  let t=25;
+  document.getElementById('q-timer').textContent='⏱ '+t+'s';
+  timerInterval=setInterval(()=>{
+    t--;
+    document.getElementById('q-timer').textContent='⏱ '+t+'s';
+    if(t<=0){clearInterval(timerInterval);showExplanation()}
+  },1000);
+}
+function selectAnswer(el,correct){
+  clearInterval(timerInterval);
+  document.querySelectorAll('.q-opt').forEach(o=>o.style.pointerEvents='none');
+  const ltr=el.querySelector('.q-letter');
+  if(correct){el.classList.add('correct');ltr.classList.add('c');ltr.textContent='✓'}
+  else{el.classList.add('wrong');ltr.classList.add('w');ltr.textContent='✗';showCorrect()}
+  showExplanation();
+}
+function showCorrect(){
+  document.querySelectorAll('.q-opt')[0].classList.add('correct');
+  document.querySelectorAll('.q-opt')[0].querySelector('.q-letter').classList.add('c');
+}
+function showExplanation(){
+  document.getElementById('q-explanation').style.display='block';
+  document.getElementById('q-next-btn').style.display='block';
+}
+function nextQuestion(){
+  document.querySelectorAll('.q-opt').forEach(o=>{
+    o.style.pointerEvents='';
+    o.classList.remove('correct','wrong');
+    o.querySelector('.q-letter').classList.remove('c','w');
+    o.querySelector('.q-letter').textContent=['A','B','C','D'][Array.from(o.parentNode.children).indexOf(o)];
+  });
+  document.getElementById('q-explanation').style.display='none';
+  document.getElementById('q-next-btn').style.display='none';
+  startTimer();
+}
+// Filter tabs
+document.querySelectorAll('.tabs').forEach(tabGroup=>{
+  tabGroup.querySelectorAll('.tab').forEach(tab=>{
+    tab.addEventListener('click',function(){
+      tabGroup.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+});
+// Study tabs
+document.querySelectorAll('.stab').forEach(b=>{
+  b.addEventListener('click',function(){
+    document.querySelectorAll('.stab').forEach(x=>x.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+// Dashboard timer countdown
+let dashH=7,dashM=45,dashS=22;
+setInterval(()=>{
+  dashS--;if(dashS<0){dashS=59;dashM--;if(dashM<0){dashM=59;dashH--;if(dashH<0)dashH=23}}
+  document.getElementById('dash-timer').textContent=
+    String(dashH).padStart(2,'0')+':'+String(dashM).padStart(2,'0')+':'+String(dashS).padStart(2,'0');
+},1000);
+// Close modal on background click
+document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',function(e){if(e.target===this)closeModal()}));
+</script>
+</body>
+</html>
