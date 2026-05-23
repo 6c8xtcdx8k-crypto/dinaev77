@@ -181,18 +181,151 @@ body{background:#e8e4f8;display:flex;justify-content:center;align-items:flex-sta
 
   <!-- ══════════ PAGE: QUESTS ══════════ -->
   <div class="page active" id="page-quests">
-    <div class="season">SEASON 1 · LIVE</div>
 
-    <!-- hero -->
-    <div style="padding:0 20px 16px;display:flex;align-items:center;gap:8px">
-      <div style="flex:1">
-        <h1 style="font-size:26px;font-weight:900;color:#1a1a2e;line-height:1.2">
-          Английский<br>как <span style="color:#6c47ff">квест,</span><br>не как урок.
-        </h1>
-        <p style="font-size:12px;color:#9ca3af;margin-top:8px;line-height:1.5">Аэропорт, врач, аренда, банк — пройди реальные сценарии переезда.</p>
+    <!-- ★ HERO BACKGROUND — точь в точь как на макете ★ -->
+    <div style="
+      position:relative;
+      overflow:hidden;
+      background:linear-gradient(160deg,#faf9ff 0%,#f0eeff 35%,#e9e4fb 70%,#e2dcf8 100%);
+      min-height:320px;
+      display:flex;flex-direction:column;
+    ">
+      <!-- Radial glow center -->
+      <div style="position:absolute;left:50%;top:40%;transform:translate(-50%,-50%);width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,0.9) 0%,transparent 70%);pointer-events:none"></div>
+
+      <!-- Sparkles -->
+      <div style="position:absolute;top:14%;left:12%;color:#b8a9f0;font-size:14px;animation:sparkle 2.4s ease-in-out infinite">✦</div>
+      <div style="position:absolute;top:8%;right:22%;color:#c4b5fd;font-size:10px;animation:sparkle 1.8s ease-in-out .4s infinite">✦</div>
+      <div style="position:absolute;top:28%;right:10%;color:#ddd6fe;font-size:8px;animation:sparkle 2s ease-in-out .8s infinite">✦</div>
+      <div style="position:absolute;top:62%;left:8%;color:#c4b5fd;font-size:12px;animation:sparkle 2.2s ease-in-out .2s infinite">✦</div>
+      <div style="position:absolute;top:70%;right:14%;color:#a78bfa;font-size:9px;animation:sparkle 1.9s ease-in-out .6s infinite">✦</div>
+      <div style="position:absolute;top:45%;left:5%;color:#ddd6fe;font-size:7px;animation:sparkle 2.6s ease-in-out 1s infinite">✦</div>
+
+      <!-- Airplane silhouette top-right -->
+      <div style="position:absolute;top:10%;right:16%;font-size:26px;color:#c4b5fd;opacity:0.7;transform:rotate(-15deg);animation:planefloat 4s ease-in-out infinite">✈</div>
+
+      <!-- Dashed flight path SVG curve -->
+      <svg style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none" viewBox="0 0 390 320" fill="none">
+        <path d="M 60 260 Q 140 60 310 30" stroke="#b8a9f0" stroke-width="1.8" stroke-dasharray="6,5" fill="none" opacity="0.55"/>
+        <polygon points="310,30 302,38 318,36" fill="#b8a9f0" opacity="0.55"/>
+      </svg>
+
+      <!-- Compass icon bottom-left -->
+      <div style="position:absolute;bottom:22%;left:6%;font-size:24px;opacity:0.55;animation:floatY 3s ease-in-out infinite">🧭</div>
+      <!-- Gear/flower left -->
+      <div style="position:absolute;top:38%;left:4%;font-size:20px;opacity:0.45;animation:spin 8s linear infinite">⚙️</div>
+
+      <!-- Season pill -->
+      <div style="padding:18px 20px 0;position:relative;z-index:1">
+        <div class="season" style="margin:0 0 14px">SEASON 1 · LIVE</div>
       </div>
-      <div style="font-size:80px;line-height:1;flex-shrink:0">🦊</div>
+
+      <!-- Text left + Fox right -->
+      <div style="display:flex;align-items:flex-end;padding:0 20px 0;position:relative;z-index:1;flex:1">
+        <div style="flex:1;padding-bottom:20px">
+          <h1 style="font-size:27px;font-weight:900;color:#1a1a2e;line-height:1.18">
+            Английский<br>как <span style="color:#6c47ff">квест,</span><br>не как урок.
+          </h1>
+          <p style="font-size:12px;color:#8b83b0;margin-top:10px;line-height:1.6;max-width:180px">
+            Аэропорт, врач, аренда, собеседование, банк — пройди реальные сценарии переезда как игровые миссии.
+          </p>
+        </div>
+
+        <!-- Fox mascot CSS art -->
+        <div style="flex-shrink:0;width:160px;display:flex;flex-direction:column;align-items:center;position:relative;margin-bottom:-4px">
+          <!-- Body -->
+          <div style="position:relative;width:150px;height:210px">
+            <!-- Hoodie body -->
+            <div style="position:absolute;bottom:24px;left:18px;right:18px;height:110px;background:linear-gradient(170deg,#7c3aed,#6c47ff);border-radius:30px 30px 18px 18px"></div>
+            <!-- CATCH QUEST text on hoodie -->
+            <div style="position:absolute;bottom:72px;left:0;right:0;text-align:center;color:#fff;font-size:9px;font-weight:900;line-height:1.3;letter-spacing:.5px">CATCH<br>QUEST</div>
+            <!-- Hood/collar -->
+            <div style="position:absolute;bottom:118px;left:30px;right:30px;height:30px;background:#7c3aed;border-radius:50% 50% 0 0"></div>
+            <!-- Backpack -->
+            <div style="position:absolute;bottom:60px;right:4px;width:32px;height:52px;background:#374151;border-radius:8px"></div>
+            <div style="position:absolute;bottom:88px;right:8px;width:24px;height:16px;background:#4b5563;border-radius:6px 6px 0 0"></div>
+            <!-- Arms -->
+            <div style="position:absolute;bottom:80px;left:4px;width:28px;height:54px;background:#7c3aed;border-radius:12px;transform:rotate(15deg)"></div>
+            <div style="position:absolute;bottom:80px;right:12px;width:28px;height:54px;background:#7c3aed;border-radius:12px;transform:rotate(-10deg)"></div>
+            <!-- Hands / paws -->
+            <div style="position:absolute;bottom:26px;left:2px;width:30px;height:26px;background:#e07b1a;border-radius:50% 50% 40% 40%"></div>
+            <div style="position:absolute;bottom:32px;right:10px;width:28px;height:24px;background:#e07b1a;border-radius:50%"></div>
+            <!-- Passport in left hand -->
+            <div style="position:absolute;bottom:30px;left:-6px;width:26px;height:34px;background:#1e3a5f;border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px">
+              <div style="font-size:9px">🌐</div>
+              <div style="font-size:5px;color:#fff;font-weight:700;line-height:1">PASS<br>PORT</div>
+            </div>
+            <!-- Legs / pants -->
+            <div style="position:absolute;bottom:6px;left:28px;width:28px;height:28px;background:#3730a3;border-radius:4px 4px 8px 8px"></div>
+            <div style="position:absolute;bottom:6px;right:28px;width:28px;height:28px;background:#3730a3;border-radius:4px 4px 8px 8px"></div>
+            <!-- Feet -->
+            <div style="position:absolute;bottom:0;left:22px;width:32px;height:12px;background:#5b21b6;border-radius:6px"></div>
+            <div style="position:absolute;bottom:0;right:22px;width:32px;height:12px;background:#5b21b6;border-radius:6px"></div>
+            <!-- Tail -->
+            <div style="position:absolute;bottom:20px;right:-16px;width:32px;height:60px;background:linear-gradient(180deg,#f97316,#ea580c);border-radius:50% 50% 40% 60%;transform:rotate(20deg)"></div>
+            <div style="position:absolute;bottom:60px;right:-12px;width:18px;height:22px;background:#fff5f0;border-radius:50%;"></div>
+            <!-- Head -->
+            <div style="position:absolute;top:0;left:26px;width:96px;height:86px;background:#f97316;border-radius:50% 50% 42% 42%"></div>
+            <!-- Ears -->
+            <div style="position:absolute;top:-12px;left:28px;width:0;height:0;border-left:16px solid transparent;border-right:16px solid transparent;border-bottom:36px solid #ea580c"></div>
+            <div style="position:absolute;top:-12px;right:28px;width:0;height:0;border-left:16px solid transparent;border-right:16px solid transparent;border-bottom:36px solid #ea580c"></div>
+            <!-- Inner ears -->
+            <div style="position:absolute;top:-4px;left:34px;width:0;height:0;border-left:9px solid transparent;border-right:9px solid transparent;border-bottom:22px solid #fca5a5"></div>
+            <div style="position:absolute;top:-4px;right:34px;width:0;height:0;border-left:9px solid transparent;border-right:9px solid transparent;border-bottom:22px solid #fca5a5"></div>
+            <!-- Face white muzzle -->
+            <div style="position:absolute;top:36px;left:38px;width:72px;height:50px;background:#fef3e2;border-radius:45% 45% 55% 55%"></div>
+            <!-- Nose -->
+            <div style="position:absolute;top:64px;left:68px;width:14px;height:9px;background:#1a1a2e;border-radius:50%"></div>
+            <!-- Mouth smile -->
+            <div style="position:absolute;top:72px;left:60px;width:28px;height:14px;border-bottom:3px solid #1a1a2e;border-radius:0 0 50% 50%"></div>
+            <!-- Sunglasses -->
+            <div style="position:absolute;top:28px;left:30px;right:30px;height:20px;display:flex;align-items:center;gap:3px">
+              <div style="flex:1;height:20px;background:linear-gradient(135deg,#7c3aed,#6c47ff);border-radius:8px;opacity:.95"></div>
+              <div style="width:6px;height:3px;background:#6c47ff"></div>
+              <div style="flex:1;height:20px;background:linear-gradient(135deg,#7c3aed,#6c47ff);border-radius:8px;opacity:.95"></div>
+            </div>
+            <!-- Glasses frame -->
+            <div style="position:absolute;top:27px;left:29px;right:29px;height:22px;border:2px solid #5b21b6;border-radius:9px;pointer-events:none"></div>
+            <!-- Eyes behind glasses -->
+            <div style="position:absolute;top:32px;left:40px;width:10px;height:10px;background:#fff;border-radius:50%"></div>
+            <div style="position:absolute;top:32px;right:40px;width:10px;height:10px;background:#fff;border-radius:50%"></div>
+          </div>
+
+          <!-- Suitcase -->
+          <div style="position:relative;width:120px;margin-top:-10px">
+            <!-- Handle -->
+            <div style="width:40px;height:12px;border:3px solid #8b83c4;border-bottom:none;border-radius:6px 6px 0 0;margin:0 auto"></div>
+            <!-- Main case -->
+            <div style="background:linear-gradient(160deg,#c4b5fd,#a78bfa,#8b5cf6);border-radius:14px;padding:10px 8px 14px;box-shadow:0 8px 24px rgba(108,71,255,0.35)">
+              <!-- Wheels top bar -->
+              <div style="height:3px;background:rgba(255,255,255,0.25);border-radius:2px;margin-bottom:8px"></div>
+              <!-- Stickers row -->
+              <div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap;justify-content:center">
+                <div style="width:26px;height:26px;background:#fbbf24;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;box-shadow:0 2px 6px rgba(0,0,0,0.2)">🌐</div>
+                <div style="width:26px;height:26px;background:#6c47ff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;box-shadow:0 2px 6px rgba(0,0,0,0.2)">✈️</div>
+                <div style="padding:3px 7px;background:#fff;border-radius:8px;font-size:8px;font-weight:900;color:#6c47ff;line-height:1.2;text-align:center">CATCH<br>QUEST</div>
+                <div style="width:28px;height:28px;background:#1a1a2e;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:900;box-shadow:0 2px 6px rgba(0,0,0,0.3)">XP</div>
+              </div>
+              <div style="height:3px;background:rgba(255,255,255,0.2);border-radius:2px;margin-top:8px"></div>
+            </div>
+            <!-- Wheels -->
+            <div style="display:flex;justify-content:space-between;padding:0 10px;margin-top:3px">
+              <div style="width:16px;height:10px;background:#7c3aed;border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,0.2)"></div>
+              <div style="width:16px;height:10px;background:#7c3aed;border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,0.2)"></div>
+            </div>
+            <!-- Ground shadow -->
+            <div style="width:110px;height:8px;background:rgba(108,71,255,0.15);border-radius:50%;margin:4px auto 0;filter:blur(4px)"></div>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <style>
+    @keyframes sparkle{0%,100%{opacity:.4;transform:scale(0.8)}50%{opacity:1;transform:scale(1.2)}}
+    @keyframes planefloat{0%,100%{transform:rotate(-15deg) translateY(0)}50%{transform:rotate(-15deg) translateY(-8px)}}
+    @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    </style>
 
     <!-- 4 features -->
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:0 16px 14px">
