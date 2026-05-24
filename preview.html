@@ -1309,6 +1309,8 @@ const simNameMap={airport:0,hotel:1,bank:2,doctor:3,flat:4,interview:5,police:6,
 function startSim(id){
   if(typeof id==='string')id=simNameMap[id]!==undefined?simNameMap[id]:0;
   if(!simsData[id])return;
+  currentSimId=id;
+  currentSimStep=0;
   document.getElementById('sims-menu').style.display='none';
   document.getElementById('sims-chat').style.display='flex';
   const nb=document.querySelectorAll('.nb');
