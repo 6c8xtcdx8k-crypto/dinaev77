@@ -6,901 +6,889 @@
 <title>Catch Quest</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:#e8e4f8;display:flex;justify-content:center;align-items:flex-start;min-height:100vh;padding:24px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
-.phone{width:390px;min-height:844px;background:#f5f4ff;border-radius:44px;overflow:hidden;box-shadow:0 30px 80px rgba(108,71,255,0.25),0 0 0 8px #1a1a2e;position:relative;display:flex;flex-direction:column}
-/* header */
-.hdr{display:flex;align-items:center;justify-content:space-between;padding:16px 20px 10px;background:#fff}
-.hdr-title{font-size:16px;font-weight:900;letter-spacing:1px;color:#1a1a2e}
-.hdr-title span{color:#6c47ff}
+body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;padding:24px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+.phone{width:390px;min-height:844px;background:#f5f4ff;border-radius:44px;overflow:hidden;box-shadow:0 30px 80px rgba(108,71,255,.25),0 0 0 8px #1a1a2e;position:relative;display:flex;flex-direction:column}
+.hdr{display:flex;align-items:center;justify-content:space-between;padding:16px 20px 10px;background:#fff;flex-shrink:0}
+.hdr-logo{font-size:15px;font-weight:900;letter-spacing:1px;color:#1a1a2e}
+.hdr-logo span{color:#6c47ff}
 .hdr-btn{width:36px;height:36px;border-radius:10px;background:#f5f4ff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px}
-/* pages */
 .page{display:none;flex:1;overflow-y:auto;background:#f5f4ff;padding-bottom:80px}
 .page.active{display:block}
-/* bottom nav */
-.bnav{position:sticky;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #ede9ff;display:flex;z-index:100}
-.bnav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0;border:none;background:none;cursor:pointer;transition:all .2s;color:#9ca3af;font-size:10px;font-weight:600}
-.bnav-btn.active{color:#6c47ff}
-.bnav-btn svg,.bnav-btn .ni{font-size:22px}
-.bnav-btn.active .ni{filter:drop-shadow(0 0 4px rgba(108,71,255,0.5))}
-/* season pill */
-.season{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;background:#e8fdf1;color:#16a34a;font-size:11px;font-weight:700;margin:0 20px 12px}
-.season::before{content:'';width:7px;height:7px;border-radius:50%;background:#22c55e;display:block;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-/* cards */
-.card{background:#fff;border-radius:20px;margin:0 16px 12px;box-shadow:0 2px 16px rgba(108,71,255,0.08)}
-.card-p{padding:16px}
-/* purple btn */
-.btn-purple{width:calc(100% - 32px);margin:0 16px;background:linear-gradient(135deg,#6c47ff,#8b5cf6);color:#fff;border:none;border-radius:16px;padding:16px;font-size:16px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 20px rgba(108,71,255,0.4);transition:all .2s}
-.btn-purple:hover{transform:translateY(-1px);box-shadow:0 8px 30px rgba(108,71,255,0.5)}
-/* scenario cards */
-.sc-card{background:#fff;border-radius:16px;margin:0 16px 10px;display:flex;align-items:center;gap:12px;padding:12px;box-shadow:0 2px 12px rgba(0,0,0,0.06);cursor:pointer;transition:all .2s}
-.sc-card:hover{transform:translateX(4px);box-shadow:0 4px 20px rgba(108,71,255,0.15)}
-.sc-img{width:72px;height:72px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:32px}
-.sc-info{flex:1}
-.sc-name{font-size:15px;font-weight:700;color:#1a1a2e;margin-bottom:3px}
-.sc-desc{font-size:11px;color:#9ca3af;margin-bottom:6px;line-height:1.4}
-.sc-meta{display:flex;align-items:center;gap:8px}
-.xp-tag{font-size:11px;font-weight:700;color:#6c47ff;background:#ede9ff;padding:2px 8px;border-radius:999px}
-.star-tag{font-size:11px;color:#f59e0b;font-weight:700}
-.diff{font-size:10px;font-weight:700;padding:2px 8px;border-radius:999px}
-.diff.easy{background:#e8fdf1;color:#16a34a}
-.diff.med{background:#fef9ec;color:#d97706}
-.diff.hard{background:#ede9ff;color:#6c47ff}
-.sc-arrow{color:#d1d5db;font-size:18px}
-/* progress bar */
+.bnav{position:sticky;bottom:0;background:#fff;border-top:1px solid #ede9ff;display:flex;z-index:100;flex-shrink:0}
+.nb{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:9px 0;border:none;background:none;cursor:pointer;color:#9ca3af;font-size:9px;font-weight:700;transition:.2s}
+.nb.active{color:#6c47ff}
+.nb .ico{font-size:20px}
+.card{background:#fff;border-radius:20px;margin:0 16px 12px;box-shadow:0 2px 16px rgba(108,71,255,.08)}
+.cp{padding:16px}
+.btn-pu{width:calc(100% - 32px);margin:0 16px 12px;background:linear-gradient(135deg,#6c47ff,#8b5cf6);color:#fff;border:none;border-radius:16px;padding:15px;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(108,71,255,.4);transition:.2s}
+.btn-pu:hover{transform:translateY(-1px)}
 .pbar{height:8px;background:#ede9ff;border-radius:999px;overflow:hidden}
-.pbar-fill{height:100%;background:linear-gradient(90deg,#6c47ff,#a78bfa);border-radius:999px}
-/* stat row */
-.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:12px 16px}
-.stat-box{background:#fff;border-radius:14px;padding:10px 6px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
-.stat-val{font-size:16px;font-weight:900;color:#1a1a2e}
-.stat-lbl{font-size:10px;color:#9ca3af;margin-top:2px}
-.stat-ico{font-size:18px;margin-bottom:3px}
-/* section title */
-.stitle{display:flex;align-items:center;justify-content:space-between;padding:14px 20px 8px}
-.stitle-txt{font-size:13px;font-weight:800;color:#1a1a2e;letter-spacing:.5px;text-transform:uppercase}
-.stitle-link{font-size:12px;color:#6c47ff;font-weight:600;cursor:pointer}
-/* filter tabs */
-.tabs{display:flex;gap:6px;padding:10px 16px;overflow-x:auto}
-.tab{padding:7px 16px;border-radius:999px;font-size:13px;font-weight:600;border:none;cursor:pointer;white-space:nowrap;transition:all .2s}
-.tab.active{background:#6c47ff;color:#fff;box-shadow:0 4px 12px rgba(108,71,255,0.35)}
+.pbar-f{height:100%;background:linear-gradient(90deg,#6c47ff,#a78bfa);border-radius:999px}
+.stitle{display:flex;align-items:center;justify-content:space-between;padding:12px 20px 6px}
+.stitle-t{font-size:12px;font-weight:800;color:#1a1a2e;letter-spacing:.5px;text-transform:uppercase}
+.stitle-l{font-size:12px;color:#6c47ff;font-weight:600;cursor:pointer}
+.sc-card{background:#fff;border-radius:16px;margin:0 16px 10px;display:flex;align-items:center;gap:12px;padding:12px;box-shadow:0 2px 12px rgba(0,0,0,.06);cursor:pointer;transition:.2s}
+.sc-card:hover{transform:translateX(3px)}
+.sc-img{width:68px;height:68px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:30px}
+.sc-name{font-size:14px;font-weight:700;color:#1a1a2e;margin-bottom:3px}
+.sc-desc{font-size:11px;color:#9ca3af;margin-bottom:5px;line-height:1.4}
+.xp-tag{font-size:11px;font-weight:700;color:#6c47ff;background:#ede9ff;padding:2px 8px;border-radius:999px}
+.diff-e{font-size:10px;font-weight:700;background:#e8fdf1;color:#16a34a;padding:2px 8px;border-radius:999px}
+.diff-m{font-size:10px;font-weight:700;background:#fef9ec;color:#d97706;padding:2px 8px;border-radius:999px}
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:8px 16px}
+.stat-b{background:#fff;border-radius:14px;padding:10px 4px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.stat-v{font-size:14px;font-weight:900;color:#1a1a2e}
+.stat-l{font-size:10px;color:#9ca3af;margin-top:1px}
+.stat-i{font-size:16px;margin-bottom:2px}
+.tabs{display:flex;gap:5px;padding:10px 16px;overflow-x:auto}
+.tab{padding:7px 14px;border-radius:999px;font-size:12px;font-weight:600;border:none;cursor:pointer;white-space:nowrap;transition:.2s}
+.tab.active{background:#6c47ff;color:#fff;box-shadow:0 4px 12px rgba(108,71,255,.3)}
 .tab:not(.active){background:#ede9ff;color:#6c47ff}
+.season{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;background:#e8fdf1;color:#16a34a;font-size:11px;font-weight:700}
+.season::before{content:'';width:7px;height:7px;border-radius:50%;background:#22c55e;display:block;animation:pulse 2s infinite}
+/* sub-pages */
+.subpage{display:none;position:absolute;top:0;left:0;right:0;bottom:0;background:#f5f4ff;z-index:50;overflow-y:auto;padding-bottom:30px}
+.subpage.open{display:block}
+.sub-hdr{display:flex;align-items:center;gap:10px;padding:14px 20px 12px;background:#fff;border-bottom:1px solid #ede9ff;position:sticky;top:0;z-index:5}
+.back-btn{background:none;border:none;font-size:22px;cursor:pointer;color:#6c47ff;padding:0;line-height:1}
+.sub-title{font-size:16px;font-weight:800;color:#1a1a2e;flex:1}
 /* leaderboard */
-.podium{display:flex;align-items:flex-end;justify-content:center;gap:10px;padding:20px 16px 10px;background:linear-gradient(180deg,#ede9ff 0%,#f5f4ff 100%)}
+.podium{display:flex;align-items:flex-end;justify-content:center;gap:10px;padding:20px 16px 10px;background:linear-gradient(180deg,#ede9ff,#f5f4ff)}
 .pod{display:flex;flex-direction:column;align-items:center;gap:4px}
-.pod-av{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;border:3px solid #fff;box-shadow:0 4px 16px rgba(0,0,0,0.15)}
-.pod-crown{font-size:18px;margin-bottom:-4px}
-.pod-name{font-size:11px;font-weight:700;color:#1a1a2e;text-align:center}
-.pod-xp{font-size:10px;color:#6c47ff;font-weight:700}
-.pod-base{border-radius:10px 10px 0 0;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;width:74px}
-.lb-row{display:flex;align-items:center;gap:10px;padding:12px 16px;background:#fff;margin:0 16px 6px;border-radius:14px;box-shadow:0 2px 8px rgba(0,0,0,0.04);cursor:pointer;transition:all .2s}
+.pod-av{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;border:3px solid #fff;box-shadow:0 4px 16px rgba(0,0,0,.15)}
+.pod-base{border-radius:10px 10px 0 0;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;width:70px}
+.lb-row{display:flex;align-items:center;gap:10px;padding:11px 16px;background:#fff;margin:0 16px 5px;border-radius:14px;box-shadow:0 2px 8px rgba(0,0,0,.04);cursor:pointer;transition:.2s}
 .lb-row:hover{transform:translateX(3px)}
 .lb-row.me{background:linear-gradient(135deg,#ede9ff,#f5f4ff);border:1.5px solid #6c47ff}
-.lb-rank{font-size:14px;font-weight:800;color:#9ca3af;width:22px;text-align:center}
-.lb-rank.top{color:#6c47ff}
-.lb-av{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;background:#f5f4ff;flex-shrink:0}
-.lb-name{flex:1;font-size:14px;font-weight:700;color:#1a1a2e}
-.lb-name.me{color:#6c47ff}
-.lb-xp{font-size:13px;font-weight:800;color:#6c47ff}
-/* profile */
-.prof-hero{background:linear-gradient(160deg,#6c47ff 0%,#8b5cf6 100%);padding:24px 20px 30px;position:relative;overflow:hidden}
-.prof-hero::after{content:'';position:absolute;right:-30px;bottom:-20px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,0.08)}
-.prof-av{width:90px;height:90px;border-radius:24px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:52px;margin:0 auto 12px;box-shadow:0 8px 30px rgba(0,0,0,0.2)}
-.prof-name{text-align:center;font-size:20px;font-weight:900;color:#fff;margin-bottom:4px}
-.prof-badge{text-align:center;font-size:12px;color:rgba(255,255,255,0.8);margin-bottom:14px}
-.prof-level{background:rgba(255,255,255,0.15);border-radius:12px;padding:12px 16px;margin:0 4px}
-.prof-level-txt{font-size:13px;color:rgba(255,255,255,0.8);margin-bottom:6px}
-.pbar-white{height:6px;background:rgba(255,255,255,0.25);border-radius:999px;overflow:hidden}
-.pbar-white-fill{height:100%;background:#fff;border-radius:999px;width:68%}
-/* rank card */
-.rank-card{background:linear-gradient(135deg,#4338ca,#6c47ff);border-radius:16px;margin:0 16px 10px;padding:16px;display:flex;align-items:center;gap:12px;cursor:pointer}
-.rank-icon{width:44px;height:44px;background:rgba(255,255,255,0.2);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px}
-.rank-name{font-size:16px;font-weight:800;color:#fff}
-.rank-sub{font-size:12px;color:rgba(255,255,255,0.7)}
-/* achieve grid */
-.ach-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:0 16px}
-.ach-item{background:#fff;border-radius:14px;padding:10px 6px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.05)}
-.ach-ico{font-size:26px;margin-bottom:4px}
-.ach-name{font-size:10px;font-weight:700;color:#1a1a2e;margin-bottom:2px;line-height:1.2}
-.ach-prog{font-size:10px;color:#6c47ff;font-weight:700}
-/* dashboard */
-.dash-banner{background:linear-gradient(135deg,#6c47ff,#8b5cf6);margin:12px 16px;border-radius:20px;padding:18px;position:relative;overflow:hidden;cursor:pointer}
-.dash-banner::after{content:'🦊';position:absolute;right:12px;bottom:-4px;font-size:64px}
-.dash-banner-title{font-size:16px;font-weight:800;color:#fff;margin-bottom:4px}
-.dash-banner-sub{font-size:12px;color:rgba(255,255,255,0.8);margin-bottom:14px}
-.dash-banner-btn{background:rgba(255,255,255,0.2);border:1.5px solid rgba(255,255,255,0.5);color:#fff;padding:8px 18px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;border:none;color:#fff}
-/* progress cats */
-.cat-row{display:flex;align-items:center;gap:10px;padding:10px 16px;background:#fff;margin:0 16px 6px;border-radius:14px;cursor:pointer;transition:all .2s}
-.cat-row:hover{transform:translateX(3px)}
-.cat-ico{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-.cat-info{flex:1}
-.cat-name{font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:4px}
-.cat-bar{height:5px;background:#ede9ff;border-radius:999px;overflow:hidden}
-.cat-fill{height:100%;background:linear-gradient(90deg,#6c47ff,#a78bfa);border-radius:999px}
-.cat-pct{font-size:12px;font-weight:700;color:#6c47ff;flex-shrink:0}
-/* goals */
-.goal-row{display:flex;align-items:center;gap:10px;padding:10px 0}
-.goal-ico{width:34px;height:34px;border-radius:10px;background:#ede9ff;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
-.goal-info{flex:1}
-.goal-name{font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:3px}
-.goal-bar{height:4px;background:#ede9ff;border-radius:999px;overflow:hidden;margin-bottom:2px}
-.goal-fill{height:100%;background:#6c47ff;border-radius:999px}
-.goal-xp{font-size:11px;font-weight:700;color:#6c47ff}
-/* reward timer */
-.reward-card{background:#fff;border-radius:18px;margin:0 16px 10px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,0.06);display:flex;align-items:center;gap:14px}
-.reward-chest{font-size:52px;animation:rock .6s ease-in-out infinite alternate}
-@keyframes rock{from{transform:rotate(-5deg)}to{transform:rotate(5deg)}}
-.reward-timer{font-size:22px;font-weight:900;color:#1a1a2e;font-family:monospace}
-/* test categories */
-.tcat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px}
-.tcat{background:#fff;border-radius:18px;padding:16px;text-align:center;cursor:pointer;transition:all .2s;box-shadow:0 2px 12px rgba(0,0,0,0.06)}
-.tcat:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(108,71,255,0.2)}
-.tcat-ico{font-size:36px;margin-bottom:8px}
-.tcat-name{font-size:14px;font-weight:700;color:#1a1a2e;margin-bottom:4px}
-.tcat-info{font-size:11px;color:#9ca3af;margin-bottom:8px}
-.tcat-xp{font-size:12px;font-weight:700;color:#6c47ff;background:#ede9ff;padding:3px 10px;border-radius:999px;display:inline-block}
-/* test question */
-.test-q-wrap{display:none;padding:16px}
-.q-card{background:#fff;border-radius:20px;padding:20px;margin-bottom:12px;box-shadow:0 2px 16px rgba(0,0,0,0.07)}
-.q-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
-.q-num{font-size:13px;color:#9ca3af;font-weight:600}
-.q-timer{background:#ede9ff;color:#6c47ff;padding:5px 12px;border-radius:999px;font-size:13px;font-weight:800}
-.q-pbar{height:5px;background:#ede9ff;border-radius:999px;overflow:hidden;margin-bottom:16px}
-.q-pfill{height:100%;background:linear-gradient(90deg,#6c47ff,#a78bfa);width:60%;border-radius:999px}
-.q-text{font-size:15px;font-weight:700;color:#1a1a2e;line-height:1.5;margin-bottom:18px}
-.q-opt{display:flex;align-items:center;gap:10px;padding:13px 14px;border-radius:14px;margin-bottom:8px;cursor:pointer;border:2px solid #ede9ff;transition:all .2s;background:#faf9ff}
+.lb-rank{font-size:13px;font-weight:800;color:#9ca3af;width:20px;text-align:center}
+.lb-av{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;background:#f5f4ff;flex-shrink:0}
+.prof-hero{background:linear-gradient(135deg,#6c47ff,#8b5cf6);padding:22px 20px 26px;position:relative;overflow:hidden}
+.ptab-row{display:flex;gap:2px;padding:10px 16px;background:#fff;position:sticky;top:0;z-index:4;border-bottom:1px solid #ede9ff}
+.ptab{flex:1;padding:8px 4px;border:none;background:none;font-size:12px;font-weight:700;color:#9ca3af;cursor:pointer;border-radius:10px;transition:.2s}
+.ptab.active{background:#ede9ff;color:#6c47ff}
+.wcard{background:#fff;border-radius:16px;margin:0 16px 8px;padding:14px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.w-en{font-size:18px;font-weight:800;color:#1a1a2e}
+.w-ph{font-size:12px;color:#9ca3af;font-style:italic;margin:2px 0}
+.w-ru{font-size:14px;font-weight:700;color:#6c47ff}
+.w-ex{font-size:11px;color:#9ca3af;margin-top:4px;line-height:1.5;border-left:3px solid #ede9ff;padding-left:8px}
+.info-card{background:#fff;border-radius:14px;margin:0 16px 8px;padding:14px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.info-card h4{font-size:13px;font-weight:800;color:#1a1a2e;margin-bottom:6px}
+.info-card p,.info-card li{font-size:12px;color:#6b7280;line-height:1.6}
+.info-card ul{padding-left:16px}
+.tip-card{background:#fff;border-radius:14px;margin:0 16px 8px;display:flex;gap:12px;align-items:flex-start;padding:14px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.tip-num{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#6c47ff,#8b5cf6);color:#fff;font-size:12px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tip-text h4{font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:2px}
+.tip-text p{font-size:11px;color:#9ca3af;line-height:1.5}
+.move-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 16px}
+.move-cat{background:#fff;border-radius:16px;padding:14px 8px;text-align:center;cursor:pointer;transition:.2s;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.move-cat:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(108,71,255,.15)}
+.move-cat .ico{font-size:28px;margin-bottom:6px}
+.move-cat .lbl{font-size:11px;font-weight:700;color:#1a1a2e}
+.ielts-card{background:#fff;border-radius:16px;margin:0 16px 10px;padding:16px;cursor:pointer;display:flex;align-items:center;gap:14px;box-shadow:0 2px 12px rgba(0,0,0,.06);transition:.2s}
+.ielts-card:hover{transform:translateX(3px)}
+.ielts-ico{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0}
+.ielts-name{font-size:14px;font-weight:800;color:#1a1a2e;margin-bottom:3px}
+.ielts-sub{font-size:11px;color:#9ca3af}
+.q-card{background:#fff;border-radius:18px;padding:18px;margin:0 16px 10px;box-shadow:0 2px 14px rgba(0,0,0,.07)}
+.q-num{font-size:11px;color:#9ca3af;font-weight:600;margin-bottom:8px}
+.q-text{font-size:14px;font-weight:700;color:#1a1a2e;line-height:1.5;margin-bottom:14px}
+.q-opt{display:flex;align-items:center;gap:10px;padding:11px 13px;border-radius:12px;margin-bottom:6px;cursor:pointer;border:2px solid #ede9ff;background:#faf9ff;transition:.2s;font-size:13px;color:#1a1a2e}
 .q-opt:hover{border-color:#6c47ff;background:#ede9ff}
 .q-opt.correct{border-color:#22c55e;background:#e8fdf1}
 .q-opt.wrong{border-color:#ef4444;background:#fef2f2}
-.q-letter{width:30px;height:30px;border-radius:8px;background:#ede9ff;color:#6c47ff;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.q-letter.c{background:#e8fdf1;color:#16a34a}
-.q-letter.w{background:#fef2f2;color:#ef4444}
-/* info rows */
-.info-row{display:flex;align-items:center;justify-content:space-between;padding:11px 16px;border-bottom:1px solid #f5f4ff}
-.info-lbl{font-size:13px;color:#9ca3af}
-.info-val{font-size:13px;font-weight:700;color:#1a1a2e}
-/* reward modal */
-.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;align-items:center;justify-content:center}
-.modal.open{display:flex}
-.modal-box{background:#fff;border-radius:28px;padding:28px;text-align:center;width:300px;animation:popIn .4s cubic-bezier(.34,1.56,.64,1)}
-@keyframes popIn{from{transform:scale(0.7);opacity:0}to{transform:scale(1);opacity:1}}
-.modal-title{font-size:20px;font-weight:900;color:#1a1a2e;margin:12px 0 6px}
-.modal-sub{font-size:14px;color:#9ca3af;margin-bottom:20px}
-.modal-xp{font-size:32px;font-weight:900;color:#6c47ff;margin-bottom:16px}
+.q-letter{width:28px;height:28px;border-radius:7px;background:#ede9ff;color:#6c47ff;font-weight:800;font-size:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pic-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 16px}
+.pic-cat{background:#fff;border-radius:14px;padding:14px 6px;text-align:center;cursor:pointer;transition:.2s;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.pic-cat:hover{transform:translateY(-2px)}
+.pic-items{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 16px}
+.pic-item{background:#fff;border-radius:12px;padding:12px 6px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.slang-card{background:#fff;border-radius:14px;margin:0 16px 8px;padding:12px 14px;box-shadow:0 2px 10px rgba(0,0,0,.05);display:flex;align-items:center;gap:12px}
+.slang-word{font-size:14px;font-weight:800;color:#6c47ff;min-width:85px}
+.sal-table{margin:0 16px 12px;border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.sal-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;padding:10px 12px;border-bottom:1px solid #f5f4ff;align-items:center}
+.sal-row:last-child{border-bottom:none}
+.sal-row.head{background:#ede9ff}
+.visa-card{background:#fff;border-radius:16px;margin:0 16px 10px;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.step-row{display:flex;align-items:flex-start;gap:12px;padding:8px 16px}
+.step-num{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#6c47ff,#8b5cf6);color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.rights-card{background:#fff;border-radius:14px;margin:0 16px 8px;padding:14px;display:flex;gap:12px;align-items:flex-start;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.rights-ico{width:36px;height:36px;border-radius:10px;background:#ede9ff;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.site-card{background:#fff;border-radius:14px;margin:0 16px 8px;padding:12px 14px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 8px rgba(0,0,0,.05);cursor:pointer;transition:.2s}
+.site-card:hover{transform:translateX(3px)}
+.site-ico{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;background:#ede9ff}
+.bank-card{border-radius:16px;margin:0 16px 10px;padding:16px;color:#fff;position:relative;overflow:hidden}
+.banner{margin:0 16px 12px;border-radius:16px;padding:14px 16px;position:relative;overflow:hidden}
+.onboarding{position:absolute;inset:0;background:#f5f4ff;z-index:200;overflow-y:auto;padding:28px 20px 40px}
+.level-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}
+.lv-card{background:#fff;border-radius:16px;padding:14px 12px;cursor:pointer;border:2px solid #ede9ff;transition:.2s;text-align:center}
+.lv-card:hover,.lv-card.sel{border-color:#6c47ff;background:#ede9ff}
+.lv-badge{display:inline-block;background:linear-gradient(135deg,#6c47ff,#8b5cf6);color:#fff;font-size:16px;font-weight:900;padding:4px 12px;border-radius:8px;margin-bottom:6px}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes sparkle{0%,100%{opacity:.4;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
+@keyframes planefloat{0%,100%{transform:rotate(-15deg) translateY(0)}50%{transform:rotate(-15deg) translateY(-8px)}}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
 <div class="phone">
 
-  <!-- HEADER -->
-  <div class="hdr">
-    <button class="hdr-btn">☰</button>
-    <div class="hdr-title">CATCH <span>QUEST</span></div>
-    <button class="hdr-btn">🔔</button>
+<!-- ONBOARDING -->
+<div class="onboarding" id="onboarding">
+  <div style="text-align:center;margin-bottom:4px">
+    <div style="font-size:52px;margin-bottom:8px">🦊</div>
+    <div style="font-size:24px;font-weight:900;color:#1a1a2e">CATCH <span style="color:#6c47ff">QUEST</span></div>
+    <div style="font-size:13px;color:#9ca3af;margin-top:4px">Английский для переезда за рубеж</div>
   </div>
+  <div style="font-size:17px;font-weight:800;color:#1a1a2e;text-align:center;margin:18px 0 4px">Выбери свой уровень английского</div>
+  <div style="font-size:12px;color:#9ca3af;text-align:center;margin-bottom:2px">Приложение подберёт задания и советы под твой уровень</div>
+  <div class="level-grid">
+    <div class="lv-card" onclick="selectLevel(this,'A1')"><div class="lv-badge">A1</div><div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Начинающий</div><div style="font-size:10px;color:#9ca3af">Только начинаю учить</div></div>
+    <div class="lv-card" onclick="selectLevel(this,'A2')"><div class="lv-badge">A2</div><div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Базовый</div><div style="font-size:10px;color:#9ca3af">Знаю основы</div></div>
+    <div class="lv-card" onclick="selectLevel(this,'B1')"><div class="lv-badge">B1</div><div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Средний</div><div style="font-size:10px;color:#9ca3af">Объясняюсь просто</div></div>
+    <div class="lv-card" onclick="selectLevel(this,'B2')"><div class="lv-badge">B2</div><div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Выше среднего</div><div style="font-size:10px;color:#9ca3af">Общаюсь свободно</div></div>
+    <div class="lv-card" onclick="selectLevel(this,'C1')"><div class="lv-badge">C1</div><div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Продвинутый</div><div style="font-size:10px;color:#9ca3af">Почти как носитель</div></div>
+    <div class="lv-card" onclick="selectLevel(this,'C2')"><div class="lv-badge">C2</div><div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Мастер</div><div style="font-size:10px;color:#9ca3af">На уровне носителя</div></div>
+  </div>
+  <button class="btn-pu" onclick="startApp()">🚀 Начать обучение →</button>
+  <div style="text-align:center;margin-top:10px;font-size:11px;color:#9ca3af">Уровень можно изменить в Профиле</div>
+</div>
 
-  <!-- ══════════ PAGE: QUESTS ══════════ -->
-  <div class="page active" id="page-quests">
+<!-- HEADER -->
+<div class="hdr" id="main-hdr" style="display:none">
+  <button class="hdr-btn">☰</button>
+  <div class="hdr-logo">CATCH <span>QUEST</span></div>
+  <button class="hdr-btn">🔔</button>
+</div>
 
-    <!-- ★ HERO BACKGROUND — точь в точь как на макете ★ -->
-    <div style="
-      position:relative;
-      overflow:hidden;
-      background:linear-gradient(160deg,#faf9ff 0%,#f0eeff 35%,#e9e4fb 70%,#e2dcf8 100%);
-      min-height:320px;
-      display:flex;flex-direction:column;
-    ">
-      <!-- Radial glow center -->
-      <div style="position:absolute;left:50%;top:40%;transform:translate(-50%,-50%);width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,0.9) 0%,transparent 70%);pointer-events:none"></div>
-
-      <!-- Sparkles -->
-      <div style="position:absolute;top:14%;left:12%;color:#b8a9f0;font-size:14px;animation:sparkle 2.4s ease-in-out infinite">✦</div>
-      <div style="position:absolute;top:8%;right:22%;color:#c4b5fd;font-size:10px;animation:sparkle 1.8s ease-in-out .4s infinite">✦</div>
-      <div style="position:absolute;top:28%;right:10%;color:#ddd6fe;font-size:8px;animation:sparkle 2s ease-in-out .8s infinite">✦</div>
-      <div style="position:absolute;top:62%;left:8%;color:#c4b5fd;font-size:12px;animation:sparkle 2.2s ease-in-out .2s infinite">✦</div>
-      <div style="position:absolute;top:70%;right:14%;color:#a78bfa;font-size:9px;animation:sparkle 1.9s ease-in-out .6s infinite">✦</div>
-      <div style="position:absolute;top:45%;left:5%;color:#ddd6fe;font-size:7px;animation:sparkle 2.6s ease-in-out 1s infinite">✦</div>
-
-      <!-- Airplane silhouette top-right -->
-      <div style="position:absolute;top:10%;right:16%;font-size:26px;color:#c4b5fd;opacity:0.7;transform:rotate(-15deg);animation:planefloat 4s ease-in-out infinite">✈</div>
-
-      <!-- Dashed flight path SVG curve -->
-      <svg style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none" viewBox="0 0 390 320" fill="none">
-        <path d="M 60 260 Q 140 60 310 30" stroke="#b8a9f0" stroke-width="1.8" stroke-dasharray="6,5" fill="none" opacity="0.55"/>
-        <polygon points="310,30 302,38 318,36" fill="#b8a9f0" opacity="0.55"/>
-      </svg>
-
-      <!-- Compass icon bottom-left -->
-      <div style="position:absolute;bottom:22%;left:6%;font-size:24px;opacity:0.55;animation:floatY 3s ease-in-out infinite">🧭</div>
-      <!-- Gear/flower left -->
-      <div style="position:absolute;top:38%;left:4%;font-size:20px;opacity:0.45;animation:spin 8s linear infinite">⚙️</div>
-
-      <!-- Season pill -->
-      <div style="padding:18px 20px 0;position:relative;z-index:1">
-        <div class="season" style="margin:0 0 14px">SEASON 1 · LIVE</div>
+<!-- PAGE: HOME -->
+<div class="page" id="page-home">
+  <!-- Hero -->
+  <div style="position:relative;overflow:hidden;background:linear-gradient(160deg,#faf9ff 0%,#f0eeff 35%,#e9e4fb 70%,#e2dcf8 100%);min-height:306px;display:flex;flex-direction:column">
+    <div style="position:absolute;left:50%;top:40%;transform:translate(-50%,-50%);width:290px;height:290px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.85),transparent 70%);pointer-events:none"></div>
+    <div style="position:absolute;top:14%;left:12%;color:#b8a9f0;font-size:14px;animation:sparkle 2.4s ease-in-out infinite">✦</div>
+    <div style="position:absolute;top:8%;right:22%;color:#c4b5fd;font-size:10px;animation:sparkle 1.8s ease-in-out .4s infinite">✦</div>
+    <div style="position:absolute;top:28%;right:10%;color:#ddd6fe;font-size:8px;animation:sparkle 2s ease-in-out .8s infinite">✦</div>
+    <div style="position:absolute;top:62%;left:8%;color:#c4b5fd;font-size:12px;animation:sparkle 2.2s ease-in-out .2s infinite">✦</div>
+    <div style="position:absolute;top:70%;right:14%;color:#a78bfa;font-size:9px;animation:sparkle 1.9s ease-in-out .6s infinite">✦</div>
+    <div style="position:absolute;top:45%;left:5%;color:#ddd6fe;font-size:7px;animation:sparkle 2.6s ease-in-out 1s infinite">✦</div>
+    <div style="position:absolute;top:10%;right:16%;font-size:24px;color:#c4b5fd;opacity:.7;transform:rotate(-15deg);animation:planefloat 4s ease-in-out infinite">✈</div>
+    <svg style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none" viewBox="0 0 390 306" fill="none">
+      <path d="M 60 248 Q 140 55 305 26" stroke="#b8a9f0" stroke-width="1.8" stroke-dasharray="6,5" fill="none" opacity=".55"/>
+      <polygon points="305,26 297,34 313,32" fill="#b8a9f0" opacity=".55"/>
+    </svg>
+    <div style="position:absolute;bottom:22%;left:6%;font-size:22px;opacity:.55;animation:floatY 3s ease-in-out infinite">🧭</div>
+    <div style="position:absolute;top:38%;left:4%;font-size:18px;opacity:.4;animation:spin 8s linear infinite">⚙️</div>
+    <div style="padding:14px 20px 0;position:relative;z-index:1">
+      <div class="season">SEASON 1 · LIVE</div>
+    </div>
+    <div style="display:flex;align-items:flex-end;padding:0 20px;position:relative;z-index:1;flex:1">
+      <div style="flex:1;padding-bottom:16px">
+        <h1 style="font-size:25px;font-weight:900;color:#1a1a2e;line-height:1.18">Английский<br>как <span style="color:#6c47ff">квест,</span><br>не как урок.</h1>
+        <p style="font-size:11px;color:#8b83b0;margin-top:8px;line-height:1.6;max-width:175px">Аэропорт, врач, аренда, собеседование — реальные сценарии переезда как игровые миссии.</p>
+        <div id="user-level-badge" style="margin-top:10px;display:inline-block;background:linear-gradient(135deg,#6c47ff,#8b5cf6);color:#fff;font-size:11px;font-weight:800;padding:3px 11px;border-radius:8px">Уровень B1</div>
       </div>
-
-      <!-- Text left + Fox right -->
-      <div style="display:flex;align-items:flex-end;padding:0 20px 0;position:relative;z-index:1;flex:1">
-        <div style="flex:1;padding-bottom:20px">
-          <h1 style="font-size:27px;font-weight:900;color:#1a1a2e;line-height:1.18">
-            Английский<br>как <span style="color:#6c47ff">квест,</span><br>не как урок.
-          </h1>
-          <p style="font-size:12px;color:#8b83b0;margin-top:10px;line-height:1.6;max-width:180px">
-            Аэропорт, врач, аренда, собеседование, банк — пройди реальные сценарии переезда как игровые миссии.
-          </p>
+      <!-- CSS Fox mascot -->
+      <div style="flex-shrink:0;width:150px;display:flex;flex-direction:column;align-items:center;position:relative;margin-bottom:-4px">
+        <div style="position:relative;width:142px;height:200px">
+          <div style="position:absolute;bottom:20px;left:15px;right:15px;height:106px;background:linear-gradient(170deg,#7c3aed,#6c47ff);border-radius:28px 28px 16px 16px"></div>
+          <div style="position:absolute;bottom:68px;left:0;right:0;text-align:center;color:#fff;font-size:8px;font-weight:900;line-height:1.3;letter-spacing:.5px">CATCH<br>QUEST</div>
+          <div style="position:absolute;bottom:113px;left:27px;right:27px;height:26px;background:#7c3aed;border-radius:50% 50% 0 0"></div>
+          <div style="position:absolute;bottom:56px;right:2px;width:29px;height:48px;background:#374151;border-radius:7px"></div>
+          <div style="position:absolute;bottom:82px;right:6px;width:21px;height:14px;background:#4b5563;border-radius:6px 6px 0 0"></div>
+          <div style="position:absolute;bottom:76px;left:2px;width:25px;height:50px;background:#7c3aed;border-radius:11px;transform:rotate(15deg)"></div>
+          <div style="position:absolute;bottom:76px;right:9px;width:25px;height:50px;background:#7c3aed;border-radius:11px;transform:rotate(-10deg)"></div>
+          <div style="position:absolute;bottom:22px;left:-1px;width:27px;height:23px;background:#e07b1a;border-radius:50% 50% 40% 40%"></div>
+          <div style="position:absolute;bottom:28px;right:7px;width:25px;height:21px;background:#e07b1a;border-radius:50%"></div>
+          <div style="position:absolute;bottom:26px;left:-8px;width:23px;height:31px;background:#1e3a5f;border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px">
+            <div style="font-size:8px">🌐</div>
+            <div style="font-size:5px;color:#fff;font-weight:700;line-height:1">PASS<br>PORT</div>
+          </div>
+          <div style="position:absolute;bottom:3px;left:24px;width:25px;height:25px;background:#3730a3;border-radius:4px 4px 7px 7px"></div>
+          <div style="position:absolute;bottom:3px;right:24px;width:25px;height:25px;background:#3730a3;border-radius:4px 4px 7px 7px"></div>
+          <div style="position:absolute;bottom:0;left:18px;width:29px;height:10px;background:#5b21b6;border-radius:5px"></div>
+          <div style="position:absolute;bottom:0;right:18px;width:29px;height:10px;background:#5b21b6;border-radius:5px"></div>
+          <div style="position:absolute;bottom:16px;right:-14px;width:28px;height:54px;background:linear-gradient(180deg,#f97316,#ea580c);border-radius:50% 50% 40% 60%;transform:rotate(20deg)"></div>
+          <div style="position:absolute;bottom:54px;right:-10px;width:16px;height:19px;background:#fff5f0;border-radius:50%"></div>
+          <div style="position:absolute;top:0;left:24px;width:91px;height:82px;background:#f97316;border-radius:50% 50% 42% 42%"></div>
+          <div style="position:absolute;top:-11px;left:26px;width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;border-bottom:33px solid #ea580c"></div>
+          <div style="position:absolute;top:-11px;right:26px;width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;border-bottom:33px solid #ea580c"></div>
+          <div style="position:absolute;top:-4px;left:32px;width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-bottom:20px solid #fca5a5"></div>
+          <div style="position:absolute;top:-4px;right:32px;width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-bottom:20px solid #fca5a5"></div>
+          <div style="position:absolute;top:33px;left:36px;width:68px;height:47px;background:#fef3e2;border-radius:45% 45% 55% 55%"></div>
+          <div style="position:absolute;top:60px;left:64px;width:13px;height:8px;background:#1a1a2e;border-radius:50%"></div>
+          <div style="position:absolute;top:68px;left:56px;width:26px;height:13px;border-bottom:3px solid #1a1a2e;border-radius:0 0 50% 50%"></div>
+          <div style="position:absolute;top:26px;left:28px;right:28px;height:19px;display:flex;align-items:center;gap:3px">
+            <div style="flex:1;height:19px;background:linear-gradient(135deg,#7c3aed,#6c47ff);border-radius:7px;opacity:.95"></div>
+            <div style="width:5px;height:3px;background:#6c47ff"></div>
+            <div style="flex:1;height:19px;background:linear-gradient(135deg,#7c3aed,#6c47ff);border-radius:7px;opacity:.95"></div>
+          </div>
+          <div style="position:absolute;top:25px;left:27px;right:27px;height:21px;border:2px solid #5b21b6;border-radius:8px;pointer-events:none"></div>
         </div>
-
-        <!-- Fox mascot CSS art -->
-        <div style="flex-shrink:0;width:160px;display:flex;flex-direction:column;align-items:center;position:relative;margin-bottom:-4px">
-          <!-- Body -->
-          <div style="position:relative;width:150px;height:210px">
-            <!-- Hoodie body -->
-            <div style="position:absolute;bottom:24px;left:18px;right:18px;height:110px;background:linear-gradient(170deg,#7c3aed,#6c47ff);border-radius:30px 30px 18px 18px"></div>
-            <!-- CATCH QUEST text on hoodie -->
-            <div style="position:absolute;bottom:72px;left:0;right:0;text-align:center;color:#fff;font-size:9px;font-weight:900;line-height:1.3;letter-spacing:.5px">CATCH<br>QUEST</div>
-            <!-- Hood/collar -->
-            <div style="position:absolute;bottom:118px;left:30px;right:30px;height:30px;background:#7c3aed;border-radius:50% 50% 0 0"></div>
-            <!-- Backpack -->
-            <div style="position:absolute;bottom:60px;right:4px;width:32px;height:52px;background:#374151;border-radius:8px"></div>
-            <div style="position:absolute;bottom:88px;right:8px;width:24px;height:16px;background:#4b5563;border-radius:6px 6px 0 0"></div>
-            <!-- Arms -->
-            <div style="position:absolute;bottom:80px;left:4px;width:28px;height:54px;background:#7c3aed;border-radius:12px;transform:rotate(15deg)"></div>
-            <div style="position:absolute;bottom:80px;right:12px;width:28px;height:54px;background:#7c3aed;border-radius:12px;transform:rotate(-10deg)"></div>
-            <!-- Hands / paws -->
-            <div style="position:absolute;bottom:26px;left:2px;width:30px;height:26px;background:#e07b1a;border-radius:50% 50% 40% 40%"></div>
-            <div style="position:absolute;bottom:32px;right:10px;width:28px;height:24px;background:#e07b1a;border-radius:50%"></div>
-            <!-- Passport in left hand -->
-            <div style="position:absolute;bottom:30px;left:-6px;width:26px;height:34px;background:#1e3a5f;border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px">
-              <div style="font-size:9px">🌐</div>
-              <div style="font-size:5px;color:#fff;font-weight:700;line-height:1">PASS<br>PORT</div>
+        <!-- Suitcase -->
+        <div style="position:relative;width:112px;margin-top:-8px">
+          <div style="width:36px;height:11px;border:3px solid #8b83c4;border-bottom:none;border-radius:5px 5px 0 0;margin:0 auto"></div>
+          <div style="background:linear-gradient(160deg,#c4b5fd,#a78bfa,#8b5cf6);border-radius:12px;padding:8px 7px 12px;box-shadow:0 7px 22px rgba(108,71,255,.35)">
+            <div style="height:3px;background:rgba(255,255,255,.25);border-radius:2px;margin-bottom:7px"></div>
+            <div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap;justify-content:center">
+              <div style="width:22px;height:22px;background:#fbbf24;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px">🌐</div>
+              <div style="width:22px;height:22px;background:#6c47ff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px">✈️</div>
+              <div style="padding:2px 6px;background:#fff;border-radius:7px;font-size:7px;font-weight:900;color:#6c47ff;line-height:1.2;text-align:center">CATCH<br>QUEST</div>
+              <div style="width:24px;height:24px;background:#1a1a2e;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:900">XP</div>
             </div>
-            <!-- Legs / pants -->
-            <div style="position:absolute;bottom:6px;left:28px;width:28px;height:28px;background:#3730a3;border-radius:4px 4px 8px 8px"></div>
-            <div style="position:absolute;bottom:6px;right:28px;width:28px;height:28px;background:#3730a3;border-radius:4px 4px 8px 8px"></div>
-            <!-- Feet -->
-            <div style="position:absolute;bottom:0;left:22px;width:32px;height:12px;background:#5b21b6;border-radius:6px"></div>
-            <div style="position:absolute;bottom:0;right:22px;width:32px;height:12px;background:#5b21b6;border-radius:6px"></div>
-            <!-- Tail -->
-            <div style="position:absolute;bottom:20px;right:-16px;width:32px;height:60px;background:linear-gradient(180deg,#f97316,#ea580c);border-radius:50% 50% 40% 60%;transform:rotate(20deg)"></div>
-            <div style="position:absolute;bottom:60px;right:-12px;width:18px;height:22px;background:#fff5f0;border-radius:50%;"></div>
-            <!-- Head -->
-            <div style="position:absolute;top:0;left:26px;width:96px;height:86px;background:#f97316;border-radius:50% 50% 42% 42%"></div>
-            <!-- Ears -->
-            <div style="position:absolute;top:-12px;left:28px;width:0;height:0;border-left:16px solid transparent;border-right:16px solid transparent;border-bottom:36px solid #ea580c"></div>
-            <div style="position:absolute;top:-12px;right:28px;width:0;height:0;border-left:16px solid transparent;border-right:16px solid transparent;border-bottom:36px solid #ea580c"></div>
-            <!-- Inner ears -->
-            <div style="position:absolute;top:-4px;left:34px;width:0;height:0;border-left:9px solid transparent;border-right:9px solid transparent;border-bottom:22px solid #fca5a5"></div>
-            <div style="position:absolute;top:-4px;right:34px;width:0;height:0;border-left:9px solid transparent;border-right:9px solid transparent;border-bottom:22px solid #fca5a5"></div>
-            <!-- Face white muzzle -->
-            <div style="position:absolute;top:36px;left:38px;width:72px;height:50px;background:#fef3e2;border-radius:45% 45% 55% 55%"></div>
-            <!-- Nose -->
-            <div style="position:absolute;top:64px;left:68px;width:14px;height:9px;background:#1a1a2e;border-radius:50%"></div>
-            <!-- Mouth smile -->
-            <div style="position:absolute;top:72px;left:60px;width:28px;height:14px;border-bottom:3px solid #1a1a2e;border-radius:0 0 50% 50%"></div>
-            <!-- Sunglasses -->
-            <div style="position:absolute;top:28px;left:30px;right:30px;height:20px;display:flex;align-items:center;gap:3px">
-              <div style="flex:1;height:20px;background:linear-gradient(135deg,#7c3aed,#6c47ff);border-radius:8px;opacity:.95"></div>
-              <div style="width:6px;height:3px;background:#6c47ff"></div>
-              <div style="flex:1;height:20px;background:linear-gradient(135deg,#7c3aed,#6c47ff);border-radius:8px;opacity:.95"></div>
-            </div>
-            <!-- Glasses frame -->
-            <div style="position:absolute;top:27px;left:29px;right:29px;height:22px;border:2px solid #5b21b6;border-radius:9px;pointer-events:none"></div>
-            <!-- Eyes behind glasses -->
-            <div style="position:absolute;top:32px;left:40px;width:10px;height:10px;background:#fff;border-radius:50%"></div>
-            <div style="position:absolute;top:32px;right:40px;width:10px;height:10px;background:#fff;border-radius:50%"></div>
+            <div style="height:3px;background:rgba(255,255,255,.2);border-radius:2px;margin-top:7px"></div>
           </div>
-
-          <!-- Suitcase -->
-          <div style="position:relative;width:120px;margin-top:-10px">
-            <!-- Handle -->
-            <div style="width:40px;height:12px;border:3px solid #8b83c4;border-bottom:none;border-radius:6px 6px 0 0;margin:0 auto"></div>
-            <!-- Main case -->
-            <div style="background:linear-gradient(160deg,#c4b5fd,#a78bfa,#8b5cf6);border-radius:14px;padding:10px 8px 14px;box-shadow:0 8px 24px rgba(108,71,255,0.35)">
-              <!-- Wheels top bar -->
-              <div style="height:3px;background:rgba(255,255,255,0.25);border-radius:2px;margin-bottom:8px"></div>
-              <!-- Stickers row -->
-              <div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap;justify-content:center">
-                <div style="width:26px;height:26px;background:#fbbf24;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;box-shadow:0 2px 6px rgba(0,0,0,0.2)">🌐</div>
-                <div style="width:26px;height:26px;background:#6c47ff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;box-shadow:0 2px 6px rgba(0,0,0,0.2)">✈️</div>
-                <div style="padding:3px 7px;background:#fff;border-radius:8px;font-size:8px;font-weight:900;color:#6c47ff;line-height:1.2;text-align:center">CATCH<br>QUEST</div>
-                <div style="width:28px;height:28px;background:#1a1a2e;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:900;box-shadow:0 2px 6px rgba(0,0,0,0.3)">XP</div>
-              </div>
-              <div style="height:3px;background:rgba(255,255,255,0.2);border-radius:2px;margin-top:8px"></div>
-            </div>
-            <!-- Wheels -->
-            <div style="display:flex;justify-content:space-between;padding:0 10px;margin-top:3px">
-              <div style="width:16px;height:10px;background:#7c3aed;border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,0.2)"></div>
-              <div style="width:16px;height:10px;background:#7c3aed;border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,0.2)"></div>
-            </div>
-            <!-- Ground shadow -->
-            <div style="width:110px;height:8px;background:rgba(108,71,255,0.15);border-radius:50%;margin:4px auto 0;filter:blur(4px)"></div>
+          <div style="display:flex;justify-content:space-between;padding:0 8px;margin-top:2px">
+            <div style="width:13px;height:8px;background:#7c3aed;border-radius:50%"></div>
+            <div style="width:13px;height:8px;background:#7c3aed;border-radius:50%"></div>
           </div>
+          <div style="width:100px;height:7px;background:rgba(108,71,255,.15);border-radius:50%;margin:3px auto 0;filter:blur(4px)"></div>
         </div>
       </div>
     </div>
-
-    <style>
-    @keyframes sparkle{0%,100%{opacity:.4;transform:scale(0.8)}50%{opacity:1;transform:scale(1.2)}}
-    @keyframes planefloat{0%,100%{transform:rotate(-15deg) translateY(0)}50%{transform:rotate(-15deg) translateY(-8px)}}
-    @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-    @keyframes spin{to{transform:rotate(360deg)}}
-    </style>
-
-    <!-- 4 features -->
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:0 16px 14px">
-      <div style="background:#fff;border-radius:14px;padding:10px 6px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.05)">
-        <div style="font-size:22px;margin-bottom:4px">💼</div>
-        <div style="font-size:10px;font-weight:700;color:#1a1a2e;line-height:1.3">Реальные сценарии</div>
-      </div>
-      <div style="background:#fff;border-radius:14px;padding:10px 6px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.05)">
-        <div style="font-size:22px;margin-bottom:4px">⚡</div>
-        <div style="font-size:10px;font-weight:700;color:#1a1a2e;line-height:1.3">Прокачивай уровень</div>
-      </div>
-      <div style="background:#fff;border-radius:14px;padding:10px 6px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.05)">
-        <div style="font-size:22px;margin-bottom:4px">📍</div>
-        <div style="font-size:10px;font-weight:700;color:#1a1a2e;line-height:1.3">Открывай локации</div>
-      </div>
-      <div style="background:#fff;border-radius:14px;padding:10px 6px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.05)">
-        <div style="font-size:22px;margin-bottom:4px">🎁</div>
-        <div style="font-size:10px;font-weight:700;color:#1a1a2e;line-height:1.3">Получай награды</div>
-      </div>
-    </div>
-
-    <!-- progress -->
-    <div class="card card-p">
-      <div style="font-size:11px;font-weight:800;color:#9ca3af;letter-spacing:1px;margin-bottom:10px">ТВОЙ ПРОГРЕСС</div>
-      <div style="display:flex;align-items:center;gap:12px">
-        <div style="width:46px;height:46px;border-radius:14px;background:linear-gradient(135deg,#6c47ff,#a78bfa);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;flex-shrink:0">
-          <div style="font-size:9px;font-weight:600;opacity:.8">УР.</div>
-          <div style="font-size:20px;font-weight:900;line-height:1">12</div>
-        </div>
-        <div style="flex:1">
-          <div style="display:flex;justify-content:space-between;margin-bottom:5px">
-            <span style="font-size:14px;font-weight:800;color:#1a1a2e">2 450 / 3 600 XP</span>
-          </div>
-          <div class="pbar"><div class="pbar-fill" style="width:68%"></div></div>
-          <div style="font-size:11px;color:#9ca3af;margin-top:4px">До след. уровня: 1 150 XP</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- stats -->
-    <div class="stat-row">
-      <div class="stat-box"><div class="stat-ico">⚡</div><div class="stat-val" style="color:#6c47ff;font-size:13px">24 500</div><div class="stat-lbl">XP</div></div>
-      <div class="stat-box"><div class="stat-ico">⭐</div><div class="stat-val">37</div><div class="stat-lbl">Достижений</div></div>
-      <div class="stat-box"><div class="stat-ico">📍</div><div class="stat-val">8/24</div><div class="stat-lbl">Локаций</div></div>
-      <div class="stat-box"><div class="stat-ico">🔥</div><div class="stat-val">5</div><div class="stat-lbl">Дней подряд</div></div>
-    </div>
-
-    <!-- popular scenarios -->
-    <div class="stitle">
-      <div class="stitle-txt">Популярные сценарии</div>
-      <div class="stitle-link" onclick="showPage('scenarios')">Смотреть все</div>
-    </div>
-    <div class="sc-card" onclick="showPage('scenarios')">
-      <div class="sc-img" style="background:#dbeafe">✈️</div>
-      <div class="sc-info">
-        <div class="sc-name">Аэропорт</div>
-        <div class="sc-desc">Регистрация на рейс, багаж, паспортный контроль, таможня.</div>
-        <div class="sc-meta"><span class="xp-tag">XP 250</span><span class="star-tag">⭐ 50</span><span class="diff easy">Лёгкий</span></div>
-      </div>
-      <div class="sc-arrow">›</div>
-    </div>
-    <div class="sc-card" onclick="showPage('scenarios')">
-      <div class="sc-img" style="background:#dcfce7">🏥</div>
-      <div class="sc-info">
-        <div class="sc-name">Врач</div>
-        <div class="sc-desc">Запись на приём, симптомы, медицинские термины, рецепты.</div>
-        <div class="sc-meta"><span class="xp-tag">XP 300</span><span class="star-tag">⭐ 60</span><span class="diff easy">Лёгкий</span></div>
-      </div>
-      <div class="sc-arrow">›</div>
-    </div>
-    <div class="sc-card" onclick="showPage('scenarios')">
-      <div class="sc-img" style="background:#fef3c7">🏠</div>
-      <div class="sc-info">
-        <div class="sc-name">Аренда жилья</div>
-        <div class="sc-desc">Поиск квартиры, просмотр, договор аренды, депозит.</div>
-        <div class="sc-meta"><span class="xp-tag">XP 350</span><span class="star-tag">⭐ 70</span><span class="diff med">Средний</span></div>
-      </div>
-      <div class="sc-arrow">›</div>
-    </div>
-
-    <!-- daily reward -->
-    <div class="stitle"><div class="stitle-txt">Ежедневная награда</div></div>
-    <div class="reward-card">
-      <div class="reward-chest">🎁</div>
-      <div style="flex:1">
-        <div style="font-size:14px;font-weight:700;color:#1a1a2e;margin-bottom:3px">Заходи каждый день</div>
-        <div style="font-size:12px;color:#9ca3af;margin-bottom:10px">и получай XP и бонусы!</div>
-        <button class="btn-purple" style="width:auto;margin:0;padding:9px 20px;font-size:13px" onclick="openReward()">Получить</button>
-      </div>
-    </div>
-
-    <div style="height:12px"></div>
-    <button class="btn-purple" onclick="showPage('scenarios')">🗺️ Начать квест →</button>
-    <div style="height:16px"></div>
   </div>
-
-  <!-- ══════════ PAGE: SCENARIOS ══════════ -->
-  <div class="page" id="page-scenarios">
-    <div class="tabs">
-      <button class="tab active">Все</button>
-      <button class="tab">Начальные</button>
-      <button class="tab">Продвинутые</button>
-      <button class="tab">Эксперт</button>
-    </div>
-    <div class="sc-card" onclick="openModal('✈️','Аэропорт',250)">
-      <div class="sc-img" style="background:#dbeafe">✈️</div>
-      <div class="sc-info">
-        <div class="sc-name">Аэропорт</div>
-        <div class="sc-desc">Регистрация на рейс, багаж, паспортный контроль, таможня.</div>
-        <div class="sc-meta"><span class="xp-tag">XP 250</span><span class="star-tag">⭐ 50</span><span class="diff easy">Лёгкий</span></div>
-      </div><div class="sc-arrow">›</div>
-    </div>
-    <div class="sc-card" onclick="openModal('🏥','Врач',300)">
-      <div class="sc-img" style="background:#dcfce7">🏥</div>
-      <div class="sc-info">
-        <div class="sc-name">Врач</div>
-        <div class="sc-desc">Запись на приём, симптомы, медицинские термины, рецепты.</div>
-        <div class="sc-meta"><span class="xp-tag">XP 300</span><span class="star-tag">⭐ 60</span><span class="diff easy">Лёгкий</span></div>
-      </div><div class="sc-arrow">›</div>
-    </div>
-    <div class="sc-card" onclick="openModal('🏠','Аренда жилья',350)">
-      <div class="sc-img" style="background:#fef3c7">🏠</div>
-      <div class="sc-info">
-        <div class="sc-name">Аренда жилья</div>
-        <div class="sc-desc">Поиск квартиры, просмотр, договор аренды, депозит.</div>
-        <div class="sc-meta"><span class="xp-tag">XP 350</span><span class="star-tag">⭐ 70</span><span class="diff med">Средний</span></div>
-      </div><div class="sc-arrow">›</div>
-    </div>
-    <div class="sc-card" onclick="openModal('🏦','Банк',400)">
-      <div class="sc-img" style="background:#ede9ff">🏦</div>
-      <div class="sc-info">
-        <div class="sc-name">Банк</div>
-        <div class="sc-desc">Открытие счёта, карты, онлайн-банкинг, переводы.</div>
-        <div class="sc-meta"><span class="xp-tag">XP 400</span><span class="star-tag">⭐ 80</span><span class="diff med">Средний</span></div>
-      </div><div class="sc-arrow">›</div>
-    </div>
-    <div class="sc-card" onclick="openModal('💼','Собеседование',500)">
-      <div class="sc-img" style="background:#fce7f3">💼</div>
-      <div class="sc-info">
-        <div class="sc-name">Собеседование</div>
-        <div class="sc-desc">Типичные вопросы, ответы о себе, навыки, опыт работы.</div>
-        <div class="sc-meta"><span class="xp-tag">XP 500</span><span class="star-tag">⭐ 100</span><span class="diff hard">Сложный</span></div>
-      </div><div class="sc-arrow">›</div>
-    </div>
-    <div class="sc-card" onclick="openModal('🚌','Транспорт',200)">
-      <div class="sc-img" style="background:#e0f2fe">🚌</div>
-      <div class="sc-info">
-        <div class="sc-name">Транспорт</div>
-        <div class="sc-desc">Автобус, метро, такси, аренда машины, навигация.</div>
-        <div class="sc-meta"><span class="xp-tag">XP 200</span><span class="star-tag">⭐ 40</span><span class="diff easy">Лёгкий</span></div>
-      </div><div class="sc-arrow">›</div>
-    </div>
-    <div class="sc-card" onclick="openModal('🎒','Школа',320)">
-      <div class="sc-img" style="background:#fef9ec">🎒</div>
-      <div class="sc-info">
-        <div class="sc-name">Школа</div>
-        <div class="sc-desc">Запись ребёнка, встреча с учителем, расписание.</div>
-        <div class="sc-meta"><span class="xp-tag">XP 320</span><span class="star-tag">⭐ 65</span><span class="diff med">Средний</span></div>
-      </div><div class="sc-arrow">›</div>
-    </div>
-    <div class="sc-card" onclick="openModal('🚨','Экстренные',450)">
-      <div class="sc-img" style="background:#fee2e2">🚨</div>
-      <div class="sc-info">
-        <div class="sc-name">Экстренные ситуации</div>
-        <div class="sc-desc">Звонок 911, пожар, авария, первая помощь.</div>
-        <div class="sc-meta"><span class="xp-tag">XP 450</span><span class="star-tag">⭐ 90</span><span class="diff hard">Сложный</span></div>
-      </div><div class="sc-arrow">›</div>
-    </div>
-
-    <!-- progress summary -->
-    <div class="card" style="margin:8px 16px;padding:16px;display:flex;align-items:center;gap:14px">
-      <div style="position:relative;width:60px;height:60px;flex-shrink:0">
-        <svg width="60" height="60" style="transform:rotate(-90deg)">
-          <circle cx="30" cy="30" r="24" stroke="#ede9ff" stroke-width="6" fill="none"/>
-          <circle cx="30" cy="30" r="24" stroke="#6c47ff" stroke-width="6" fill="none" stroke-dasharray="150" stroke-dashoffset="101" stroke-linecap="round"/>
-        </svg>
-        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#6c47ff">33%</div>
-      </div>
-      <div>
-        <div style="font-size:11px;font-weight:800;color:#9ca3af;letter-spacing:1px;margin-bottom:3px">ОБЩИЙ ПРОГРЕСС</div>
-        <div style="font-size:15px;font-weight:800;color:#1a1a2e">8 / 24 сценариев пройдено</div>
-      </div>
-    </div>
-
-    <!-- achievements -->
-    <div class="stitle"><div class="stitle-txt">Твои достижения</div><div class="stitle-link" onclick="showPage('profile')">Смотреть все</div></div>
-    <div class="ach-grid">
-      <div class="ach-item"><div class="ach-ico">🥾</div><div class="ach-name">Первые шаги</div><div class="ach-prog">3/3</div></div>
-      <div class="ach-item"><div class="ach-ico">✈️</div><div class="ach-name">Путешественник</div><div class="ach-prog">5/5</div></div>
-      <div class="ach-item"><div class="ach-ico">🏆</div><div class="ach-name">Стажёр</div><div class="ach-prog">1000/1000</div></div>
-      <div class="ach-item" style="opacity:.4"><div class="ach-ico">🔒</div><div class="ach-name">Мастер</div><div class="ach-prog">0/50</div></div>
-    </div>
-    <div style="height:12px"></div>
-    <button class="btn-purple" onclick="showPage('quests')">🚀 Начать квест →</button>
-    <div style="height:16px"></div>
+  <!-- 4 feature mini-cards -->
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;padding:0 16px 12px">
+    <div style="background:#fff;border-radius:13px;padding:9px 5px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.05)"><div style="font-size:20px;margin-bottom:3px">💼</div><div style="font-size:9px;font-weight:700;color:#1a1a2e;line-height:1.3">Реальные сценарии</div></div>
+    <div style="background:#fff;border-radius:13px;padding:9px 5px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.05)"><div style="font-size:20px;margin-bottom:3px">⚡</div><div style="font-size:9px;font-weight:700;color:#1a1a2e;line-height:1.3">Прокачивай уровень</div></div>
+    <div style="background:#fff;border-radius:13px;padding:9px 5px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.05)"><div style="font-size:20px;margin-bottom:3px">📍</div><div style="font-size:9px;font-weight:700;color:#1a1a2e;line-height:1.3">Открывай локации</div></div>
+    <div style="background:#fff;border-radius:13px;padding:9px 5px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.05)"><div style="font-size:20px;margin-bottom:3px">🎁</div><div style="font-size:9px;font-weight:700;color:#1a1a2e;line-height:1.3">Получай награды</div></div>
   </div>
-
-  <!-- ══════════ PAGE: TESTS ══════════ -->
-  <div class="page" id="page-tests">
-    <div style="padding:14px 16px 8px">
-      <div style="font-size:20px;font-weight:900;color:#1a1a2e;margin-bottom:4px">Тесты 📝</div>
-      <div style="font-size:13px;color:#9ca3af">Проверь свои знания по темам переезда</div>
+  <div class="card cp">
+    <div style="font-size:10px;font-weight:800;color:#9ca3af;letter-spacing:1px;margin-bottom:10px">ТВОЙ ПРОГРЕСС</div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#6c47ff,#a78bfa);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;flex-shrink:0"><div style="font-size:8px;font-weight:600;opacity:.8">УР.</div><div style="font-size:18px;font-weight:900;line-height:1">12</div></div>
+      <div style="flex:1"><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:13px;font-weight:800;color:#1a1a2e">2 450 / 3 600 XP</span></div><div class="pbar"><div class="pbar-f" style="width:68%"></div></div><div style="font-size:10px;color:#9ca3af;margin-top:3px">До след. уровня: 1 150 XP</div></div>
     </div>
-    <div id="test-categories">
-      <div class="tcat-grid">
-        <div class="tcat" onclick="startTest('Аэропорт','✈️')"><div class="tcat-ico">✈️</div><div class="tcat-name">Аэропорт</div><div class="tcat-info">10 вопросов</div><span class="tcat-xp">+150 XP</span></div>
-        <div class="tcat" onclick="startTest('Больница','🏥')"><div class="tcat-ico">🏥</div><div class="tcat-name">Больница</div><div class="tcat-info">10 вопросов</div><span class="tcat-xp">+150 XP</span></div>
-        <div class="tcat" onclick="startTest('Магазин','🛒')"><div class="tcat-ico">🛒</div><div class="tcat-name">Магазин</div><div class="tcat-info">8 вопросов</div><span class="tcat-xp">+120 XP</span></div>
-        <div class="tcat" onclick="startTest('Банк','🏦')"><div class="tcat-ico">🏦</div><div class="tcat-name">Банк</div><div class="tcat-info">10 вопросов</div><span class="tcat-xp">+160 XP</span></div>
-        <div class="tcat" onclick="startTest('Жильё','🏠')"><div class="tcat-ico">🏠</div><div class="tcat-name">Жильё</div><div class="tcat-info">10 вопросов</div><span class="tcat-xp">+160 XP</span></div>
-        <div class="tcat" onclick="startTest('Работа','💼')"><div class="tcat-ico">💼</div><div class="tcat-name">Работа</div><div class="tcat-info">12 вопросов</div><span class="tcat-xp">+200 XP</span></div>
-        <div class="tcat" onclick="startTest('Транспорт','🚌')"><div class="tcat-ico">🚌</div><div class="tcat-name">Транспорт</div><div class="tcat-info">8 вопросов</div><span class="tcat-xp">+120 XP</span></div>
-        <div class="tcat" onclick="startTest('Экстренные','🚨')"><div class="tcat-ico">🚨</div><div class="tcat-name">Экстренные</div><div class="tcat-info">8 вопросов</div><span class="tcat-xp">+200 XP</span></div>
-      </div>
-    </div>
-    <div class="test-q-wrap" id="test-question">
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;cursor:pointer" onclick="document.getElementById('test-categories').style.display='';document.getElementById('test-question').style.display='none'">
-        <span style="font-size:18px;color:#6c47ff">‹</span>
-        <span style="font-size:14px;font-weight:700;color:#6c47ff">Назад</span>
-        <span id="test-title" style="flex:1;text-align:right;font-size:14px;font-weight:700;color:#1a1a2e"></span>
-      </div>
-      <div class="q-card">
-        <div class="q-header">
-          <span class="q-num">Вопрос 3 / 5</span>
-          <span class="q-timer" id="q-timer">⏱ 25s</span>
-        </div>
-        <div class="q-pbar"><div class="q-pfill"></div></div>
-        <div class="q-text">At customs, the officer asks: "Anything to ___?" Choose the correct word.</div>
-        <div class="q-opt" onclick="selectAnswer(this,true)"><div class="q-letter">A</div>declare</div>
-        <div class="q-opt" onclick="selectAnswer(this,false)"><div class="q-letter">B</div>decide</div>
-        <div class="q-opt" onclick="selectAnswer(this,false)"><div class="q-letter">C</div>delete</div>
-        <div class="q-opt" onclick="selectAnswer(this,false)"><div class="q-letter">D</div>deliver</div>
-      </div>
-      <div id="q-explanation" style="display:none;background:#e8fdf1;border-radius:14px;padding:14px;margin-bottom:12px">
-        <div style="font-size:13px;font-weight:700;color:#16a34a;margin-bottom:4px">✅ Правильно!</div>
-        <div style="font-size:12px;color:#374151">Declare — декларировать. "Nothing to declare" = нечего задекларировать на таможне.</div>
-      </div>
-      <button class="btn-purple" id="q-next-btn" style="display:none" onclick="nextQuestion()">Следующий →</button>
-    </div>
-    <div style="height:16px"></div>
   </div>
-
-  <!-- ══════════ PAGE: LEADERBOARD ══════════ -->
-  <div class="page" id="page-leaderboard">
-    <div class="tabs">
-      <button class="tab active">Игроки</button>
-      <button class="tab">Друзья</button>
-      <button class="tab">Страны</button>
-    </div>
-    <div style="margin:0 16px 10px;padding:10px 14px;background:linear-gradient(135deg,#6c47ff,#8b5cf6);border-radius:14px;display:flex;align-items:center;justify-content:space-between">
-      <div>
-        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.7);letter-spacing:1px">SEASON 1 · LIVE</div>
-        <div style="font-size:12px;color:#fff;font-weight:600">До конца сезона: 32 дн.</div>
-      </div>
-      <div style="font-size:13px;color:rgba(255,255,255,.9);cursor:pointer">🎁 Награды ›</div>
-    </div>
-
-    <!-- podium -->
-    <div class="podium">
-      <div class="pod">
-        <div class="pod-av" style="background:#e2e8f0">🐱</div>
-        <div style="font-size:16px">🥈</div>
-        <div class="pod-name">SkyWalker</div>
-        <div class="pod-xp">XP 18 450</div>
-        <div class="pod-base" style="height:72px;background:linear-gradient(180deg,#cbd5e1,#94a3b8);color:#fff">2</div>
-      </div>
-      <div class="pod">
-        <div style="font-size:20px;margin-bottom:2px">👑</div>
-        <div class="pod-av" style="background:#fef9c3;border:3px solid #fbbf24;width:66px;height:66px;font-size:34px;box-shadow:0 0 20px rgba(251,191,36,.5)">🦊</div>
-        <div style="font-size:18px">🥇</div>
-        <div class="pod-name" style="font-weight:900;color:#6c47ff">FoxLegend</div>
-        <div class="pod-xp" style="font-size:12px">XP 24 500</div>
-        <div class="pod-base" style="height:100px;background:linear-gradient(180deg,#fbbf24,#f59e0b);color:#fff;box-shadow:0 0 20px rgba(251,191,36,.4)">1</div>
-      </div>
-      <div class="pod">
-        <div class="pod-av" style="background:#e2e8f0">🐺</div>
-        <div style="font-size:16px">🥉</div>
-        <div class="pod-name">AeroNinja</div>
-        <div class="pod-xp">XP 22 300</div>
-        <div class="pod-base" style="height:58px;background:linear-gradient(180deg,#d97706,#b45309);color:#fff">3</div>
-      </div>
-    </div>
-
-    <div class="lb-row"><div class="lb-rank top">4</div><div class="lb-av">✈️</div><div class="lb-name">CloudChaser</div><div class="lb-xp">XP 17 890</div><div style="color:#d1d5db;margin-left:4px">›</div></div>
-    <div class="lb-row"><div class="lb-rank top">5</div><div class="lb-av">🎯</div><div class="lb-name">QuestRider</div><div class="lb-xp">XP 15 620</div><div style="color:#d1d5db;margin-left:4px">›</div></div>
-    <div class="lb-row me"><div class="lb-rank top">6</div><div class="lb-av">🦊</div><div class="lb-name me">CatchMaster (Вы)</div><div class="lb-xp">XP 12 450</div><div style="color:#6c47ff;margin-left:4px">›</div></div>
-    <div class="lb-row"><div class="lb-rank">7</div><div class="lb-av">🦆</div><div class="lb-name">TravelDuck</div><div class="lb-xp">XP 11 230</div><div style="color:#d1d5db;margin-left:4px">›</div></div>
-    <div class="lb-row"><div class="lb-rank">8</div><div class="lb-av">🚀</div><div class="lb-name">MilesAhead</div><div class="lb-xp">XP 9 870</div><div style="color:#d1d5db;margin-left:4px">›</div></div>
-    <div class="lb-row"><div class="lb-rank">9</div><div class="lb-av">🌟</div><div class="lb-name">JetSetGo</div><div class="lb-xp">XP 8 430</div><div style="color:#d1d5db;margin-left:4px">›</div></div>
-    <div class="lb-row"><div class="lb-rank">10</div><div class="lb-av">🐾</div><div class="lb-name">WanderFox</div><div class="lb-xp">XP 7 210</div><div style="color:#d1d5db;margin-left:4px">›</div></div>
-
-    <div class="card" style="margin:12px 16px;padding:16px">
-      <div style="font-size:11px;font-weight:800;color:#9ca3af;letter-spacing:1px;margin-bottom:12px">ВАША ПОЗИЦИЯ</div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);text-align:center">
-        <div><div style="font-size:24px;font-weight:900;color:#6c47ff">6</div><div style="font-size:11px;color:#9ca3af">Место</div></div>
-        <div><div style="font-size:24px;font-weight:900;color:#6c47ff">12 450</div><div style="font-size:11px;color:#9ca3af">XP</div></div>
-        <div><div style="font-size:24px;font-weight:900;color:#6c47ff">Топ 7%</div><div style="font-size:11px;color:#9ca3af">Игроков</div></div>
-      </div>
-      <div style="margin-top:12px;padding:8px 12px;background:#ede9ff;border-radius:10px;font-size:12px;color:#6c47ff;font-weight:700;text-align:center">
-        +650 XP на этой неделе 📈
-      </div>
-    </div>
-    <div style="height:16px"></div>
+  <div class="stat-row">
+    <div class="stat-b"><div class="stat-i">⚡</div><div class="stat-v" style="color:#6c47ff;font-size:12px">24 500</div><div class="stat-l">XP</div></div>
+    <div class="stat-b"><div class="stat-i">⭐</div><div class="stat-v">37</div><div class="stat-l">Достижений</div></div>
+    <div class="stat-b"><div class="stat-i">📍</div><div class="stat-v">8/24</div><div class="stat-l">Локаций</div></div>
+    <div class="stat-b"><div class="stat-i">🔥</div><div class="stat-v">5</div><div class="stat-l">Дней подряд</div></div>
   </div>
+  <div class="stitle"><div class="stitle-t">Популярные сценарии</div><div class="stitle-l">Все →</div></div>
+  <div class="sc-card"><div class="sc-img" style="background:#dbeafe">✈️</div><div style="flex:1"><div class="sc-name">Аэропорт</div><div class="sc-desc">Регистрация, багаж, паспортный контроль</div><div style="display:flex;gap:6px"><span class="xp-tag">250 XP</span><span class="diff-e">Лёгкий</span></div></div><div style="color:#d1d5db;font-size:20px">›</div></div>
+  <div class="sc-card"><div class="sc-img" style="background:#dcfce7">🏥</div><div style="flex:1"><div class="sc-name">Врач</div><div class="sc-desc">Запись, симптомы, медицинские термины</div><div style="display:flex;gap:6px"><span class="xp-tag">300 XP</span><span class="diff-e">Лёгкий</span></div></div><div style="color:#d1d5db;font-size:20px">›</div></div>
+  <div class="sc-card"><div class="sc-img" style="background:#fef3c7">🏠</div><div style="flex:1"><div class="sc-name">Аренда жилья</div><div class="sc-desc">Просмотр, договор, арендодатель</div><div style="display:flex;gap:6px"><span class="xp-tag">350 XP</span><span class="diff-m">Средний</span></div></div><div style="color:#d1d5db;font-size:20px">›</div></div>
+  <button class="btn-pu">🗺️ Начать квест →</button>
+</div>
 
-  <!-- ══════════ PAGE: DASHBOARD ══════════ -->
-  <div class="page" id="page-dashboard">
-    <div class="dash-banner" onclick="showPage('scenarios')">
-      <div style="max-width:220px">
-        <div class="dash-banner-title">Продолжай в том же духе!</div>
-        <div class="dash-banner-sub">Ты на верном пути к новым вершинам.</div>
-        <button class="dash-banner-btn">Продолжить квест</button>
-      </div>
-    </div>
-
-    <div class="stitle"><div class="stitle-txt">Твой прогресс</div><div class="stitle-link">За неделю ▾</div></div>
-    <div class="stat-row" style="padding:0 16px 12px">
-      <div class="stat-box"><div class="stat-ico">⚡</div><div class="stat-val" style="color:#6c47ff;font-size:14px">1 250</div><div style="font-size:9px;color:#22c55e;font-weight:700">+250 ↑20%</div><div class="stat-lbl">Заработано</div></div>
-      <div class="stat-box"><div class="stat-ico">🗺️</div><div class="stat-val">5/8</div><div style="font-size:9px;color:#22c55e;font-weight:700">+1 ↑12%</div><div class="stat-lbl">Сценариев</div></div>
-      <div class="stat-box"><div class="stat-ico">📍</div><div class="stat-val">3</div><div style="font-size:9px;color:#22c55e;font-weight:700">+1 ↑33%</div><div class="stat-lbl">Локации</div></div>
-      <div class="stat-box"><div class="stat-ico">🔥</div><div class="stat-val">2</div><div style="font-size:9px;color:#22c55e;font-weight:700">+1 ↑100%</div><div class="stat-lbl">Дня подряд</div></div>
-    </div>
-
-    <div class="stitle"><div class="stitle-txt">Прогресс по категориям</div><div class="stitle-link" onclick="showPage('scenarios')">Смотреть все</div></div>
-    <div class="cat-row" onclick="showPage('scenarios')"><div class="cat-ico" style="background:#dbeafe">✈️</div><div class="cat-info"><div class="cat-name">Аэропорт</div><div class="cat-bar"><div class="cat-fill" style="width:75%"></div></div></div><div class="cat-pct">75% · 6/8</div><div style="color:#d1d5db;margin-left:4px">›</div></div>
-    <div class="cat-row" onclick="showPage('scenarios')"><div class="cat-ico" style="background:#dcfce7">🏥</div><div class="cat-info"><div class="cat-name">Врач</div><div class="cat-bar"><div class="cat-fill" style="width:60%"></div></div></div><div class="cat-pct">60% · 4/8</div><div style="color:#d1d5db;margin-left:4px">›</div></div>
-    <div class="cat-row" onclick="showPage('scenarios')"><div class="cat-ico" style="background:#fef3c7">🏠</div><div class="cat-info"><div class="cat-name">Аренда жилья</div><div class="cat-bar"><div class="cat-fill" style="width:50%"></div></div></div><div class="cat-pct">50% · 3/5</div><div style="color:#d1d5db;margin-left:4px">›</div></div>
-    <div class="cat-row" onclick="showPage('scenarios')"><div class="cat-ico" style="background:#ede9ff">🏦</div><div class="cat-info"><div class="cat-name">Банк</div><div class="cat-bar"><div class="cat-fill" style="width:40%"></div></div></div><div class="cat-pct">40% · 2/5</div><div style="color:#d1d5db;margin-left:4px">›</div></div>
-    <div class="cat-row" onclick="showPage('scenarios')"><div class="cat-ico" style="background:#fce7f3">💼</div><div class="cat-info"><div class="cat-name">Собеседование</div><div class="cat-bar"><div class="cat-fill" style="width:30%"></div></div></div><div class="cat-pct">30% · 1/3</div><div style="color:#d1d5db;margin-left:4px">›</div></div>
-
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 16px">
-      <div style="background:#fff;border-radius:18px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,.06)">
-        <div style="font-size:12px;font-weight:800;color:#9ca3af;letter-spacing:.5px;margin-bottom:8px">ЕЖЕДНЕВНАЯ НАГРАДА</div>
-        <div style="font-size:36px;text-align:center;margin:6px 0;animation:rock .7s ease-in-out infinite alternate">🎁</div>
-        <div style="font-size:10px;color:#9ca3af;text-align:center;margin-bottom:8px">Заходи каждый день</div>
-        <div style="font-size:22px;font-weight:900;color:#1a1a2e;text-align:center;font-family:monospace" id="dash-timer">07:45:22</div>
-        <button style="width:100%;margin-top:10px;background:linear-gradient(135deg,#6c47ff,#8b5cf6);color:#fff;border:none;border-radius:10px;padding:9px;font-size:12px;font-weight:700;cursor:pointer" onclick="openReward()">Получить</button>
-      </div>
-      <div style="background:#fff;border-radius:18px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,.06)">
-        <div style="font-size:12px;font-weight:800;color:#9ca3af;letter-spacing:.5px;margin-bottom:10px">БЛИЖАЙШИЕ ЦЕЛИ</div>
-        <div class="goal-row">
-          <div class="goal-ico">🗺️</div>
-          <div class="goal-info">
-            <div class="goal-name">Пройди 5 сценариев в «Банк»</div>
-            <div class="goal-bar"><div class="goal-fill" style="width:40%"></div></div>
-          </div>
-          <div class="goal-xp">200</div>
-        </div>
-        <div class="goal-row">
-          <div class="goal-ico">📍</div>
-          <div class="goal-info">
-            <div class="goal-name">Открой 5 новых локаций</div>
-            <div class="goal-bar"><div class="goal-fill" style="width:60%"></div></div>
-          </div>
-          <div class="goal-xp">150</div>
-        </div>
-        <div class="goal-row">
-          <div class="goal-ico">⚡</div>
-          <div class="goal-info">
-            <div class="goal-name">Заработай 2000 XP</div>
-            <div class="goal-bar"><div class="goal-fill" style="width:63%"></div></div>
-          </div>
-          <div class="goal-xp">300</div>
-        </div>
-      </div>
-    </div>
-    <div style="height:16px"></div>
+<!-- PAGE: STUDY -->
+<div class="page" id="page-study">
+  <div style="padding:14px 20px 8px;background:#fff;border-bottom:1px solid #ede9ff">
+    <div style="font-size:18px;font-weight:900;color:#1a1a2e">Учёба 📚</div>
+    <div style="font-size:12px;color:#9ca3af;margin-top:2px">Слова, IELTS, советы и больше</div>
   </div>
-
-  <!-- ══════════ PAGE: PROFILE ══════════ -->
-  <div class="page" id="page-profile">
-    <div class="prof-hero">
-      <div class="prof-av">🦊</div>
-      <div class="prof-name">CatchMaster ✏️</div>
-      <div class="prof-badge">🌍 Путешественник</div>
-      <div class="prof-level">
-        <div class="prof-level-txt">Уровень 12 &nbsp;·&nbsp; 2 450 / 3 600 XP</div>
-        <div class="pbar-white"><div class="pbar-white-fill"></div></div>
-        <div style="font-size:11px;color:rgba(255,255,255,.6);margin-top:5px">До след. уровня: 1 150 XP</div>
-      </div>
-    </div>
-
-    <div class="stat-row">
-      <div class="stat-box"><div class="stat-ico">⚡</div><div class="stat-val" style="color:#6c47ff;font-size:13px">24 500</div><div class="stat-lbl">XP</div></div>
-      <div class="stat-box"><div class="stat-ico">⭐</div><div class="stat-val">37</div><div class="stat-lbl">Достижений</div></div>
-      <div class="stat-box"><div class="stat-ico">📍</div><div class="stat-val">8/24</div><div class="stat-lbl">Локаций</div></div>
-      <div class="stat-box"><div class="stat-ico">🔥</div><div class="stat-val">5</div><div class="stat-lbl">Дней подряд</div></div>
-    </div>
-
-    <div class="rank-card">
-      <div class="rank-icon">🛡️</div>
-      <div><div class="rank-name">Путешественник</div><div class="rank-sub">Топ 7% игроков</div></div>
-      <div style="margin-left:auto;color:rgba(255,255,255,.7);font-size:14px">Подробнее →</div>
-    </div>
-
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 16px 10px">
-      <div style="background:#fff;border-radius:16px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
-        <div style="font-size:12px;font-weight:800;color:#9ca3af;letter-spacing:.5px;margin-bottom:8px">ИНФОРМАЦИЯ</div>
-        <div class="info-row" style="padding:7px 0"><span class="info-lbl">E-mail</span><span class="info-val" style="font-size:11px">catch@mail.com</span></div>
-        <div class="info-row" style="padding:7px 0"><span class="info-lbl">Страна</span><span class="info-val">Россия 🇷🇺</span></div>
-        <div class="info-row" style="padding:7px 0"><span class="info-lbl">Язык</span><span class="info-val">Русский</span></div>
-        <div class="info-row" style="padding:7px 0;border:none"><span class="info-lbl">Время в игре</span><span class="info-val">42ч 15м</span></div>
-      </div>
-      <div style="background:#fff;border-radius:16px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
-        <div style="font-size:12px;font-weight:800;color:#9ca3af;letter-spacing:.5px;margin-bottom:8px">КАТЕГОРИИ</div>
-        <div style="display:flex;flex-direction:column;gap:8px">
-          <div><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px"><span style="font-weight:600;color:#1a1a2e">✈️ Аэропорт</span><span style="color:#6c47ff;font-weight:700">75%</span></div><div class="cat-bar"><div class="cat-fill" style="width:75%"></div></div></div>
-          <div><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px"><span style="font-weight:600;color:#1a1a2e">🏥 Врач</span><span style="color:#6c47ff;font-weight:700">60%</span></div><div class="cat-bar"><div class="cat-fill" style="width:60%"></div></div></div>
-          <div><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px"><span style="font-weight:600;color:#1a1a2e">🏠 Жильё</span><span style="color:#6c47ff;font-weight:700">50%</span></div><div class="cat-bar"><div class="cat-fill" style="width:50%"></div></div></div>
-          <div><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px"><span style="font-weight:600;color:#1a1a2e">🏦 Банк</span><span style="color:#6c47ff;font-weight:700">40%</span></div><div class="cat-bar"><div class="cat-fill" style="width:40%"></div></div></div>
-          <div><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px"><span style="font-weight:600;color:#1a1a2e">💼 Работа</span><span style="color:#6c47ff;font-weight:700">30%</span></div><div class="cat-bar"><div class="cat-fill" style="width:30%"></div></div></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="stitle"><div class="stitle-txt">Мои достижения</div><div class="stitle-link">Смотреть все</div></div>
-    <div class="ach-grid">
-      <div class="ach-item"><div class="ach-ico">🥾</div><div class="ach-name">Первые шаги</div><div class="ach-prog">3/3 ✅</div></div>
-      <div class="ach-item"><div class="ach-ico">✈️</div><div class="ach-name">Авиатор</div><div class="ach-prog">1/1 ✅</div></div>
-      <div class="ach-item"><div class="ach-ico">🔍</div><div class="ach-name">Исследователь</div><div class="ach-prog">8/10</div></div>
-      <div class="ach-item"><div class="ach-ico">🏦</div><div class="ach-name">Банкир</div><div class="ach-prog">1/1 ✅</div></div>
-      <div class="ach-item"><div class="ach-ico">🏆</div><div class="ach-name">Мастер квестов</div><div class="ach-prog">12/50</div></div>
-      <div class="ach-item" style="opacity:.4"><div class="ach-ico">🔒</div><div class="ach-name">Легенда</div><div class="ach-prog">0/100</div></div>
-      <div class="ach-item" style="opacity:.4"><div class="ach-ico">🔒</div><div class="ach-name">Полиглот</div><div class="ach-prog">0/1</div></div>
-      <div class="ach-item" style="opacity:.4"><div class="ach-ico">🔒</div><div class="ach-name">Чемпион</div><div class="ach-prog">0/1</div></div>
-    </div>
-    <div style="height:16px"></div>
+  <div class="tabs" id="study-tabs">
+    <button class="tab active" onclick="showStudyTab('words',this)">📖 Слова</button>
+    <button class="tab" onclick="showStudyTab('ielts',this)">🎓 IELTS</button>
+    <button class="tab" onclick="showStudyTab('tips',this)">💡 Советы</button>
+    <button class="tab" onclick="showStudyTab('pics',this)">🖼️ Картинки</button>
+    <button class="tab" onclick="showStudyTab('slang',this)">😎 Сленг</button>
   </div>
-
-  <!-- BOTTOM NAV -->
-  <div class="bnav">
-    <button class="bnav-btn active" onclick="showPage('quests');setNav(this)">
-      <span class="ni">🗺️</span>Квесты
-    </button>
-    <button class="bnav-btn" onclick="showPage('tests');setNav(this)">
-      <span class="ni">📝</span>Тесты
-    </button>
-    <button class="bnav-btn" onclick="showPage('leaderboard');setNav(this)">
-      <span class="ni">🏆</span>Рейтинг
-    </button>
-    <button class="bnav-btn" onclick="showPage('dashboard');setNav(this)">
-      <span class="ni">📊</span>Дашборд
-    </button>
-    <button class="bnav-btn" onclick="showPage('profile');setNav(this)">
-      <span class="ni">👤</span>Профиль
-    </button>
+  <!-- Words -->
+  <div id="stab-words">
+    <div style="display:flex;gap:5px;padding:4px 16px 8px;overflow-x:auto">
+      <button class="tab active" style="padding:5px 12px;font-size:11px">Все</button>
+      <button class="tab" style="padding:5px 12px;font-size:11px">A1</button>
+      <button class="tab" style="padding:5px 12px;font-size:11px">A2</button>
+      <button class="tab" style="padding:5px 12px;font-size:11px">B1</button>
+      <button class="tab" style="padding:5px 12px;font-size:11px">B2</button>
+    </div>
+    <div class="wcard"><div style="display:flex;justify-content:space-between;align-items:start"><div><div class="w-en">passport</div><div class="w-ph">/ˈpæspɔːt/</div><div class="w-ru">паспорт</div></div><span style="font-size:10px;background:#ede9ff;color:#6c47ff;padding:2px 7px;border-radius:999px;font-weight:700">A1</span></div><div class="w-ex">I need to renew my passport before the trip.</div></div>
+    <div class="wcard"><div style="display:flex;justify-content:space-between;align-items:start"><div><div class="w-en">accommodation</div><div class="w-ph">/əˌkɒməˈdeɪʃən/</div><div class="w-ru">жильё</div></div><span style="font-size:10px;background:#ede9ff;color:#6c47ff;padding:2px 7px;border-radius:999px;font-weight:700">B1</span></div><div class="w-ex">The accommodation near the city centre is expensive.</div></div>
+    <div class="wcard"><div style="display:flex;justify-content:space-between;align-items:start"><div><div class="w-en">landlord</div><div class="w-ph">/ˈlændlɔːd/</div><div class="w-ru">арендодатель</div></div><span style="font-size:10px;background:#ede9ff;color:#6c47ff;padding:2px 7px;border-radius:999px;font-weight:700">B1</span></div><div class="w-ex">The landlord asked for two months' deposit.</div></div>
+    <div class="wcard"><div style="display:flex;justify-content:space-between;align-items:start"><div><div class="w-en">visa</div><div class="w-ph">/ˈviːzə/</div><div class="w-ru">виза</div></div><span style="font-size:10px;background:#ede9ff;color:#6c47ff;padding:2px 7px;border-radius:999px;font-weight:700">A1</span></div><div class="w-ex">You'll need a work visa to stay longer than 6 months.</div></div>
+    <div class="wcard"><div style="display:flex;justify-content:space-between;align-items:start"><div><div class="w-en">currency</div><div class="w-ph">/ˈkʌrənsi/</div><div class="w-ru">валюта</div></div><span style="font-size:10px;background:#ede9ff;color:#6c47ff;padding:2px 7px;border-radius:999px;font-weight:700">A2</span></div><div class="w-ex">What currency do they use in Germany?</div></div>
+    <div class="wcard"><div style="display:flex;justify-content:space-between;align-items:start"><div><div class="w-en">insurance</div><div class="w-ph">/ɪnˈʃʊərəns/</div><div class="w-ru">страховка</div></div><span style="font-size:10px;background:#ede9ff;color:#6c47ff;padding:2px 7px;border-radius:999px;font-weight:700">B1</span></div><div class="w-ex">Health insurance is mandatory in most European countries.</div></div>
+    <div class="wcard"><div style="display:flex;justify-content:space-between;align-items:start"><div><div class="w-en">tenancy</div><div class="w-ph">/ˈtenənsi/</div><div class="w-ru">аренда / найм</div></div><span style="font-size:10px;background:#ede9ff;color:#6c47ff;padding:2px 7px;border-radius:999px;font-weight:700">B2</span></div><div class="w-ex">The tenancy agreement must be signed by both parties.</div></div>
+    <div class="wcard"><div style="display:flex;justify-content:space-between;align-items:start"><div><div class="w-en">commute</div><div class="w-ph">/kəˈmjuːt/</div><div class="w-ru">ехать на работу</div></div><span style="font-size:10px;background:#ede9ff;color:#6c47ff;padding:2px 7px;border-radius:999px;font-weight:700">B1</span></div><div class="w-ex">My daily commute takes about 45 minutes.</div></div>
+  </div>
+  <!-- IELTS -->
+  <div id="stab-ielts" style="display:none">
+    <div class="banner" style="background:linear-gradient(135deg,#6c47ff,#8b5cf6);color:#fff;margin-top:10px">
+      <div style="font-size:15px;font-weight:800;margin-bottom:4px">🎓 IELTS — Международный экзамен</div>
+      <div style="font-size:12px;opacity:.85">Шкала 0–9 баллов · Признаётся в 140+ странах</div>
+    </div>
+    <div class="ielts-card" onclick="showSubPage('ielts-reading')"><div class="ielts-ico" style="background:#dbeafe">📖</div><div style="flex:1"><div class="ielts-name">Reading</div><div class="ielts-sub">60 мин · 40 вопросов · Академические тексты</div></div><div style="color:#d1d5db;font-size:20px">›</div></div>
+    <div class="ielts-card" onclick="showSubPage('ielts-writing')"><div class="ielts-ico" style="background:#dcfce7">✍️</div><div style="flex:1"><div class="ielts-name">Writing</div><div class="ielts-sub">60 мин · 2 задания · Эссе и графики</div></div><div style="color:#d1d5db;font-size:20px">›</div></div>
+    <div class="ielts-card" onclick="showSubPage('ielts-listening')"><div class="ielts-ico" style="background:#fef3c7">🎧</div><div style="flex:1"><div class="ielts-name">Listening</div><div class="ielts-sub">30 мин · 40 вопросов · 4 секции</div></div><div style="color:#d1d5db;font-size:20px">›</div></div>
+    <div class="ielts-card" onclick="showSubPage('ielts-speaking')"><div class="ielts-ico" style="background:#fce7f3">🗣️</div><div style="flex:1"><div class="ielts-name">Speaking</div><div class="ielts-sub">11–14 мин · 3 части · Интервью</div></div><div style="color:#d1d5db;font-size:20px">›</div></div>
+    <div class="card cp" style="margin-top:4px">
+      <div style="font-size:12px;font-weight:800;color:#1a1a2e;margin-bottom:8px">Шкала оценок IELTS</div>
+      <div style="display:flex;gap:4px">
+        <div style="flex:1;text-align:center;background:#fef2f2;border-radius:8px;padding:8px 2px"><div style="font-size:13px;font-weight:900;color:#ef4444">4–5</div><div style="font-size:9px;color:#9ca3af">Базовый</div></div>
+        <div style="flex:1;text-align:center;background:#fef9ec;border-radius:8px;padding:8px 2px"><div style="font-size:13px;font-weight:900;color:#d97706">5.5–6</div><div style="font-size:9px;color:#9ca3af">Средний</div></div>
+        <div style="flex:1;text-align:center;background:#e8fdf1;border-radius:8px;padding:8px 2px"><div style="font-size:13px;font-weight:900;color:#16a34a">6.5–7</div><div style="font-size:9px;color:#9ca3af">Хороший</div></div>
+        <div style="flex:1;text-align:center;background:#ede9ff;border-radius:8px;padding:8px 2px"><div style="font-size:13px;font-weight:900;color:#6c47ff">7.5–9</div><div style="font-size:9px;color:#9ca3af">Отлично</div></div>
+      </div>
+    </div>
+  </div>
+  <!-- Tips -->
+  <div id="stab-tips" style="display:none">
+    <div style="padding:12px 20px 8px"><div style="font-size:14px;font-weight:800;color:#1a1a2e">100 советов как сдать IELTS</div><div style="font-size:11px;color:#9ca3af;margin-top:2px">Проверенные методы от практиков</div></div>
+    <div class="tip-card"><div class="tip-num">1</div><div class="tip-text"><h4>Читай The Guardian каждый день</h4><p>Академический стиль текстов максимально близок к IELTS Reading. 20 минут в день.</p></div></div>
+    <div class="tip-card"><div class="tip-num">2</div><div class="tip-text"><h4>Используй Anki для слов</h4><p>Интервальное повторение — самый эффективный метод запоминания лексики для IELTS.</p></div></div>
+    <div class="tip-card"><div class="tip-num">3</div><div class="tip-text"><h4>Смотри BBC без субтитров</h4><p>Привыкай к британскому акценту — именно он используется в Listening IELTS.</p></div></div>
+    <div class="tip-card"><div class="tip-num">4</div><div class="tip-text"><h4>Пиши эссе на время</h4><p>Task 2 — 40 минут, Task 1 — 20 минут. Тренируй тайминг с первых дней.</p></div></div>
+    <div class="tip-card"><div class="tip-num">5</div><div class="tip-text"><h4>Учи linking words</h4><p>Furthermore, however, nevertheless — они дают баллы за Coherence & Cohesion.</p></div></div>
+    <div class="tip-card"><div class="tip-num">6</div><div class="tip-text"><h4>Разговаривай с зеркалом</h4><p>Тренируй Speaking каждый день 10–15 минут, отвечая на типичные вопросы IELTS.</p></div></div>
+    <div class="tip-card"><div class="tip-num">7</div><div class="tip-text"><h4>Слушай TED Talks</h4><p>Разнообразие акцентов и тем идеально готовит к секции Listening.</p></div></div>
+    <div class="tip-card"><div class="tip-num">8</div><div class="tip-text"><h4>Изучи все типы вопросов</h4><p>Multiple choice, True/False/Not Given, Matching — каждый тип требует своей стратегии.</p></div></div>
+    <div class="tip-card"><div class="tip-num">9</div><div class="tip-text"><h4>Думай на английском</h4><p>Не переводи мысленно с русского — это замедляет и снижает баллы в Speaking.</p></div></div>
+    <div class="tip-card"><div class="tip-num">10</div><div class="tip-text"><h4>Пройди mock test за 2–3 нед.</h4><p>Полный пробный экзамен в реальных условиях обязателен перед настоящим тестом.</p></div></div>
+  </div>
+  <!-- Pictures -->
+  <div id="stab-pics" style="display:none">
+    <div style="padding:12px 20px 8px"><div style="font-size:14px;font-weight:800;color:#1a1a2e">Английский по картинкам 🖼️</div><div style="font-size:11px;color:#9ca3af;margin-top:2px">Выбери тему и запомни слова визуально</div></div>
+    <div class="pic-grid">
+      <div class="pic-cat" onclick="showSubPage('pics-home')"><div style="font-size:32px;margin-bottom:6px">🏠</div><div style="font-size:11px;font-weight:700;color:#1a1a2e">Дом</div></div>
+      <div class="pic-cat" onclick="showSubPage('pics-kitchen')"><div style="font-size:32px;margin-bottom:6px">🍳</div><div style="font-size:11px;font-weight:700;color:#1a1a2e">Кухня</div></div>
+      <div class="pic-cat" onclick="showSubPage('pics-hospital')"><div style="font-size:32px;margin-bottom:6px">🏥</div><div style="font-size:11px;font-weight:700;color:#1a1a2e">Больница</div></div>
+      <div class="pic-cat" onclick="showSubPage('pics-airport')"><div style="font-size:32px;margin-bottom:6px">✈️</div><div style="font-size:11px;font-weight:700;color:#1a1a2e">Аэропорт</div></div>
+      <div class="pic-cat" onclick="showSubPage('pics-shop')"><div style="font-size:32px;margin-bottom:6px">🛒</div><div style="font-size:11px;font-weight:700;color:#1a1a2e">Магазин</div></div>
+      <div class="pic-cat" onclick="showSubPage('pics-transport')"><div style="font-size:32px;margin-bottom:6px">🚌</div><div style="font-size:11px;font-weight:700;color:#1a1a2e">Транспорт</div></div>
+    </div>
+  </div>
+  <!-- Slang -->
+  <div id="stab-slang" style="display:none">
+    <div style="padding:12px 20px 8px"><div style="font-size:14px;font-weight:800;color:#1a1a2e">Молодёжный сленг 😎</div></div>
+    <div style="display:flex;gap:5px;padding:0 16px 10px">
+      <button class="tab active" id="slang-tab-s" onclick="showSlangTab('slangs',this)" style="padding:6px 14px;font-size:12px">Сленг</button>
+      <button class="tab" id="slang-tab-r" onclick="showSlangTab('rofl',this)" style="padding:6px 14px;font-size:12px">Рофл-фразы</button>
+    </div>
+    <div id="slang-slangs">
+      <div class="slang-card"><div class="slang-word">sick 🤒</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Крутой / Огонь</div><div style="font-size:11px;color:#9ca3af;margin-top:1px">That new track is sick!</div></div></div>
+      <div class="slang-card"><div class="slang-word">lit 🔥</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Зажигательный</div><div style="font-size:11px;color:#9ca3af;margin-top:1px">The party was lit last night.</div></div></div>
+      <div class="slang-card"><div class="slang-word">vibe ✨</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Атмосфера / Настроение</div><div style="font-size:11px;color:#9ca3af;margin-top:1px">Good vibes only!</div></div></div>
+      <div class="slang-card"><div class="slang-word">sus 👀</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Подозрительный</div><div style="font-size:11px;color:#9ca3af;margin-top:1px">That seems sus to me.</div></div></div>
+      <div class="slang-card"><div class="slang-word">no cap 🧢</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Без шуток / Серьёзно</div><div style="font-size:11px;color:#9ca3af;margin-top:1px">No cap, this is the best pizza.</div></div></div>
+      <div class="slang-card"><div class="slang-word">bet 🤜</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Договорились / Ок</div><div style="font-size:11px;color:#9ca3af;margin-top:1px">— Meet at 5? — Bet!</div></div></div>
+      <div class="slang-card"><div class="slang-word">ghost 👻</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Игнорировать</div><div style="font-size:11px;color:#9ca3af;margin-top:1px">He ghosted me after our date.</div></div></div>
+      <div class="slang-card"><div class="slang-word">lowkey 🤫</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Честно / Тихонько</div><div style="font-size:11px;color:#9ca3af;margin-top:1px">I lowkey love this song.</div></div></div>
+    </div>
+    <div id="slang-rofl" style="display:none">
+      <div class="slang-card"><div class="slang-word">I'm dead 💀</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Умираю со смеху</div><div style="font-size:11px;color:#9ca3af;margin-top:1px">Когда что-то очень смешное</div></div></div>
+      <div class="slang-card"><div class="slang-word">It's giving 💅</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Это ощущается как...</div><div style="font-size:11px;color:#9ca3af;margin-top:1px">It's giving main character energy!</div></div></div>
+      <div class="slang-card"><div class="slang-word">The audacity 😤</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Ну и наглость!</div><div style="font-size:11px;color:#9ca3af;margin-top:1px">The audacity of this person...</div></div></div>
+      <div class="slang-card"><div class="slang-word">That's a vibe ☀️</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Это то что надо</div><div style="font-size:11px;color:#9ca3af;margin-top:1px">Weekend at the beach? That's a vibe.</div></div></div>
+      <div class="slang-card"><div class="slang-word">Slay 👑</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Жги / Красавчик</div><div style="font-size:11px;color:#9ca3af;margin-top:1px">You absolutely slayed that presentation!</div></div></div>
+    </div>
   </div>
 </div>
 
-<!-- REWARD MODAL -->
-<div class="modal" id="reward-modal">
-  <div class="modal-box">
-    <div style="font-size:64px">🎁</div>
-    <div class="modal-title">Ежедневная награда!</div>
-    <div class="modal-sub">Ты заходишь 5 дней подряд 🔥</div>
-    <div class="modal-xp">+250 XP</div>
-    <button style="width:100%;background:linear-gradient(135deg,#6c47ff,#8b5cf6);color:#fff;border:none;border-radius:14px;padding:14px;font-size:15px;font-weight:700;cursor:pointer" onclick="closeModal()">Забрать! 🎉</button>
+<!-- PAGE: MOVE -->
+<div class="page" id="page-move">
+  <div style="padding:14px 20px 10px;background:#fff;border-bottom:1px solid #ede9ff">
+    <div style="font-size:18px;font-weight:900;color:#1a1a2e">Переезд за рубеж ✈️</div>
+    <div style="font-size:12px;color:#9ca3af;margin-top:2px">Всё что нужно знать</div>
+  </div>
+  <div style="padding:12px 16px 8px"><div style="font-size:10px;font-weight:800;color:#9ca3af;letter-spacing:.5px;text-transform:uppercase;margin-bottom:10px">Выбери раздел</div></div>
+  <div class="move-grid">
+    <div class="move-cat" onclick="showSubPage('move-countries')"><div class="ico">🌍</div><div class="lbl">Страны</div></div>
+    <div class="move-cat" onclick="showSubPage('move-visa')"><div class="ico">📋</div><div class="lbl">Виза</div></div>
+    <div class="move-cat" onclick="showSubPage('move-housing')"><div class="ico">🏠</div><div class="lbl">Жильё</div></div>
+    <div class="move-cat" onclick="showSubPage('move-transport')"><div class="ico">🚌</div><div class="lbl">Транспорт</div></div>
+    <div class="move-cat" onclick="showSubPage('move-sim')"><div class="ico">📱</div><div class="lbl">SIM/eSIM</div></div>
+    <div class="move-cat" onclick="showSubPage('move-uni')"><div class="ico">🎓</div><div class="lbl">Университеты</div></div>
+    <div class="move-cat" onclick="showSubPage('move-work')"><div class="ico">💼</div><div class="lbl">Работа</div></div>
+    <div class="move-cat" onclick="showSubPage('move-laws')"><div class="ico">⚖️</div><div class="lbl">Законы</div></div>
+    <div class="move-cat" onclick="showSubPage('move-rights')"><div class="ico">🛡️</div><div class="lbl">Права</div></div>
+    <div class="move-cat" onclick="showSubPage('move-banks')"><div class="ico">🏦</div><div class="lbl">Банки</div></div>
+    <div class="move-cat" onclick="showSubPage('move-shopping')"><div class="ico">🛍️</div><div class="lbl">Шоппинг</div></div>
+    <div class="move-cat" onclick="showSubPage('move-culture')"><div class="ico">🤝</div><div class="lbl">Культура</div></div>
+  </div>
+  <div style="padding:14px 16px 0"><div style="font-size:12px;font-weight:800;color:#1a1a2e;margin-bottom:8px">📌 Чек-лист переезда</div></div>
+  <div class="info-card"><ul><li>Оформить загранпаспорт (минимум за 3 мес.)</li><li>Подать заявку на визу заранее</li><li>Открыть Wise или Revolut для переводов</li><li>Найти жильё до приезда</li><li>Оформить международную страховку</li><li>Купить местную SIM или eSIM</li></ul></div>
+</div>
+
+<!-- PAGE: LEADERBOARD -->
+<div class="page" id="page-leaderboard">
+  <div style="padding:14px 20px 10px;background:#fff;border-bottom:1px solid #ede9ff">
+    <div style="font-size:18px;font-weight:900;color:#1a1a2e">Рейтинг 🏆</div>
+  </div>
+  <div class="podium">
+    <div class="pod"><div class="pod-av" style="background:#e0f2fe">🐸</div><div style="font-size:10px;font-weight:700;color:#1a1a2e">Masha_K</div><div style="font-size:10px;color:#3b82f6;font-weight:700">8 340 XP</div><div class="pod-base" style="height:50px;background:#bfdbfe;color:#1d4ed8">2</div></div>
+    <div class="pod"><div style="font-size:16px;margin-bottom:-2px">👑</div><div class="pod-av" style="background:#fef9c3;border-color:#fbbf24">🦊</div><div style="font-size:10px;font-weight:700;color:#1a1a2e">Alex_Pro</div><div style="font-size:10px;color:#f59e0b;font-weight:700">12 500 XP</div><div class="pod-base" style="height:66px;background:#fde68a;color:#92400e">1</div></div>
+    <div class="pod"><div class="pod-av" style="background:#fce7f3">🐼</div><div style="font-size:10px;font-weight:700;color:#1a1a2e">Ivan_Move</div><div style="font-size:10px;color:#ec4899;font-weight:700">7 100 XP</div><div class="pod-base" style="height:40px;background:#fbcfe8;color:#9d174d">3</div></div>
+  </div>
+  <div style="padding:8px 16px 4px"><div style="font-size:10px;font-weight:800;color:#9ca3af;letter-spacing:.5px;text-transform:uppercase">Остальные участники</div></div>
+  <div class="lb-row"><div class="lb-rank">4</div><div class="lb-av">🐯</div><div style="flex:1"><div style="font-size:13px;font-weight:700;color:#1a1a2e">Katya_UK</div><div style="font-size:10px;color:#9ca3af">Стрик 12 дней</div></div><div style="font-size:13px;font-weight:800;color:#6c47ff">6 820 XP</div></div>
+  <div class="lb-row"><div class="lb-rank">5</div><div class="lb-av">🐧</div><div style="flex:1"><div style="font-size:13px;font-weight:700;color:#1a1a2e">Dima_DE</div><div style="font-size:10px;color:#9ca3af">Стрик 8 дней</div></div><div style="font-size:13px;font-weight:800;color:#6c47ff">5 940 XP</div></div>
+  <div class="lb-row me"><div class="lb-rank" style="color:#6c47ff;font-weight:900">6</div><div class="lb-av">⚡</div><div style="flex:1"><div style="font-size:13px;font-weight:700;color:#6c47ff">Ты 🫵</div><div style="font-size:10px;color:#9ca3af">Стрик 5 дней</div></div><div style="font-size:13px;font-weight:800;color:#6c47ff">4 500 XP</div></div>
+  <div class="lb-row"><div class="lb-rank">7</div><div class="lb-av">🐱</div><div style="flex:1"><div style="font-size:13px;font-weight:700;color:#1a1a2e">Sasha_CA</div><div style="font-size:10px;color:#9ca3af">Стрик 3 дня</div></div><div style="font-size:13px;font-weight:800;color:#6c47ff">3 200 XP</div></div>
+  <div class="lb-row"><div class="lb-rank">8</div><div class="lb-av">🐻</div><div style="flex:1"><div style="font-size:13px;font-weight:700;color:#1a1a2e">Olga_AU</div><div style="font-size:10px;color:#9ca3af">Новичок</div></div><div style="font-size:13px;font-weight:800;color:#6c47ff">2 100 XP</div></div>
+  <div style="margin:10px 16px;background:linear-gradient(135deg,#ede9ff,#f5f4ff);border:1.5px solid #6c47ff;border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:10px">
+    <div style="font-size:22px">⚡</div>
+    <div style="flex:1"><div style="font-size:13px;font-weight:700;color:#6c47ff">Твоя позиция: #6</div><div style="font-size:11px;color:#9ca3af">Ещё 1 440 XP до 5-го места</div></div>
   </div>
 </div>
 
-<!-- QUEST START MODAL -->
-<div class="modal" id="quest-modal">
-  <div class="modal-box">
-    <div style="font-size:52px" id="modal-icon">✈️</div>
-    <div class="modal-title" id="modal-name">Аэропорт</div>
-    <div class="modal-sub">NPC проведёт тебя через сценарий. Выполни задание и получи награду!</div>
-    <div class="modal-xp" id="modal-xp">+250 XP</div>
-    <button style="width:100%;background:linear-gradient(135deg,#6c47ff,#8b5cf6);color:#fff;border:none;border-radius:14px;padding:14px;font-size:15px;font-weight:700;cursor:pointer;margin-bottom:8px" onclick="closeModal()">▶ Начать квест</button>
-    <button style="width:100%;background:#f5f4ff;color:#6c47ff;border:none;border-radius:14px;padding:12px;font-size:14px;font-weight:600;cursor:pointer" onclick="closeModal()">Отмена</button>
+<!-- PAGE: PROFILE -->
+<div class="page" id="page-profile">
+  <div class="prof-hero">
+    <div style="width:78px;height:78px;border-radius:20px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:42px;margin:0 auto 10px;box-shadow:0 8px 28px rgba(0,0,0,.2)">⚡</div>
+    <div style="text-align:center;font-size:20px;font-weight:900;color:#fff;margin-bottom:3px">Ты 🫵</div>
+    <div id="profile-level-text" style="text-align:center;font-size:12px;color:rgba(255,255,255,.8);margin-bottom:12px">Уровень B1 · Учится 23 дня</div>
+    <div style="background:rgba(255,255,255,.15);border-radius:12px;padding:10px 14px;margin:0 4px">
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,.8);margin-bottom:4px"><span>2840 XP</span><span>3500 XP</span></div>
+      <div style="height:6px;background:rgba(255,255,255,.25);border-radius:999px;overflow:hidden"><div style="width:81%;height:100%;background:#fff;border-radius:999px"></div></div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:12px 16px">
+    <div class="stat-b"><div class="stat-i">⚡</div><div class="stat-v" style="color:#6c47ff;font-size:11px">2,840</div><div class="stat-l">XP</div></div>
+    <div class="stat-b"><div class="stat-i">🔥</div><div class="stat-v">7дн</div><div class="stat-l">Стрик</div></div>
+    <div class="stat-b"><div class="stat-i">🗺️</div><div class="stat-v">23</div><div class="stat-l">Квестов</div></div>
+    <div class="stat-b"><div class="stat-i">📚</div><div class="stat-v">847</div><div class="stat-l">Слов</div></div>
+  </div>
+  <div class="ptab-row">
+    <button class="ptab active" id="ptab-ach-btn" onclick="showProfileTab('ach',this)">🏆 Награды</button>
+    <button class="ptab" id="ptab-hist-btn" onclick="showProfileTab('hist',this)">📜 История</button>
+    <button class="ptab" id="ptab-miss-btn" onclick="showProfileTab('miss',this)">🎯 Ошибки</button>
+  </div>
+  <div id="ptab-ach">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:12px 16px">
+      <div style="background:#fff;border-radius:14px;padding:12px 7px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.05);border:1px solid rgba(16,185,129,.3)"><div style="font-size:24px;margin-bottom:4px">👣</div><div style="font-size:10px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Первые шаги</div><div style="font-size:9px;color:#10b981;font-weight:700">Получено ✓</div></div>
+      <div style="background:#fff;border-radius:14px;padding:12px 7px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.05);border:1px solid rgba(59,130,246,.3)"><div style="font-size:24px;margin-bottom:4px">📚</div><div style="font-size:10px;font-weight:700;color:#1a1a2e;margin-bottom:2px">100 слов</div><div style="font-size:9px;color:#3b82f6;font-weight:700">Получено ✓</div></div>
+      <div style="background:#fff;border-radius:14px;padding:12px 7px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.05);border:1px solid rgba(249,115,22,.3)"><div style="font-size:24px;margin-bottom:4px">🔥</div><div style="font-size:10px;font-weight:700;color:#1a1a2e;margin-bottom:2px">7 дней</div><div style="font-size:9px;color:#f97316;font-weight:700">Получено ✓</div></div>
+      <div style="background:#fff;border-radius:14px;padding:12px 7px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.05);border:1px solid rgba(168,85,247,.3)"><div style="font-size:24px;margin-bottom:4px">✈️</div><div style="font-size:10px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Путешественник</div><div style="font-size:9px;color:#a855f7;font-weight:700">Получено ✓</div></div>
+      <div style="background:#fff;border-radius:14px;padding:12px 7px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.05);opacity:.5"><div style="font-size:24px;margin-bottom:4px">💪</div><div style="font-size:10px;font-weight:700;color:#1a1a2e;margin-bottom:2px">30 дней</div><div style="font-size:9px;color:#9ca3af">🔒 Не открыто</div></div>
+      <div style="background:#fff;border-radius:14px;padding:12px 7px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.05);opacity:.5"><div style="font-size:24px;margin-bottom:4px">🌍</div><div style="font-size:10px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Полиглот B2</div><div style="font-size:9px;color:#9ca3af">🔒 Не открыто</div></div>
+    </div>
+  </div>
+  <div id="ptab-hist" style="display:none;padding:10px 0">
+    <div class="lb-row"><div style="font-size:22px">✈️</div><div style="flex:1;padding:0 6px"><div style="font-size:13px;font-weight:700;color:#1a1a2e">Квест «Регистрация на рейс»</div><div style="font-size:10px;color:#9ca3af">Сегодня</div></div><div style="font-size:12px;font-weight:800;color:#6c47ff">+80 XP</div></div>
+    <div class="lb-row"><div style="font-size:22px">📝</div><div style="flex:1;padding:0 6px"><div style="font-size:13px;font-weight:700;color:#1a1a2e">Тест «Аэропорт» — 80%</div><div style="font-size:10px;color:#9ca3af">Сегодня</div></div><div style="font-size:12px;font-weight:800;color:#6c47ff">+120 XP</div></div>
+    <div class="lb-row"><div style="font-size:22px">📚</div><div style="flex:1;padding:0 6px"><div style="font-size:13px;font-weight:700;color:#1a1a2e">Выучено 15 новых слов</div><div style="font-size:10px;color:#9ca3af">Вчера</div></div><div style="font-size:12px;font-weight:800;color:#6c47ff">+50 XP</div></div>
+    <div class="lb-row"><div style="font-size:22px">🏥</div><div style="flex:1;padding:0 6px"><div style="font-size:13px;font-weight:700;color:#1a1a2e">Квест «Запись к врачу»</div><div style="font-size:10px;color:#9ca3af">Вчера</div></div><div style="font-size:12px;font-weight:800;color:#6c47ff">+90 XP</div></div>
+  </div>
+  <div id="ptab-miss" style="display:none;padding:10px 0">
+    <div class="banner" style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.3)"><div style="font-size:13px;font-weight:800;color:#d97706;margin-bottom:4px">⚠️ Слабые места</div><div style="font-size:11px;color:#6b7280">Эти темы стоит повторить</div></div>
+    <div class="lb-row"><div style="font-size:22px">📝</div><div style="flex:1;padding:0 6px"><div style="font-size:13px;font-weight:700;color:#1a1a2e">Условные предложения</div><div style="font-size:10px;color:#9ca3af">B1 · 12 ошибок</div></div><button style="font-size:11px;color:#6c47ff;background:none;border:none;cursor:pointer;font-weight:700">Повторить →</button></div>
+    <div class="lb-row"><div style="font-size:22px">🏥</div><div style="flex:1;padding:0 6px"><div style="font-size:13px;font-weight:700;color:#1a1a2e">Медицинская лексика</div><div style="font-size:10px;color:#9ca3af">B1 · 8 ошибок</div></div><button style="font-size:11px;color:#6c47ff;background:none;border:none;cursor:pointer;font-weight:700">Повторить →</button></div>
+    <div class="lb-row"><div style="font-size:22px">📖</div><div style="flex:1;padding:0 6px"><div style="font-size:13px;font-weight:700;color:#1a1a2e">Неправильные глаголы</div><div style="font-size:10px;color:#9ca3af">A2 · 7 ошибок</div></div><button style="font-size:11px;color:#6c47ff;background:none;border:none;cursor:pointer;font-weight:700">Повторить →</button></div>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bnav" id="main-bnav" style="display:none">
+  <button class="nb active" onclick="showPage('home');setNav(this)"><div class="ico">🏠</div>Квесты</button>
+  <button class="nb" onclick="showPage('study');setNav(this)"><div class="ico">📚</div>Учёба</button>
+  <button class="nb" onclick="showPage('move');setNav(this)"><div class="ico">✈️</div>Переезд</button>
+  <button class="nb" onclick="showPage('leaderboard');setNav(this)"><div class="ico">🏆</div>Рейтинг</button>
+  <button class="nb" onclick="showPage('profile');setNav(this)"><div class="ico">👤</div>Профиль</button>
+</div>
+
+
+<!-- ═══════════ SUB-PAGES ═══════════ -->
+
+<!-- IELTS Reading -->
+<div class="subpage" id="sub-ielts-reading">
+  <div class="sub-hdr"><button class="back-btn" onclick="hideSubPage()">←</button><div class="sub-title">📖 IELTS Reading</div></div>
+  <div style="padding:12px 16px 4px"><div style="font-size:12px;color:#9ca3af;line-height:1.6">Прочитай отрывок и ответь на вопросы. В реальном IELTS — 3 текста, 40 вопросов за 60 минут.</div></div>
+  <div class="q-card"><div class="q-num">Вопрос 1 из 3 · Reading</div><div class="q-text">The passage states that urban migration has increased by 40% since 2010. What does this suggest about housing demand?</div><div class="q-opt" onclick="answerQ(this,true)"><div class="q-letter">A</div>Housing demand has likely increased significantly</div><div class="q-opt" onclick="answerQ(this,false)"><div class="q-letter">B</div>Housing demand has remained stable</div><div class="q-opt" onclick="answerQ(this,false)"><div class="q-letter">C</div>Housing demand has decreased in cities</div><div class="q-opt" onclick="answerQ(this,false)"><div class="q-letter">D</div>The passage does not address housing</div></div>
+  <div class="q-card"><div class="q-num">Вопрос 2 из 3 · True / False / Not Given</div><div class="q-text">"The government introduced new immigration policies in 2015." — Is this True, False, or Not Given based on the passage?</div><div class="q-opt" onclick="answerQ(this,false)"><div class="q-letter">A</div>True</div><div class="q-opt" onclick="answerQ(this,false)"><div class="q-letter">B</div>False</div><div class="q-opt" onclick="answerQ(this,true)"><div class="q-letter">C</div>Not Given</div></div>
+  <div class="q-card"><div class="q-num">Вопрос 3 из 3 · Vocabulary</div><div class="q-text">The word "prevalent" in paragraph 3 is closest in meaning to:</div><div class="q-opt" onclick="answerQ(this,false)"><div class="q-letter">A</div>rare</div><div class="q-opt" onclick="answerQ(this,true)"><div class="q-letter">B</div>widespread</div><div class="q-opt" onclick="answerQ(this,false)"><div class="q-letter">C</div>dangerous</div><div class="q-opt" onclick="answerQ(this,false)"><div class="q-letter">D</div>unexpected</div></div>
+</div>
+
+<!-- IELTS Writing -->
+<div class="subpage" id="sub-ielts-writing">
+  <div class="sub-hdr"><button class="back-btn" onclick="hideSubPage()">←</button><div class="sub-title">✍️ IELTS Writing</div></div>
+  <div class="q-card" style="margin-top:12px"><div class="q-num">Task 1 — Описание графика (20 мин)</div><div class="q-text">The chart below shows changes in the percentage of people using public transport in three cities between 2000 and 2020. Summarise the information and report the main features.</div><div style="background:#ede9ff;border-radius:10px;padding:12px;margin-top:8px"><div style="font-size:12px;color:#6c47ff;font-weight:700;margin-bottom:6px">📊 Пример структуры ответа:</div><div style="font-size:11px;color:#6b7280;line-height:1.6">1. Introduction: paraphrase the question<br>2. Overview: 2 main trends<br>3. Body 1: compare City A and B<br>4. Body 2: describe City C changes</div></div></div>
+  <div class="q-card"><div class="q-num">Task 2 — Эссе (40 мин)</div><div class="q-text">Some people believe that it is better to live in a big city, while others prefer rural areas. Discuss both views and give your own opinion.</div><div style="background:#ede9ff;border-radius:10px;padding:12px;margin-top:8px"><div style="font-size:12px;color:#6c47ff;font-weight:700;margin-bottom:6px">📝 Структура эссе:</div><div style="font-size:11px;color:#6b7280;line-height:1.6">Introduction (2–3 sen) → Body 1: city life pros → Body 2: rural life pros → Your opinion → Conclusion<br><br>Минимум: 250 слов</div></div></div>
+</div>
+
+<!-- IELTS Listening -->
+<div class="subpage" id="sub-ielts-listening">
+  <div class="sub-hdr"><button class="back-btn" onclick="hideSubPage()">←</button><div class="sub-title">🎧 IELTS Listening</div></div>
+  <div style="padding:10px 16px 0"><div style="font-size:12px;color:#9ca3af;line-height:1.5">4 секции · 40 вопросов · 30 минут + 10 мин на перенос</div></div>
+  <div class="q-card" style="margin-top:10px"><div class="q-num">Section 1 · Практика</div><div class="q-text">You hear two people discussing accommodation. The rent is £_____ per month. (Fill in the blank)</div><div class="q-opt" onclick="answerQ(this,false)"><div class="q-letter">A</div>£650</div><div class="q-opt" onclick="answerQ(this,true)"><div class="q-letter">B</div>£750</div><div class="q-opt" onclick="answerQ(this,false)"><div class="q-letter">C</div>£850</div><div class="q-opt" onclick="answerQ(this,false)"><div class="q-letter">D</div>£950</div></div>
+  <div class="q-card"><div class="q-num">Section 2 · Монолог</div><div class="q-text">A guide is describing a museum. When does the museum close on Sundays?</div><div class="q-opt" onclick="answerQ(this,false)"><div class="q-letter">A</div>4:00 PM</div><div class="q-opt" onclick="answerQ(this,false)"><div class="q-letter">B</div>5:00 PM</div><div class="q-opt" onclick="answerQ(this,true)"><div class="q-letter">C</div>6:00 PM</div><div class="q-opt" onclick="answerQ(this,false)"><div class="q-letter">D</div>7:00 PM</div></div>
+  <div class="info-card" style="margin-top:4px"><h4>💡 Советы для Listening</h4><ul><li>Читай вопросы ДО начала записи</li><li>Пиши ответы во время прослушивания</li><li>Следи за ключевыми словами (numbers, names, dates)</li><li>Не исправляй каждую ошибку — двигайся дальше</li></ul></div>
+</div>
+
+<!-- IELTS Speaking -->
+<div class="subpage" id="sub-ielts-speaking">
+  <div class="sub-hdr"><button class="back-btn" onclick="hideSubPage()">←</button><div class="sub-title">🗣️ IELTS Speaking</div></div>
+  <div class="q-card" style="margin-top:12px"><div class="q-num">Part 1 — Вопросы о себе (4–5 мин)</div><div class="q-text">Tell me about your hometown. What do you like most about living there?</div><div style="background:#e8fdf1;border-radius:10px;padding:10px;margin-top:8px"><div style="font-size:11px;color:#16a34a;font-weight:700;margin-bottom:4px">✅ Хороший ответ (Band 7+):</div><div style="font-size:11px;color:#6b7280;line-height:1.6">"I'm from Moscow, which is a vibrant and dynamic city. What I particularly enjoy is the incredible variety of cultural activities available — from world-class museums to live theatre performances. However, I must admit that the fast pace of life can sometimes be overwhelming."</div></div></div>
+  <div class="q-card"><div class="q-num">Part 2 — Монолог (1–2 мин)</div><div class="q-text">Describe a memorable journey you have taken. You should say: where you went, how you travelled, who you were with, and why it was memorable.</div><div style="background:#ede9ff;border-radius:10px;padding:10px;margin-top:8px"><div style="font-size:11px;color:#6c47ff;font-weight:700;margin-bottom:4px">📌 Структура ответа:</div><div style="font-size:11px;color:#6b7280;line-height:1.6">Introduction → Details (where/how/who) → Main story → Why memorable → Conclusion (1–2 sentences)</div></div></div>
+  <div class="q-card"><div class="q-num">Part 3 — Дискуссия (4–5 мин)</div><div class="q-text">Do you think people travel more or less than they did in the past? Why?</div><div style="background:#fef9ec;border-radius:10px;padding:10px;margin-top:8px"><div style="font-size:11px;color:#d97706;font-weight:700;margin-bottom:4px">💬 Полезные фразы:</div><div style="font-size:11px;color:#6b7280;line-height:1.6">"That's an interesting question..." · "I would argue that..." · "On the one hand... On the other hand..." · "From my perspective..."</div></div></div>
+</div>
+
+<!-- Pictures: Home -->
+<div class="subpage" id="sub-pics-home">
+  <div class="sub-hdr"><button class="back-btn" onclick="hideSubPage()">←</button><div class="sub-title">🏠 Дом</div></div>
+  <div style="padding:10px 0 0"></div>
+  <div class="pic-items">
+    <div class="pic-item"><div style="font-size:28px;margin-bottom:4px">🛋️</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">sofa</div><div style="font-size:10px;color:#9ca3af">диван</div></div>
+    <div class="pic-item"><div style="font-size:28px;margin-bottom:4px">🪟</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">window</div><div style="font-size:10px;color:#9ca3af">окно</div></div>
+    <div class="pic-item"><div style="font-size:28px;margin-bottom:4px">🚿</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">shower</div><div style="font-size:10px;color:#9ca3af">душ</div></div>
+    <div class="pic-item"><div style="font-size:28px;margin-bottom:4px">🛏️</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">bed</div><div style="font-size:10px;color:#9ca3af">кровать</div></div>
+    <div class="pic-item"><div style="font-size:28px;margin-bottom:4px">🪑</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">chair</div><div style="font-size:10px;color:#9ca3af">стул</div></div>
+    <div class="pic-item"><div style="font-size:28px;margin-bottom:4px">🏠</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">door</div><div style="font-size:10px;color:#9ca3af">дверь</div></div>
+  </div>
+</div>
+
+<!-- Pictures: Kitchen -->
+<div class="subpage" id="sub-pics-kitchen">
+  <div class="sub-hdr"><button class="back-btn" onclick="hideSubPage()">←</button><div class="sub-title">🍳 Кухня</div></div>
+  <div style="padding:10px 0 0"></div>
+  <div class="pic-items">
+    <div class="pic-item"><div style="font-size:28px;margin-bottom:4px">🍳</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">frying pan</div><div style="font-size:10px;color:#9ca3af">сковорода</div></div>
+    <div class="pic-item"><div style="font-size:28px;margin-bottom:4px">🥄</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">spoon</div><div style="font-size:10px;color:#9ca3af">ложка</div></div>
+    <div class="pic-item"><div style="font-size:28px;margin-bottom:4px">🔪</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">knife</div><div style="font-size:10px;color:#9ca3af">нож</div></div>
+    <div class="pic-item"><div style="font-size:28px;margin-bottom:4px">🫕</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">pot</div><div style="font-size:10px;color:#9ca3af">кастрюля</div></div>
+    <div class="pic-item"><div style="font-size:28px;margin-bottom:4px">🥤</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">glass</div><div style="font-size:10px;color:#9ca3af">стакан</div></div>
+    <div class="pic-item"><div style="font-size:28px;margin-bottom:4px">🫙</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">jar</div><div style="font-size:10px;color:#9ca3af">банка</div></div>
+  </div>
+</div>
+
+<!-- Pictures: Airport -->
+<div class="subpage" id="sub-pics-airport">
+  <div class="sub-hdr"><button class="back-btn" onclick="hideSubPage()">←</button><div class="sub-title">✈️ Аэропорт</div></div>
+  <div style="padding:10px 0 0"></div>
+  <div class="pic-items">
+    <div class="pic-item"><div style="font-size:28px;margin-bottom:4px">🛂</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">passport control</div><div style="font-size:10px;color:#9ca3af">паспортный контроль</div></div>
+    <div class="pic-item"><div style="font-size:28px;margin-bottom:4px">🧳</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">luggage</div><div style="font-size:10px;color:#9ca3af">багаж</div></div>
+    <div class="pic-item"><div style="font-size:28px;margin-bottom:4px">🎫</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">boarding pass</div><div style="font-size:10px;color:#9ca3af">посадочный талон</div></div>
+    <div class="pic-item"><div style="font-size:28px;margin-bottom:4px">🛃</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">customs</div><div style="font-size:10px;color:#9ca3af">таможня</div></div>
+    <div class="pic-item"><div style="font-size:28px;margin-bottom:4px">🚪</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">gate</div><div style="font-size:10px;color:#9ca3af">выход на посадку</div></div>
+    <div class="pic-item"><div style="font-size:28px;margin-bottom:4px">✈️</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">flight</div><div style="font-size:10px;color:#9ca3af">рейс</div></div>
+  </div>
+</div>
+
+<!-- Pictures: Hospital -->
+<div class="subpage" id="sub-pics-hospital">
+  <div class="sub-hdr"><button class="back-btn" onclick="hideSubPage()">←</button><div class="sub-title">🏥 Больница</div></div>
+  <div style="padding:10px 0 0"></div>
+  <div class="pic-items">
+    <div class="pic-item"><div style="font-size:28px;margin-bottom:4px">💊</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">pill</div><div style="font-size:10px;color:#9ca3af">таблетка</div></div>
+    <div class="pic-item"><div style="font-size:28px;margin-bottom:4px">🩺</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">stethoscope</div><div style="font-size:10px;color:#9ca3af">стетоскоп</div></div>
+    <div class="pic-item"><div style="font-size:28px;margin-bottom:4px">🩹</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">plaster</div><div style="font-size:10px;color:#9ca3af">пластырь</div></div>
+    <div class="pic-item"><div style="font-size:28px;margin-bottom:4px">💉</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">injection</div><div style="font-size:10px;color:#9ca3af">укол</div></div>
+    <div class="pic-item"><div style="font-size:28px;margin-bottom:4px">🩻</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">X-ray</div><div style="font-size:10px;color:#9ca3af">рентген</div></div>
+    <div class="pic-item"><div style="font-size:28px;margin-bottom:4px">📋</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">prescription</div><div style="font-size:10px;color:#9ca3af">рецепт</div></div>
+  </div>
+</div>
+
+<!-- Pictures: Shop -->
+<div class="subpage" id="sub-pics-shop">
+  <div class="sub-hdr"><button class="back-btn" onclick="hideSubPage()">←</button><div class="sub-title">🛒 Магазин</div></div>
+  <div style="padding:10px 0 0"></div>
+  <div class="pic-items">
+    <div class="pic-item"><div style="font-size:28px;margin-bottom:4px">🧾</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">receipt</div><div style="font-size:10px;color:#9ca3af">чек</div></div>
+    <div class="pic-item"><div style="font-size:28px;margin-bottom:4px">🏷️</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">price tag</div><div style="font-size:10px;color:#9ca3af">ценник</div></div>
+    <div class="pic-item"><div style="font-size:28px;margin-bottom:4px">💳</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">card</div><div style="font-size:10px;color:#9ca3af">карта</div></div>
+    <div class="pic-item"><div style="font-size:28px;margin-bottom:4px">🛍️</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">bag</div><div style="font-size:10px;color:#9ca3af">пакет</div></div>
+    <div class="pic-item"><div style="font-size:28px;margin-bottom:4px">🔖</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">discount</div><div style="font-size:10px;color:#9ca3af">скидка</div></div>
+    <div class="pic-item"><div style="font-size:28px;margin-bottom:4px">📦</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">package</div><div style="font-size:10px;color:#9ca3af">упаковка</div></div>
+  </div>
+</div>
+
+<!-- Pictures: Transport -->
+<div class="subpage" id="sub-pics-transport">
+  <div class="sub-hdr"><button class="back-btn" onclick="hideSubPage()">←</button><div class="sub-title">🚌 Транспорт</div></div>
+  <div style="padding:10px 0 0"></div>
+  <div class="pic-items">
+    <div class="pic-item"><div style="font-size:28px;margin-bottom:4px">🚇</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">subway / tube</div><div style="font-size:10px;color:#9ca3af">метро</div></div>
+    <div class="pic-item"><div style="font-size:28px;margin-bottom:4px">🚌</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">bus</div><div style="font-size:10px;color:#9ca3af">автобус</div></div>
+    <div class="pic-item"><div style="font-size:28px;margin-bottom:4px">🚲</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">bicycle</div><div style="font-size:10px;color:#9ca3af">велосипед</div></div>
+    <div class="pic-item"><div style="font-size:28px;margin-bottom:4px">🚖</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">taxi / cab</div><div style="font-size:10px;color:#9ca3af">такси</div></div>
+    <div class="pic-item"><div style="font-size:28px;margin-bottom:4px">🚆</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">train</div><div style="font-size:10px;color:#9ca3af">поезд</div></div>
+    <div class="pic-item"><div style="font-size:28px;margin-bottom:4px">🎫</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">ticket</div><div style="font-size:10px;color:#9ca3af">билет</div></div>
+  </div>
+</div>
+
+<!-- MOVE: Countries -->
+<div class="subpage" id="sub-move-countries">
+  <div class="sub-hdr"><button class="back-btn" onclick="hideSubPage()">←</button><div class="sub-title">🌍 Страны для переезда</div></div>
+  <div style="padding:10px 16px 4px"><div style="font-size:12px;font-weight:800;color:#1a1a2e;margin-bottom:4px">Средние зарплаты</div></div>
+  <div class="sal-table">
+    <div class="sal-row head"><div style="font-size:11px;font-weight:800;color:#6c47ff">Страна</div><div style="font-size:11px;font-weight:800;color:#6c47ff;text-align:right">Ср. зарплата</div><div style="font-size:11px;font-weight:800;color:#6c47ff;text-align:right">Минималка</div></div>
+    <div class="sal-row"><div><span style="font-size:16px">🇬🇧</span> <span style="font-size:13px;font-weight:700">Великобритания</span></div><div style="font-size:12px;font-weight:700;color:#6c47ff;text-align:right">£35 000/год</div><div style="font-size:11px;color:#9ca3af;text-align:right">£11.44/ч</div></div>
+    <div class="sal-row"><div><span style="font-size:16px">🇺🇸</span> <span style="font-size:13px;font-weight:700">США</span></div><div style="font-size:12px;font-weight:700;color:#6c47ff;text-align:right">$62 000/год</div><div style="font-size:11px;color:#9ca3af;text-align:right">$7.25/ч</div></div>
+    <div class="sal-row"><div><span style="font-size:16px">🇨🇦</span> <span style="font-size:13px;font-weight:700">Канада</span></div><div style="font-size:12px;font-weight:700;color:#6c47ff;text-align:right">C$55 000/год</div><div style="font-size:11px;color:#9ca3af;text-align:right">C$15–17/ч</div></div>
+    <div class="sal-row"><div><span style="font-size:16px">🇦🇺</span> <span style="font-size:13px;font-weight:700">Австралия</span></div><div style="font-size:12px;font-weight:700;color:#6c47ff;text-align:right">A$68 000/год</div><div style="font-size:11px;color:#9ca3af;text-align:right">A$23.23/ч</div></div>
+    <div class="sal-row"><div><span style="font-size:16px">🇩🇪</span> <span style="font-size:13px;font-weight:700">Германия</span></div><div style="font-size:12px;font-weight:700;color:#6c47ff;text-align:right">€45 000/год</div><div style="font-size:11px;color:#9ca3af;text-align:right">€12/ч</div></div>
+  </div>
+  <div style="padding:10px 16px 4px"><div style="font-size:12px;font-weight:800;color:#1a1a2e;margin-bottom:6px">Плюсы и минусы</div></div>
+  <div class="info-card"><h4>🇬🇧 Великобритания</h4><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px"><div><div style="font-size:11px;font-weight:800;color:#16a34a;margin-bottom:3px">✅ Плюсы</div><div style="font-size:11px;color:#6b7280;line-height:1.6">• Мировой финансовый центр<br>• Сильная система NHS<br>• Мультикультурное общество<br>• Высокий уровень жизни</div></div><div><div style="font-size:11px;font-weight:800;color:#ef4444;margin-bottom:3px">❌ Минусы</div><div style="font-size:11px;color:#6b7280;line-height:1.6">• Дорогое жильё в Лондоне<br>• Дождливый климат<br>• Высокие налоги<br>• Сложный Brexit</div></div></div></div>
+  <div class="info-card"><h4>🇩🇪 Германия</h4><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px"><div><div style="font-size:11px;font-weight:800;color:#16a34a;margin-bottom:3px">✅ Плюсы</div><div style="font-size:11px;color:#6b7280;line-height:1.6">• Бесплатное образование<br>• Стабильная экономика<br>• Центр Европы<br>• Социальные гарантии</div></div><div><div style="font-size:11px;font-weight:800;color:#ef4444;margin-bottom:3px">❌ Минусы</div><div style="font-size:11px;color:#6b7280;line-height:1.6">• Нужен немецкий<br>• Бюрократия<br>• Закрытое общество<br>• Дорогой быт</div></div></div></div>
+  <div style="margin:10px 16px;background:linear-gradient(135deg,#ede9ff,#f5f4ff);border-radius:14px;padding:12px 14px;border:1px solid #c4b5fd">
+    <div style="font-size:12px;font-weight:800;color:#6c47ff;margin-bottom:4px">💡 Совет</div>
+    <div style="font-size:11px;color:#6b7280;line-height:1.5">Не зацикливайся на одной стране. Канада и Австралия часто проще для первого переезда — открытые визовые системы и дружелюбное общество к иммигрантам.</div>
+  </div>
+</div>
+
+<!-- MOVE: Visa -->
+<div class="subpage" id="sub-move-visa">
+  <div class="sub-hdr"><button class="back-btn" onclick="hideSubPage()">←</button><div class="sub-title">📋 Визы и разрешения</div></div>
+  <div class="visa-card" style="margin-top:12px"><div style="font-size:14px;font-weight:800;color:#1a1a2e;margin-bottom:4px">🏖️ Туристическая виза</div><div style="font-size:12px;color:#9ca3af;margin-bottom:6px">Для краткосрочных поездок</div><div style="display:flex;justify-content:space-between;margin-top:4px;border-top:1px solid #f5f4ff;padding-top:6px"><div><div style="font-size:10px;color:#9ca3af">Цена</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">€80–160</div></div><div><div style="font-size:10px;color:#9ca3af">Срок</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">2–8 недель</div></div><div><div style="font-size:10px;color:#9ca3af">Пребывание</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">До 90 дней</div></div></div></div>
+  <div class="visa-card"><div style="font-size:14px;font-weight:800;color:#1a1a2e;margin-bottom:4px">💼 Рабочая виза</div><div style="font-size:12px;color:#9ca3af;margin-bottom:6px">Для трудоустройства за рубежом</div><div style="display:flex;justify-content:space-between;margin-top:4px;border-top:1px solid #f5f4ff;padding-top:6px"><div><div style="font-size:10px;color:#9ca3af">Цена</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">£715–1 500</div></div><div><div style="font-size:10px;color:#9ca3af">Срок</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">8–16 недель</div></div><div><div style="font-size:10px;color:#9ca3af">Пребывание</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">1–5 лет</div></div></div></div>
+  <div class="visa-card"><div style="font-size:14px;font-weight:800;color:#1a1a2e;margin-bottom:4px">🎓 Студенческая виза</div><div style="font-size:12px;color:#9ca3af;margin-bottom:6px">Для обучения в зарубежных вузах</div><div style="display:flex;justify-content:space-between;margin-top:4px;border-top:1px solid #f5f4ff;padding-top:6px"><div><div style="font-size:10px;color:#9ca3af">Цена</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">£490–700</div></div><div><div style="font-size:10px;color:#9ca3af">Срок</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">3–12 недель</div></div><div><div style="font-size:10px;color:#9ca3af">Пребывание</div><div style="font-size:12px;font-weight:700;color:#1a1a2e">До 5 лет</div></div></div></div>
+  <div style="padding:10px 16px 4px"><div style="font-size:12px;font-weight:800;color:#1a1a2e;margin-bottom:6px">🌐 Официальные сайты</div></div>
+  <div class="info-card"><ul><li><b>UK:</b> gov.uk/visas-immigration</li><li><b>USA:</b> travel.state.gov</li><li><b>Canada:</b> canada.ca/immigration</li><li><b>Australia:</b> immi.homeaffairs.gov.au</li><li><b>Germany:</b> make-it-in-germany.com</li></ul></div>
+</div>
+
+<!-- MOVE: Housing -->
+<div class="subpage" id="sub-move-housing">
+  <div class="sub-hdr"><button class="back-btn" onclick="hideSubPage()">←</button><div class="sub-title">🏠 Где найти жильё</div></div>
+  <div style="padding:10px 16px 4px"><div style="font-size:12px;font-weight:800;color:#1a1a2e;margin-bottom:6px">Сайты для поиска</div></div>
+  <div class="site-card"><div class="site-ico">🏠</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Rightmove</div><div style="font-size:11px;color:#9ca3af">Крупнейший сайт UK · rightmove.co.uk</div></div></div>
+  <div class="site-card"><div class="site-ico">🔍</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Zoopla</div><div style="font-size:11px;color:#9ca3af">Аренда и покупка UK · zoopla.co.uk</div></div></div>
+  <div class="site-card"><div class="site-ico">👥</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">SpareRoom</div><div style="font-size:11px;color:#9ca3af">Комнаты и flatshare · spareroom.co.uk</div></div></div>
+  <div class="site-card"><div class="site-ico">📌</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Gumtree</div><div style="font-size:11px;color:#9ca3af">Частные объявления · gumtree.com</div></div></div>
+  <div class="site-card"><div class="site-ico">🏘️</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Immobilienscout24</div><div style="font-size:11px;color:#9ca3af">Германия · immobilienscout24.de</div></div></div>
+  <div class="site-card"><div class="site-ico">🍁</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Kijiji</div><div style="font-size:11px;color:#9ca3af">Канада · kijiji.ca</div></div></div>
+  <div style="padding:10px 16px 4px"><div style="font-size:12px;font-weight:800;color:#1a1a2e;margin-bottom:6px">💡 Советы</div></div>
+  <div class="info-card"><ul><li>Начинай поиск за 1–2 месяца до переезда</li><li>Проверяй отзывы об агентстве/арендодателе</li><li>Требуй видеопоказ если не можешь приехать</li><li>Читай договор перед подписанием</li><li>Узнай что включено в аренду (bills included?)</li></ul></div>
+</div>
+
+<!-- MOVE: Transport -->
+<div class="subpage" id="sub-move-transport">
+  <div class="sub-hdr"><button class="back-btn" onclick="hideSubPage()">←</button><div class="sub-title">🚌 Транспорт</div></div>
+  <div class="info-card" style="margin-top:12px"><h4>🇬🇧 Великобритания</h4><ul><li>Oyster Card / Contactless для London Transport</li><li>National Rail — поезда между городами</li><li>Oyster/TfL — автобус, метро, трамвай, Overground</li></ul></div>
+  <div class="info-card"><h4>🇺🇸 США</h4><ul><li>Машина обязательна во большинстве штатов</li><li>Uber и Lyft — основные приложения</li><li>Метро есть в NYC, LA, Chicago, DC</li></ul></div>
+  <div class="info-card"><h4>🇩🇪 Германия</h4><ul><li>Deutschlandticket — €49/мес на весь общ. транспорт</li><li>Развитая сеть S-Bahn, U-Bahn, Tram</li><li>Велосипед — очень популярный транспорт</li></ul></div>
+  <div class="info-card"><h4>🌍 Общие советы</h4><ul><li>Скачай Google Maps — работает везде</li><li>Citymapper — отличное приложение для городов</li><li>Купи проездной в первую очередь</li><li>Узнай о student/worker скидках</li></ul></div>
+</div>
+
+<!-- MOVE: SIM -->
+<div class="subpage" id="sub-move-sim">
+  <div class="sub-hdr"><button class="back-btn" onclick="hideSubPage()">←</button><div class="sub-title">📱 SIM и eSIM карты</div></div>
+  <div style="padding:12px 16px 4px"><div style="font-size:12px;font-weight:800;color:#1a1a2e;margin-bottom:6px">Лучшие операторы</div></div>
+  <div class="info-card"><h4>🇬🇧 UK</h4><ul><li><b>EE</b> — лучшее покрытие, дорогой</li><li><b>O2</b> — хорошее покрытие, WiFi на метро</li><li><b>Giffgaff</b> — дёшево, на сети O2, без контракта</li><li><b>Lebara / Lycamobile</b> — дёшево, для звонков за рубеж</li></ul></div>
+  <div class="info-card"><h4>🇺🇸 USA</h4><ul><li><b>T-Mobile</b> — лучший для иностранцев, без SSN</li><li><b>Mint Mobile</b> — дёшево, на сети T-Mobile</li><li><b>AT&T</b> — хорошее покрытие по стране</li></ul></div>
+  <div class="info-card"><h4>🇩🇪 Germany</h4><ul><li><b>Telekom</b> — лучшее покрытие</li><li><b>O2</b> — дёшево</li><li><b>Freenet / Aldi Talk</b> — бюджетно</li></ul></div>
+  <div style="padding:6px 16px 4px"><div style="font-size:12px;font-weight:800;color:#1a1a2e;margin-bottom:6px">eSIM приложения (до переезда)</div></div>
+  <div class="site-card"><div class="site-ico" style="background:#e8fdf1">🌐</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Airalo</div><div style="font-size:11px;color:#9ca3af">Лучший выбор · 190+ стран · airalo.com</div></div></div>
+  <div class="site-card"><div class="site-ico" style="background:#dbeafe">💧</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Holafly</div><div style="font-size:11px;color:#9ca3af">Безлимит данных · holafly.com</div></div></div>
+  <div style="padding:6px 16px 4px"><div style="font-size:12px;font-weight:800;color:#1a1a2e;margin-bottom:6px">Как активировать eSIM</div></div>
+  <div class="step-row"><div class="step-num">1</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Выбери оператора и тариф</div><div style="font-size:11px;color:#9ca3af">Airalo или Holafly — перед вылетом</div></div></div>
+  <div class="step-row"><div class="step-num">2</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Оплати и получи QR-код</div><div style="font-size:11px;color:#9ca3af">На email придёт QR-код для установки</div></div></div>
+  <div class="step-row"><div class="step-num">3</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Зайди Настройки → Мобильные данные</div><div style="font-size:11px;color:#9ca3af">Добавить тарифный план → Сканировать QR</div></div></div>
+  <div class="step-row"><div class="step-num">4</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Активируй по прилёту</div><div style="font-size:11px;color:#9ca3af">Включи роуминг данных для eSIM</div></div></div>
+</div>
+
+<!-- MOVE: Universities -->
+<div class="subpage" id="sub-move-uni">
+  <div class="sub-hdr"><button class="back-btn" onclick="hideSubPage()">←</button><div class="sub-title">🎓 Учёба в Европе</div></div>
+  <div style="padding:10px 16px 4px"><div style="font-size:12px;font-weight:800;color:#1a1a2e;margin-bottom:6px">Топ-5 университетов</div></div>
+  <div class="site-card"><div class="site-ico" style="font-size:22px">🇬🇧</div><div style="flex:1"><div style="font-size:13px;font-weight:700;color:#1a1a2e">University of Oxford</div><div style="font-size:11px;color:#9ca3af">Рейтинг #1 · £9 250/год (home) · На английском</div></div></div>
+  <div class="site-card"><div class="site-ico" style="font-size:22px">🇬🇧</div><div style="flex:1"><div style="font-size:13px;font-weight:700;color:#1a1a2e">University of Cambridge</div><div style="font-size:11px;color:#9ca3af">Рейтинг #2 · £9 250/год · На английском</div></div></div>
+  <div class="site-card"><div class="site-ico" style="font-size:22px">🇨🇭</div><div style="flex:1"><div style="font-size:13px;font-weight:700;color:#1a1a2e">ETH Zurich</div><div style="font-size:11px;color:#9ca3af">Рейтинг #7 · CHF 730/год (очень дёшево!) · Немецкий/English</div></div></div>
+  <div class="site-card"><div class="site-ico" style="font-size:22px">🇳🇱</div><div style="flex:1"><div style="font-size:13px;font-weight:700;color:#1a1a2e">University of Amsterdam</div><div style="font-size:11px;color:#9ca3af">Топ-100 · €2 314/год (EU) · Много программ на English</div></div></div>
+  <div class="site-card"><div class="site-ico" style="font-size:22px">🇩🇪</div><div style="flex:1"><div style="font-size:13px;font-weight:700;color:#1a1a2e">TU Berlin</div><div style="font-size:11px;color:#9ca3af">Технический #1 DE · €300/sem (только взносы!) · English/German</div></div></div>
+  <div style="padding:6px 16px 4px"><div style="font-size:12px;font-weight:800;color:#1a1a2e;margin-bottom:6px">Как поступить на бюджет</div></div>
+  <div class="step-row"><div class="step-num">1</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Выбери страну и программу</div><div style="font-size:11px;color:#9ca3af">Германия, Чехия, Финляндия — часто бесплатно</div></div></div>
+  <div class="step-row"><div class="step-num">2</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Подтверди языковой уровень</div><div style="font-size:11px;color:#9ca3af">IELTS 6.0+, TOEFL 80+, TestDaF для Германии</div></div></div>
+  <div class="step-row"><div class="step-num">3</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Подай документы через DAAD / uni-assist</div><div style="font-size:11px;color:#9ca3af">uni-assist.de для большинства вузов Германии</div></div></div>
+  <div class="step-row"><div class="step-num">4</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Подай на стипендию</div><div style="font-size:11px;color:#9ca3af">DAAD, Erasmus+, правительственные стипендии</div></div></div>
+  <div class="step-row"><div class="step-num">5</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Оформи студенческую визу</div><div style="font-size:11px;color:#9ca3af">После получения Zulassung (подтверждения)</div></div></div>
+</div>
+
+<!-- MOVE: Work -->
+<div class="subpage" id="sub-move-work">
+  <div class="sub-hdr"><button class="back-btn" onclick="hideSubPage()">←</button><div class="sub-title">💼 Работа в Европе</div></div>
+  <div style="padding:10px 16px 4px"><div style="font-size:12px;font-weight:800;color:#1a1a2e;margin-bottom:6px">Лучшие сайты для поиска</div></div>
+  <div class="site-card"><div class="site-ico">💼</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">LinkedIn</div><div style="font-size:11px;color:#9ca3af">Профессиональная сеть #1 · linkedin.com</div></div></div>
+  <div class="site-card"><div class="site-ico">🔍</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Indeed</div><div style="font-size:11px;color:#9ca3af">Агрегатор вакансий · indeed.com</div></div></div>
+  <div class="site-card"><div class="site-ico">🏢</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Glassdoor</div><div style="font-size:11px;color:#9ca3af">Вакансии + зарплаты + отзывы</div></div></div>
+  <div class="site-card"><div class="site-ico">🇬🇧</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Totaljobs / Reed</div><div style="font-size:11px;color:#9ca3af">Крупнейшие UK доски вакансий</div></div></div>
+  <div class="site-card"><div class="site-ico">🇩🇪</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Xing / StepStone</div><div style="font-size:11px;color:#9ca3af">Топ-сайты для Германии</div></div></div>
+  <div style="margin:8px 16px;background:linear-gradient(135deg,#fef2f2,#fff);border:1px solid rgba(239,68,68,.3);border-radius:14px;padding:12px 14px">
+    <div style="font-size:12px;font-weight:800;color:#ef4444;margin-bottom:6px">🚫 Куда НЕ стоит идти</div>
+    <ul style="font-size:11px;color:#6b7280;line-height:1.7;padding-left:16px"><li>Вакансии без указания компании — часто скам</li><li>"Работа с высоким заработком без опыта" — пирамиды</li><li>MLM и сетевой маркетинг под видом "бизнеса"</li><li>Доставка/курьер через непроверенные агентства</li></ul>
+  </div>
+  <div class="info-card"><h4>📄 Советы по резюме</h4><ul><li>CV в Европе — максимум 2 страницы</li><li>Фото не обязательно (кроме Германии)</li><li>Пиши на языке страны + английском</li><li>Используй LinkedIn профиль как портфолио</li></ul></div>
+</div>
+
+<!-- MOVE: Laws -->
+<div class="subpage" id="sub-move-laws">
+  <div class="sub-hdr"><button class="back-btn" onclick="hideSubPage()">←</button><div class="sub-title">⚖️ Законы Европы</div></div>
+  <div class="info-card" style="margin-top:12px"><h4>👷 Трудовое право</h4><ul><li>Минимальный отпуск: 28 дней в UK, 20 в EU</li><li>Испытательный срок — обычно 3–6 месяцев</li><li>Увольнение без причины незаконно</li><li>Переработки оплачиваются или компенсируются</li></ul></div>
+  <div class="info-card"><h4>🏠 Аренда жилья</h4><ul><li>Арендодатель должен вернуть депозит в 10–30 дней</li><li>Предупреждение о выселении — минимум 2 месяца</li><li>Нельзя менять замки без согласия арендодателя</li><li>Обязан делать ремонт за свой счёт</li></ul></div>
+  <div class="info-card"><h4>🚗 Дорожное движение</h4><ul><li>UK — левостороннее движение!</li><li>EU — правостороннее, как в России</li><li>Скорость в городах: 50 км/ч (EU), 30 mph (UK)</li><li>За руль пьяным — серьёзное уголовное дело</li></ul></div>
+  <div class="info-card"><h4>🏥 Медицина</h4><ul><li>UK NHS — бесплатно для жителей с регистрацией</li><li>EU — страховая медицина (обязательна)</li><li>Скорая — звони 999 (UK) или 112 (EU)</li></ul></div>
+  <div class="info-card"><h4>💰 Налоги</h4><ul><li>Если работаешь — регистрируйся в налоговой</li><li>UK HMRC, Германия Finanzamt</li><li>Нерезидентный статус первые 183 дня</li></ul></div>
+</div>
+
+<!-- MOVE: Rights -->
+<div class="subpage" id="sub-move-rights">
+  <div class="sub-hdr"><button class="back-btn" onclick="hideSubPage()">←</button><div class="sub-title">🛡️ Права мигранта</div></div>
+  <div style="margin:12px 16px 10px;background:linear-gradient(135deg,#ede9ff,#f5f4ff);border-radius:14px;padding:14px;border:1px solid #c4b5fd">
+    <div style="font-size:13px;font-weight:800;color:#6c47ff;margin-bottom:4px">📢 Ты имеешь права независимо от статуса!</div>
+    <div style="font-size:11px;color:#6b7280;line-height:1.5">Даже если ты мигрант или беженец — основные права человека защищены законом в любой стране EU и UK.</div>
+  </div>
+  <div class="rights-card"><div class="rights-ico">🤝</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Право на юридическую помощь</div><div style="font-size:11px;color:#9ca3af;line-height:1.5">При аресте имеешь право на адвоката. В UK — Legal Aid, в EU — бесплатный защитник.</div></div></div>
+  <div class="rights-card"><div class="rights-ico">🏥</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Право на экстренную медпомощь</div><div style="font-size:11px;color:#9ca3af;line-height:1.5">Скорую не могут отказать из-за отсутствия документов или страховки.</div></div></div>
+  <div class="rights-card"><div class="rights-ico">👨‍👩‍👧</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Право на воссоединение семьи</div><div style="font-size:11px;color:#9ca3af;line-height:1.5">При получении ВНЖ или гражданства — возможность привезти супруга и детей.</div></div></div>
+  <div class="rights-card"><div class="rights-ico">🚫</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Защита от дискриминации</div><div style="font-size:11px;color:#9ca3af;line-height:1.5">Незаконно отказывать в работе из-за национальности, расы или религии.</div></div></div>
+  <div class="rights-card"><div class="rights-ico">📝</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Право на образование</div><div style="font-size:11px;color:#9ca3af;line-height:1.5">Дети мигрантов имеют право на бесплатное школьное образование.</div></div></div>
+  <div class="rights-card"><div class="rights-ico">🌐</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Право на переводчика</div><div style="font-size:11px;color:#9ca3af;line-height:1.5">В суде и в полиции имеешь право на услуги переводчика бесплатно.</div></div></div>
+  <div style="padding:8px 16px 4px"><div style="font-size:12px;font-weight:800;color:#1a1a2e;margin-bottom:6px">📞 Организации помощи мигрантам</div></div>
+  <div class="info-card"><ul><li><b>UNHCR</b> — ООН по делам беженцев: unhcr.org</li><li><b>IOM</b> — Международная организация по миграции</li><li><b>Shelter UK</b> — помощь с жильём: shelter.org.uk</li><li><b>Citizens Advice UK</b> — бесплатные юр. советы</li><li><b>Caritas Europe</b> — соц. помощь в EU</li></ul></div>
+</div>
+
+<!-- MOVE: Banks -->
+<div class="subpage" id="sub-move-banks">
+  <div class="sub-hdr"><button class="back-btn" onclick="hideSubPage()">←</button><div class="sub-title">🏦 Банки и финансы</div></div>
+  <div class="bank-card" style="background:linear-gradient(135deg,#16a34a,#22c55e);margin-top:12px">
+    <div style="font-size:18px;font-weight:900;margin-bottom:3px">💚 Wise</div>
+    <div style="font-size:12px;opacity:.85;margin-bottom:8px">Лучший для переводов за рубеж · Реальный курс</div>
+    <div style="display:flex;flex-wrap:wrap;gap:4px">
+      <span style="font-size:10px;background:rgba(255,255,255,.2);padding:3px 8px;border-radius:999px">Без скрытых комиссий</span>
+      <span style="font-size:10px;background:rgba(255,255,255,.2);padding:3px 8px;border-radius:999px">56 валют</span>
+      <span style="font-size:10px;background:rgba(255,255,255,.2);padding:3px 8px;border-radius:999px">Дебетовая карта</span>
+    </div>
+  </div>
+  <div class="bank-card" style="background:linear-gradient(135deg,#1d4ed8,#3b82f6)">
+    <div style="font-size:18px;font-weight:900;margin-bottom:3px">🔵 Revolut</div>
+    <div style="font-size:12px;opacity:.85;margin-bottom:8px">Мультивалютная карта · Криптовалюта · Страховка</div>
+    <div style="display:flex;flex-wrap:wrap;gap:4px">
+      <span style="font-size:10px;background:rgba(255,255,255,.2);padding:3px 8px;border-radius:999px">Бесплатный план</span>
+      <span style="font-size:10px;background:rgba(255,255,255,.2);padding:3px 8px;border-radius:999px">Обмен валют</span>
+      <span style="font-size:10px;background:rgba(255,255,255,.2);padding:3px 8px;border-radius:999px">Apple/Google Pay</span>
+    </div>
+  </div>
+  <div class="bank-card" style="background:linear-gradient(135deg,#1a1a2e,#374151)">
+    <div style="font-size:18px;font-weight:900;margin-bottom:3px">⚫ N26</div>
+    <div style="font-size:12px;opacity:.85;margin-bottom:8px">Немецкий онлайн-банк · Хорош для жизни в EU</div>
+    <div style="display:flex;flex-wrap:wrap;gap:4px">
+      <span style="font-size:10px;background:rgba(255,255,255,.2);padding:3px 8px;border-radius:999px">Реальная страховка EU</span>
+      <span style="font-size:10px;background:rgba(255,255,255,.2);padding:3px 8px;border-radius:999px">IBAN счёт</span>
+    </div>
+  </div>
+  <div class="bank-card" style="background:linear-gradient(135deg,#ea580c,#f97316)">
+    <div style="font-size:18px;font-weight:900;margin-bottom:3px">🟠 Monzo</div>
+    <div style="font-size:12px;opacity:.85;margin-bottom:8px">Лучший UK банк для повседневного использования</div>
+    <div style="display:flex;flex-wrap:wrap;gap:4px">
+      <span style="font-size:10px;background:rgba(255,255,255,.2);padding:3px 8px;border-radius:999px">Мгновенные уведомления</span>
+      <span style="font-size:10px;background:rgba(255,255,255,.2);padding:3px 8px;border-radius:999px">Pot savings</span>
+    </div>
+  </div>
+  <div style="margin:4px 16px 10px;background:linear-gradient(135deg,#ede9ff,#f5f4ff);border-radius:14px;padding:12px 14px;border:1px solid #c4b5fd"><div style="font-size:12px;font-weight:800;color:#6c47ff;margin-bottom:4px">🌟 Рекомендация</div><div style="font-size:11px;color:#6b7280;line-height:1.5">Открой Wise до отъезда — для международных переводов. После приезда добавь Monzo (UK) или N26 (EU) для местного использования.</div></div>
+</div>
+
+<!-- MOVE: Shopping -->
+<div class="subpage" id="sub-move-shopping">
+  <div class="sub-hdr"><button class="back-btn" onclick="hideSubPage()">←</button><div class="sub-title">🛍️ Где выгодно покупать</div></div>
+  <div class="info-card" style="margin-top:12px"><h4>💰 Бюджетные магазины</h4><ul><li><b>Primark</b> — очень дёшево, хорошо для базового гардероба</li><li><b>H&M / Zara</b> — средняя цена, хорошее качество</li><li><b>ASOS</b> — онлайн, много брендов, частые скидки</li><li><b>Lidl / Aldi</b> — одежда неожиданно хорошего качества</li></ul></div>
+  <div class="info-card"><h4>♻️ Секонд-хенды (Thrift stores)</h4><ul><li><b>Vinted</b> — онлайн продажа б/у вещей</li><li><b>Depop</b> — молодёжный секонд-хенд</li><li><b>Charity shops</b> (UK) — Oxfam, Cancer Research, BHF</li><li><b>Humana / Amica</b> — сети секонд-хендов в EU</li></ul></div>
+  <div class="info-card"><h4>🎯 Советы по шоппингу</h4><ul><li>Boxing Day (26 декабря) — огромные распродажи UK</li><li>Black Friday — ноябрь, скидки везде</li><li>Student discount — карта NUS/TOTUM даёт скидки</li><li>Подписывайся на Vinted/Depop для выгодных находок</li></ul></div>
+</div>
+
+<!-- MOVE: Culture -->
+<div class="subpage" id="sub-move-culture">
+  <div class="sub-hdr"><button class="back-btn" onclick="hideSubPage()">←</button><div class="sub-title">🤝 Культура и адаптация</div></div>
+  <div style="padding:10px 16px 4px"><div style="font-size:12px;font-weight:800;color:#1a1a2e;margin-bottom:6px">Россия vs Европа: отличия</div></div>
+  <div class="info-card"><h4>💬 Общение</h4><ul><li><b>RU:</b> Прямолинейность, "говоришь как есть"</li><li><b>EU:</b> Вежливость важнее правды, "small talk"</li><li>Улыбайся — это нормально, не подозрительно</li></ul></div>
+  <div class="info-card"><h4>⏰ Пунктуальность</h4><ul><li><b>DE/NL:</b> Опоздание — серьёзное неуважение</li><li><b>UK:</b> "Fashionably late" — 5–10 мин ок</li><li>На работу — ВСЕГДА вовремя</li></ul></div>
+  <div class="info-card"><h4>🍽️ Чаевые</h4><ul><li><b>UK:</b> 10–15% в ресторанах (не обязательно)</li><li><b>USA:</b> 15–20% ОБЯЗАТЕЛЬНО — это часть зарплаты</li><li><b>DE/FR:</b> Округли счёт вверх</li></ul></div>
+  <div class="info-card"><h4>🚶 Личное пространство</h4><ul><li>Держи дистанцию ~1 метр в разговоре</li><li>Очередь — священна, не обходи!</li><li>В транспорте — тишина и наушники</li></ul></div>
+  <div style="padding:6px 16px 4px"><div style="font-size:12px;font-weight:800;color:#1a1a2e;margin-bottom:6px">👥 Как найти новых друзей</div></div>
+  <div class="step-row"><div class="step-num">1</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Meetup.com</div><div style="font-size:11px;color:#9ca3af">Группы по интересам в любом городе</div></div></div>
+  <div class="step-row"><div class="step-num">2</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Language exchange</div><div style="font-size:11px;color:#9ca3af">Tandem, HelloTalk — учишь язык + заводишь друзей</div></div></div>
+  <div class="step-row"><div class="step-num">3</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Expat группы в Facebook</div><div style="font-size:11px;color:#9ca3af">"Russians in London / Berlin / Amsterdam"</div></div></div>
+  <div class="step-row"><div class="step-num">4</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Волонтёрство</div><div style="font-size:11px;color:#9ca3af">Volunteermatch.org — быстро знакомишься с людьми</div></div></div>
+  <div class="step-row"><div class="step-num">5</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Коворкинги и кафе</div><div style="font-size:11px;color:#9ca3af">WeWork, local cafes — неформальное общение</div></div></div>
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="q-modal">
+  <div style="background:#fff;border-radius:24px;padding:24px;text-align:center;width:300px;animation:popIn .35s cubic-bezier(.34,1.56,.64,1)">
+    <div style="font-size:48px;margin-bottom:8px" id="modal-ico">✅</div>
+    <div style="font-size:18px;font-weight:900;color:#1a1a2e;margin-bottom:4px" id="modal-title">Правильно!</div>
+    <div style="font-size:13px;color:#9ca3af;margin-bottom:16px" id="modal-sub">Отличная работа!</div>
+    <button class="btn-pu" style="margin:0;width:100%" onclick="closeModal()">Продолжить →</button>
   </div>
 </div>
 
 <script>
-function showPage(id){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  const pg=document.getElementById('page-'+id);
-  if(pg){pg.classList.add('active');pg.scrollTop=0}
-  // sync nav
-  const map={quests:0,scenarios:0,tests:1,leaderboard:2,dashboard:3,profile:4};
-  if(map[id]!==undefined){
-    const btns=document.querySelectorAll('.bnav-btn');
-    btns.forEach(b=>b.classList.remove('active'));
-    btns[map[id]].classList.add('active');
-  }
+var selectedLevel = 'B1';
+var currentPage = 'home';
+
+function selectLevel(el, lv) {
+  document.querySelectorAll('.lv-card').forEach(function(c) { c.classList.remove('sel'); });
+  el.classList.add('sel');
+  selectedLevel = lv;
 }
-function setNav(el){
-  document.querySelectorAll('.bnav-btn').forEach(b=>b.classList.remove('active'));
-  el.classList.add('active');
+
+function startApp() {
+  document.getElementById('onboarding').style.display = 'none';
+  document.getElementById('main-hdr').style.display = 'flex';
+  document.getElementById('main-bnav').style.display = 'flex';
+  document.getElementById('page-home').classList.add('active');
+  var badge = document.getElementById('user-level-badge');
+  if (badge) badge.textContent = 'Уровень ' + selectedLevel;
+  var pt = document.getElementById('profile-level-text');
+  if (pt) pt.textContent = 'Уровень ' + selectedLevel + ' · Учится 23 дня';
 }
-function openReward(){document.getElementById('reward-modal').classList.add('open')}
-function closeModal(){
-  document.querySelectorAll('.modal').forEach(m=>m.classList.remove('open'));
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+  var pg = document.getElementById('page-' + id);
+  if (pg) pg.classList.add('active');
+  currentPage = id;
 }
-function openModal(ico,name,xp){
-  document.getElementById('modal-icon').textContent=ico;
-  document.getElementById('modal-name').textContent=name;
-  document.getElementById('modal-xp').textContent='+'+xp+' XP';
-  document.getElementById('quest-modal').classList.add('open');
+
+function setNav(btn) {
+  document.querySelectorAll('.nb').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
 }
-// Test flow
-function startTest(name,ico){
-  document.getElementById('test-categories').style.display='none';
-  document.getElementById('test-question').style.display='block';
-  document.getElementById('test-title').textContent=ico+' '+name;
-  document.getElementById('q-explanation').style.display='none';
-  document.getElementById('q-next-btn').style.display='none';
-  document.querySelectorAll('.q-opt').forEach(o=>{
-    o.classList.remove('correct','wrong');
-    o.querySelector('.q-letter').classList.remove('c','w');
+
+function showSubPage(id) {
+  var sp = document.getElementById('sub-' + id);
+  if (sp) { sp.classList.add('open'); sp.scrollTop = 0; }
+}
+
+function hideSubPage() {
+  document.querySelectorAll('.subpage.open').forEach(function(sp) { sp.classList.remove('open'); });
+}
+
+function showStudyTab(tab, btn) {
+  ['words','ielts','tips','pics','slang'].forEach(function(t) {
+    var el = document.getElementById('stab-' + t);
+    if (el) el.style.display = t === tab ? 'block' : 'none';
   });
-  startTimer();
+  document.querySelectorAll('#study-tabs .tab').forEach(function(b) { b.classList.remove('active'); });
+  if (btn) btn.classList.add('active');
 }
-let timerInterval;
-function startTimer(){
-  clearInterval(timerInterval);
-  let t=25;
-  document.getElementById('q-timer').textContent='⏱ '+t+'s';
-  timerInterval=setInterval(()=>{
-    t--;
-    document.getElementById('q-timer').textContent='⏱ '+t+'s';
-    if(t<=0){clearInterval(timerInterval);showExplanation()}
-  },1000);
+
+function showSlangTab(tab, btn) {
+  document.getElementById('slang-slangs').style.display = tab === 'slangs' ? 'block' : 'none';
+  document.getElementById('slang-rofl').style.display = tab === 'rofl' ? 'block' : 'none';
+  document.getElementById('slang-tab-s').classList.toggle('active', tab === 'slangs');
+  document.getElementById('slang-tab-r').classList.toggle('active', tab === 'rofl');
 }
-function selectAnswer(el,correct){
-  clearInterval(timerInterval);
-  document.querySelectorAll('.q-opt').forEach(o=>o.style.pointerEvents='none');
-  const ltr=el.querySelector('.q-letter');
-  if(correct){el.classList.add('correct');ltr.classList.add('c');ltr.textContent='✓'}
-  else{el.classList.add('wrong');ltr.classList.add('w');ltr.textContent='✗';showCorrect()}
-  showExplanation();
-}
-function showCorrect(){
-  document.querySelectorAll('.q-opt')[0].classList.add('correct');
-  document.querySelectorAll('.q-opt')[0].querySelector('.q-letter').classList.add('c');
-}
-function showExplanation(){
-  document.getElementById('q-explanation').style.display='block';
-  document.getElementById('q-next-btn').style.display='block';
-}
-function nextQuestion(){
-  document.querySelectorAll('.q-opt').forEach(o=>{
-    o.style.pointerEvents='';
-    o.classList.remove('correct','wrong');
-    o.querySelector('.q-letter').classList.remove('c','w');
-    o.querySelector('.q-letter').textContent=['A','B','C','D'][Array.from(o.parentNode.children).indexOf(o)];
+
+function showProfileTab(tab, btn) {
+  ['ach','hist','miss'].forEach(function(t) {
+    var el = document.getElementById('ptab-' + t);
+    if (el) el.style.display = t === tab ? 'block' : 'none';
   });
-  document.getElementById('q-explanation').style.display='none';
-  document.getElementById('q-next-btn').style.display='none';
-  startTimer();
+  document.querySelectorAll('.ptab').forEach(function(b) { b.classList.remove('active'); });
+  if (btn) btn.classList.add('active');
 }
-// Filter tabs
-document.querySelectorAll('.tabs').forEach(tabGroup=>{
-  tabGroup.querySelectorAll('.tab').forEach(tab=>{
-    tab.addEventListener('click',function(){
-      tabGroup.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-      this.classList.add('active');
-    });
+
+function answerQ(el, correct) {
+  var opts = el.parentElement.querySelectorAll('.q-opt');
+  opts.forEach(function(o) {
+    var letters = o.querySelectorAll('.q-letter');
+    letters.forEach(function(l) { l.style.pointerEvents = 'none'; });
   });
-});
-// Study tabs
-document.querySelectorAll('.stab').forEach(b=>{
-  b.addEventListener('click',function(){
-    document.querySelectorAll('.stab').forEach(x=>x.classList.remove('active'));
-    this.classList.add('active');
-  });
-});
-// Dashboard timer countdown
-let dashH=7,dashM=45,dashS=22;
-setInterval(()=>{
-  dashS--;if(dashS<0){dashS=59;dashM--;if(dashM<0){dashM=59;dashH--;if(dashH<0)dashH=23}}
-  document.getElementById('dash-timer').textContent=
-    String(dashH).padStart(2,'0')+':'+String(dashM).padStart(2,'0')+':'+String(dashS).padStart(2,'0');
-},1000);
-// Close modal on background click
-document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',function(e){if(e.target===this)closeModal()}));
+  el.classList.add(correct ? 'correct' : 'wrong');
+  document.getElementById('modal-ico').textContent = correct ? '🎉' : '❌';
+  document.getElementById('modal-title').textContent = correct ? 'Правильно!' : 'Не совсем...';
+  document.getElementById('modal-sub').textContent = correct ? '+10 XP заработано!' : 'Попробуй ещё раз в следующий раз';
+  document.getElementById('q-modal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('q-modal').classList.remove('open');
+}
 </script>
+</div>
 </body>
 </html>
