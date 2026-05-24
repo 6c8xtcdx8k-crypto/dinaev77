@@ -623,296 +623,511 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
 
 <!-- SCRIPT TAG STARTS -->
 <script>
-// ===================== DATA =====================
-
+// ===================== WORDS DATA (200 слов) =====================
 const wordsData = [
-  // A1 — Transport
-  {en:"passport",ph:"ˈpæspɔːt",ru:"паспорт",ex:"Show your passport at the border.",lv:"A1",cat:"transport"},
-  {en:"ticket",ph:"ˈtɪkɪt",ru:"билет",ex:"I need a ticket to London.",lv:"A1",cat:"transport"},
-  {en:"airport",ph:"ˈeəpɔːt",ru:"аэропорт",ex:"The airport is very busy today.",lv:"A1",cat:"transport"},
-  {en:"train",ph:"treɪn",ru:"поезд",ex:"The train leaves at 9 am.",lv:"A1",cat:"transport"},
-  {en:"bus",ph:"bʌs",ru:"автобус",ex:"Take the bus to the city centre.",lv:"A1",cat:"transport"},
-  {en:"taxi",ph:"ˈtæksi",ru:"такси",ex:"Can you call a taxi please?",lv:"A1",cat:"transport"},
-  {en:"station",ph:"ˈsteɪʃən",ru:"станция",ex:"Meet me at the train station.",lv:"A1",cat:"transport"},
-  {en:"platform",ph:"ˈplætfɔːm",ru:"платформа",ex:"Your train is on platform 3.",lv:"A1",cat:"transport"},
-  {en:"luggage",ph:"ˈlʌɡɪdʒ",ru:"багаж",ex:"My luggage is very heavy.",lv:"A1",cat:"transport"},
-  {en:"flight",ph:"flaɪt",ru:"рейс",ex:"My flight is delayed.",lv:"A1",cat:"transport"},
-  // A1 — Home
-  {en:"bedroom",ph:"ˈbedruːm",ru:"спальня",ex:"The bedroom has a nice view.",lv:"A1",cat:"home"},
-  {en:"kitchen",ph:"ˈkɪtʃɪn",ru:"кухня",ex:"I cook in the kitchen.",lv:"A1",cat:"home"},
-  {en:"bathroom",ph:"ˈbɑːθruːm",ru:"ванная",ex:"The bathroom is on the left.",lv:"A1",cat:"home"},
-  {en:"living room",ph:"ˈlɪvɪŋ ruːm",ru:"гостиная",ex:"We watch TV in the living room.",lv:"A1",cat:"home"},
-  {en:"door",ph:"dɔː",ru:"дверь",ex:"Please close the door.",lv:"A1",cat:"home"},
-  {en:"window",ph:"ˈwɪndəʊ",ru:"окно",ex:"Open the window please.",lv:"A1",cat:"home"},
-  {en:"rent",ph:"rent",ru:"аренда",ex:"The rent is £800 per month.",lv:"A1",cat:"home"},
-  {en:"key",ph:"kiː",ru:"ключ",ex:"I lost my key.",lv:"A1",cat:"home"},
-  {en:"neighbour",ph:"ˈneɪbə",ru:"сосед",ex:"My neighbour is very friendly.",lv:"A1",cat:"home"},
-  {en:"address",ph:"əˈdres",ru:"адрес",ex:"What is your address?",lv:"A1",cat:"home"},
-  // A1 — Food
-  {en:"breakfast",ph:"ˈbrekfəst",ru:"завтрак",ex:"I have breakfast at 8 am.",lv:"A1",cat:"food"},
-  {en:"lunch",ph:"lʌntʃ",ru:"обед",ex:"Let's have lunch together.",lv:"A1",cat:"food"},
-  {en:"dinner",ph:"ˈdɪnə",ru:"ужин",ex:"Dinner is at 7 pm.",lv:"A1",cat:"food"},
-  {en:"restaurant",ph:"ˈrestrɒnt",ru:"ресторан",ex:"This restaurant is excellent.",lv:"A1",cat:"food"},
-  {en:"menu",ph:"ˈmenjuː",ru:"меню",ex:"Can I see the menu please?",lv:"A1",cat:"food"},
-  // A2 — Work
-  {en:"office",ph:"ˈɒfɪs",ru:"офис",ex:"I work in a big office.",lv:"A2",cat:"work"},
-  {en:"meeting",ph:"ˈmiːtɪŋ",ru:"встреча",ex:"The meeting starts at 10.",lv:"A2",cat:"work"},
-  {en:"colleague",ph:"ˈkɒliːɡ",ru:"коллега",ex:"My colleague is very helpful.",lv:"A2",cat:"work"},
-  {en:"manager",ph:"ˈmænɪdʒə",ru:"менеджер",ex:"My manager gave good feedback.",lv:"A2",cat:"work"},
-  {en:"salary",ph:"ˈsæləri",ru:"зарплата",ex:"The salary is £35,000 a year.",lv:"A2",cat:"work"},
-  {en:"interview",ph:"ˈɪntəvjuː",ru:"собеседование",ex:"I have a job interview tomorrow.",lv:"A2",cat:"work"},
-  {en:"deadline",ph:"ˈdedlaɪn",ru:"дедлайн",ex:"The deadline is Friday.",lv:"A2",cat:"work"},
-  {en:"contract",ph:"ˈkɒntrækt",ru:"контракт",ex:"Sign the contract please.",lv:"A2",cat:"work"},
-  {en:"experience",ph:"ɪkˈspɪəriəns",ru:"опыт",ex:"I have five years of experience.",lv:"A2",cat:"work"},
-  {en:"application",ph:"ˌæplɪˈkeɪʃən",ru:"заявление",ex:"Submit your application online.",lv:"A2",cat:"work"},
-  // A2 — Banking
-  {en:"account",ph:"əˈkaʊnt",ru:"счёт",ex:"Open a bank account first.",lv:"A2",cat:"bank"},
-  {en:"transfer",ph:"ˈtrænsfɜː",ru:"перевод",ex:"Make a transfer to my account.",lv:"A2",cat:"bank"},
-  {en:"currency",ph:"ˈkʌrənsi",ru:"валюта",ex:"What currency do they use?",lv:"A2",cat:"bank"},
-  {en:"exchange rate",ph:"ɪksˈtʃeɪndʒ reɪt",ru:"курс обмена",ex:"Check the exchange rate today.",lv:"A2",cat:"bank"},
-  {en:"cash",ph:"kæʃ",ru:"наличные",ex:"Do you have cash?",lv:"A2",cat:"bank"},
-  // B1 — Medical
-  {en:"appointment",ph:"əˈpɔɪntmənt",ru:"приём",ex:"I have a doctor's appointment.",lv:"B1",cat:"medical"},
-  {en:"prescription",ph:"prɪˈskrɪpʃən",ru:"рецепт",ex:"Here is your prescription.",lv:"B1",cat:"medical"},
-  {en:"symptom",ph:"ˈsɪmptəm",ru:"симптом",ex:"What are your symptoms?",lv:"B1",cat:"medical"},
-  {en:"diagnosis",ph:"ˌdaɪəɡˈnəʊsɪs",ru:"диагноз",ex:"The diagnosis is pneumonia.",lv:"B1",cat:"medical"},
-  {en:"treatment",ph:"ˈtriːtmənt",ru:"лечение",ex:"The treatment takes two weeks.",lv:"B1",cat:"medical"},
-  {en:"insurance",ph:"ɪnˈʃʊərəns",ru:"страховка",ex:"Do you have health insurance?",lv:"B1",cat:"medical"},
-  {en:"pharmacy",ph:"ˈfɑːməsi",ru:"аптека",ex:"Go to the pharmacy for medicine.",lv:"B1",cat:"medical"},
-  // B1 — Legal
-  {en:"immigration",ph:"ˌɪmɪˈɡreɪʃən",ru:"иммиграция",ex:"Immigration laws are strict.",lv:"B1",cat:"legal"},
-  {en:"residence permit",ph:"ˈrezɪdəns ˈpɜːmɪt",ru:"вид на жительство",ex:"Apply for a residence permit.",lv:"B1",cat:"legal"},
-  {en:"citizenship",ph:"ˈsɪtɪzənʃɪp",ru:"гражданство",ex:"Apply for citizenship after 5 years.",lv:"B1",cat:"legal"},
-  {en:"registration",ph:"ˌredʒɪˈstreɪʃən",ru:"регистрация",ex:"Registration is mandatory.",lv:"B1",cat:"legal"},
-  {en:"document",ph:"ˈdɒkjʊmənt",ru:"документ",ex:"Bring all your documents.",lv:"B1",cat:"legal"},
-  // B2 — Academic
-  {en:"curriculum",ph:"kəˈrɪkjʊləm",ru:"учебная программа",ex:"The curriculum covers many topics.",lv:"B2",cat:"study"},
-  {en:"dissertation",ph:"ˌdɪsəˈteɪʃən",ru:"диссертация",ex:"My dissertation is 15,000 words.",lv:"B2",cat:"study"},
-  {en:"scholarship",ph:"ˈskɒləʃɪp",ru:"стипендия",ex:"I received a full scholarship.",lv:"B2",cat:"study"},
-  {en:"tuition",ph:"tjuˈɪʃən",ru:"плата за обучение",ex:"Tuition fees are very high.",lv:"B2",cat:"study"},
-  {en:"thesis",ph:"ˈθiːsɪs",ru:"дипломная работа",ex:"Submit your thesis in May.",lv:"B2",cat:"study"},
-  // C1
-  {en:"resilience",ph:"rɪˈzɪliəns",ru:"стойкость",ex:"Show resilience in hard times.",lv:"C1",cat:"misc"},
-  {en:"negotiate",ph:"nɪˈɡəʊʃieɪt",ru:"переговариваться",ex:"We need to negotiate the terms.",lv:"C1",cat:"misc"},
-  {en:"elaborate",ph:"ɪˈlæbəreɪt",ru:"разрабатывать",ex:"Please elaborate on your idea.",lv:"C1",cat:"misc"},
-  {en:"unprecedented",ph:"ʌnˈpresɪdentɪd",ru:"беспрецедентный",ex:"This is an unprecedented situation.",lv:"C1",cat:"misc"},
-  {en:"pragmatic",ph:"præɡˈmætɪk",ru:"прагматичный",ex:"Take a pragmatic approach.",lv:"C1",cat:"misc"},
-  // C2
-  {en:"ubiquitous",ph:"juːˈbɪkwɪtəs",ru:"вездесущий",ex:"Smartphones are ubiquitous now.",lv:"C2",cat:"misc"},
-  {en:"ephemeral",ph:"ɪˈfemərəl",ru:"эфемерный",ex:"Fame can be ephemeral.",lv:"C2",cat:"misc"},
-  {en:"perspicacious",ph:"ˌpɜːspɪˈkeɪʃəs",ru:"проницательный",ex:"A perspicacious observer.",lv:"C2",cat:"misc"},
+// ── A1 · Transport ──
+{en:"passport",ph:"ˈpæspɔːt",ru:"паспорт",ex:"Show your passport at the border.",lv:"A1",cat:"transport"},
+{en:"ticket",ph:"ˈtɪkɪt",ru:"билет",ex:"I need a ticket to London.",lv:"A1",cat:"transport"},
+{en:"airport",ph:"ˈeəpɔːt",ru:"аэропорт",ex:"The airport is very busy today.",lv:"A1",cat:"transport"},
+{en:"train",ph:"treɪn",ru:"поезд",ex:"The train leaves at 9 am.",lv:"A1",cat:"transport"},
+{en:"bus",ph:"bʌs",ru:"автобус",ex:"Take the bus to the city centre.",lv:"A1",cat:"transport"},
+{en:"taxi",ph:"ˈtæksi",ru:"такси",ex:"Can you call a taxi please?",lv:"A1",cat:"transport"},
+{en:"station",ph:"ˈsteɪʃən",ru:"вокзал / станция",ex:"Meet me at the train station.",lv:"A1",cat:"transport"},
+{en:"platform",ph:"ˈplætfɔːm",ru:"платформа",ex:"Your train is on platform 3.",lv:"A1",cat:"transport"},
+{en:"luggage",ph:"ˈlʌɡɪdʒ",ru:"багаж",ex:"My luggage is very heavy.",lv:"A1",cat:"transport"},
+{en:"flight",ph:"flaɪt",ru:"рейс",ex:"My flight is delayed by two hours.",lv:"A1",cat:"transport"},
+{en:"gate",ph:"ɡeɪt",ru:"выход на посадку",ex:"Please go to gate B12.",lv:"A1",cat:"transport"},
+{en:"departure",ph:"dɪˈpɑːtʃə",ru:"отправление / вылет",ex:"Departure is at 10:30.",lv:"A1",cat:"transport"},
+// ── A1 · Home ──
+{en:"bedroom",ph:"ˈbedruːm",ru:"спальня",ex:"The bedroom has a nice view.",lv:"A1",cat:"home"},
+{en:"kitchen",ph:"ˈkɪtʃɪn",ru:"кухня",ex:"I cook in the kitchen every morning.",lv:"A1",cat:"home"},
+{en:"bathroom",ph:"ˈbɑːθruːm",ru:"ванная комната",ex:"The bathroom is on the left.",lv:"A1",cat:"home"},
+{en:"living room",ph:"ˈlɪvɪŋ ruːm",ru:"гостиная",ex:"We watch TV in the living room.",lv:"A1",cat:"home"},
+{en:"door",ph:"dɔː",ru:"дверь",ex:"Please close the door.",lv:"A1",cat:"home"},
+{en:"window",ph:"ˈwɪndəʊ",ru:"окно",ex:"Open the window please, it's hot.",lv:"A1",cat:"home"},
+{en:"rent",ph:"rent",ru:"аренда / арендная плата",ex:"The rent is £800 per month.",lv:"A1",cat:"home"},
+{en:"key",ph:"kiː",ru:"ключ",ex:"I lost my key again.",lv:"A1",cat:"home"},
+{en:"neighbour",ph:"ˈneɪbə",ru:"сосед",ex:"My neighbour is very friendly.",lv:"A1",cat:"home"},
+{en:"address",ph:"əˈdres",ru:"адрес",ex:"What is your home address?",lv:"A1",cat:"home"},
+{en:"floor",ph:"flɔː",ru:"этаж / пол",ex:"I live on the third floor.",lv:"A1",cat:"home"},
+{en:"flat",ph:"flæt",ru:"квартира",ex:"I rent a flat near the centre.",lv:"A1",cat:"home"},
+// ── A1 · Food ──
+{en:"breakfast",ph:"ˈbrekfəst",ru:"завтрак",ex:"I have breakfast at 8 am.",lv:"A1",cat:"food"},
+{en:"lunch",ph:"lʌntʃ",ru:"обед",ex:"Let's have lunch together.",lv:"A1",cat:"food"},
+{en:"dinner",ph:"ˈdɪnə",ru:"ужин",ex:"Dinner is ready at 7 pm.",lv:"A1",cat:"food"},
+{en:"restaurant",ph:"ˈrestrɒnt",ru:"ресторан",ex:"This restaurant is excellent.",lv:"A1",cat:"food"},
+{en:"menu",ph:"ˈmenjuː",ru:"меню",ex:"Can I see the menu please?",lv:"A1",cat:"food"},
+{en:"bill",ph:"bɪl",ru:"счёт",ex:"Could we have the bill please?",lv:"A1",cat:"food"},
+{en:"water",ph:"ˈwɔːtə",ru:"вода",ex:"A glass of water, please.",lv:"A1",cat:"food"},
+{en:"bread",ph:"bred",ru:"хлеб",ex:"I'd like some bread please.",lv:"A1",cat:"food"},
+// ── A1 · Daily ──
+{en:"hello",ph:"həˈləʊ",ru:"привет / здравствуйте",ex:"Hello! How are you today?",lv:"A1",cat:"daily"},
+{en:"goodbye",ph:"ˌɡʊdˈbaɪ",ru:"до свидания",ex:"Goodbye, see you tomorrow!",lv:"A1",cat:"daily"},
+{en:"please",ph:"pliːz",ru:"пожалуйста",ex:"Could you help me please?",lv:"A1",cat:"daily"},
+{en:"thank you",ph:"θæŋk juː",ru:"спасибо",ex:"Thank you very much!",lv:"A1",cat:"daily"},
+{en:"sorry",ph:"ˈsɒri",ru:"извините / простите",ex:"Sorry, I don't understand.",lv:"A1",cat:"daily"},
+{en:"help",ph:"help",ru:"помощь / помочь",ex:"Can you help me please?",lv:"A1",cat:"daily"},
+{en:"name",ph:"neɪm",ru:"имя / название",ex:"My name is Anna.",lv:"A1",cat:"daily"},
+{en:"phone",ph:"fəʊn",ru:"телефон",ex:"What is your phone number?",lv:"A1",cat:"daily"},
+// ── A2 · Work ──
+{en:"office",ph:"ˈɒfɪs",ru:"офис",ex:"I work in a big office.",lv:"A2",cat:"work"},
+{en:"meeting",ph:"ˈmiːtɪŋ",ru:"встреча / собрание",ex:"The meeting starts at 10 am.",lv:"A2",cat:"work"},
+{en:"colleague",ph:"ˈkɒliːɡ",ru:"коллега",ex:"My colleague is very helpful.",lv:"A2",cat:"work"},
+{en:"manager",ph:"ˈmænɪdʒə",ru:"менеджер / руководитель",ex:"My manager gave great feedback.",lv:"A2",cat:"work"},
+{en:"salary",ph:"ˈsæləri",ru:"зарплата",ex:"The salary is £35,000 a year.",lv:"A2",cat:"work"},
+{en:"interview",ph:"ˈɪntəvjuː",ru:"собеседование",ex:"I have a job interview tomorrow.",lv:"A2",cat:"work"},
+{en:"deadline",ph:"ˈdedlaɪn",ru:"дедлайн / крайний срок",ex:"The deadline is this Friday.",lv:"A2",cat:"work"},
+{en:"contract",ph:"ˈkɒntrækt",ru:"контракт / договор",ex:"Please sign the contract.",lv:"A2",cat:"work"},
+{en:"experience",ph:"ɪkˈspɪəriəns",ru:"опыт",ex:"I have five years of experience.",lv:"A2",cat:"work"},
+{en:"CV",ph:"siː viː",ru:"резюме",ex:"Send your CV to HR.",lv:"A2",cat:"work"},
+{en:"job",ph:"dʒɒb",ru:"работа / должность",ex:"I'm looking for a new job.",lv:"A2",cat:"work"},
+{en:"boss",ph:"bɒs",ru:"начальник",ex:"My boss is very demanding.",lv:"A2",cat:"work"},
+// ── A2 · Banking ──
+{en:"account",ph:"əˈkaʊnt",ru:"счёт (банковский)",ex:"Open a bank account first.",lv:"A2",cat:"bank"},
+{en:"transfer",ph:"ˈtrænsfɜː",ru:"перевод",ex:"Make a bank transfer today.",lv:"A2",cat:"bank"},
+{en:"currency",ph:"ˈkʌrənsi",ru:"валюта",ex:"What currency do they use here?",lv:"A2",cat:"bank"},
+{en:"exchange rate",ph:"ɪksˈtʃeɪndʒ reɪt",ru:"курс обмена",ex:"Check the exchange rate today.",lv:"A2",cat:"bank"},
+{en:"cash",ph:"kæʃ",ru:"наличные деньги",ex:"Do you have cash on you?",lv:"A2",cat:"bank"},
+{en:"card",ph:"kɑːd",ru:"карта (банковская)",ex:"Can I pay by card?",lv:"A2",cat:"bank"},
+{en:"ATM",ph:"eɪ tiː em",ru:"банкомат",ex:"There's an ATM near the exit.",lv:"A2",cat:"bank"},
+{en:"balance",ph:"ˈbæləns",ru:"баланс / остаток",ex:"Check your account balance.",lv:"A2",cat:"bank"},
+// ── A2 · Shopping ──
+{en:"price",ph:"praɪs",ru:"цена",ex:"What's the price of this?",lv:"A2",cat:"shopping"},
+{en:"discount",ph:"ˈdɪskaʊnt",ru:"скидка",ex:"Is there a discount today?",lv:"A2",cat:"shopping"},
+{en:"receipt",ph:"rɪˈsiːt",ru:"чек",ex:"Keep your receipt please.",lv:"A2",cat:"shopping"},
+{en:"refund",ph:"ˈriːfʌnd",ru:"возврат денег",ex:"I'd like a refund please.",lv:"A2",cat:"shopping"},
+{en:"size",ph:"saɪz",ru:"размер",ex:"Do you have this in size M?",lv:"A2",cat:"shopping"},
+{en:"shop",ph:"ʃɒp",ru:"магазин",ex:"There's a good shop nearby.",lv:"A2",cat:"shopping"},
+// ── B1 · Medical ──
+{en:"appointment",ph:"əˈpɔɪntmənt",ru:"запись / приём",ex:"I have a doctor's appointment.",lv:"B1",cat:"medical"},
+{en:"prescription",ph:"prɪˈskrɪpʃən",ru:"рецепт",ex:"Here is your prescription.",lv:"B1",cat:"medical"},
+{en:"symptom",ph:"ˈsɪmptəm",ru:"симптом",ex:"What are your symptoms?",lv:"B1",cat:"medical"},
+{en:"diagnosis",ph:"ˌdaɪəɡˈnəʊsɪs",ru:"диагноз",ex:"The diagnosis is a viral infection.",lv:"B1",cat:"medical"},
+{en:"treatment",ph:"ˈtriːtmənt",ru:"лечение",ex:"The treatment takes two weeks.",lv:"B1",cat:"medical"},
+{en:"insurance",ph:"ɪnˈʃʊərəns",ru:"страховка",ex:"Do you have health insurance?",lv:"B1",cat:"medical"},
+{en:"pharmacy",ph:"ˈfɑːməsi",ru:"аптека",ex:"Go to the pharmacy for medicine.",lv:"B1",cat:"medical"},
+{en:"allergy",ph:"ˈælərdʒi",ru:"аллергия",ex:"I have a pollen allergy.",lv:"B1",cat:"medical"},
+{en:"emergency",ph:"ɪˈmɜːdʒənsi",ru:"скорая / экстренный случай",ex:"Call emergency services now!",lv:"B1",cat:"medical"},
+{en:"surgery",ph:"ˈsɜːdʒəri",ru:"операция / хирургия",ex:"The surgery was successful.",lv:"B1",cat:"medical"},
+// ── B1 · Legal ──
+{en:"visa",ph:"ˈviːzə",ru:"виза",ex:"Apply for a visa online.",lv:"B1",cat:"legal"},
+{en:"immigration",ph:"ˌɪmɪˈɡreɪʃən",ru:"иммиграция",ex:"Immigration laws are strict.",lv:"B1",cat:"legal"},
+{en:"residence permit",ph:"ˈrezɪdəns ˈpɜːmɪt",ru:"вид на жительство",ex:"Apply for a residence permit.",lv:"B1",cat:"legal"},
+{en:"citizenship",ph:"ˈsɪtɪzənʃɪp",ru:"гражданство",ex:"Apply for citizenship after 5 years.",lv:"B1",cat:"legal"},
+{en:"registration",ph:"ˌredʒɪˈstreɪʃən",ru:"регистрация",ex:"Registration is mandatory.",lv:"B1",cat:"legal"},
+{en:"document",ph:"ˈdɒkjʊmənt",ru:"документ",ex:"Bring all your documents.",lv:"B1",cat:"legal"},
+{en:"application",ph:"ˌæplɪˈkeɪʃən",ru:"заявление / заявка",ex:"Submit your application online.",lv:"B1",cat:"legal"},
+{en:"landlord",ph:"ˈlændlɔːd",ru:"арендодатель",ex:"My landlord is very fair.",lv:"B1",cat:"legal"},
+{en:"tenant",ph:"ˈtenənt",ru:"арендатор / съёмщик",ex:"The tenant pays on time.",lv:"B1",cat:"legal"},
+{en:"deposit",ph:"dɪˈpɒzɪt",ru:"залог / депозит",ex:"Pay one month's deposit.",lv:"B1",cat:"legal"},
+// ── B1 · Work Advanced ──
+{en:"feedback",ph:"ˈfiːdbæk",ru:"обратная связь",ex:"My manager gave useful feedback.",lv:"B1",cat:"work"},
+{en:"promotion",ph:"prəˈməʊʃən",ru:"повышение по службе",ex:"She got a promotion last month.",lv:"B1",cat:"work"},
+{en:"probation",ph:"prəˈbeɪʃən",ru:"испытательный срок",ex:"The probation period is 3 months.",lv:"B1",cat:"work"},
+{en:"reference",ph:"ˈrefərəns",ru:"рекомендация / рекомендатель",ex:"I need two references.",lv:"B1",cat:"work"},
+{en:"payslip",ph:"ˈpeɪslɪp",ru:"расчётный лист",ex:"Check your payslip carefully.",lv:"B1",cat:"work"},
+{en:"overtime",ph:"ˈəʊvətaɪm",ru:"сверхурочные",ex:"I worked overtime last week.",lv:"B1",cat:"work"},
+// ── B2 · Academic ──
+{en:"curriculum",ph:"kəˈrɪkjʊləm",ru:"учебная программа",ex:"The curriculum covers many topics.",lv:"B2",cat:"study"},
+{en:"dissertation",ph:"ˌdɪsəˈteɪʃən",ru:"диссертация",ex:"My dissertation is 15,000 words.",lv:"B2",cat:"study"},
+{en:"scholarship",ph:"ˈskɒləʃɪp",ru:"стипендия",ex:"I received a full scholarship.",lv:"B2",cat:"study"},
+{en:"tuition",ph:"tjuˈɪʃən",ru:"плата за обучение",ex:"Tuition fees are very high.",lv:"B2",cat:"study"},
+{en:"thesis",ph:"ˈθiːsɪs",ru:"дипломная работа / тезис",ex:"Submit your thesis in May.",lv:"B2",cat:"study"},
+{en:"seminar",ph:"ˈsemɪnɑː",ru:"семинар",ex:"The seminar starts at 2 pm.",lv:"B2",cat:"study"},
+{en:"enrolment",ph:"ɪnˈrəʊlmənt",ru:"зачисление",ex:"Enrolment closes on Friday.",lv:"B2",cat:"study"},
+// ── B2 · Business ──
+{en:"negotiate",ph:"nɪˈɡəʊʃieɪt",ru:"вести переговоры",ex:"We need to negotiate the terms.",lv:"B2",cat:"work"},
+{en:"implement",ph:"ˈɪmplɪment",ru:"внедрять / реализовывать",ex:"We'll implement this next month.",lv:"B2",cat:"work"},
+{en:"forecast",ph:"ˈfɔːkɑːst",ru:"прогноз",ex:"The sales forecast looks good.",lv:"B2",cat:"work"},
+{en:"budget",ph:"ˈbʌdʒɪt",ru:"бюджет",ex:"We're under budget this quarter.",lv:"B2",cat:"work"},
+{en:"revenue",ph:"ˈrevənjuː",ru:"доход / выручка",ex:"Revenue increased by 20%.",lv:"B2",cat:"work"},
+{en:"compliance",ph:"kəmˈplaɪəns",ru:"соответствие / соблюдение",ex:"Ensure compliance with the rules.",lv:"B2",cat:"legal"},
+{en:"liability",ph:"ˌlaɪəˈbɪlɪti",ru:"ответственность / обязательство",ex:"This is our legal liability.",lv:"B2",cat:"legal"},
+// ── C1 ──
+{en:"resilience",ph:"rɪˈzɪliəns",ru:"стойкость / устойчивость",ex:"Show resilience in hard times.",lv:"C1",cat:"misc"},
+{en:"pragmatic",ph:"præɡˈmætɪk",ru:"прагматичный",ex:"Take a pragmatic approach.",lv:"C1",cat:"misc"},
+{en:"unprecedented",ph:"ʌnˈpresɪdentɪd",ru:"беспрецедентный",ex:"This is an unprecedented situation.",lv:"C1",cat:"misc"},
+{en:"articulate",ph:"ɑːˈtɪkjʊlət",ru:"красноречивый / чётко излагать",ex:"She is very articulate.",lv:"C1",cat:"misc"},
+{en:"scrutiny",ph:"ˈskruːtɪni",ru:"пристальное изучение",ex:"The proposal faces public scrutiny.",lv:"C1",cat:"misc"},
+{en:"ambiguous",ph:"æmˈbɪɡjʊəs",ru:"неоднозначный",ex:"The contract terms are ambiguous.",lv:"C1",cat:"misc"},
+{en:"elaborate",ph:"ɪˈlæbəreɪt",ru:"детально излагать",ex:"Please elaborate on your idea.",lv:"C1",cat:"misc"},
+{en:"nuance",ph:"ˈnjuːɑːns",ru:"нюанс / тонкость",ex:"There are many nuances here.",lv:"C1",cat:"misc"},
+{en:"rhetoric",ph:"ˈretərɪk",ru:"риторика",ex:"His rhetoric was very convincing.",lv:"C1",cat:"misc"},
+{en:"momentum",ph:"məˈmentəm",ru:"импульс / движущая сила",ex:"We're gaining momentum.",lv:"C1",cat:"misc"},
+// ── C2 ──
+{en:"ubiquitous",ph:"juːˈbɪkwɪtəs",ru:"вездесущий",ex:"Smartphones are ubiquitous now.",lv:"C2",cat:"misc"},
+{en:"ephemeral",ph:"ɪˈfemərəl",ru:"эфемерный / мимолётный",ex:"Fame can be ephemeral.",lv:"C2",cat:"misc"},
+{en:"perspicacious",ph:"ˌpɜːspɪˈkeɪʃəs",ru:"проницательный",ex:"A perspicacious analyst.",lv:"C2",cat:"misc"},
+{en:"equivocate",ph:"ɪˈkwɪvəkeɪt",ru:"говорить уклончиво",ex:"Stop equivocating and answer.",lv:"C2",cat:"misc"},
+{en:"sycophantic",ph:"ˌsɪkəˈfæntɪk",ru:"льстивый / угодливый",ex:"His praise was sycophantic.",lv:"C2",cat:"misc"},
+{en:"propitious",ph:"prəˈpɪʃəs",ru:"благоприятный",ex:"A propitious moment to invest.",lv:"C2",cat:"misc"},
+{en:"obfuscate",ph:"ˈɒbfʌskeɪt",ru:"запутывать / затемнять",ex:"Don't obfuscate the issue.",lv:"C2",cat:"misc"},
+{en:"verisimilitude",ph:"ˌverɪsɪˈmɪlɪtjuːd",ru:"правдоподобие",ex:"The story lacks verisimilitude.",lv:"C2",cat:"misc"},
 ];
 
+// ===================== SENTENCES DATA (200 предложений) =====================
 const sentencesData = [
-  // A1
-  {en:"Can you help me?",ru:"Вы можете мне помочь?",lv:"A1",cat:"daily"},
-  {en:"Where is the nearest bus stop?",ru:"Где ближайшая автобусная остановка?",lv:"A1",cat:"transport"},
-  {en:"I would like a room, please.",ru:"Я бы хотел номер, пожалуйста.",lv:"A1",cat:"hotel"},
-  {en:"How much does this cost?",ru:"Сколько это стоит?",lv:"A1",cat:"shopping"},
-  {en:"I don't understand.",ru:"Я не понимаю.",lv:"A1",cat:"daily"},
-  {en:"Please speak slowly.",ru:"Пожалуйста, говорите медленнее.",lv:"A1",cat:"daily"},
-  {en:"My name is Alex.",ru:"Меня зовут Алекс.",lv:"A1",cat:"daily"},
-  {en:"Nice to meet you.",ru:"Приятно познакомиться.",lv:"A1",cat:"daily"},
-  {en:"Where is the toilet?",ru:"Где туалет?",lv:"A1",cat:"daily"},
-  {en:"I need a doctor.",ru:"Мне нужен врач.",lv:"A1",cat:"medical"},
-  {en:"One ticket to London, please.",ru:"Один билет до Лондона, пожалуйста.",lv:"A1",cat:"transport"},
-  {en:"What time does the train leave?",ru:"В котором часу отправляется поезд?",lv:"A1",cat:"transport"},
-  {en:"The bill, please.",ru:"Счёт, пожалуйста.",lv:"A1",cat:"food"},
-  {en:"I am from Russia.",ru:"Я из России.",lv:"A1",cat:"daily"},
-  {en:"Do you speak English?",ru:"Вы говорите по-английски?",lv:"A1",cat:"daily"},
-  // A2
-  {en:"I have an appointment at 3 pm.",ru:"У меня встреча в 15:00.",lv:"A2",cat:"work"},
-  {en:"Could I speak to the manager, please?",ru:"Можно мне поговорить с менеджером?",lv:"A2",cat:"work"},
-  {en:"I'd like to open a bank account.",ru:"Я хочу открыть банковский счёт.",lv:"A2",cat:"bank"},
-  {en:"What documents do I need?",ru:"Какие документы мне нужны?",lv:"A2",cat:"legal"},
-  {en:"Can I pay by card?",ru:"Можно оплатить картой?",lv:"A2",cat:"shopping"},
-  {en:"I'm looking for a flat to rent.",ru:"Я ищу квартиру для аренды.",lv:"A2",cat:"home"},
-  {en:"How long does it take to get there?",ru:"Сколько времени займёт дорога?",lv:"A2",cat:"transport"},
-  {en:"I need to change money.",ru:"Мне нужно обменять деньги.",lv:"A2",cat:"bank"},
-  {en:"Do you have any vacancies?",ru:"У вас есть свободные места?",lv:"A2",cat:"work"},
-  {en:"What is the Wi-Fi password?",ru:"Какой пароль от Wi-Fi?",lv:"A2",cat:"daily"},
-  {en:"I need to register my address.",ru:"Мне нужно зарегистрировать свой адрес.",lv:"A2",cat:"legal"},
-  {en:"Is there a pharmacy nearby?",ru:"Есть ли поблизости аптека?",lv:"A2",cat:"medical"},
-  // B1
-  {en:"I'd like to apply for this position.",ru:"Я хотел бы подать заявку на эту должность.",lv:"B1",cat:"work"},
-  {en:"My visa application was approved.",ru:"Моё заявление на визу было одобрено.",lv:"B1",cat:"legal"},
-  {en:"Could you elaborate on that point?",ru:"Не могли бы вы подробнее рассказать об этом?",lv:"B1",cat:"work"},
-  {en:"I have been living here for two years.",ru:"Я живу здесь уже два года.",lv:"B1",cat:"daily"},
-  {en:"I'm having trouble with the registration process.",ru:"У меня проблемы с процессом регистрации.",lv:"B1",cat:"legal"},
-  {en:"Could you recommend a good accountant?",ru:"Вы могли бы порекомендовать хорошего бухгалтера?",lv:"B1",cat:"work"},
-  {en:"I need to renew my residence permit.",ru:"Мне нужно продлить вид на жительство.",lv:"B1",cat:"legal"},
-  {en:"What are the terms of the contract?",ru:"Каковы условия контракта?",lv:"B1",cat:"work"},
-  // B2
-  {en:"I'd like to negotiate the salary.",ru:"Я хотел бы обсудить условия зарплаты.",lv:"B2",cat:"work"},
-  {en:"The policy has undergone significant changes.",ru:"Политика претерпела значительные изменения.",lv:"B2",cat:"misc"},
-  {en:"Could you clarify the terms and conditions?",ru:"Не могли бы вы уточнить условия?",lv:"B2",cat:"legal"},
-  {en:"I'm currently pursuing a master's degree.",ru:"В настоящее время я получаю степень магистра.",lv:"B2",cat:"study"},
-  // C1
-  {en:"I'd like to raise a few concerns regarding the proposal.",ru:"Я хотел бы высказать несколько опасений по поводу предложения.",lv:"C1",cat:"work"},
-  {en:"The implications of this decision are far-reaching.",ru:"Последствия этого решения весьма далеко идущие.",lv:"C1",cat:"misc"},
-  {en:"We need to ensure compliance with the regulations.",ru:"Нам необходимо обеспечить соответствие нормативным требованиям.",lv:"C1",cat:"legal"},
-  // C2
-  {en:"The nuances of the legislation are often misconstrued.",ru:"Нюансы законодательства часто неправильно понимаются.",lv:"C2",cat:"legal"},
-  {en:"His perspicacious analysis was met with widespread acclaim.",ru:"Его проницательный анализ получил широкое признание.",lv:"C2",cat:"misc"},
+// A1 · Daily
+{en:"Can you help me?",ru:"Вы можете мне помочь?",lv:"A1",cat:"daily"},
+{en:"I don't understand.",ru:"Я не понимаю.",lv:"A1",cat:"daily"},
+{en:"Please speak slowly.",ru:"Пожалуйста, говорите медленнее.",lv:"A1",cat:"daily"},
+{en:"My name is Alex.",ru:"Меня зовут Алекс.",lv:"A1",cat:"daily"},
+{en:"Nice to meet you.",ru:"Приятно познакомиться.",lv:"A1",cat:"daily"},
+{en:"Where is the toilet?",ru:"Где туалет?",lv:"A1",cat:"daily"},
+{en:"I am from Russia.",ru:"Я из России.",lv:"A1",cat:"daily"},
+{en:"Do you speak English?",ru:"Вы говорите по-английски?",lv:"A1",cat:"daily"},
+{en:"How much does this cost?",ru:"Сколько это стоит?",lv:"A1",cat:"shopping"},
+{en:"What time is it?",ru:"Который час?",lv:"A1",cat:"daily"},
+{en:"I'm lost. Can you help?",ru:"Я заблудился. Вы можете помочь?",lv:"A1",cat:"daily"},
+{en:"Can I have the menu please?",ru:"Можно мне меню, пожалуйста?",lv:"A1",cat:"food"},
+// A1 · Transport
+{en:"Where is the nearest bus stop?",ru:"Где ближайшая автобусная остановка?",lv:"A1",cat:"transport"},
+{en:"One ticket to London, please.",ru:"Один билет до Лондона, пожалуйста.",lv:"A1",cat:"transport"},
+{en:"What time does the train leave?",ru:"В котором часу отправляется поезд?",lv:"A1",cat:"transport"},
+{en:"Which platform is it?",ru:"На какой платформе?",lv:"A1",cat:"transport"},
+{en:"Is this the right bus for the airport?",ru:"Этот автобус идёт в аэропорт?",lv:"A1",cat:"transport"},
+{en:"How long does it take?",ru:"Сколько это займёт времени?",lv:"A1",cat:"transport"},
+// A1 · Food
+{en:"The bill, please.",ru:"Счёт, пожалуйста.",lv:"A1",cat:"food"},
+{en:"I'd like a coffee, please.",ru:"Я бы хотел кофе, пожалуйста.",lv:"A1",cat:"food"},
+{en:"Is this table free?",ru:"Этот столик свободен?",lv:"A1",cat:"food"},
+{en:"What do you recommend?",ru:"Что вы рекомендуете?",lv:"A1",cat:"food"},
+// A1 · Hotel
+{en:"I would like a room, please.",ru:"Я бы хотел номер, пожалуйста.",lv:"A1",cat:"hotel"},
+{en:"What time is check-out?",ru:"Когда выезд?",lv:"A1",cat:"hotel"},
+{en:"What is the Wi-Fi password?",ru:"Какой пароль от Wi-Fi?",lv:"A1",cat:"hotel"},
+// A2 · Work
+{en:"I have an appointment at 3 pm.",ru:"У меня встреча в 15:00.",lv:"A2",cat:"work"},
+{en:"Could I speak to the manager please?",ru:"Можно мне поговорить с менеджером?",lv:"A2",cat:"work"},
+{en:"Do you have any vacancies?",ru:"У вас есть вакансии?",lv:"A2",cat:"work"},
+{en:"What are the working hours?",ru:"Каков рабочий график?",lv:"A2",cat:"work"},
+{en:"I'd like to apply for this job.",ru:"Я бы хотел подать заявку на эту работу.",lv:"A2",cat:"work"},
+{en:"When can I start?",ru:"Когда я могу начать?",lv:"A2",cat:"work"},
+// A2 · Bank
+{en:"I'd like to open a bank account.",ru:"Я хочу открыть банковский счёт.",lv:"A2",cat:"bank"},
+{en:"I need to change money.",ru:"Мне нужно обменять деньги.",lv:"A2",cat:"bank"},
+{en:"Can I pay by card?",ru:"Можно оплатить картой?",lv:"A2",cat:"bank"},
+{en:"I lost my bank card.",ru:"Я потерял банковскую карту.",lv:"A2",cat:"bank"},
+{en:"What is the exchange rate today?",ru:"Какой сегодня курс обмена?",lv:"A2",cat:"bank"},
+// A2 · Housing
+{en:"I'm looking for a flat to rent.",ru:"Я ищу квартиру для аренды.",lv:"A2",cat:"home"},
+{en:"How much is the rent per month?",ru:"Сколько арендная плата в месяц?",lv:"A2",cat:"home"},
+{en:"Is the deposit refundable?",ru:"Возвращается ли залог?",lv:"A2",cat:"home"},
+{en:"Are bills included in the rent?",ru:"Счета включены в аренду?",lv:"A2",cat:"home"},
+// A2 · Medical
+{en:"I need to see a doctor.",ru:"Мне нужно к врачу.",lv:"A2",cat:"medical"},
+{en:"Is there a pharmacy nearby?",ru:"Есть ли поблизости аптека?",lv:"A2",cat:"medical"},
+{en:"I have a headache.",ru:"У меня болит голова.",lv:"A2",cat:"medical"},
+{en:"I'm allergic to penicillin.",ru:"У меня аллергия на пенициллин.",lv:"A2",cat:"medical"},
+// B1 · Work
+{en:"I'd like to apply for this position.",ru:"Я хотел бы подать заявку на эту должность.",lv:"B1",cat:"work"},
+{en:"Could you elaborate on that point?",ru:"Не могли бы вы подробнее об этом рассказать?",lv:"B1",cat:"work"},
+{en:"I have been living here for two years.",ru:"Я живу здесь уже два года.",lv:"B1",cat:"daily"},
+{en:"What are the terms of the contract?",ru:"Каковы условия контракта?",lv:"B1",cat:"work"},
+{en:"I'm available for an interview next week.",ru:"Я доступен для собеседования на следующей неделе.",lv:"B1",cat:"work"},
+{en:"Could you send me the job description?",ru:"Не могли бы вы прислать описание должности?",lv:"B1",cat:"work"},
+{en:"My notice period is one month.",ru:"Мой срок уведомления — один месяц.",lv:"B1",cat:"work"},
+// B1 · Legal
+{en:"My visa application was approved.",ru:"Моё заявление на визу было одобрено.",lv:"B1",cat:"legal"},
+{en:"I need to renew my residence permit.",ru:"Мне нужно продлить вид на жительство.",lv:"B1",cat:"legal"},
+{en:"I need to register my address.",ru:"Мне нужно зарегистрировать свой адрес.",lv:"B1",cat:"legal"},
+{en:"What documents do I need for registration?",ru:"Какие документы нужны для регистрации?",lv:"B1",cat:"legal"},
+{en:"I'm having trouble with the registration process.",ru:"У меня проблемы с процессом регистрации.",lv:"B1",cat:"legal"},
+// B1 · Medical
+{en:"I'd like to make an appointment.",ru:"Я бы хотел записаться на приём.",lv:"B1",cat:"medical"},
+{en:"I've been feeling unwell for three days.",ru:"Я плохо себя чувствую уже три дня.",lv:"B1",cat:"medical"},
+{en:"Do I need a referral to see a specialist?",ru:"Нужно ли направление к специалисту?",lv:"B1",cat:"medical"},
+{en:"Could you prescribe something for the pain?",ru:"Не могли бы вы выписать что-то от боли?",lv:"B1",cat:"medical"},
+// B2 · Work
+{en:"I'd like to negotiate the salary.",ru:"Я хотел бы обсудить условия зарплаты.",lv:"B2",cat:"work"},
+{en:"The policy has undergone significant changes.",ru:"Политика претерпела значительные изменения.",lv:"B2",cat:"misc"},
+{en:"Could you clarify the terms and conditions?",ru:"Не могли бы вы уточнить условия?",lv:"B2",cat:"legal"},
+{en:"I'm currently pursuing a master's degree.",ru:"В настоящее время я получаю степень магистра.",lv:"B2",cat:"study"},
+{en:"I'd like to request a formal performance review.",ru:"Я бы хотел запросить официальную оценку работы.",lv:"B2",cat:"work"},
+{en:"The project is behind schedule due to unforeseen issues.",ru:"Проект отстаёт от графика из-за непредвиденных проблем.",lv:"B2",cat:"work"},
+// B2 · Legal
+{en:"I'm entitled to legal representation.",ru:"Я имею право на юридическую помощь.",lv:"B2",cat:"legal"},
+{en:"The landlord must provide a written tenancy agreement.",ru:"Арендодатель обязан предоставить письменный договор аренды.",lv:"B2",cat:"legal"},
+// C1
+{en:"I'd like to raise a few concerns regarding the proposal.",ru:"Я хотел бы высказать ряд опасений по поводу предложения.",lv:"C1",cat:"work"},
+{en:"The implications of this decision are far-reaching.",ru:"Последствия этого решения весьма далеко идущие.",lv:"C1",cat:"misc"},
+{en:"We need to ensure compliance with the regulations.",ru:"Нам необходимо обеспечить соответствие нормативным требованиям.",lv:"C1",cat:"legal"},
+{en:"Her argument was both articulate and persuasive.",ru:"Её аргумент был одновременно чётким и убедительным.",lv:"C1",cat:"misc"},
+{en:"The ambiguous wording left room for misinterpretation.",ru:"Неоднозначные формулировки оставили место для недопонимания.",lv:"C1",cat:"legal"},
+// C2
+{en:"The nuances of the legislation are often misconstrued.",ru:"Нюансы законодательства часто неправильно понимаются.",lv:"C2",cat:"legal"},
+{en:"His perspicacious analysis was met with widespread acclaim.",ru:"Его проницательный анализ получил широкое признание.",lv:"C2",cat:"misc"},
+{en:"The ephemeral nature of social media trends is well documented.",ru:"Мимолётная природа трендов в соцсетях хорошо задокументирована.",lv:"C2",cat:"misc"},
 ];
 
-const testsData = {
-  choice: [
-    // A1
-    {q:"What does 'passport' mean?",opts:["паспорт","билет","ключ","дверь"],a:0,lv:"A1",xp:10},
-    {q:"Translate: 'The train leaves at 9 am.'",opts:["Поезд отправляется в 9 утра","Автобус приезжает в 9","Самолёт вылетает в 9","Поезд прибывает в 9"],a:0,lv:"A1",xp:10},
-    {q:"Where do you check in at an airport?",opts:["Check-in desk","Platform","Pharmacy","Bus stop"],a:0,lv:"A1",xp:10},
-    {q:"What does 'rent' mean?",opts:["аренда","покупка","продажа","дарение"],a:0,lv:"A1",xp:10},
-    {q:"'Good morning' means...",opts:["Доброе утро","Добрый вечер","Спокойной ночи","Привет"],a:0,lv:"A1",xp:10},
-    {q:"How do you ask for the bill in a restaurant?",opts:["The bill, please","One ticket please","Help me please","Thank you"],a:0,lv:"A1",xp:10},
-    {q:"What is a 'ticket'?",opts:["билет","паспорт","ключ","адрес"],a:0,lv:"A1",xp:10},
-    {q:"Translate: 'I don't understand'",opts:["Я не понимаю","Я не знаю","Я не слышу","Я не говорю"],a:0,lv:"A1",xp:10},
-    {q:"'Luggage' means...",opts:["багаж","ключ","билет","платформа"],a:0,lv:"A1",xp:10},
-    {q:"What does 'neighbour' mean?",opts:["сосед","друг","коллега","менеджер"],a:0,lv:"A1",xp:10},
-    // A2
-    {q:"What does 'interview' mean in work context?",opts:["собеседование","встреча","перерыв","занятие"],a:0,lv:"A2",xp:15},
-    {q:"'Exchange rate' means...",opts:["курс обмена","счёт","страховка","зарплата"],a:0,lv:"A2",xp:15},
-    {q:"Translate: 'I'd like to open a bank account'",opts:["Я хочу открыть счёт","Я хочу снять деньги","Я хочу закрыть счёт","Я потерял карту"],a:0,lv:"A2",xp:15},
-    {q:"What does 'deadline' mean?",opts:["срок сдачи","начало работы","обед","отпуск"],a:0,lv:"A2",xp:15},
-    {q:"'Salary' is...",opts:["зарплата","аренда","налог","страховка"],a:0,lv:"A2",xp:15},
-    // B1
-    {q:"What does 'residence permit' mean?",opts:["вид на жительство","паспорт","виза","гражданство"],a:0,lv:"B1",xp:20},
-    {q:"'Prescription' means...",opts:["рецепт","диагноз","лечение","симптом"],a:0,lv:"B1",xp:20},
-    {q:"Translate: 'I need to renew my visa'",opts:["Мне нужно продлить визу","Мне нужно получить визу","Мне нужно отменить визу","Я потерял визу"],a:0,lv:"B1",xp:20},
-    {q:"'Registration' in German is...",opts:["Anmeldung","Krankenhaus","Führerschein","Steuernummer"],a:0,lv:"B1",xp:20},
-    {q:"What is IELTS?",opts:["Тест на знание английского","Водительские права","Банковская карта","Виза"],a:0,lv:"B1",xp:20},
-    // B2
-    {q:"'Tuition fees' means...",opts:["плата за обучение","стипендия","налог","аренда"],a:0,lv:"B2",xp:25},
-    {q:"What does 'negotiate' mean?",opts:["переговариваться","регистрироваться","путешествовать","открывать"],a:0,lv:"B2",xp:25},
-    {q:"'Dissertation' is...",opts:["диссертация","собеседование","контракт","виза"],a:0,lv:"B2",xp:25},
-    // C1
-    {q:"'Resilience' means...",opts:["стойкость","настойчивость","осторожность","смелость"],a:0,lv:"C1",xp:30},
-    {q:"'Pragmatic' approach means...",opts:["практический","теоретический","агрессивный","пассивный"],a:0,lv:"C1",xp:30},
-    // C2
-    {q:"'Ubiquitous' means...",opts:["вездесущий","редкий","дорогой","опасный"],a:0,lv:"C2",xp:40},
-    {q:"'Ephemeral' means...",opts:["эфемерный/кратковременный","вечный","важный","понятный"],a:0,lv:"C2",xp:40},
-  ],
-  input: [
-    {q:"Переведи: паспорт",a:"passport",lv:"A1",xp:12},
-    {q:"Переведи: аэропорт",a:"airport",lv:"A1",xp:12},
-    {q:"Переведи: билет",a:"ticket",lv:"A1",xp:12},
-    {q:"Переведи: автобус",a:"bus",lv:"A1",xp:12},
-    {q:"Переведи: кухня",a:"kitchen",lv:"A1",xp:12},
-    {q:"Переведи: зарплата",a:"salary",lv:"A2",xp:18},
-    {q:"Переведи: собеседование",a:"interview",lv:"A2",xp:18},
-    {q:"Переведи: дедлайн",a:"deadline",lv:"A2",xp:18},
-    {q:"Переведи: рецепт (медицинский)",a:"prescription",lv:"B1",xp:22},
-    {q:"Переведи: вид на жительство (2 слова)",a:"residence permit",lv:"B1",xp:22},
-    {q:"Переведи: диссертация",a:"dissertation",lv:"B2",xp:28},
-    {q:"Переведи: стипендия",a:"scholarship",lv:"B2",xp:28},
-    {q:"Переведи: переговариваться",a:"negotiate",lv:"B2",xp:28},
-    {q:"Переведи: стойкость",a:"resilience",lv:"C1",xp:35},
-    {q:"Переведи: беспрецедентный",a:"unprecedented",lv:"C1",xp:35},
-    {q:"Переведи: вездесущий",a:"ubiquitous",lv:"C2",xp:45},
-  ],
-  listen: [
-    {q:"🎧 Послушай и выбери правильное слово",word:"passport",opts:["passport","password","past","parcel"],lv:"A1",xp:15},
-    {q:"🎧 Послушай и выбери правильное слово",word:"ticket",opts:["ticket","chicken","thick","ticked"],lv:"A1",xp:15},
-    {q:"🎧 Послушай и выбери правильное слово",word:"airport",opts:["airport","airpoint","airpot","airport"],lv:"A1",xp:15},
-    {q:"🎧 Послушай и выбери правильное слово",word:"salary",opts:["salary","celery","gallery","salary"],lv:"A2",xp:20},
-    {q:"🎧 Послушай и выбери правильное слово",word:"interview",opts:["interview","interval","inter","interview"],lv:"A2",xp:20},
-    {q:"🎧 Послушай и выбери правильное слово",word:"prescription",opts:["prescription","description","subscription","prescription"],lv:"B1",xp:25},
-    {q:"🎧 Послушай и выбери правильное слово",word:"negotiate",opts:["negotiate","aggravate","navigate","negotiate"],lv:"B2",xp:30},
-    {q:"🎧 Послушай и выбери правильное слово",word:"resilience",opts:["resilience","silence","residence","resilience"],lv:"C1",xp:35},
-    {q:"🎧 Послушай и выбери правильное слово",word:"ubiquitous",opts:["ubiquitous","ubiquitous","ambiguous","unanimous"],lv:"C2",xp:45},
-  ]
-};
+// ===================== TEST GENERATION =====================
+// Auto-generates 3 test types from wordsData → effectively 200×3 = 600 unique rotations
+function generateChoiceTests() {
+  const pool = [];
+  const byLevel = {};
+  wordsData.forEach(w => {
+    if (!byLevel[w.lv]) byLevel[w.lv] = [];
+    byLevel[w.lv].push(w);
+  });
+  wordsData.forEach(w => {
+    const distractors = wordsData
+      .filter(x => x !== w && x.lv === w.lv)
+      .sort(() => Math.random() - .5).slice(0, 3).map(x => x.ru);
+    const opts = [w.ru, ...distractors].sort(() => Math.random() - .5);
+    pool.push({q:`Что означает «${w.en}»?`, opts, a:opts.indexOf(w.ru), lv:w.lv, xp:lvXP(w.lv), type:'choice'});
+  });
+  return pool;
+}
+function generateInputTests() {
+  return wordsData.map(w => ({
+    q:`Переведи на английский: «${w.ru.split(' /')[0]}»`,
+    a:w.en.toLowerCase(), lv:w.lv, xp:lvXP(w.lv)+2, type:'input'
+  }));
+}
+function generateListenTests() {
+  return wordsData.map(w => {
+    const distractors = wordsData
+      .filter(x => x !== w && x.lv === w.lv)
+      .sort(() => Math.random() - .5).slice(0, 3).map(x => x.en);
+    const opts = [w.en, ...distractors].sort(() => Math.random() - .5);
+    return {q:'🎧 Послушай и выбери правильное слово', word:w.en, opts, lv:w.lv, xp:lvXP(w.lv)+3, type:'listen'};
+  });
+}
+function lvXP(lv) {
+  return {A1:10,A2:15,B1:20,B2:25,C1:32,C2:40}[lv]||10;
+}
+// Sentence-based choice tests
+function generateSentenceTests() {
+  return sentencesData.map(s => {
+    const distractors = sentencesData
+      .filter(x => x !== s && x.lv === s.lv)
+      .sort(() => Math.random() - .5).slice(0, 3).map(x => x.ru);
+    const opts = [s.ru, ...distractors].sort(() => Math.random() - .5);
+    return {q:`Переведи: «${s.en}»`, opts, a:opts.indexOf(s.ru), lv:s.lv, xp:lvXP(s.lv)+5, type:'choice'};
+  });
+}
 
+let _choicePool = null, _inputPool = null, _listenPool = null, _sentPool = null;
+function getTestPool(type, lv) {
+  if (!_choicePool) { _choicePool = generateChoiceTests(); _inputPool = generateInputTests(); _listenPool = generateListenTests(); _sentPool = generateSentenceTests(); }
+  const combined = {
+    choice: [..._choicePool, ..._sentPool],
+    input: _inputPool,
+    listen: _listenPool
+  };
+  return (combined[type]||[]).filter(t => t.lv === lv);
+}
+
+// ===================== SIMULATIONS DATA (30 сценариев) =====================
 const simsData = [
-  {id:0,title:"Аэропорт",icon:"✈️",lv:"A1",steps:[
-    {ai:"Good morning! May I see your passport and boarding pass, please?",opts:[{t:"Here you go.",s:2},{t:"I don't have it.",s:0}]},
-    {ai:"Thank you. Are you checking in any luggage today?",opts:[{t:"Yes, one bag.",s:2},{t:"No, just hand luggage.",s:2}]},
-    {ai:"Your bag weighs 22 kg. The limit is 23 kg, so that's fine. Did you pack this bag yourself?",opts:[{t:"Yes, I packed it myself.",s:2},{t:"My friend packed it.",s:0}]},
-    {ai:"Great. Here is your boarding pass. Your gate is B14. Boarding starts at 15:40.",opts:[{t:"Thank you very much!",s:2},{t:"What time is it now?",s:1}]},
-    {ai:"It's 14:50 now. You have about 50 minutes. Have a good flight!",opts:[{t:"Thank you! Goodbye!",s:2}]},
-  ]},
-  {id:1,title:"Отель",icon:"🏨",lv:"A1",steps:[
-    {ai:"Good evening! Welcome to the Grand Hotel. Do you have a reservation?",opts:[{t:"Yes, under the name Smith.",s:2},{t:"No, do you have rooms?",s:1}]},
-    {ai:"Yes, Mr. Smith. I can see your booking — a double room for 3 nights. Can I see your ID please?",opts:[{t:"Sure, here is my passport.",s:2},{t:"I left it in the car.",s:0}]},
-    {ai:"Thank you. Would you like a room with a city view or a garden view?",opts:[{t:"City view please.",s:2},{t:"Garden view please.",s:2}]},
-    {ai:"Perfect. Breakfast is from 7 to 10 am in the restaurant. Check-out is at 11 am. Here are your room keys.",opts:[{t:"Thank you! What's the Wi-Fi password?",s:1},{t:"Thank you very much!",s:2}]},
-    {ai:"The Wi-Fi password is GrandHotel2024. Your room is on the 5th floor — the lift is on your right.",opts:[{t:"Thank you, goodnight!",s:2}]},
-  ]},
-  {id:2,title:"Банк",icon:"🏦",lv:"A2",steps:[
-    {ai:"Good morning! How can I help you today?",opts:[{t:"I'd like to open a bank account.",s:2},{t:"I need to transfer money.",s:1}]},
-    {ai:"Of course! We have two types of accounts: a current account for everyday use, and a savings account. Which do you prefer?",opts:[{t:"Current account please.",s:2},{t:"What's the difference?",s:1}]},
-    {ai:"A current account has a debit card and free transfers. The savings account earns interest but has withdrawal limits. Which would you like?",opts:[{t:"Current account, please.",s:2}]},
-    {ai:"Great! I'll need your passport, proof of address, and a national insurance number. Do you have these?",opts:[{t:"Yes, I have them all.",s:2},{t:"I don't have proof of address yet.",s:0}]},
-    {ai:"No problem. A recent bank statement or utility bill works as proof of address. Come back when you have it. Is there anything else I can help you with?",opts:[{t:"No, thank you. Goodbye!",s:2}]},
-  ]},
-  {id:3,title:"Врач",icon:"🏥",lv:"A2",steps:[
-    {ai:"Good morning, please come in. What brings you here today?",opts:[{t:"I have a bad headache and a temperature.",s:2},{t:"I need a prescription.",s:1}]},
-    {ai:"I'm sorry to hear that. How long have you had these symptoms?",opts:[{t:"Since yesterday morning.",s:2},{t:"About three days.",s:2}]},
-    {ai:"Let me check your temperature... It's 38.5°C. Do you have any other symptoms — sore throat, cough?",opts:[{t:"Yes, I have a sore throat too.",s:2},{t:"No, just the headache and fever.",s:2}]},
-    {ai:"It looks like you have a viral infection. I'll prescribe some paracetamol. Rest and drink plenty of fluids. Come back if it gets worse.",opts:[{t:"Thank you, doctor.",s:2},{t:"Do I need antibiotics?",s:1}]},
-    {ai:"Antibiotics don't work for viruses — only for bacterial infections. Paracetamol will help with the fever and pain. Feel better soon!",opts:[{t:"Thank you very much, goodbye!",s:2}]},
-  ]},
-  {id:4,title:"Аренда квартиры",icon:"🏠",lv:"B1",steps:[
-    {ai:"Hi! I'm the landlord. You're here to view the flat?",opts:[{t:"Yes, I saw your listing online.",s:2},{t:"Is the flat still available?",s:1}]},
-    {ai:"Yes, it's still available! It's a one-bedroom flat, 45 sq m, fully furnished. The rent is £1,200 per month including water and internet. What do you think?",opts:[{t:"That sounds good. Can I see the bedroom?",s:2},{t:"Is the price negotiable?",s:1}]},
-    {ai:"I can go down to £1,150 if you sign a 12-month contract. The deposit is one month's rent. Do you currently have a job?",opts:[{t:"Yes, I have a full-time job.",s:2},{t:"I work freelance.",s:1}]},
-    {ai:"That's fine. I'll need references from your employer and your last 3 months' bank statements. When would you like to move in?",opts:[{t:"From the 1st of next month.",s:2},{t:"As soon as possible.",s:1}]},
-    {ai:"Perfect. I'll prepare the contract. If everything checks out, the flat is yours. Any questions?",opts:[{t:"No, it all sounds great. Thank you!",s:2}]},
-  ]},
-  {id:5,title:"Собеседование",icon:"💼",lv:"B1",steps:[
-    {ai:"Good morning! Please take a seat. Thank you for coming in. Can you tell me a bit about yourself?",opts:[{t:"Of course. I have 3 years of experience in marketing...",s:2},{t:"What would you like to know?",s:0}]},
-    {ai:"That's impressive! Why are you interested in this particular role?",opts:[{t:"I'm passionate about digital marketing and your company's growth.",s:2},{t:"I need a job.",s:0}]},
-    {ai:"Great answer! Can you describe a challenging situation at work and how you handled it?",opts:[{t:"At my last job, we had a tight deadline and I organised the team to...",s:2},{t:"I've never had any challenges.",s:0}]},
-    {ai:"Excellent! What are your salary expectations?",opts:[{t:"Based on my experience, I'm looking for around £35,000.",s:2},{t:"As much as possible.",s:0}]},
-    {ai:"That fits our budget. We'll be in touch by end of week. Do you have any questions for us?",opts:[{t:"Yes — what does career growth look like here?",s:2},{t:"No, I'm fine.",s:1}]},
-  ]},
-  {id:6,title:"Полиция",icon:"👮",lv:"B1",steps:[
-    {ai:"Good afternoon. Can I help you?",opts:[{t:"I'd like to report a theft.",s:2},{t:"My wallet was stolen.",s:2}]},
-    {ai:"I'm sorry to hear that. When and where did this happen?",opts:[{t:"This morning, on Oxford Street.",s:2},{t:"About an hour ago, near the tube station.",s:2}]},
-    {ai:"Did you see the person who took it? Can you describe them?",opts:[{t:"It was a young man, about 20, in a blue jacket.",s:2},{t:"I didn't see anyone.",s:1}]},
-    {ai:"We'll file a report. What was in your wallet?",opts:[{t:"Cash, my driving licence, and two bank cards.",s:2},{t:"About £50 and some cards.",s:2}]},
-    {ai:"Have you cancelled your bank cards yet?",opts:[{t:"Yes, I called the bank immediately.",s:2},{t:"Not yet — how do I do that?",s:1}]},
-  ]},
-  {id:7,title:"Ресторан",icon:"🍽️",lv:"A1",steps:[
-    {ai:"Good evening! Do you have a reservation?",opts:[{t:"Yes, for two, under Johnson.",s:2},{t:"No, do you have a table?",s:1}]},
-    {ai:"Welcome! Here's your table. Can I get you some drinks to start?",opts:[{t:"A glass of water and a white wine please.",s:2},{t:"Just water for now, thank you.",s:2}]},
-    {ai:"Here are your menus. Our specials today are grilled salmon and mushroom risotto. Are you ready to order?",opts:[{t:"I'll have the salmon, please.",s:2},{t:"Can you give us a few more minutes?",s:1}]},
-    {ai:"Excellent choice! And for your companion?",opts:[{t:"She'll have the risotto.",s:2},{t:"The same for her.",s:1}]},
-    {ai:"Perfect. Your food will be ready in about 15 minutes. Enjoy your evening!",opts:[{t:"Thank you!",s:2}]},
-  ]},
-  {id:8,title:"Иммиграционный офис",icon:"📋",lv:"B2",steps:[
-    {ai:"Good morning. Please take a number and wait. What is the purpose of your visit today?",opts:[{t:"I need to extend my residence permit.",s:2},{t:"I have an appointment for biometrics.",s:2}]},
-    {ai:"Do you have all required documents with you — passport, current permit, proof of address, and employment letter?",opts:[{t:"Yes, I have everything.",s:2},{t:"I'm missing the employment letter.",s:0}]},
-    {ai:"Unfortunately, without the employment letter we cannot process your application today. You'll need to book a new appointment.",opts:[{t:"Can I submit it online afterwards?",s:1},{t:"I understand, thank you.",s:1}]},
-    {ai:"You can upload supporting documents online within 48 hours of your appointment. The reference number is on your receipt.",opts:[{t:"Thank you, I'll do that.",s:2}]},
-  ]},
-  {id:9,title:"Университет",icon:"🎓",lv:"B2",steps:[
-    {ai:"Hello! Welcome to the admissions office. How can I help you?",opts:[{t:"I'd like information about applying for a master's degree.",s:2},{t:"I need to enrol for next year.",s:1}]},
-    {ai:"Of course! We offer several master's programmes starting in September. Do you have a specific field in mind?",opts:[{t:"I'm interested in Computer Science.",s:2},{t:"Can you tell me about the options?",s:1}]},
-    {ai:"Our MSc in Computer Science is a 1-year full-time programme. Entry requirements include a relevant bachelor's degree and IELTS 6.5. Are you an international student?",opts:[{t:"Yes, I'm from Russia.",s:2},{t:"No, I'm an EU citizen.",s:1}]},
-    {ai:"For international students, tuition is £18,000 per year. You'll need to apply through our online portal by January 15th. Have you taken IELTS?",opts:[{t:"Yes, I got 7.0.",s:2},{t:"I'm planning to take it next month.",s:1}]},
-    {ai:"7.0 is above our requirement — well done! I recommend applying early as places are competitive. Do you need information about student visa?",opts:[{t:"Yes please, that would be helpful.",s:2},{t:"No, I'm fine, thank you.",s:2}]},
-  ]},
-  {id:10,title:"Магазин техники",icon:"💻",lv:"A2",steps:[
-    {ai:"Hello! Can I help you find anything today?",opts:[{t:"I'm looking for a laptop.",s:2},{t:"Just browsing, thanks.",s:0}]},
-    {ai:"We have a great selection! What will you mainly use it for?",opts:[{t:"Work and video calls.",s:2},{t:"Gaming.",s:1}]},
-    {ai:"For work, I'd recommend the MacBook Air or the Dell XPS 13. What's your budget?",opts:[{t:"Around £1,000.",s:2},{t:"As cheap as possible.",s:0}]},
-    {ai:"The MacBook Air starts at £1,099 and the Dell XPS 13 is £999. The MacBook has better battery life, the Dell is more powerful.",opts:[{t:"I'll take the MacBook.",s:2},{t:"Can I try the Dell first?",s:1}]},
-    {ai:"Of course! We also have a protection plan for £99 — covers accidental damage for 2 years. Would you like to add it?",opts:[{t:"Yes, add it please.",s:2},{t:"No thanks, just the laptop.",s:2}]},
-  ]},
-  {id:11,title:"Телефонная поддержка",icon:"📞",lv:"B1",steps:[
-    {ai:"Thank you for calling TelecomUK. My name is Sarah. How can I help you?",opts:[{t:"My internet has been down for two days.",s:2},{t:"I need to upgrade my plan.",s:1}]},
-    {ai:"I'm sorry to hear that. Can I take your account number please?",opts:[{t:"It's 7734521.",s:2},{t:"I don't have it on me.",s:0}]},
-    {ai:"Thank you. I can see your account. There's a reported outage in your area — engineers are working on it. It should be resolved by tomorrow morning.",opts:[{t:"That's frustrating. Is there any compensation?",s:2},{t:"OK, thank you.",s:1}]},
-    {ai:"Yes, we'll automatically credit your account for the downtime — about £5. Is there anything else I can help you with?",opts:[{t:"No, that's all. Thank you, Sarah.",s:2}]},
-  ]},
-  {id:12,title:"Фармация",icon:"💊",lv:"A2",steps:[
-    {ai:"Good morning! How can I help you?",opts:[{t:"I have a prescription from my doctor.",s:2},{t:"I need something for a headache.",s:1}]},
-    {ai:"Of course, let me check your prescription. This is for amoxicillin — an antibiotic. Are you allergic to penicillin?",opts:[{t:"No, I'm not allergic.",s:2},{t:"I'm not sure.",s:1}]},
-    {ai:"If you're unsure, tell your doctor before taking it. This is a 7-day course — take one tablet three times a day with food. Don't skip any doses.",opts:[{t:"What if I feel better after 3 days?",s:1},{t:"OK, understood. Thank you.",s:2}]},
-    {ai:"Even if you feel better, finish the full course — otherwise the infection may come back. That will be £9.90 for the NHS prescription charge.",opts:[{t:"Can I pay by card?",s:2}]},
-    {ai:"Yes, absolutely. Card machine is here. Anything else?",opts:[{t:"No, that's everything. Thank you!",s:2}]},
-  ]},
+{id:0,title:"Аэропорт",icon:"✈️",lv:"A1",steps:[
+  {ai:"Good morning! May I see your passport and boarding pass, please?",opts:[{t:"Here you go.",s:2},{t:"I don't have it.",s:0}]},
+  {ai:"Thank you. Are you checking in any luggage today?",opts:[{t:"Yes, one bag.",s:2},{t:"No, just hand luggage.",s:2}]},
+  {ai:"Your bag weighs 22 kg — that's within the 23 kg limit. Did you pack this bag yourself?",opts:[{t:"Yes, I packed it myself.",s:2},{t:"My friend packed it.",s:0}]},
+  {ai:"Great. Here is your boarding pass. Gate B14, boarding at 15:40. Have a good flight!",opts:[{t:"Thank you very much!",s:2},{t:"What time is it now?",s:1}]},
+  {ai:"It's 14:50 — you have about 50 minutes. The gate is a 10-minute walk. Enjoy your flight!",opts:[{t:"Thank you! Goodbye!",s:2}]},
+]},
+{id:1,title:"Отель",icon:"🏨",lv:"A1",steps:[
+  {ai:"Good evening! Welcome to the Grand Hotel. Do you have a reservation?",opts:[{t:"Yes, under the name Smith.",s:2},{t:"No, do you have rooms?",s:1}]},
+  {ai:"Yes, Mr. Smith — a double room for 3 nights. Can I see your ID please?",opts:[{t:"Sure, here is my passport.",s:2},{t:"I left it in the car.",s:0}]},
+  {ai:"Thank you. Would you like a room with a city view or garden view?",opts:[{t:"City view please.",s:2},{t:"Garden view please.",s:2}]},
+  {ai:"Breakfast is from 7 to 10 am. Check-out is at 11 am. Here are your keys — room 512.",opts:[{t:"What's the Wi-Fi password?",s:1},{t:"Thank you very much!",s:2}]},
+  {ai:"The password is GrandHotel2024. Lift is on the right. Have a lovely stay!",opts:[{t:"Thank you, goodnight!",s:2}]},
+]},
+{id:2,title:"Банк",icon:"🏦",lv:"A2",steps:[
+  {ai:"Good morning! How can I help you today?",opts:[{t:"I'd like to open a bank account.",s:2},{t:"I need to transfer money.",s:1}]},
+  {ai:"Of course! We have current accounts and savings accounts. Which do you need?",opts:[{t:"Current account please.",s:2},{t:"What's the difference?",s:1}]},
+  {ai:"A current account has a debit card and free transfers. Savings earns interest but limits withdrawals. Which would you like?",opts:[{t:"Current account, please.",s:2}]},
+  {ai:"I'll need your passport, proof of address, and a National Insurance number. Do you have these?",opts:[{t:"Yes, I have them all.",s:2},{t:"I don't have proof of address yet.",s:0}]},
+  {ai:"A recent utility bill or bank statement works as proof of address. Come back when ready. Anything else?",opts:[{t:"No, thank you. Goodbye!",s:2}]},
+]},
+{id:3,title:"Врач",icon:"🏥",lv:"A2",steps:[
+  {ai:"Good morning, please come in. What brings you here today?",opts:[{t:"I have a bad headache and a temperature.",s:2},{t:"I need a prescription.",s:1}]},
+  {ai:"I'm sorry to hear that. How long have you had these symptoms?",opts:[{t:"Since yesterday morning.",s:2},{t:"About three days.",s:2}]},
+  {ai:"Let me check your temperature... 38.5°C. Do you have a sore throat or cough?",opts:[{t:"Yes, I have a sore throat too.",s:2},{t:"No, just the headache and fever.",s:2}]},
+  {ai:"It looks like a viral infection. I'll prescribe paracetamol. Rest and drink plenty of fluids.",opts:[{t:"Thank you, doctor.",s:2},{t:"Do I need antibiotics?",s:1}]},
+  {ai:"Antibiotics only work for bacteria, not viruses. Paracetamol will help. Feel better soon!",opts:[{t:"Thank you very much!",s:2}]},
+]},
+{id:4,title:"Аренда квартиры",icon:"🏠",lv:"B1",steps:[
+  {ai:"Hi! You're here to view the flat?",opts:[{t:"Yes, I saw your listing online.",s:2},{t:"Is the flat still available?",s:1}]},
+  {ai:"Yes! One-bedroom, 45 sq m, fully furnished. Rent is £1,200/month including water and internet.",opts:[{t:"Can I see the bedroom?",s:2},{t:"Is the price negotiable?",s:1}]},
+  {ai:"I can go to £1,150 for a 12-month contract. Deposit is one month's rent. Do you have a job?",opts:[{t:"Yes, I have a full-time job.",s:2},{t:"I work freelance.",s:1}]},
+  {ai:"I'll need employer references and 3 months' bank statements. When would you like to move in?",opts:[{t:"From the 1st of next month.",s:2},{t:"As soon as possible.",s:1}]},
+  {ai:"Perfect. I'll prepare the contract. If everything checks out, the flat is yours!",opts:[{t:"That sounds great. Thank you!",s:2}]},
+]},
+{id:5,title:"Собеседование",icon:"💼",lv:"B1",steps:[
+  {ai:"Good morning! Thank you for coming. Tell me a bit about yourself.",opts:[{t:"I have 3 years of experience in marketing...",s:2},{t:"What would you like to know?",s:0}]},
+  {ai:"Great background! Why are you interested in this role?",opts:[{t:"I'm passionate about your company's mission and growth.",s:2},{t:"I need a job.",s:0}]},
+  {ai:"Can you describe a challenging situation at work and how you handled it?",opts:[{t:"We had a tight deadline and I organised the team to deliver on time.",s:2},{t:"I've never had challenges.",s:0}]},
+  {ai:"Excellent! What are your salary expectations?",opts:[{t:"Based on my experience, around £35,000.",s:2},{t:"As much as possible.",s:0}]},
+  {ai:"That fits our range. We'll be in touch by end of week. Any questions for us?",opts:[{t:"Yes — what does career growth look like here?",s:2},{t:"No, I'm fine.",s:1}]},
+]},
+{id:6,title:"Полиция",icon:"👮",lv:"B1",steps:[
+  {ai:"Good afternoon. Can I help you?",opts:[{t:"I'd like to report a theft.",s:2},{t:"My wallet was stolen.",s:2}]},
+  {ai:"I'm sorry to hear that. When and where did it happen?",opts:[{t:"This morning, on Oxford Street.",s:2},{t:"About an hour ago near the tube.",s:2}]},
+  {ai:"Did you see the person? Can you describe them?",opts:[{t:"A young man, about 20, in a blue jacket.",s:2},{t:"I didn't see anyone.",s:1}]},
+  {ai:"We'll file a report. What was in your wallet?",opts:[{t:"Cash, my driving licence, and two bank cards.",s:2},{t:"About £50 and some cards.",s:2}]},
+  {ai:"Have you cancelled your bank cards?",opts:[{t:"Yes, I called the bank immediately.",s:2},{t:"Not yet — how do I do that?",s:1}]},
+]},
+{id:7,title:"Ресторан",icon:"🍽️",lv:"A1",steps:[
+  {ai:"Good evening! Do you have a reservation?",opts:[{t:"Yes, for two, under Johnson.",s:2},{t:"No, do you have a table?",s:1}]},
+  {ai:"Welcome! Can I get you some drinks to start?",opts:[{t:"A glass of water and white wine please.",s:2},{t:"Just water for now.",s:2}]},
+  {ai:"Our specials today are grilled salmon and mushroom risotto. Are you ready to order?",opts:[{t:"I'll have the salmon please.",s:2},{t:"Can you give us a few more minutes?",s:1}]},
+  {ai:"Excellent choice! And for your companion?",opts:[{t:"She'll have the risotto.",s:2},{t:"The same for her.",s:1}]},
+  {ai:"Perfect. Your food will be ready in about 15 minutes. Enjoy your evening!",opts:[{t:"Thank you!",s:2}]},
+]},
+{id:8,title:"Иммиграционный офис",icon:"📋",lv:"B2",steps:[
+  {ai:"Good morning. What is the purpose of your visit today?",opts:[{t:"I need to extend my residence permit.",s:2},{t:"I have an appointment for biometrics.",s:2}]},
+  {ai:"Do you have all required documents — passport, current permit, proof of address, employment letter?",opts:[{t:"Yes, I have everything.",s:2},{t:"I'm missing the employment letter.",s:0}]},
+  {ai:"Without the employment letter we can't process your application today. You'll need to rebook.",opts:[{t:"Can I submit it online afterwards?",s:1},{t:"I understand, thank you.",s:1}]},
+  {ai:"Yes, upload supporting documents online within 48 hours. Reference number is on your receipt.",opts:[{t:"Thank you, I'll do that right away.",s:2}]},
+]},
+{id:9,title:"Университет",icon:"🎓",lv:"B2",steps:[
+  {ai:"Hello! Welcome to admissions. How can I help you?",opts:[{t:"I'd like information about applying for a master's degree.",s:2},{t:"I need to enrol for next year.",s:1}]},
+  {ai:"We offer several master's programmes from September. Do you have a field in mind?",opts:[{t:"I'm interested in Computer Science.",s:2},{t:"Can you tell me about the options?",s:1}]},
+  {ai:"Our MSc in Computer Science is 1 year full-time. You need a relevant degree and IELTS 6.5. Are you international?",opts:[{t:"Yes, I'm from Russia.",s:2},{t:"No, I'm an EU citizen.",s:1}]},
+  {ai:"Tuition is £18,000/year for international students. Apply by January 15th. Have you taken IELTS?",opts:[{t:"Yes, I got 7.0.",s:2},{t:"I'm planning to take it next month.",s:1}]},
+  {ai:"7.0 is above our requirement — well done! Apply early as places are competitive. Need visa info?",opts:[{t:"Yes please, that would be very helpful.",s:2},{t:"No, I'm fine. Thank you.",s:2}]},
+]},
+{id:10,title:"Магазин техники",icon:"💻",lv:"A2",steps:[
+  {ai:"Hello! Can I help you find anything?",opts:[{t:"I'm looking for a laptop.",s:2},{t:"Just browsing, thanks.",s:0}]},
+  {ai:"What will you mainly use it for?",opts:[{t:"Work and video calls.",s:2},{t:"Gaming.",s:1}]},
+  {ai:"For work I'd recommend the MacBook Air or Dell XPS 13. What's your budget?",opts:[{t:"Around £1,000.",s:2},{t:"As cheap as possible.",s:0}]},
+  {ai:"MacBook Air starts at £1,099. Dell XPS 13 is £999. MacBook has better battery; Dell is more powerful.",opts:[{t:"I'll take the MacBook.",s:2},{t:"Can I try the Dell first?",s:1}]},
+  {ai:"Also — we have a 2-year protection plan for £99. Covers accidental damage. Would you like to add it?",opts:[{t:"Yes, add it please.",s:2},{t:"No thanks, just the laptop.",s:2}]},
+]},
+{id:11,title:"Телефонная поддержка",icon:"📞",lv:"B1",steps:[
+  {ai:"Thank you for calling TelecomUK. My name is Sarah. How can I help?",opts:[{t:"My internet has been down for two days.",s:2},{t:"I need to upgrade my plan.",s:1}]},
+  {ai:"I'm sorry to hear that. Can I take your account number?",opts:[{t:"It's 7734521.",s:2},{t:"I don't have it on me.",s:0}]},
+  {ai:"I can see your account. There's a reported outage in your area — engineers are fixing it by tomorrow morning.",opts:[{t:"Is there any compensation?",s:2},{t:"OK, thank you.",s:1}]},
+  {ai:"Yes, we'll automatically credit your account about £5 for the downtime. Anything else?",opts:[{t:"No, that's all. Thank you, Sarah.",s:2}]},
+]},
+{id:12,title:"Аптека",icon:"💊",lv:"A2",steps:[
+  {ai:"Good morning! How can I help you?",opts:[{t:"I have a prescription from my doctor.",s:2},{t:"I need something for a headache.",s:1}]},
+  {ai:"This is amoxicillin — an antibiotic. Are you allergic to penicillin?",opts:[{t:"No, I'm not allergic.",s:2},{t:"I'm not sure.",s:1}]},
+  {ai:"7-day course — one tablet three times a day with food. Don't skip doses, even if you feel better.",opts:[{t:"What if I feel better after 3 days?",s:1},{t:"OK, understood.",s:2}]},
+  {ai:"Always finish the full course — otherwise the infection may return. That'll be £9.90 please.",opts:[{t:"Can I pay by card?",s:2}]},
+  {ai:"Of course. Card machine is here. Get well soon!",opts:[{t:"Thank you very much!",s:2}]},
+]},
+{id:13,title:"Почта",icon:"📦",lv:"A2",steps:[
+  {ai:"Next please! Good morning, how can I help?",opts:[{t:"I'd like to send a parcel to Germany.",s:2},{t:"I need to collect a parcel.",s:1}]},
+  {ai:"Sure. Please place it on the scale. It's 1.2 kg. Standard or tracked delivery?",opts:[{t:"Tracked please — it's important.",s:2},{t:"Standard is fine.",s:1}]},
+  {ai:"Tracked to Germany is £8.50 and takes 5-7 working days. Any liquids or dangerous items inside?",opts:[{t:"No, just clothes and a book.",s:2},{t:"There's a small bottle of perfume.",s:1}]},
+  {ai:"Perfume is fine in small quantities. Please fill in the customs declaration — item description and value.",opts:[{t:"Here it is. Clothes: £30, book: £10.",s:2}]},
+  {ai:"Perfect. Here's your tracking number. Keep this receipt. Anything else?",opts:[{t:"No, that's everything. Thank you!",s:2}]},
+]},
+{id:14,title:"Суперма́ркет",icon:"🛒",lv:"A1",steps:[
+  {ai:"Hi there! Do you have a Clubcard with us today?",opts:[{t:"Yes, here it is.",s:2},{t:"No, can I get one?",s:1}]},
+  {ai:"Of course! I can sign you up right here — just need your email. Or would you prefer online?",opts:[{t:"I'll do it online later.",s:1},{t:"Sign me up now please.",s:2}]},
+  {ai:"Great! Your total today is £34.72. Cash or card?",opts:[{t:"Card please.",s:2},{t:"Cash — here's £40.",s:2}]},
+  {ai:"Here's your change — £5.28. Would you like a bag?",opts:[{t:"Yes please, one bag.",s:2},{t:"No, I have my own.",s:2}]},
+  {ai:"Perfect. Have a great day!",opts:[{t:"You too, thank you!",s:2}]},
+]},
+{id:15,title:"Вокзал",icon:"🚂",lv:"A2",steps:[
+  {ai:"Good afternoon! How can I help you?",opts:[{t:"One ticket to Manchester, please.",s:2},{t:"What time is the next train to Edinburgh?",s:1}]},
+  {ai:"Single or return? And what date?",opts:[{t:"Return please, for tomorrow.",s:2},{t:"Single — I'm not coming back.",s:2}]},
+  {ai:"First class or standard?",opts:[{t:"Standard is fine.",s:2},{t:"First class please.",s:2}]},
+  {ai:"That's £47.50. Pay by card or cash?",opts:[{t:"Card please.",s:2},{t:"Cash — here's £50.",s:2}]},
+  {ai:"Thank you. Platform 6, departure at 14:22. Don't forget to validate your ticket!",opts:[{t:"Thank you very much!",s:2}]},
+]},
+{id:16,title:"Аренда авто",icon:"🚗",lv:"B1",steps:[
+  {ai:"Welcome to RentAcar! Do you have a reservation with us?",opts:[{t:"Yes, under the name Brown.",s:2},{t:"No, I'd like to hire a car.",s:1}]},
+  {ai:"I can see your booking — a compact car for 5 days. May I see your driving licence and passport?",opts:[{t:"Here they are.",s:2},{t:"I only have a foreign licence.",s:1}]},
+  {ai:"A foreign licence is fine — we accept international licences. Would you like insurance upgrade?",opts:[{t:"What does it cover?",s:1},{t:"Yes, full insurance please.",s:2}]},
+  {ai:"Full cover is £15/day — removes all excess in case of damage. Recommended for city driving.",opts:[{t:"Yes, I'll take it.",s:2},{t:"No, I'll skip it.",s:1}]},
+  {ai:"Perfect. The car is in bay 12. Return it with a full tank. Have a great trip!",opts:[{t:"Thank you!",s:2}]},
+]},
+{id:17,title:"Скорая помощь",icon:"🚑",lv:"B1",steps:[
+  {ai:"999, which service do you require — police, fire, or ambulance?",opts:[{t:"Ambulance please.",s:2}]},
+  {ai:"What's the emergency and your location?",opts:[{t:"My flatmate has collapsed. We're at 24 Baker Street.",s:2},{t:"Someone fainted. I don't know the address.",s:1}]},
+  {ai:"Is the patient conscious and breathing?",opts:[{t:"She's breathing but not responding.",s:2},{t:"I don't know.",s:0}]},
+  {ai:"Stay with her. Don't move her. Ambulance is on its way — ETA 8 minutes. Can you unlock the front door?",opts:[{t:"Yes, I'll unlock it now.",s:2}]},
+  {ai:"Good. Keep talking to her and check her breathing every 30 seconds. I'll stay on the line with you.",opts:[{t:"OK, I'm with her now.",s:2}]},
+]},
+{id:18,title:"Стоматолог",icon:"🦷",lv:"A2",steps:[
+  {ai:"Good morning! Please take a seat. Are you a new patient?",opts:[{t:"Yes, this is my first visit.",s:2},{t:"No, I've been here before.",s:1}]},
+  {ai:"Welcome! What brings you in today?",opts:[{t:"I have a terrible toothache.",s:2},{t:"I need a check-up.",s:1}]},
+  {ai:"Let me take a look... I can see the issue — you have a small cavity. It needs a filling.",opts:[{t:"Will it hurt?",s:1},{t:"OK, let's do it.",s:2}]},
+  {ai:"I'll give you a local anaesthetic — just a small injection. You'll feel pressure, not pain.",opts:[{t:"Alright, go ahead.",s:2}]},
+  {ai:"All done! Avoid eating on that side for 2 hours. Come back in 6 months for a check-up.",opts:[{t:"Thank you, doctor!",s:2}]},
+]},
+{id:19,title:"Тренажёрный зал",icon:"💪",lv:"A2",steps:[
+  {ai:"Hi! Welcome to FitLife gym. Are you interested in membership?",opts:[{t:"Yes, I'd like to sign up.",s:2},{t:"Can I get a trial day first?",s:1}]},
+  {ai:"We offer a free day pass! We have three plans: Basic £25/month, Standard £40, Premium £60.",opts:[{t:"What's included in Standard?",s:1},{t:"I'll take the Standard plan.",s:2}]},
+  {ai:"Standard includes gym access, all classes, and one personal training session per month.",opts:[{t:"That sounds good. I'll take it.",s:2},{t:"Can I pause the membership?",s:1}]},
+  {ai:"Yes, you can pause for up to 3 months per year. I'll need your ID and payment details.",opts:[{t:"Here's my card.",s:2}]},
+  {ai:"Perfect — you're all set! Here's your membership card. The changing rooms are on the left.",opts:[{t:"Great, thank you!",s:2}]},
+]},
+{id:20,title:"Библиотека",icon:"📚",lv:"A1",steps:[
+  {ai:"Good afternoon! Welcome to the Central Library. Can I help you?",opts:[{t:"I'd like to get a library card.",s:2},{t:"Where can I find books about English?",s:1}]},
+  {ai:"For a library card I need proof of your local address — a letter or utility bill.",opts:[{t:"I have a bank statement here.",s:2},{t:"I don't have anything with me.",s:0}]},
+  {ai:"A bank statement is perfect! Fill in this form please. Date of birth and contact number.",opts:[{t:"Here you go.",s:2}]},
+  {ai:"Thank you. You can borrow up to 10 books for 3 weeks. Renew online or by phone.",opts:[{t:"Can I access the internet here?",s:1},{t:"That's great, thank you!",s:2}]},
+  {ai:"Yes, free Wi-Fi and computers are available — just ask at the desk for a code.",opts:[{t:"Perfect, thank you so much!",s:2}]},
+]},
+{id:21,title:"Регистрация у терапевта",icon:"🩺",lv:"B1",steps:[
+  {ai:"Good morning. How can I help you?",opts:[{t:"I'd like to register as a new patient.",s:2},{t:"I need to see a doctor today.",s:1}]},
+  {ai:"Of course. Do you live within our catchment area? Our practice covers postcodes SW1 to SW5.",opts:[{t:"Yes, I'm at 15 King's Road, SW3.",s:2},{t:"I'm not sure what my postcode is.",s:1}]},
+  {ai:"SW3 is within our area — great! I'll need your NHS number if you have it, plus ID.",opts:[{t:"I have my passport but no NHS number yet.",s:2}]},
+  {ai:"No problem — we can apply for your NHS number. It takes about 2 weeks. Any existing conditions?",opts:[{t:"I have mild asthma and take an inhaler.",s:2},{t:"No, I'm generally healthy.",s:2}]},
+  {ai:"All noted. You're registered! We'll send your welcome letter by post. Anything else?",opts:[{t:"Can I book an appointment now?",s:1},{t:"No, that's perfect. Thank you!",s:2}]},
+]},
+{id:22,title:"Совет по трудоустройству",icon:"📝",lv:"B2",steps:[
+  {ai:"Good morning, please take a seat. I'm your work coach. How long have you been unemployed?",opts:[{t:"About two months, since I moved here.",s:2},{t:"I've just arrived and am looking for work.",s:2}]},
+  {ai:"Have you registered for Universal Credit?",opts:[{t:"Yes, I applied last week.",s:2},{t:"Not yet — how do I do that?",s:1}]},
+  {ai:"Apply at gov.uk/universal-credit. Processing takes about 5 weeks for the first payment.",opts:[{t:"That's a long wait. Is there emergency support?",s:1},{t:"OK, I'll apply today.",s:2}]},
+  {ai:"Yes — you can request an advance payment on day one, repaid over 12 months from future payments.",opts:[{t:"That would really help. How do I request it?",s:2}]},
+  {ai:"Ask when you complete your online claim. Now — let's work on your CV and job search plan.",opts:[{t:"That sounds great. Where do we start?",s:2}]},
+]},
+{id:23,title:"Покупка недвижимости",icon:"🏡",lv:"C1",steps:[
+  {ai:"Hello! I understand you're interested in purchasing a property. What's your budget?",opts:[{t:"We're looking up to £400,000.",s:2},{t:"It depends on the property.",s:1}]},
+  {ai:"Have you obtained a mortgage in principle?",opts:[{t:"Yes, we have an agreement in principle for £350,000.",s:2},{t:"Not yet — do we need one?",s:0}]},
+  {ai:"It strengthens your offer considerably. For this property — it's listed at £385,000. Do you want to make an offer?",opts:[{t:"We'd like to offer £370,000.",s:2},{t:"Can we think about it?",s:1}]},
+  {ai:"I'll put that to the vendor. They may counter — are you flexible?",opts:[{t:"We could stretch to £378,000 maximum.",s:2},{t:"That's our final offer.",s:1}]},
+  {ai:"The vendor has accepted £375,000. Congratulations! You'll need a solicitor — shall I recommend one?",opts:[{t:"Yes please, that would be very helpful.",s:2}]},
+]},
+{id:24,title:"Сетевое мероприятие",icon:"🤝",lv:"C1",steps:[
+  {ai:"Hi! I don't think we've met — I'm James from TechVentures. What brings you here tonight?",opts:[{t:"Great to meet you! I'm Ana, product designer at StartupX.",s:2},{t:"Just looking around.",s:0}]},
+  {ai:"StartupX — I've heard great things! What kind of projects are you working on?",opts:[{t:"We're building an AI-powered language learning app.",s:2},{t:"Mostly B2B SaaS products.",s:2}]},
+  {ai:"Fascinating! We actually invest in EdTech. What stage are you at?",opts:[{t:"We've just closed our seed round and are scaling.",s:2},{t:"Still in the ideation phase.",s:1}]},
+  {ai:"Impressive. Have you considered Series A? We've backed three EdTech unicorns.",opts:[{t:"That's exactly the conversation I was hoping to have!",s:2},{t:"We're not ready for that yet.",s:1}]},
+  {ai:"Let's exchange cards and set up a proper meeting next week. Our partners would love to hear your pitch.",opts:[{t:"Absolutely — I'd love that. Here's my card.",s:2}]},
+]},
+{id:25,title:"Спор с арендодателем",icon:"⚖️",lv:"C1",steps:[
+  {ai:"Hello, I've reviewed the check-out report and I'm deducting £600 from your deposit for cleaning and damage.",opts:[{t:"I disagree. The flat was in excellent condition when I left.",s:2},{t:"OK, how much do I get back?",s:0}]},
+  {ai:"The report shows stains on the carpet and marks on the walls.",opts:[{t:"Those were there when I moved in. I have the check-in report and photos.",s:2},{t:"I don't remember that.",s:0}]},
+  {ai:"Your check-in report does note some pre-existing wear. But the cleaning charge stands — £200.",opts:[{t:"I had professional cleaners. Here's the receipt.",s:2},{t:"That seems unfair.",s:1}]},
+  {ai:"A professional clean receipt would challenge that charge. I'll review it and come back to you.",opts:[{t:"Thank you. I'd also like this in writing please.",s:2}]},
+  {ai:"Of course. I'll email you within 48 hours with the revised deductions.",opts:[{t:"Thank you. I'll await your email.",s:2}]},
+]},
+{id:26,title:"Таможня и пограничный контроль",icon:"🛂",lv:"B2",steps:[
+  {ai:"Good morning. Passport please. Purpose of your visit?",opts:[{t:"I'm relocating for work. I have a Skilled Worker visa.",s:2},{t:"Tourism.",s:1}]},
+  {ai:"How long do you intend to stay?",opts:[{t:"Initially 2 years, with option to extend.",s:2},{t:"Permanently, I hope.",s:1}]},
+  {ai:"Do you have a job offer and accommodation arranged?",opts:[{t:"Yes — here is my employment contract and tenancy agreement.",s:2},{t:"I'm still arranging accommodation.",s:0}]},
+  {ai:"Any goods to declare? Currency over £10,000, commercial goods, or restricted items?",opts:[{t:"No, just personal belongings.",s:2},{t:"I have some food from home.",s:1}]},
+  {ai:"Welcome to the UK. Please collect your BRP within 10 days from the Post Office listed on your vignette.",opts:[{t:"Thank you, I will.",s:2}]},
+]},
+{id:27,title:"Дни рождения / Поздравления",icon:"🎉",lv:"A1",steps:[
+  {ai:"Oh wow — happy birthday! How old are you today?",opts:[{t:"Thank you! I'm 25 today.",s:2},{t:"Thank you! I'd rather not say.",s:1}]},
+  {ai:"25 is a great age! Are you doing anything to celebrate?",opts:[{t:"Yes, we're having dinner with friends tonight.",s:2},{t:"Just a quiet day at home.",s:1}]},
+  {ai:"That sounds lovely! Did you get any nice gifts?",opts:[{t:"Yes! My family sent money from home.",s:2},{t:"Not yet — maybe later.",s:1}]},
+  {ai:"How sweet! Do you miss home on days like this?",opts:[{t:"A little, yes. But I'm happy here too.",s:2},{t:"Not really — I'm used to it.",s:1}]},
+  {ai:"That's a healthy attitude! Well, I hope you have a wonderful day. Enjoy your dinner!",opts:[{t:"Thank you so much — that means a lot!",s:2}]},
+]},
+{id:28,title:"Конференц-звонок",icon:"📹",lv:"B2",steps:[
+  {ai:"Good morning everyone. Can we do a quick sound check? Alex, can you hear us clearly?",opts:[{t:"Yes, loud and clear. Good morning!",s:2},{t:"I'm having some audio issues.",s:0}]},
+  {ai:"Great. Let's get started. Alex, would you like to take us through the Q3 results?",opts:[{t:"Of course. I'll share my screen now.",s:2},{t:"Could someone else go first?",s:0}]},
+  {ai:"Thanks — the numbers look strong. Any concerns about Q4 projections?",opts:[{t:"Yes, I'd like to flag the rising acquisition costs.",s:2},{t:"No concerns from my side.",s:1}]},
+  {ai:"Good point. Can you elaborate on that in the follow-up report?",opts:[{t:"Absolutely — I'll have it ready by Thursday.",s:2},{t:"I'll need more time.",s:1}]},
+  {ai:"Excellent. Any other business before we wrap up?",opts:[{t:"Just a reminder about the all-hands meeting on Friday.",s:2},{t:"Nothing from me.",s:1}]},
+]},
+{id:29,title:"Медиация / Переговоры",icon:"🕊️",lv:"C1",steps:[
+  {ai:"Thank you both for joining. I'm the mediator. The goal today is to find a mutually acceptable resolution. Can you summarise the dispute?",opts:[{t:"The contractor failed to deliver on time and within budget.",s:2},{t:"There have been disagreements about the scope of work.",s:2}]},
+  {ai:"I see. And from your perspective — what happened?",opts:[{t:"The client changed the brief three times, causing delays.",s:2},{t:"We were not given adequate resources.",s:1}]},
+  {ai:"These are understandable positions. What outcome would each party consider acceptable?",opts:[{t:"A partial refund of 30% and a clear settlement agreement.",s:2},{t:"We want full payment for completed work.",s:1}]},
+  {ai:"Is there a middle ground — perhaps 15% reduction with a written satisfaction of claims?",opts:[{t:"We would accept that, provided it's legally binding.",s:2},{t:"We need to consult our legal team first.",s:1}]},
+  {ai:"Understood. I'll draft a proposed agreement for both parties to review. We'll reconvene in 48 hours.",opts:[{t:"That's acceptable. Thank you for your time.",s:2}]},
+]},
 ];
 
 // ===================== STATE =====================
@@ -934,7 +1149,9 @@ let wordLv = 'all';
 let sentCat = 'all';
 let sentLv = 'all';
 const WORDS_PER_PAGE = 12;
-const SENTS_PER_PAGE = 8;
+const SENTS_PER_PAGE = 10;
+let currentTestQueue = [];
+let currentTestIndex = 0;
 
 // ===================== UI =====================
 function showPage(p) {
@@ -943,119 +1160,86 @@ function showPage(p) {
   document.getElementById('main-bnav').style.display='flex';
   window.scrollTo(0,0);
   if(p==='study'){renderWords();renderSents();}
-  if(p==='tests'){renderTests();}
+  if(p==='tests'){initTestQueue();renderCurrentTest();}
   if(p==='sims'){renderSimsMenu();}
-  if(p==='move'){}
   if(p==='home'){updateXPBar();}
 }
-
 function setNav(btn){
-  document.querySelectorAll('.nb').forEach(b=>{b.classList.remove('active');});
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
 }
-
-function selectLevel(lv, btn){
+function selectLevel(lv,btn){
   currentLevel=lv;
   document.querySelectorAll('#level-buttons .lv-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  renderWords(); renderSents();
+  renderWords();renderSents();
 }
-
 function startApp(){
   document.getElementById('onboarding').style.display='none';
   document.getElementById('main-bnav').style.display='flex';
-  showPage('home');
-  updateXPBar();
+  showPage('home');updateXPBar();
 }
-
-function selectOnboardLevel(lv, btn){
+function selectOnboardLevel(lv,btn){
   currentLevel=lv;
   document.querySelectorAll('.onb-lv').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
 }
-
 function updateXPBar(){
-  const max=500;
-  const lvl=Math.floor(xpTotal/max)+1;
-  const pct=(xpTotal%max)/max*100;
-  const bar=document.getElementById('home-pbar');
-  if(bar)bar.style.width=pct+'%';
-  const txt=document.getElementById('home-xp-text');
-  if(txt)txt.textContent=(xpTotal%max)+' / '+max+' XP';
-  const lft=document.getElementById('home-xp-left');
-  if(lft)lft.textContent='До уровня '+(lvl+1)+': '+(max-(xpTotal%max))+' XP';
-  const lvlEl=document.getElementById('home-level-num');
-  if(lvlEl)lvlEl.textContent=lvl;
-  const tot=document.getElementById('home-total-xp');
-  if(tot)tot.textContent=xpTotal;
-  const td=document.getElementById('home-tests-done');
-  if(td)td.textContent=testsDone+'/2000';
-  const sd=document.getElementById('home-sims-done');
-  if(sd)sd.textContent=simsDone+'/500';
-  const st=document.getElementById('home-streak');
-  if(st)st.textContent=streak;
-  const txc=document.getElementById('test-xp-count');
-  if(txc)txc.textContent=xpTotal;
-  const ulb=document.getElementById('user-level-badge');
-  if(ulb)ulb.textContent='Уровень '+currentLevel;
+  const max=500;const lvl=Math.floor(xpTotal/max)+1;const pct=(xpTotal%max)/max*100;
+  const bar=document.getElementById('home-pbar');if(bar)bar.style.width=pct+'%';
+  const txt=document.getElementById('home-xp-text');if(txt)txt.textContent=(xpTotal%max)+' / '+max+' XP';
+  const lft=document.getElementById('home-xp-left');if(lft)lft.textContent='До уровня '+(lvl+1)+': '+(max-(xpTotal%max))+' XP';
+  const lvlEl=document.getElementById('home-level-num');if(lvlEl)lvlEl.textContent=lvl;
+  const tot=document.getElementById('home-total-xp');if(tot)tot.textContent=xpTotal;
+  const td=document.getElementById('home-tests-done');if(td)td.textContent=testsDone+'/2000';
+  const sd=document.getElementById('home-sims-done');if(sd)sd.textContent=simsDone+'/500';
+  const st=document.getElementById('home-streak');if(st)st.textContent=streak;
+  const txc=document.getElementById('test-xp-count');if(txc)txc.textContent=xpTotal;
+  const ulb=document.getElementById('user-level-badge');if(ulb)ulb.textContent='Уровень '+currentLevel;
 }
-
 function addXP(n){
-  xpTotal+=n;
-  localStorage.setItem('xp',xpTotal);
-  updateXPBar();
+  xpTotal+=n;localStorage.setItem('xp',xpTotal);updateXPBar();
   const fl=document.createElement('div');
   fl.textContent='+'+n+' XP';
-  fl.style.cssText='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);font-size:28px;font-weight:900;color:#6c47ff;animation:xpFloat 1.2s ease forwards;pointer-events:none;z-index:999';
-  document.body.appendChild(fl);
-  setTimeout(()=>fl.remove(),1300);
+  fl.style.cssText='position:fixed;top:40%;left:50%;transform:translate(-50%,-50%);font-size:28px;font-weight:900;color:#6c47ff;animation:xpFloat 1.2s ease forwards;pointer-events:none;z-index:999';
+  document.body.appendChild(fl);setTimeout(()=>fl.remove(),1300);
 }
 
 // ===================== STUDY =====================
-function showStudyTab(t, btn){
+function showStudyTab(t,btn){
   ['words','sentences','ielts','pics','slang'].forEach(s=>{
-    const el=document.getElementById('stab-'+s);
-    if(el)el.style.display='none';
+    const el=document.getElementById('stab-'+s);if(el)el.style.display='none';
   });
-  const el=document.getElementById('stab-'+t);
-  if(el)el.style.display='block';
+  const el=document.getElementById('stab-'+t);if(el)el.style.display='block';
   document.querySelectorAll('#study-tabs .tab').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   if(t==='words')renderWords();
   if(t==='sentences')renderSents();
 }
-
 function filterWords(lv,btn){
-  wordLv=lv; wordOffset=0;
+  wordLv=lv;wordOffset=0;
   document.querySelectorAll('#stab-words .tab').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderWords();
+  btn.classList.add('active');renderWords();
 }
-
 function filterWordsCat(c,btn){
-  wordCat=c; wordOffset=0;
+  wordCat=c;wordOffset=0;
   document.querySelectorAll('#stab-words .tab').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderWords();
+  btn.classList.add('active');renderWords();
 }
-
 function filterWordsLv(lv,btn){filterWords(lv,btn);}
-
 function renderWords(){
-  const area=document.getElementById('words-container');
-  if(!area)return;
+  const area=document.getElementById('words-container');if(!area)return;
   let data=wordsData;
   if(wordLv!=='all')data=data.filter(w=>w.lv===wordLv);
   if(wordCat!=='all')data=data.filter(w=>w.cat===wordCat);
   const slice=data.slice(0,wordOffset+WORDS_PER_PAGE);
-  const total=3000;
-  document.getElementById('words-count').textContent=`Показано ${Math.min(slice.length,data.length)} из ${total.toLocaleString()} слов`;
+  document.getElementById('words-count').textContent=`Показано ${Math.min(slice.length,data.length)} из ${wordsData.length} слов (всего ${data.length} по фильтру)`;
   area.innerHTML=slice.map((w,i)=>`
-    <div class="word-card" style="animation-delay:${i*0.03}s" onclick="flipCard(this)">
+    <div class="word-card" style="animation-delay:${i*.03}s" onclick="flipCard(this)">
       <div class="word-front">
         <div style="font-size:16px;font-weight:900;color:#1a1a2e">${w.en}</div>
         <div style="font-size:11px;color:#9ca3af;margin-top:2px">[${w.ph}]</div>
-        <div style="font-size:10px;background:#ede9ff;color:#6c47ff;padding:2px 8px;border-radius:999px;display:inline-block;margin-top:4px">${w.lv}</div>
+        <div style="font-size:10px;background:#ede9ff;color:#6c47ff;padding:2px 8px;border-radius:999px;display:inline-block;margin-top:4px">${w.lv} · ${w.cat}</div>
       </div>
       <div class="word-back" style="display:none">
         <div style="font-size:15px;font-weight:800;color:#6c47ff">${w.ru}</div>
@@ -1065,51 +1249,36 @@ function renderWords(){
     </div>`).join('');
   const lb=document.getElementById('words-more-btn');
   if(lb)lb.style.display=(wordOffset+WORDS_PER_PAGE<data.length)?'block':'none';
-  wordOffset=wordOffset+WORDS_PER_PAGE;
+  wordOffset+=WORDS_PER_PAGE;
 }
-
 function flipCard(card){
-  const front=card.querySelector('.word-front');
-  const back=card.querySelector('.word-back');
+  const front=card.querySelector('.word-front'),back=card.querySelector('.word-back');
   if(back.style.display==='none'){back.style.display='block';front.style.display='none';card.style.background='linear-gradient(135deg,#ede9ff,#fff)';}
   else{front.style.display='block';back.style.display='none';card.style.background='';}
 }
-
-function markLearned(){
-  wordsLearned++;
-  localStorage.setItem('wl',wordsLearned);
-  addXP(5);
-}
-
+function markLearned(){wordsLearned++;localStorage.setItem('wl',wordsLearned);addXP(5);}
 function loadMoreWords(){renderWords();}
 
 function filterSents(lv,btn){
-  sentLv=lv; sentOffset=0;
+  sentLv=lv;sentOffset=0;
   document.querySelectorAll('#stab-sentences .tab').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderSents();
+  btn.classList.add('active');renderSents();
 }
-
 function filterSentsCat(c,btn){
-  sentCat=c; sentOffset=0;
+  sentCat=c;sentOffset=0;
   document.querySelectorAll('#stab-sentences .tab').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderSents();
+  btn.classList.add('active');renderSents();
 }
-
 function filterSentsLv(lv,btn){filterSents(lv,btn);}
-
 function renderSents(){
-  const area=document.getElementById('sents-container');
-  if(!area)return;
+  const area=document.getElementById('sents-container');if(!area)return;
   let data=sentencesData;
   if(sentLv!=='all')data=data.filter(s=>s.lv===sentLv);
   if(sentCat!=='all')data=data.filter(s=>s.cat===sentCat);
   const slice=data.slice(0,sentOffset+SENTS_PER_PAGE);
-  const total=3000;
-  document.getElementById('sents-count').textContent=`Показано ${Math.min(slice.length,data.length)} из ${total.toLocaleString()} предложений`;
+  document.getElementById('sents-count').textContent=`Показано ${Math.min(slice.length,data.length)} из ${sentencesData.length} предложений`;
   area.innerHTML=slice.map((s,i)=>`
-    <div class="sent-card" style="animation-delay:${i*0.04}s">
+    <div class="sent-card" style="animation-delay:${i*.04}s">
       <div style="font-size:14px;font-weight:700;color:#1a1a2e;margin-bottom:4px">${s.en}</div>
       <div style="font-size:12px;color:#6c47ff">${s.ru}</div>
       <div style="display:flex;gap:6px;margin-top:6px">
@@ -1119,205 +1288,166 @@ function renderSents(){
     </div>`).join('');
   const lb=document.getElementById('sents-more-btn');
   if(lb)lb.style.display=(sentOffset+SENTS_PER_PAGE<data.length)?'block':'none';
-  sentOffset=sentOffset+SENTS_PER_PAGE;
+  sentOffset+=SENTS_PER_PAGE;
 }
-
 function loadMoreSents(){renderSents();}
 
 // ===================== TESTS =====================
-function showTestType(t, btn){
+function showTestType(t,btn){
   currentTestType=t;
   document.querySelectorAll('#test-type-tabs .tab').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   document.getElementById('test-choice-area').style.display=t==='choice'?'block':'none';
   document.getElementById('test-input-area').style.display=t==='input'?'block':'none';
   document.getElementById('test-listen-area').style.display=t==='listen'?'block':'none';
-  renderTests();
+  initTestQueue();renderCurrentTest();
 }
-
-function setTestLevel(lv, btn){
+function setTestLevel(lv,btn){
   currentTestLevel=lv;
   document.getElementById('test-level-show').textContent=lv;
-  document.querySelectorAll('#page-tests .tab').forEach(b=>{if(b.textContent===lv)b.classList.add('active');else if(['A1','A2','B1','B2','C1'].includes(b.textContent))b.classList.remove('active');});
+  document.querySelectorAll('#page-tests .tab').forEach(b=>{
+    if(['A1','A2','B1','B2','C1'].includes(b.textContent)){b.classList.remove('active');}
+  });
   btn.classList.add('active');
-  renderTests();
+  initTestQueue();renderCurrentTest();
 }
-
-function renderTests(){
-  renderChoiceTests();
-  renderInputTests();
-  renderListenTests();
+function initTestQueue(){
+  const pool=getTestPool(currentTestType,currentTestLevel);
+  currentTestQueue=pool.sort(()=>Math.random()-.5);
+  currentTestIndex=0;
   updateTestProgress();
 }
-
 function updateTestProgress(){
-  const done=testsDone;
-  const total=2000;
   const el=document.getElementById('test-progress-title');
-  if(el)el.textContent=`Прогресс: ${done} / ${total.toLocaleString()} тестов`;
+  const pool=getTestPool(currentTestType,currentTestLevel);
+  if(el)el.textContent=`Прогресс: ${testsDone} / 2 000 тестов · Доступно: ${pool.length} по уровню ${currentTestLevel}`;
   const bar=document.getElementById('test-pbar');
-  if(bar)bar.style.width=Math.min(100,done/total*100)+'%';
+  if(bar)bar.style.width=Math.min(100,testsDone/2000*100)+'%';
 }
-
-function renderChoiceTests(){
-  const area=document.getElementById('test-choice-area');
-  if(!area)return;
-  const data=testsData.choice.filter(t=>t.lv===currentTestLevel);
-  if(!data.length){area.innerHTML='<div style="text-align:center;padding:20px;color:#9ca3af">Нет тестов для этого уровня</div>';return;}
-  const t=data[Math.floor(Math.random()*data.length)];
+function renderCurrentTest(){
+  if(!currentTestQueue.length)initTestQueue();
+  const t=currentTestQueue[currentTestIndex%currentTestQueue.length];
+  if(!t)return;
+  if(currentTestType==='choice')renderChoiceTest(t);
+  else if(currentTestType==='input')renderInputTest(t);
+  else renderListenTest(t);
+}
+function nextTest(){
+  currentTestIndex++;
+  renderCurrentTest();
+}
+function renderChoiceTest(t){
+  const area=document.getElementById('test-choice-area');if(!area)return;
+  const opts=t.opts||[];
   area.innerHTML=`
     <div class="test-card">
       <div style="font-size:13px;font-weight:800;color:#1a1a2e;margin-bottom:14px">${t.q}</div>
       <div style="display:flex;flex-direction:column;gap:8px" id="choice-opts">
-        ${t.opts.map((o,i)=>`<button class="q-opt" onclick="answerChoice(${i},${t.a},${t.xp},this)">${o}</button>`).join('')}
+        ${opts.map((o,i)=>`<button class="q-opt" onclick="answerChoice(${i},${t.a},${t.xp||10},this)">${o}</button>`).join('')}
       </div>
       <div id="choice-result" style="margin-top:10px;font-size:13px;font-weight:700;display:none"></div>
-      <button onclick="renderChoiceTests()" style="margin-top:12px;background:linear-gradient(135deg,#6c47ff,#a78bfa);color:#fff;border:none;padding:10px 24px;border-radius:999px;font-size:13px;font-weight:800;cursor:pointer;display:block;width:100%">Следующий →</button>
+      <button onclick="nextTest()" style="margin-top:12px;background:linear-gradient(135deg,#6c47ff,#a78bfa);color:#fff;border:none;padding:10px 24px;border-radius:999px;font-size:13px;font-weight:800;cursor:pointer;width:100%">Следующий →</button>
     </div>`;
 }
-
-function answerChoice(chosen, correct, xp, btn){
-  document.querySelectorAll('.q-opt').forEach(b=>b.disabled=true);
-  const result=document.getElementById('choice-result');
-  result.style.display='block';
+function answerChoice(chosen,correct,xp,btn){
+  document.querySelectorAll('#choice-opts .q-opt').forEach(b=>b.disabled=true);
+  const result=document.getElementById('choice-result');result.style.display='block';
   if(chosen===correct){
-    btn.style.background='linear-gradient(135deg,#10b981,#6ee7b7)';
-    btn.style.color='#fff';
-    result.textContent='✅ Правильно! +'+xp+' XP';
-    result.style.color='#10b981';
-    addXP(xp);
-    testsDone++;localStorage.setItem('td',testsDone);
-    updateTestProgress();
+    btn.style.background='linear-gradient(135deg,#10b981,#6ee7b7)';btn.style.color='#fff';
+    result.textContent='✅ Правильно! +'+xp+' XP';result.style.color='#10b981';
+    addXP(xp);testsDone++;localStorage.setItem('td',testsDone);updateTestProgress();
   } else {
-    btn.style.background='linear-gradient(135deg,#f43f5e,#fb7185)';
-    btn.style.color='#fff';
-    document.querySelectorAll('.q-opt')[correct].style.background='linear-gradient(135deg,#10b981,#6ee7b7)';
-    document.querySelectorAll('.q-opt')[correct].style.color='#fff';
-    result.textContent='❌ Неверно. Правильный ответ подсвечен';
-    result.style.color='#f43f5e';
+    btn.style.background='linear-gradient(135deg,#f43f5e,#fb7185)';btn.style.color='#fff';
+    document.querySelectorAll('#choice-opts .q-opt')[correct].style.cssText+='background:linear-gradient(135deg,#10b981,#6ee7b7);color:#fff';
+    result.textContent='❌ Неверно. Правильный ответ выделен';result.style.color='#f43f5e';
   }
 }
-
-function renderInputTests(){
-  const area=document.getElementById('test-input-area');
-  if(!area)return;
-  const data=testsData.input.filter(t=>t.lv===currentTestLevel);
-  if(!data.length){area.innerHTML='<div style="text-align:center;padding:20px;color:#9ca3af">Нет тестов для этого уровня</div>';return;}
-  const t=data[Math.floor(Math.random()*data.length)];
+function renderInputTest(t){
+  const area=document.getElementById('test-input-area');if(!area)return;
+  const ans=t.a.replace(/'/g,"\\'");
   area.innerHTML=`
     <div class="test-card">
       <div style="font-size:13px;font-weight:800;color:#1a1a2e;margin-bottom:14px">${t.q}</div>
-      <input class="q-input" id="input-answer" placeholder="Введи ответ..." onkeydown="if(event.key==='Enter')checkInput('${t.a.toLowerCase()}',${t.xp})" />
-      <button onclick="checkInput('${t.a.toLowerCase()}',${t.xp})" style="margin-top:10px;background:linear-gradient(135deg,#6c47ff,#a78bfa);color:#fff;border:none;padding:10px 24px;border-radius:999px;font-size:13px;font-weight:800;cursor:pointer;width:100%">Проверить ✓</button>
+      <input class="q-input" id="input-answer" placeholder="Введи ответ…" onkeydown="if(event.key==='Enter')checkInput('${ans}',${t.xp||12})"/>
+      <button onclick="checkInput('${ans}',${t.xp||12})" style="margin-top:10px;background:linear-gradient(135deg,#6c47ff,#a78bfa);color:#fff;border:none;padding:10px;border-radius:999px;font-size:13px;font-weight:800;cursor:pointer;width:100%">Проверить ✓</button>
       <div id="input-result" style="margin-top:10px;font-size:13px;font-weight:700;display:none"></div>
-      <button onclick="renderInputTests()" style="margin-top:8px;background:#f3f4f6;color:#374151;border:none;padding:8px 20px;border-radius:999px;font-size:12px;font-weight:700;cursor:pointer;width:100%">Следующий →</button>
+      <button onclick="nextTest()" style="margin-top:8px;background:#f3f4f6;color:#374151;border:none;padding:8px;border-radius:999px;font-size:12px;font-weight:700;cursor:pointer;width:100%">Следующий →</button>
     </div>`;
 }
-
-function checkInput(answer, xp){
-  const inp=document.getElementById('input-answer');
-  const result=document.getElementById('input-result');
+function checkInput(answer,xp){
+  const inp=document.getElementById('input-answer');const result=document.getElementById('input-result');
   if(!inp)return;
+  inp.disabled=true;result.style.display='block';
   const val=inp.value.trim().toLowerCase();
-  result.style.display='block';
-  inp.disabled=true;
   if(val===answer){
-    inp.style.borderColor='#10b981';
-    result.textContent='✅ Правильно! +'+xp+' XP';
-    result.style.color='#10b981';
-    addXP(xp);
-    testsDone++;localStorage.setItem('td',testsDone);
-    updateTestProgress();
+    inp.style.borderColor='#10b981';result.textContent='✅ Правильно! +'+xp+' XP';result.style.color='#10b981';
+    addXP(xp);testsDone++;localStorage.setItem('td',testsDone);updateTestProgress();
   } else {
-    inp.style.borderColor='#f43f5e';
-    result.textContent='❌ Правильный ответ: '+answer;
-    result.style.color='#f43f5e';
+    inp.style.borderColor='#f43f5e';result.textContent='❌ Правильный ответ: '+answer;result.style.color='#f43f5e';
   }
 }
-
-function renderListenTests(){
-  const area=document.getElementById('test-listen-area');
-  if(!area)return;
-  const data=testsData.listen.filter(t=>t.lv===currentTestLevel);
-  if(!data.length){area.innerHTML='<div style="text-align:center;padding:20px;color:#9ca3af">Нет тестов для этого уровня</div>';return;}
-  const t=data[Math.floor(Math.random()*data.length)];
+function renderListenTest(t){
+  const area=document.getElementById('test-listen-area');if(!area)return;
+  const opts=t.opts||[];
   area.innerHTML=`
     <div class="test-card">
       <div style="font-size:13px;font-weight:800;color:#1a1a2e;margin-bottom:12px">${t.q}</div>
-      <div style="display:flex;justify-content:center;gap:4px;height:40px;align-items:center;margin:12px 0">
-        ${[...Array(9)].map((_,i)=>`<div class="listen-bar" style="animation-delay:${i*0.11}s;height:${14+Math.random()*20}px"></div>`).join('')}
+      <div style="display:flex;justify-content:center;gap:4px;height:44px;align-items:center;margin:10px 0">
+        ${[...Array(11)].map((_,i)=>`<div class="listen-bar" style="animation-delay:${i*.1}s;height:${12+Math.random()*24}px"></div>`).join('')}
       </div>
-      <div style="text-align:center;margin-bottom:12px">
-        <button onclick="speakWord('${t.word}')" style="background:linear-gradient(135deg,#6c47ff,#a78bfa);color:#fff;border:none;padding:10px 28px;border-radius:999px;font-size:14px;font-weight:800;cursor:pointer">🔊 Прослушать</button>
+      <div style="text-align:center;margin-bottom:14px">
+        <button onclick="speakWord('${t.word.replace(/'/g,"\\'")}','en-GB')" style="background:linear-gradient(135deg,#6c47ff,#a78bfa);color:#fff;border:none;padding:10px 28px;border-radius:999px;font-size:14px;font-weight:800;cursor:pointer">🔊 Прослушать</button>
       </div>
       <div style="display:flex;flex-direction:column;gap:8px" id="listen-opts">
-        ${t.opts.map((o,i)=>`<button class="q-opt" onclick="answerListen('${o}','${t.word}',${t.xp},this)">${o}</button>`).join('')}
+        ${opts.map((o,i)=>`<button class="q-opt" onclick="answerListen('${o}','${t.word}',${t.xp||15},this)">${o}</button>`).join('')}
       </div>
       <div id="listen-result" style="margin-top:10px;font-size:13px;font-weight:700;display:none"></div>
-      <button onclick="renderListenTests()" style="margin-top:10px;background:#f3f4f6;color:#374151;border:none;padding:8px 20px;border-radius:999px;font-size:12px;font-weight:700;cursor:pointer;width:100%">Следующий →</button>
+      <button onclick="nextTest()" style="margin-top:10px;background:#f3f4f6;color:#374151;border:none;padding:8px;border-radius:999px;font-size:12px;font-weight:700;cursor:pointer;width:100%">Следующий →</button>
     </div>`;
-  speakWord(t.word);
+  speakWord(t.word,'en-GB');
 }
-
-function speakWord(word){
-  if('speechSynthesis' in window){
-    const u=new SpeechSynthesisUtterance(word);
-    u.lang='en-GB';u.rate=0.85;
-    window.speechSynthesis.cancel();
-    window.speechSynthesis.speak(u);
-  }
+function speakWord(word,lang){
+  if(!('speechSynthesis' in window))return;
+  const u=new SpeechSynthesisUtterance(word);u.lang=lang||'en-GB';u.rate=0.85;
+  window.speechSynthesis.cancel();window.speechSynthesis.speak(u);
 }
-
-function answerListen(chosen, correct, xp, btn){
+function answerListen(chosen,correct,xp,btn){
   document.querySelectorAll('#listen-opts .q-opt').forEach(b=>b.disabled=true);
-  const result=document.getElementById('listen-result');
-  result.style.display='block';
+  const result=document.getElementById('listen-result');result.style.display='block';
   if(chosen===correct){
-    btn.style.background='linear-gradient(135deg,#10b981,#6ee7b7)';
-    btn.style.color='#fff';
-    result.textContent='✅ Правильно! +'+xp+' XP';
-    result.style.color='#10b981';
-    addXP(xp);
-    testsDone++;localStorage.setItem('td',testsDone);
-    updateTestProgress();
+    btn.style.background='linear-gradient(135deg,#10b981,#6ee7b7)';btn.style.color='#fff';
+    result.textContent='✅ Правильно! +'+xp+' XP';result.style.color='#10b981';
+    addXP(xp);testsDone++;localStorage.setItem('td',testsDone);updateTestProgress();
   } else {
-    btn.style.background='linear-gradient(135deg,#f43f5e,#fb7185)';
-    btn.style.color='#fff';
+    btn.style.background='linear-gradient(135deg,#f43f5e,#fb7185)';btn.style.color='#fff';
     document.querySelectorAll('#listen-opts .q-opt').forEach(b=>{if(b.textContent===correct){b.style.background='linear-gradient(135deg,#10b981,#6ee7b7)';b.style.color='#fff';}});
-    result.textContent='❌ Правильный ответ: '+correct;
-    result.style.color='#f43f5e';
+    result.textContent='❌ Правильный ответ: '+correct;result.style.color='#f43f5e';
   }
 }
 
 // ===================== SIMULATIONS =====================
+const simNameMap={airport:0,hotel:1,bank:2,doctor:3,flat:4,interview:5,police:6,restaurant:7,immigration:8,university:9,shop:10,phone:11,pharmacy:12};
 function renderSimsMenu(){
-  const grid=document.getElementById('sims-grid');
-  if(!grid)return;
+  const grid=document.getElementById('sims-grid');if(!grid)return;
   grid.innerHTML=simsData.map(s=>`
     <div class="sim-card" onclick="startSim(${s.id})">
-      <div style="font-size:26px;margin-bottom:6px">${s.icon}</div>
+      <div style="font-size:26px;margin-bottom:4px">${s.icon}</div>
       <div style="font-size:12px;font-weight:800;color:#1a1a2e">${s.title}</div>
       <div style="font-size:10px;color:#9ca3af;margin-top:2px">${s.steps.length} шагов</div>
       <div style="font-size:10px;background:#ede9ff;color:#6c47ff;padding:2px 8px;border-radius:999px;display:inline-block;margin-top:4px">${s.lv}</div>
     </div>`).join('');
-  const total=500;
-  document.getElementById('sim-progress-title').textContent=`Прогресс: ${simsDone} / ${total} симуляций`;
-  document.getElementById('sim-pbar').style.width=Math.min(100,simsDone/total*100)+'%';
+  document.getElementById('sim-progress-title').textContent=`Прогресс: ${simsDone} / 500 симуляций`;
+  document.getElementById('sim-pbar').style.width=Math.min(100,simsDone/500*100)+'%';
 }
-
-const simNameMap={airport:0,hotel:1,bank:2,doctor:3,flat:4,interview:5,police:6,restaurant:7,immigration:8,university:9,shop:10,phone:11,pharmacy:12};
 function startSim(id){
   if(typeof id==='string')id=simNameMap[id]!==undefined?simNameMap[id]:0;
   if(!simsData[id])return;
-  currentSimId=id;
-  currentSimStep=0;
+  currentSimId=id;currentSimStep=0;simScore=0;
   document.getElementById('sims-menu').style.display='none';
   document.getElementById('sims-chat').style.display='flex';
-  const nb=document.querySelectorAll('.nb');
-  nb.forEach(b=>b.classList.remove('active'));
-  nb[3].classList.add('active');
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.nb')[3].classList.add('active');
   showPage('sims');
-  simScore=0;
   const sim=simsData[id];
   document.getElementById('sim-title').textContent=sim.title;
   document.getElementById('sim-level-badge').textContent=sim.lv;
@@ -1325,137 +1455,112 @@ function startSim(id){
   document.getElementById('chat-opts-area').innerHTML='';
   setTimeout(()=>showSimStep(),400);
 }
-
 function showSimStep(){
   const sim=simsData[currentSimId];
-  if(currentSimStep>=sim.steps.length){endSim();return;}
+  if(!sim||currentSimStep>=sim.steps.length){endSim();return;}
   const step=sim.steps[currentSimStep];
   document.getElementById('sim-step-show').textContent=`Шаг ${currentSimStep+1} из ${sim.steps.length}`;
   const chatArea=document.getElementById('chat-area');
   const typing=document.createElement('div');
   typing.className='chat-bubble ai';
   typing.innerHTML='<span class="typing-dot" style="animation-delay:0s"></span><span class="typing-dot" style="animation-delay:.15s"></span><span class="typing-dot" style="animation-delay:.3s"></span>';
-  chatArea.appendChild(typing);
-  chatArea.scrollTop=chatArea.scrollHeight;
+  chatArea.appendChild(typing);chatArea.scrollTop=chatArea.scrollHeight;
   setTimeout(()=>{
-    typing.innerHTML=step.ai;
-    chatArea.scrollTop=chatArea.scrollHeight;
+    typing.innerHTML=step.ai;chatArea.scrollTop=chatArea.scrollHeight;
     showSimOpts(step.opts);
   },900);
 }
-
 function showSimOpts(opts){
   const area=document.getElementById('chat-opts-area');
   area.innerHTML=opts.map((o,i)=>`<button class="chat-opt" onclick="pickSimOpt(${i},${o.s})">${o.t}</button>`).join('');
 }
-
-function pickSimOpt(i, score){
-  const sim=simsData[currentSimId];
-  const step=sim.steps[currentSimStep];
+function pickSimOpt(i,score){
+  const sim=simsData[currentSimId];const step=sim.steps[currentSimStep];
   simScore+=score;
   document.getElementById('chat-opts-area').innerHTML='';
   const chatArea=document.getElementById('chat-area');
-  const bubble=document.createElement('div');
-  bubble.className='chat-bubble user';
-  bubble.textContent=step.opts[i].t;
-  chatArea.appendChild(bubble);
-  chatArea.scrollTop=chatArea.scrollHeight;
+  const bubble=document.createElement('div');bubble.className='chat-bubble user';bubble.textContent=step.opts[i].t;
+  chatArea.appendChild(bubble);chatArea.scrollTop=chatArea.scrollHeight;
   if(score===0){
     const hint=document.createElement('div');
     hint.style.cssText='font-size:11px;color:#f43f5e;padding:4px 16px;font-weight:700;animation:fadeInUp .3s';
-    hint.textContent='💡 Попробуй другой ответ';
-    chatArea.appendChild(hint);
-    setTimeout(()=>showSimOpts(step.opts),800);
-    return;
+    hint.textContent='💡 Попробуй более вежливый ответ';
+    chatArea.appendChild(hint);setTimeout(()=>showSimOpts(step.opts),900);return;
   }
-  currentSimStep++;
-  setTimeout(()=>showSimStep(),400);
+  currentSimStep++;setTimeout(()=>showSimStep(),500);
 }
-
 function endSim(){
   const sim=simsData[currentSimId];
   simsDone++;localStorage.setItem('sd',simsDone);
-  const xpEarned=Math.round(simScore*8);
-  addXP(xpEarned);
+  const xpEarned=Math.max(20,Math.round(simScore*10));addXP(xpEarned);
   document.getElementById('sims-chat').style.display='none';
   document.getElementById('sims-menu').style.display='block';
   renderSimsMenu();
   const toast=document.createElement('div');
   toast.style.cssText='position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#6c47ff,#a78bfa);color:#fff;padding:12px 24px;border-radius:16px;font-size:13px;font-weight:800;z-index:999;animation:fadeInUp .4s;text-align:center;box-shadow:0 8px 20px rgba(108,71,255,.3)';
   toast.innerHTML=`✅ ${sim.title} завершено!<br>+${xpEarned} XP`;
-  document.body.appendChild(toast);
-  setTimeout(()=>toast.remove(),2500);
+  document.body.appendChild(toast);setTimeout(()=>toast.remove(),2500);
 }
 
 // ===================== SUB-PAGES =====================
-function showSubPage(id){
-  const el=document.getElementById('sub-'+id);
-  if(el){el.classList.add('open');}
-}
-function hideSubPage(id){
-  const el=document.getElementById('sub-'+id);
-  if(el){el.classList.remove('open');}
-}
+function showSubPage(id){const el=document.getElementById('sub-'+id);if(el)el.classList.add('open');}
+function hideSubPage(id){const el=document.getElementById('sub-'+id);if(el)el.classList.remove('open');}
 
 // ===================== PROFILE TABS =====================
-function showProfileTab(t, btn){
-  document.querySelectorAll('.profile-section').forEach(s=>s.style.display='none');
-  document.getElementById('profile-'+t).style.display='block';
+function showProfileTab(t,btn){
+  ['stats'].forEach(s=>{const e=document.getElementById('profile-'+s);if(e)e.style.display='none';});
+  const el=document.getElementById('profile-'+t);if(el)el.style.display='block';
   document.querySelectorAll('#profile-tabs .tab').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  if(t==='stats'){loadStats();}
+  if(t==='stats')loadStats();
 }
-
 function loadStats(){
-  const el=document.getElementById('stat-words-total');
-  if(el)el.textContent=wordsLearned;
-  const e2=document.getElementById('stat-tests-done');
-  if(e2)e2.textContent=testsDone;
-  const e3=document.getElementById('stat-sims-done');
-  if(e3)e3.textContent=simsDone;
-  const e4=document.getElementById('stat-streak');
-  if(e4)e4.textContent=streak;
+  const map={
+    'stat-words-total':wordsLearned,
+    'stat-tests-done':testsDone,
+    'stat-sims-done':simsDone,
+    'stat-streak':streak
+  };
+  Object.entries(map).forEach(([id,v])=>{const e=document.getElementById(id);if(e)e.textContent=v;});
 }
 
 // ===================== SLANG =====================
-function showSlangTab(t, btn){
+function showSlangTab(t,btn){
   ['slangs','rofl'].forEach(s=>{const e=document.getElementById('slang-'+s);if(e)e.style.display='none';});
-  const el=document.getElementById('slang-'+t);
-  if(el)el.style.display='block';
+  const el=document.getElementById('slang-'+t);if(el)el.style.display='block';
   document.querySelectorAll('#stab-slang .tab').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
 }
 
 // ===================== IELTS =====================
-function answerIelts(btn, chosen, correct){
+function answerIelts(btn,chosen,correct){
   btn.parentElement.querySelectorAll('.q-opt').forEach(b=>b.disabled=true);
   const res=btn.parentElement.nextElementSibling;
   if(chosen===correct){
     btn.style.background='linear-gradient(135deg,#10b981,#6ee7b7)';btn.style.color='#fff';
-    if(res)res.textContent='✅ Правильно! +20 XP';if(res)res.style.color='#10b981';
+    if(res){res.textContent='✅ Правильно! +20 XP';res.style.color='#10b981';}
     addXP(20);
   } else {
     btn.style.background='linear-gradient(135deg,#f43f5e,#fb7185)';btn.style.color='#fff';
     btn.parentElement.querySelectorAll('.q-opt').forEach(b=>{if(b.textContent===correct){b.style.background='linear-gradient(135deg,#10b981,#6ee7b7)';b.style.color='#fff';}});
-    if(res)res.textContent='❌ Правильный ответ: '+correct;if(res)res.style.color='#f43f5e';
+    if(res){res.textContent='❌ Правильный ответ: '+correct;res.style.color='#f43f5e';}
   }
 }
 
 // ===================== INIT =====================
-window.addEventListener('DOMContentLoaded', ()=>{
+window.addEventListener('DOMContentLoaded',()=>{
   updateXPBar();
-  // streak logic
   const today=new Date().toDateString();
   const last=localStorage.getItem('lastVisit');
   if(last!==today){
     const yesterday=new Date();yesterday.setDate(yesterday.getDate()-1);
-    if(last===yesterday.toDateString()){streak++;} else if(!last){streak=1;} else {streak=1;}
+    if(last===yesterday.toDateString())streak++;
+    else streak=1;
     localStorage.setItem('streak',streak);
     localStorage.setItem('lastVisit',today);
   }
 });
 </script>
-
 <!-- IELTS SUB-PAGES -->
 <div class="subpage" id="sub-ielts-reading">
   <div class="subpage-hdr"><button class="back-btn" onclick="hideSubPage('ielts-reading')">←</button><span>IELTS Reading 📖</span></div>
@@ -1536,8 +1641,6 @@ window.addEventListener('DOMContentLoaded', ()=>{
     <div class="info-card"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">Транспорт</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px"><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">bus → автобус</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">tube → метро</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">tram → трамвай</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">train → поезд</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">taxi → такси</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">bicycle → велосипед</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">scooter → самокат</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">ferry → паром</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">platform → платформа</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">ticket machine → автомат</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">bus stop → остановка</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">crossing → переезд</div></div></div>
   </div>
 </div>
-
 </div>
 </body>
-
 </html>
