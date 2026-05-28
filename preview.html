@@ -845,7 +845,8 @@ button{cursor:pointer}
     <button class="tab" style="padding:6px 14px;font-size:12px" onclick="setTestLevel('C2',this)">C2</button>
   </div></div>
   <div class="tabs" id="test-type-tabs">
-    <button class="tab active" onclick="showTestType('choice',this)">🔘 Выбор ответа</button>
+    <button class="tab active" onclick="showTestType('words',this)">📝 Слова</button>
+    <button class="tab" onclick="showTestType('sent',this)">🗣️ Предложения</button>
     <button class="tab" onclick="showTestType('input',this)">⌨️ Ввод текста</button>
     <button class="tab" onclick="showTestType('listen',this)">🎧 Аудирование</button>
   </div>
@@ -4969,6 +4970,8 @@ let _choicePool = null, _inputPool = null, _listenPool = null, _sentPool = null;
 function getTestPool(type, lv) {
   if (!_choicePool) { _choicePool = generateChoiceTests(); _inputPool = generateInputTests(); _listenPool = generateListenTests(); _sentPool = generateSentenceTests(); }
   const combined = {
+    words: _choicePool,
+    sent: _sentPool,
     choice: [..._choicePool, ..._sentPool],
     input: _inputPool,
     listen: _listenPool
@@ -8384,7 +8387,7 @@ let userAvatar = localStorage.getItem('userAvatar') || '🦊';
 let currentTheme = localStorage.getItem('theme') || 'default';
 let currentLevel = localStorage.getItem('level') || 'A1';
 let currentTestLevel = currentLevel; // stays in sync with profile level
-let currentTestType = 'choice';
+let currentTestType = 'words';
 let currentSimId = -1;
 let currentSimStep = 0;
 let simScore = 0;
@@ -8881,7 +8884,8 @@ function showTestType(t,btn){
   currentTestType=t;
   document.querySelectorAll('#test-type-tabs .tab').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  document.getElementById('test-choice-area').style.display=t==='choice'?'block':'none';
+  const choiceBased=t==='choice'||t==='words'||t==='sent';
+  document.getElementById('test-choice-area').style.display=choiceBased?'block':'none';
   document.getElementById('test-input-area').style.display=t==='input'?'block':'none';
   document.getElementById('test-listen-area').style.display=t==='listen'?'block':'none';
   initTestQueue();renderCurrentTest();
@@ -8932,7 +8936,7 @@ function renderCurrentTest(){
     if(area)area.innerHTML=`<div class="test-card" style="text-align:center;padding:24px 16px"><div style="font-size:40px;margin-bottom:10px">🔍</div><div style="font-size:15px;font-weight:900;color:#1a1a2e;margin-bottom:6px">Нет заданий для уровня ${currentTestLevel}</div><div style="font-size:12px;color:#9ca3af;margin-bottom:16px">Попробуй выбрать другой уровень выше</div></div>`;
     return;
   }
-  if(currentTestType==='choice')renderChoiceTest(t);
+  if(currentTestType==='choice'||currentTestType==='words'||currentTestType==='sent')renderChoiceTest(t);
   else if(currentTestType==='input')renderInputTest(t);
   else renderListenTest(t);
 }
