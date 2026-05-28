@@ -166,6 +166,94 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
 .test-card{background:#fff;border-radius:16px;margin:0 16px 10px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
 .stat-card{border-radius:16px;padding:16px;text-align:center}
 .subpage-hdr{display:flex;align-items:center;gap:12px;padding:14px 16px;background:#fff;border-bottom:1px solid #ede9ff;font-size:15px;font-weight:800;color:#1a1a2e;position:sticky;top:0;z-index:10}
+
+/* ═══ THEMES ═══ */
+.phone[data-theme="dark"]{background:#121225!important}
+.phone[data-theme="dark"] .page{background:#0f0f1e!important}
+.phone[data-theme="dark"] .card,.phone[data-theme="dark"] .settings-section,.phone[data-theme="dark"] .q-card,.phone[data-theme="dark"] .wcard,.phone[data-theme="dark"] .sent-card,.phone[data-theme="dark"] .sc-card,.phone[data-theme="dark"] .stat-b,.phone[data-theme="dark"] .info-card,.phone[data-theme="dark"] .sim-card,.phone[data-theme="dark"] .test-card{background:#1e1e3a!important;color:#e4e4f0!important}
+.phone[data-theme="dark"] .bnav,.phone[data-theme="dark"] .hdr{background:#0f0f1e!important;border-color:#2a2a4a!important}
+.phone[data-theme="dark"] .nb{color:#6b6b9a!important}
+.phone[data-theme="dark"] .nb.active{color:#8b5cf6!important}
+.phone[data-theme="dark"] .nb.active::after{background:#8b5cf6!important}
+.phone[data-theme="dark"] .tab:not(.active){background:#1e1e3a!important;color:#8b5cf6!important}
+.phone[data-theme="dark"] .pbar{background:#2a2a4a!important}
+.phone[data-theme="dark"] .q-opt{background:#1e1e3a!important;border-color:#2a2a4a!important;color:#e4e4f0!important}
+.phone[data-theme="dark"] .q-input{background:#1e1e3a!important;border-color:#2a2a4a!important;color:#e4e4f0!important}
+.phone[data-theme="dark"] .chat-bubble.ai{background:#1e1e3a!important;color:#e4e4f0!important}
+.phone[data-theme="dark"] .chat-opt{background:#1e1e3a!important;border-color:#2a2a4a!important;color:#e4e4f0!important}
+.phone[data-theme="dark"] .sub-hdr,.phone[data-theme="dark"] .subpage-hdr{background:#0f0f1e!important;border-color:#2a2a4a!important;color:#e4e4f0!important}
+.phone[data-theme="dark"] .subpage{background:#0f0f1e!important}
+.phone[data-theme="dark"] .ptab-row{background:#0f0f1e!important;border-color:#2a2a4a!important}
+.phone[data-theme="dark"] .ptab:not(.active){color:#6b6b9a!important}
+.phone[data-theme="dark"] .ptab.active{background:#1e1e3a!important;color:#8b5cf6!important}
+.phone[data-theme="ocean"]{background:#e0f2fe!important}
+.phone[data-theme="ocean"] .page{background:#f0f8ff!important}
+.phone[data-theme="ocean"] .card,.phone[data-theme="ocean"] .settings-section,.phone[data-theme="ocean"] .q-card,.phone[data-theme="ocean"] .wcard,.phone[data-theme="ocean"] .sim-card,.phone[data-theme="ocean"] .sc-card,.phone[data-theme="ocean"] .stat-b,.phone[data-theme="ocean"] .info-card{background:#fff!important}
+.phone[data-theme="ocean"] .bnav,.phone[data-theme="ocean"] .hdr{background:#fff!important;border-color:#bae6fd!important}
+.phone[data-theme="ocean"] .nb.active{color:#0284c7!important}
+.phone[data-theme="ocean"] .nb.active::after{background:#0284c7!important}
+.phone[data-theme="ocean"] .tab.active{background:#0284c7!important}
+.phone[data-theme="ocean"] .pbar-f{background:linear-gradient(90deg,#0284c7,#38bdf8)!important}
+.phone[data-theme="forest"]{background:#dcfce7!important}
+.phone[data-theme="forest"] .page{background:#f0faf4!important}
+.phone[data-theme="forest"] .bnav,.phone[data-theme="forest"] .hdr{background:#fff!important;border-color:#bbf7d0!important}
+.phone[data-theme="forest"] .nb.active{color:#16a34a!important}
+.phone[data-theme="forest"] .nb.active::after{background:#16a34a!important}
+.phone[data-theme="forest"] .tab.active{background:#16a34a!important}
+.phone[data-theme="forest"] .pbar-f{background:linear-gradient(90deg,#16a34a,#4ade80)!important}
+.phone[data-theme="sunset"]{background:#fed7aa!important}
+.phone[data-theme="sunset"] .page{background:#fff7f0!important}
+.phone[data-theme="sunset"] .bnav,.phone[data-theme="sunset"] .hdr{background:#fff!important;border-color:#fed7aa!important}
+.phone[data-theme="sunset"] .nb.active{color:#ea580c!important}
+.phone[data-theme="sunset"] .nb.active::after{background:#ea580c!important}
+.phone[data-theme="sunset"] .tab.active{background:#ea580c!important}
+.phone[data-theme="sunset"] .pbar-f{background:linear-gradient(90deg,#ea580c,#fb923c)!important}
+/* ═══ MORE ANIMATIONS ═══ */
+@keyframes slideUp{from{transform:translateY(100%);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes scaleIn{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes shimmer{0%{opacity:.6}50%{opacity:1}100%{opacity:.6}}
+@keyframes slideInLeft{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+@keyframes levelUp{0%{transform:scale(1) rotate(0)}25%{transform:scale(1.3) rotate(-5deg)}50%{transform:scale(1.5) rotate(5deg)}75%{transform:scale(1.2) rotate(-3deg)}100%{transform:scale(1) rotate(0)}}
+@keyframes particleFloat{0%{transform:translateY(0) rotate(0);opacity:1}100%{transform:translateY(-90px) rotate(360deg);opacity:0}}
+@keyframes countUp{from{opacity:0;transform:translateY(8px) scale(.9)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes borderPulse{0%,100%{border-color:#ede9ff}50%{border-color:#6c47ff}}
+@keyframes glowPulse{0%,100%{box-shadow:0 0 0 0 rgba(108,71,255,.4)}50%{box-shadow:0 0 20px 6px rgba(108,71,255,.2)}}
+/* ═══ SETTINGS PAGE ═══ */
+.settings-section{background:#fff;border-radius:20px;margin:0 16px 12px;padding:16px;box-shadow:0 2px 16px rgba(108,71,255,.08);animation:fadeInUp .3s ease both}
+.settings-row{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid #ede9ff}
+.settings-row:last-child{border-bottom:none}
+.settings-label{font-size:13px;font-weight:700;color:#1a1a2e}
+.settings-sub{font-size:11px;color:#9ca3af;margin-top:2px}
+.username-input{border:2px solid #ede9ff;border-radius:12px;padding:10px 14px;font-size:14px;font-weight:700;color:#1a1a2e;background:#faf9ff;outline:none;width:100%;transition:.2s;font-family:inherit}
+.username-input:focus{border-color:#6c47ff;box-shadow:0 0 0 3px rgba(108,71,255,.1);animation:none}
+.lv-test-btn{padding:10px 4px;border-radius:12px;font-size:16px;font-weight:900;border:2px solid #ede9ff;background:#faf9ff;color:#6c47ff;cursor:pointer;transition:.25s;width:100%}
+.lv-test-btn:hover{background:#ede9ff;border-color:#6c47ff;transform:scale(1.06)}
+.lv-test-btn.active-lv{background:linear-gradient(135deg,#6c47ff,#8b5cf6);color:#fff;border-color:#6c47ff;box-shadow:0 4px 14px rgba(108,71,255,.4)}
+.avatar-pick{font-size:26px;text-align:center;cursor:pointer;padding:8px;border-radius:12px;background:#f5f4ff;transition:.25s;border:2px solid transparent}
+.avatar-pick:hover{transform:scale(1.18);border-color:#c4b5fd}
+.avatar-pick.selected{border-color:#6c47ff;background:#ede9ff;transform:scale(1.1);animation:glowPulse .8s ease}
+.toggle-sw{width:48px;height:27px;border-radius:999px;position:relative;cursor:pointer;transition:.3s;flex-shrink:0}
+.toggle-sw .knob{position:absolute;top:3px;width:21px;height:21px;border-radius:50%;background:#fff;transition:.3s;box-shadow:0 1px 4px rgba(0,0,0,.25)}
+/* ═══ LEVEL TEST MODAL ═══ */
+.lvt-modal{display:none;position:absolute;inset:0;background:rgba(0,0,0,.55);z-index:300;align-items:flex-end}
+.lvt-panel{background:#fff;border-radius:28px 28px 0 0;width:100%;max-height:88%;overflow-y:auto;padding:24px 20px 40px;animation:slideUp .38s cubic-bezier(.34,1.56,.64,1)}
+/* ═══ PARTICLES ═══ */
+.particle{position:absolute;pointer-events:none;font-size:18px;animation:particleFloat 2s ease forwards;z-index:500}
+/* ═══ ENHANCED CARDS ═══ */
+.sc-card{transition:.25s cubic-bezier(.34,1.56,.64,1)!important}
+.sc-card:hover{transform:translateX(4px) scale(1.01)!important}
+.sim-card{transition:.3s cubic-bezier(.34,1.56,.64,1)!important}
+.sim-card:hover{transform:translateY(-4px) scale(1.02)!important;box-shadow:0 12px 32px rgba(108,71,255,.25)!important}
+.btn-pu{transition:.25s cubic-bezier(.34,1.56,.64,1)!important}
+.btn-pu:hover{transform:translateY(-3px) scale(1.02)!important;box-shadow:0 10px 36px rgba(108,71,255,.55)!important}
+.btn-pu:active{transform:scale(.96)!important}
+.nb .ico{transition:.3s cubic-bezier(.34,1.56,.64,1)!important}
+.nb.active .ico{transform:scale(1.25) translateY(-2px)!important}
+.wcard{transition:.25s cubic-bezier(.34,1.56,.64,1)!important;animation:fadeInUp .35s ease both!important}
+.wcard:hover{transform:translateX(5px) scale(1.01)!important}
+/* ═══ TOAST ═══ */
+.toast-msg{position:absolute;bottom:90px;left:50%;transform:translateX(-50%);background:rgba(26,26,46,.92);color:#fff;padding:10px 20px;border-radius:24px;font-size:13px;font-weight:700;z-index:999;white-space:nowrap;pointer-events:none;transition:opacity .3s;box-shadow:0 4px 20px rgba(0,0,0,.3)}
 </style>
 </head>
 <body>
@@ -193,8 +281,12 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
     <div class="lv-card" onclick="selectLevel(this,'C1')"><div class="lv-badge">C1</div><div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Продвинутый</div><div style="font-size:10px;color:#9ca3af">Почти носитель</div></div>
     <div class="lv-card" onclick="selectLevel(this,'C2')"><div class="lv-badge">C2</div><div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Мастер</div><div style="font-size:10px;color:#9ca3af">Уровень носителя</div></div>
   </div>
-  <button class="btn-pu" onclick="startApp()" style="width:100%;margin:0;border-radius:18px;font-size:16px;padding:17px;justify-content:center">🚀 Начать обучение →</button>
-  <div style="text-align:center;margin-top:10px;font-size:11px;color:#c4b5fd">Уровень можно изменить в Профиле</div>
+  <div style="margin-bottom:14px">
+    <div style="font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:8px;text-align:center">Как тебя зовут? 👤</div>
+    <input id="onb-name-input" class="username-input" placeholder="Введи своё имя..." maxlength="20" style="text-align:center;font-size:16px;border-radius:14px"/>
+  </div>
+  <button class="btn-pu" onclick="startAppWithName()" style="width:100%;margin:0;border-radius:18px;font-size:16px;padding:17px;justify-content:center">🚀 Начать обучение →</button>
+  <div style="text-align:center;margin-top:10px;font-size:11px;color:#c4b5fd">Уровень можно изменить в Настройках</div>
 </div>
 
 <!-- HEADER -->
@@ -212,7 +304,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
 
   <!-- ═══ HEADER ═══ -->
   <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px 10px;background:#f0eeff">
-    <button style="width:44px;height:44px;border-radius:14px;background:#fff;border:none;box-shadow:0 2px 10px rgba(0,0,0,.09);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:19px;color:#6c47ff;flex-shrink:0">☰</button>
+    <button onclick="showPage('settings');setNav(document.querySelectorAll('.nb')[5])" style="width:44px;height:44px;border-radius:14px;background:#fff;border:none;box-shadow:0 2px 10px rgba(0,0,0,.09);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:.25s" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><span id="home-avatar" style="font-size:22px">🦊</span></button>
     <div style="text-align:center;flex:1">
       <div style="font-size:20px;font-weight:900;color:#1a1a2e;letter-spacing:.5px">CATCH <span style="color:#6c47ff">QUEST</span></div>
       <div style="font-size:10px;color:#8b83b0;margin-top:1px">Английский для переезда за рубеж 🌍</div>
@@ -237,7 +329,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
     </svg>
     <!-- Text left -->
     <div style="flex:1;padding-bottom:18px;z-index:1">
-      <div style="font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:5px">Привет, бро! 👋</div>
+      <div style="font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:5px">Привет, <span id="home-username" style="color:#6c47ff">Игрок</span>! 👋</div>
       <h1 style="font-size:25px;font-weight:900;color:#1a1a2e;line-height:1.18;margin:0 0 8px">Английский<br>как <span style="color:#6c47ff">квест,</span><br>не как урок. 🚀</h1>
       <p style="font-size:11px;color:#8b83b0;line-height:1.6;max-width:168px;margin:0">Прокачивай язык через реальные сценарии переезда за рубеж.</p>
     </div>
@@ -290,7 +382,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
   </div>
 
   <!-- ═══ FEATURE PILLS ═══ -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:14px 16px 6px">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:14px 16px 6px;animation:fadeInUp .4s ease both">
     <div style="background:#fff;border-radius:15px;padding:11px 12px;display:flex;align-items:center;gap:9px;box-shadow:0 2px 12px rgba(0,0,0,.06);cursor:pointer" onclick="showPage('sims');setNav(document.querySelectorAll('.nb')[3])">
       <span style="font-size:22px;flex-shrink:0">🧳</span>
       <div style="flex:1;line-height:1.25"><div style="font-size:11px;font-weight:800;color:#1a1a2e">Реальные</div><div style="font-size:11px;font-weight:800;color:#1a1a2e">сценарии</div></div>
@@ -314,7 +406,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
   </div>
 
   <!-- ═══ PROGRESS CARD ═══ -->
-  <div style="background:#fff;border-radius:22px;margin:10px 16px 10px;padding:18px 16px 20px;box-shadow:0 4px 24px rgba(108,71,255,.12)">
+  <div style="background:#fff;border-radius:22px;margin:10px 16px 10px;padding:18px 16px 20px;box-shadow:0 4px 24px rgba(108,71,255,.12);animation:scaleIn .4s cubic-bezier(.34,1.56,.64,1)">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
       <div style="width:42px;height:42px;background:#f0eeff;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:24px">🦊</div>
       <div style="font-size:14px;font-weight:900;color:#1a1a2e">Твой прогресс ↗</div>
@@ -586,13 +678,188 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
   <div class="info-card"><ul><li>Загранпаспорт — минимум за 3 месяца</li><li>Виза — подать заявку заранее</li><li>Открыть Wise / Revolut до отъезда</li><li>Найти жильё до приезда</li><li>Международная страховка</li><li>SIM или eSIM карта</li></ul></div>
 </div>
 
+
+<!-- PAGE: SETTINGS -->
+<div class="page" id="page-settings" style="background:#f0eeff;padding-bottom:20px">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px 10px;background:#fff;border-bottom:1px solid #ede9ff;position:sticky;top:0;z-index:10;animation:headerSlide .3s ease">
+    <div style="font-size:18px;font-weight:900;color:#1a1a2e">⚙️ Настройки</div>
+    <div style="font-size:11px;font-weight:700;background:#ede9ff;color:#6c47ff;padding:4px 12px;border-radius:999px" id="settings-level-badge">A1</div>
+  </div>
+
+  <!-- Profile hero -->
+  <div style="margin:12px 16px 0">
+    <div style="background:linear-gradient(135deg,#6c47ff,#8b5cf6);border-radius:22px;padding:18px 16px;color:#fff;position:relative;overflow:hidden;animation:scaleIn .4s cubic-bezier(.34,1.56,.64,1)">
+      <div style="position:absolute;right:-30px;top:-30px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.1)"></div>
+      <div style="position:absolute;left:-20px;bottom:-20px;width:100px;height:100px;border-radius:50%;background:rgba(255,255,255,.06)"></div>
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px">
+        <div id="settings-avatar" style="width:62px;height:62px;border-radius:18px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:30px;box-shadow:0 4px 16px rgba(0,0,0,.2);animation:breathe 3s ease-in-out infinite">🦊</div>
+        <div>
+          <div style="font-size:20px;font-weight:900" id="settings-name-display">Игрок</div>
+          <div style="font-size:12px;opacity:.8;margin-top:2px" id="settings-level-desc">Уровень A1 · Начинающий</div>
+          <div style="display:inline-flex;align-items:center;gap:4px;margin-top:5px;background:rgba(255,255,255,.2);border-radius:999px;padding:3px 10px">
+            <span style="font-size:12px">🔥</span>
+            <span style="font-size:11px;font-weight:700" id="settings-streak-val">0</span>
+            <span style="font-size:11px;opacity:.8">дней подряд</span>
+          </div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+        <div style="background:rgba(255,255,255,.15);border-radius:14px;padding:10px 6px;text-align:center;animation:countUp .5s .1s ease both">
+          <div style="font-size:20px;font-weight:900" id="settings-xp-val">0</div>
+          <div style="font-size:10px;opacity:.75">⚡ XP</div>
+        </div>
+        <div style="background:rgba(255,255,255,.15);border-radius:14px;padding:10px 6px;text-align:center;animation:countUp .5s .2s ease both">
+          <div style="font-size:20px;font-weight:900" id="settings-tests-val">0</div>
+          <div style="font-size:10px;opacity:.75">⭐ Тестов</div>
+        </div>
+        <div style="background:rgba(255,255,255,.15);border-radius:14px;padding:10px 6px;text-align:center;animation:countUp .5s .3s ease both">
+          <div style="font-size:20px;font-weight:900" id="settings-sims-val">0</div>
+          <div style="font-size:10px;opacity:.75">💬 Диалогов</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Username -->
+  <div style="padding:14px 16px 4px"><div style="font-size:10px;font-weight:800;color:#9ca3af;letter-spacing:.5px;text-transform:uppercase">✏️ Имя пользователя</div></div>
+  <div class="settings-section">
+    <div style="font-size:12px;color:#9ca3af;margin-bottom:10px">Это имя будет отображаться в приложении</div>
+    <div style="display:flex;gap:8px">
+      <input class="username-input" id="username-input" placeholder="Введи своё имя..." maxlength="20" oninput="previewName(this.value)"/>
+      <button onclick="saveUserName()" style="background:linear-gradient(135deg,#6c47ff,#8b5cf6);color:#fff;border:none;border-radius:12px;padding:10px 14px;font-size:13px;font-weight:700;cursor:pointer;transition:.25s;white-space:nowrap" onmouseover="this.style.transform='scale(1.06)'" onmouseout="this.style.transform='scale(1)'">Сохранить</button>
+    </div>
+  </div>
+
+  <!-- Avatar -->
+  <div style="padding:2px 16px 4px"><div style="font-size:10px;font-weight:800;color:#9ca3af;letter-spacing:.5px;text-transform:uppercase">🐾 Аватар</div></div>
+  <div class="settings-section">
+    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:8px" id="avatar-grid">
+      <div class="avatar-pick selected" id="av-fox" onclick="setAvatar('🦊','fox')">🦊</div>
+      <div class="avatar-pick" id="av-wolf" onclick="setAvatar('🐺','wolf')">🐺</div>
+      <div class="avatar-pick" id="av-lion" onclick="setAvatar('🦁','lion')">🦁</div>
+      <div class="avatar-pick" id="av-frog" onclick="setAvatar('🐸','frog')">🐸</div>
+      <div class="avatar-pick" id="av-panda" onclick="setAvatar('🐼','panda')">🐼</div>
+      <div class="avatar-pick" id="av-eagle" onclick="setAvatar('🦅','eagle')">🦅</div>
+      <div class="avatar-pick" id="av-dragon" onclick="setAvatar('🐉','dragon')">🐉</div>
+      <div class="avatar-pick" id="av-unicorn" onclick="setAvatar('🦄','unicorn')">🦄</div>
+      <div class="avatar-pick" id="av-rocket" onclick="setAvatar('🚀','rocket')">🚀</div>
+      <div class="avatar-pick" id="av-lightning" onclick="setAvatar('⚡','lightning')">⚡</div>
+      <div class="avatar-pick" id="av-star" onclick="setAvatar('🌟','star')">🌟</div>
+      <div class="avatar-pick" id="av-gem" onclick="setAvatar('💎','gem')">💎</div>
+    </div>
+  </div>
+
+  <!-- Theme -->
+  <div style="padding:2px 16px 4px"><div style="font-size:10px;font-weight:800;color:#9ca3af;letter-spacing:.5px;text-transform:uppercase">🎨 Тема оформления</div></div>
+  <div class="settings-section">
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px" id="theme-grid">
+      <div id="th-default" onclick="setTheme('default')" style="text-align:center;cursor:pointer;transition:.25s" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+        <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#6c47ff,#a78bfa);margin:0 auto 5px;border:3px solid #6c47ff;box-shadow:0 0 0 3px #6c47ff;transition:.2s"></div>
+        <div style="font-size:10px;font-weight:700;color:#1a1a2e">Фиолет</div>
+      </div>
+      <div id="th-dark" onclick="setTheme('dark')" style="text-align:center;cursor:pointer;transition:.25s" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+        <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#0f0f1e,#1e1e3a);margin:0 auto 5px;border:3px solid transparent;transition:.2s"></div>
+        <div style="font-size:10px;font-weight:700;color:#1a1a2e">Тёмная</div>
+      </div>
+      <div id="th-ocean" onclick="setTheme('ocean')" style="text-align:center;cursor:pointer;transition:.25s" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+        <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#0284c7,#38bdf8);margin:0 auto 5px;border:3px solid transparent;transition:.2s"></div>
+        <div style="font-size:10px;font-weight:700;color:#1a1a2e">Океан</div>
+      </div>
+      <div id="th-forest" onclick="setTheme('forest')" style="text-align:center;cursor:pointer;transition:.25s" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+        <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#16a34a,#4ade80);margin:0 auto 5px;border:3px solid transparent;transition:.2s"></div>
+        <div style="font-size:10px;font-weight:700;color:#1a1a2e">Лес</div>
+      </div>
+      <div id="th-sunset" onclick="setTheme('sunset')" style="text-align:center;cursor:pointer;transition:.25s" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+        <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#ea580c,#fb923c);margin:0 auto 5px;border:3px solid transparent;transition:.2s"></div>
+        <div style="font-size:10px;font-weight:700;color:#1a1a2e">Закат</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Level change with test -->
+  <div style="padding:2px 16px 4px"><div style="font-size:10px;font-weight:800;color:#9ca3af;letter-spacing:.5px;text-transform:uppercase">📊 Изменить уровень</div></div>
+  <div class="settings-section">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+      <span style="font-size:13px;color:#9ca3af;font-weight:600">Текущий уровень:</span>
+      <span id="settings-cur-level" style="font-size:15px;font-weight:900;color:#6c47ff;background:#ede9ff;padding:3px 12px;border-radius:999px">A1</span>
+    </div>
+    <div style="font-size:12px;color:#9ca3af;margin-bottom:10px;background:#fef9e7;border-radius:10px;padding:10px 12px;border-left:3px solid #fbbf24">💡 Чтобы сменить уровень, нужно пройти тест (4 из 5 правильно)</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+      <button onclick="startLevelTest('A1')" class="lv-test-btn" id="lvt-A1">A1</button>
+      <button onclick="startLevelTest('A2')" class="lv-test-btn" id="lvt-A2">A2</button>
+      <button onclick="startLevelTest('B1')" class="lv-test-btn" id="lvt-B1">B1</button>
+      <button onclick="startLevelTest('B2')" class="lv-test-btn" id="lvt-B2">B2</button>
+      <button onclick="startLevelTest('C1')" class="lv-test-btn" id="lvt-C1">C1</button>
+      <button onclick="startLevelTest('C2')" class="lv-test-btn" id="lvt-C2">C2</button>
+    </div>
+  </div>
+
+  <!-- Notifications -->
+  <div style="padding:2px 16px 4px"><div style="font-size:10px;font-weight:800;color:#9ca3af;letter-spacing:.5px;text-transform:uppercase">🔔 Уведомления</div></div>
+  <div class="settings-section">
+    <div class="settings-row">
+      <div><div class="settings-label">Ежедневные напоминания</div><div class="settings-sub">Учись каждый день для роста</div></div>
+      <div class="toggle-sw" id="toggle-notif" onclick="toggleSetting('notif')" style="background:#6c47ff"><div class="knob" style="left:24px"></div></div>
+    </div>
+    <div class="settings-row">
+      <div><div class="settings-label">Звуковые эффекты</div><div class="settings-sub">Звуки при правильных ответах</div></div>
+      <div class="toggle-sw" id="toggle-sound" onclick="toggleSetting('sound')" style="background:#e5e7eb"><div class="knob" style="left:3px"></div></div>
+    </div>
+    <div class="settings-row">
+      <div><div class="settings-label">Анимации</div><div class="settings-sub">Расширенные эффекты</div></div>
+      <div class="toggle-sw" id="toggle-anim" onclick="toggleSetting('anim')" style="background:#6c47ff"><div class="knob" style="left:24px"></div></div>
+    </div>
+  </div>
+
+  <!-- Stats & Reset -->
+  <div style="padding:2px 16px 4px"><div style="font-size:10px;font-weight:800;color:#9ca3af;letter-spacing:.5px;text-transform:uppercase">📈 Прогресс</div></div>
+  <div class="settings-section">
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:14px">
+      <div style="background:#ede9ff;border-radius:14px;padding:14px;text-align:center;animation:countUp .5s .1s ease both">
+        <div style="font-size:24px;font-weight:900;color:#6c47ff" id="settings-total-xp2">0</div>
+        <div style="font-size:11px;color:#9ca3af;margin-top:3px">Всего XP</div>
+      </div>
+      <div style="background:#e8fdf1;border-radius:14px;padding:14px;text-align:center;animation:countUp .5s .2s ease both">
+        <div style="font-size:24px;font-weight:900;color:#16a34a" id="settings-tests2">0</div>
+        <div style="font-size:11px;color:#9ca3af;margin-top:3px">Тестов пройдено</div>
+      </div>
+    </div>
+    <div style="height:8px;background:#ede9ff;border-radius:999px;overflow:hidden;margin-bottom:14px">
+      <div id="settings-pbar" style="height:100%;background:linear-gradient(90deg,#6c47ff,#a78bfa);border-radius:999px;transition:width 1s ease;width:0%"></div>
+    </div>
+    <button onclick="confirmReset()" style="width:100%;padding:13px;border-radius:14px;border:2px solid #ef4444;background:#fef2f2;color:#ef4444;font-size:13px;font-weight:700;cursor:pointer;transition:.25s" onmouseover="this.style.background='#ef4444';this.style.color='#fff'" onmouseout="this.style.background='#fef2f2';this.style.color='#ef4444'">🗑️ Сбросить весь прогресс</button>
+  </div>
+
+  <div style="padding:8px 16px 4px;text-align:center;font-size:11px;color:#9ca3af">Catch Quest v2.0 · Сделано с ❤️ для изучения языка</div>
+</div>
+
+<!-- LEVEL TEST MODAL -->
+<div class="lvt-modal" id="lvl-test-modal" style="display:none;position:absolute;inset:0;background:rgba(0,0,0,.55);z-index:300;align-items:flex-end">
+  <div class="lvt-panel">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+      <div>
+        <div style="font-size:19px;font-weight:900;color:#1a1a2e" id="lvt-modal-title">Тест уровня A2</div>
+        <div style="font-size:12px;color:#9ca3af">Нужно 4 из 5 правильно</div>
+      </div>
+      <button onclick="closeLevelTest()" style="background:#f5f4ff;border:none;border-radius:12px;width:36px;height:36px;font-size:18px;cursor:pointer;transition:.2s" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">✕</button>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+      <div style="font-size:12px;font-weight:700;color:#9ca3af" id="lvt-progress-txt">Вопрос 1 / 5</div>
+      <div style="font-size:12px;font-weight:800;color:#6c47ff" id="lvt-score-txt">✓ 0</div>
+    </div>
+    <div style="height:6px;background:#ede9ff;border-radius:999px;overflow:hidden;margin-bottom:16px"><div id="lvt-pbar" style="height:100%;background:linear-gradient(90deg,#6c47ff,#a78bfa);border-radius:999px;transition:width .4s ease;width:20%"></div></div>
+    <div id="lvt-question-area"></div>
+  </div>
+</div>
+
 <!-- BOTTOM NAV -->
 <div class="bnav" id="main-bnav" style="display:none">
-  <button class="nb active" onclick="showPage('home');setNav(this)"><div class="ico">🏠</div>Квесты</button>
+  <button class="nb active" onclick="showPage('home');setNav(this)"><div class="ico">🏠</div>Главная</button>
   <button class="nb" onclick="showPage('study');setNav(this)"><div class="ico">📚</div>Учёба</button>
   <button class="nb" onclick="showPage('tests');setNav(this)"><div class="ico">🧪</div>Тесты</button>
   <button class="nb" onclick="showPage('sims');setNav(this)"><div class="ico">💬</div>Диалоги</button>
   <button class="nb" onclick="showPage('move');setNav(this)"><div class="ico">✈️</div>Переезд</button>
+  <button class="nb" onclick="showPage('settings');setNav(this)"><div class="ico">⚙️</div>Профиль</button>
 </div>
 
 <!-- SUB-PAGES (overlay) -->
@@ -6400,7 +6667,10 @@ const simsData = [
 ];
 
 // ===================== STATE =====================
-let currentLevel = 'A1';
+let userName = localStorage.getItem('userName') || 'Игрок';
+let userAvatar = localStorage.getItem('userAvatar') || '🦊';
+let currentTheme = localStorage.getItem('theme') || 'default';
+let currentLevel = localStorage.getItem('level') || 'A1';
 let currentTestLevel = 'A1';
 let currentTestType = 'choice';
 let currentSimId = -1;
@@ -6424,14 +6694,16 @@ let currentTestIndex = 0;
 
 // ===================== UI =====================
 function showPage(p) {
-  document.querySelectorAll('.page').forEach(x=>x.style.display='none');
-  document.getElementById('page-'+p).style.display='block';
+  document.querySelectorAll('.page').forEach(x=>{x.style.display='none';x.classList.remove('active');});
+  const pg=document.getElementById('page-'+p);
+  if(pg){pg.style.display='block';pg.classList.add('active');}
   document.getElementById('main-bnav').style.display='flex';
   window.scrollTo(0,0);
   if(p==='study'){renderWords();renderSents();}
   if(p==='tests'){initTestQueue();renderCurrentTest();}
   if(p==='sims'){renderSimsMenu();}
-  if(p==='home'){updateXPBar();}
+  if(p==='home'){updateXPBar();updateHomeUserName();}
+  if(p==='settings'){syncSettings();}
 }
 function setNav(btn){
   document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
@@ -6443,10 +6715,15 @@ function selectLevel(lv,btn){
   btn.classList.add('active');
   renderWords();renderSents();
 }
+function startAppWithName(){
+  const inp=document.getElementById('onb-name-input');
+  if(inp&&inp.value.trim()){userName=inp.value.trim();localStorage.setItem('userName',userName);}
+  startApp();
+}
 function startApp(){
   document.getElementById('onboarding').style.display='none';
   document.getElementById('main-bnav').style.display='flex';
-  showPage('home');updateXPBar();
+  showPage('home');updateXPBar();initSettings();
 }
 function selectOnboardLevel(lv,btn){
   currentLevel=lv;
@@ -6455,6 +6732,7 @@ function selectOnboardLevel(lv,btn){
 }
 function setHomeLevel(lv){
   currentLevel=lv;
+  localStorage.setItem('level',lv);
   ['A1','A2','B1','B2','C1','C2'].forEach(l=>{
     const el=document.getElementById('hmlv-'+l);
     if(el)el.style.outline=l===lv?'3px solid #fff':'none';
@@ -6462,6 +6740,239 @@ function setHomeLevel(lv){
   renderWords();renderSents();
   showPage('study');
 }
+// ===================== THEMES =====================
+function setTheme(t){
+  currentTheme=t;
+  localStorage.setItem('theme',t);
+  const phone=document.querySelector('.phone');
+  phone.setAttribute('data-theme',t==='default'?'':t);
+  const bodyBg={default:'#e8e4f8',dark:'#080810',ocean:'#bae6fd',forest:'#bbf7d0',sunset:'#fed7aa'};
+  document.body.style.background=bodyBg[t]||'#e8e4f8';
+  // Update theme picker dots
+  ['default','dark','ocean','forest','sunset'].forEach(th=>{
+    const el=document.getElementById('th-'+th);
+    if(!el)return;
+    const dot=el.querySelector('div');
+    if(dot){dot.style.border=th===t?'3px solid rgba(0,0,0,.5)':'3px solid transparent';dot.style.boxShadow=th===t?'0 0 0 3px rgba(108,71,255,.3)':'none';}
+  });
+}
+
+// ===================== USER PROFILE =====================
+function previewName(v){
+  const el=document.getElementById('settings-name-display');
+  if(el)el.textContent=v||'Игрок';
+}
+function saveUserName(){
+  const inp=document.getElementById('username-input');
+  if(!inp)return;
+  const n=(inp.value||'').trim()||'Игрок';
+  userName=n;
+  localStorage.setItem('userName',n);
+  updateHomeUserName();
+  showToast('✅ Имя сохранено!');
+}
+function updateHomeUserName(){
+  const el=document.getElementById('home-username');if(el)el.textContent=userName;
+  const sd=document.getElementById('settings-name-display');if(sd)sd.textContent=userName;
+}
+function setAvatar(emoji,id){
+  userAvatar=emoji;
+  localStorage.setItem('userAvatar',emoji);
+  document.querySelectorAll('.avatar-pick').forEach(a=>a.classList.remove('selected'));
+  const el=document.getElementById('av-'+id);if(el)el.classList.add('selected');
+  const ha=document.getElementById('home-avatar');if(ha)ha.textContent=emoji;
+  const sa=document.getElementById('settings-avatar');if(sa)sa.textContent=emoji;
+  showToast('✅ Аватар изменён!');
+}
+
+// ===================== TOGGLE SWITCH =====================
+function toggleSetting(key){
+  const el=document.getElementById('toggle-'+key);if(!el)return;
+  const knob=el.querySelector('.knob');
+  const isOn=el.style.background.includes('108,71,255')||el.style.background.includes('#6c47ff');
+  if(isOn){
+    el.style.background='#e5e7eb';
+    if(knob)knob.style.left='3px';
+    localStorage.setItem(key,'0');
+  }else{
+    el.style.background='#6c47ff';
+    if(knob)knob.style.left='24px';
+    localStorage.setItem(key,'1');
+  }
+}
+
+// ===================== TOAST =====================
+function showToast(msg,dur){
+  dur=dur||2200;
+  let t=document.getElementById('app-toast');
+  if(!t){
+    t=document.createElement('div');
+    t.id='app-toast';t.className='toast-msg';
+    document.querySelector('.phone').appendChild(t);
+  }
+  t.textContent=msg;t.style.opacity='1';t.style.display='block';
+  clearTimeout(t._t);
+  t._t=setTimeout(()=>{t.style.opacity='0';setTimeout(()=>{t.style.display='none';},350);},dur);
+}
+
+// ===================== PARTICLES =====================
+function spawnParticles(){
+  const phone=document.querySelector('.phone');
+  const emojis=['⭐','🎉','✨','💫','🌟','🎊','🔥','🚀'];
+  for(let i=0;i<14;i++){
+    setTimeout(()=>{
+      const p=document.createElement('div');
+      p.className='particle';
+      p.textContent=emojis[Math.floor(Math.random()*emojis.length)];
+      p.style.left=Math.random()*80+10+'%';
+      p.style.top=Math.random()*50+20+'%';
+      p.style.animationDuration=(1.2+Math.random()*1.2)+'s';
+      phone.appendChild(p);
+      setTimeout(()=>p.remove(),2800);
+    },i*100);
+  }
+}
+
+// ===================== RESET =====================
+function confirmReset(){
+  if(!confirm('Сбросить весь прогресс? Это действие нельзя отменить!'))return;
+  xpTotal=0;wordsLearned=0;testsDone=0;simsDone=0;streak=0;
+  ['xp','wl','td','sd','streak'].forEach(k=>localStorage.removeItem(k));
+  updateXPBar();syncSettings();
+  showToast('🗑️ Прогресс сброшен');
+}
+
+// ===================== SETTINGS SYNC =====================
+function syncSettings(){
+  // Name
+  const inp=document.getElementById('username-input');if(inp)inp.value=userName;
+  updateHomeUserName();
+  // Avatar
+  const sa=document.getElementById('settings-avatar');if(sa)sa.textContent=userAvatar;
+  const ha=document.getElementById('home-avatar');if(ha)ha.textContent=userAvatar;
+  document.querySelectorAll('.avatar-pick').forEach(a=>a.classList.remove('selected'));
+  const avatarMap={'🦊':'fox','🐺':'wolf','🦁':'lion','🐸':'frog','🐼':'panda','🦅':'eagle','🐉':'dragon','🦄':'unicorn','🚀':'rocket','⚡':'lightning','🌟':'star','💎':'gem'};
+  const avId=avatarMap[userAvatar];
+  if(avId){const el=document.getElementById('av-'+avId);if(el)el.classList.add('selected');}
+  // Theme
+  setTheme(currentTheme);
+  // Stats
+  const sv=document.getElementById('settings-xp-val');if(sv)sv.textContent=xpTotal;
+  const stv=document.getElementById('settings-tests-val');if(stv)stv.textContent=testsDone;
+  const ssims=document.getElementById('settings-sims-val');if(ssims)ssims.textContent=simsDone;
+  const sstr=document.getElementById('settings-streak-val');if(sstr)sstr.textContent=streak;
+  const sxp2=document.getElementById('settings-total-xp2');if(sxp2)sxp2.textContent=xpTotal;
+  const st2=document.getElementById('settings-tests2');if(st2)st2.textContent=testsDone;
+  const scl=document.getElementById('settings-cur-level');if(scl)scl.textContent=currentLevel;
+  const slb=document.getElementById('settings-level-badge');if(slb)slb.textContent=currentLevel;
+  const spbar=document.getElementById('settings-pbar');if(spbar)spbar.style.width=((testsDone/2000)*100)+'%';
+  const levelNames={A1:'Начинающий',A2:'Базовый',B1:'Средний',B2:'Выше среднего',C1:'Продвинутый',C2:'Мастер'};
+  const sld=document.getElementById('settings-level-desc');if(sld)sld.textContent='Уровень '+currentLevel+' · '+(levelNames[currentLevel]||'');
+  // Highlight current level test btn
+  ['A1','A2','B1','B2','C1','C2'].forEach(l=>{
+    const el=document.getElementById('lvt-'+l);
+    if(el){if(l===currentLevel){el.classList.add('active-lv');}else{el.classList.remove('active-lv');}}
+  });
+}
+
+function initSettings(){
+  setTheme(currentTheme);
+  updateHomeUserName();
+  const ha=document.getElementById('home-avatar');if(ha)ha.textContent=userAvatar;
+}
+
+// ===================== LEVEL TEST =====================
+let lvtTarget='';
+let lvtQs=[];
+let lvtCur=0;
+let lvtScore=0;
+
+function startLevelTest(lv){
+  lvtTarget=lv;lvtScore=0;lvtCur=0;
+  const pool=allTests.filter(t=>t.type==='choice'&&t.lv===lv);
+  lvtQs=pool.sort(()=>Math.random()-.5).slice(0,5);
+  if(lvtQs.length<3){showToast('❌ Мало вопросов для уровня '+lv);return;}
+  const modal=document.getElementById('lvl-test-modal');
+  if(modal){modal.style.display='flex';}
+  const title=document.getElementById('lvt-modal-title');
+  if(title)title.textContent='Тест уровня '+lv;
+  renderLvtQ();
+}
+
+function renderLvtQ(){
+  const q=lvtQs[lvtCur];if(!q)return;
+  const area=document.getElementById('lvt-question-area');
+  const ptxt=document.getElementById('lvt-progress-txt');
+  const pbar=document.getElementById('lvt-pbar');
+  const stxt=document.getElementById('lvt-score-txt');
+  if(ptxt)ptxt.textContent='Вопрос '+(lvtCur+1)+' / '+lvtQs.length;
+  if(pbar)pbar.style.width=((lvtCur+1)/lvtQs.length*100)+'%';
+  if(stxt)stxt.textContent='✓ '+lvtScore;
+  const letters=['A','B','C','D'];
+  const optsHtml=q.opts.map((o,i)=>
+    `<div class="q-opt" onclick="answerLvtQ(${i})" style="animation:fadeInUp .3s ease ${i*.08}s both">
+      <div class="q-letter">${letters[i]}</div>${o.t}
+    </div>`
+  ).join('');
+  area.innerHTML=`<div class="q-card" style="margin:0 0 8px"><div class="q-text">${q.q}</div>${optsHtml}</div>`;
+}
+
+function answerLvtQ(idx){
+  const q=lvtQs[lvtCur];
+  const opts=document.querySelectorAll('#lvt-question-area .q-opt');
+  opts.forEach(o=>o.style.pointerEvents='none');
+  const correct=q.opts[idx].s===2;
+  if(correct){opts[idx].classList.add('correct');lvtScore++;}
+  else{
+    opts[idx].classList.add('wrong');
+    const ci=q.opts.findIndex(o=>o.s===2);
+    if(ci>=0&&opts[ci])opts[ci].classList.add('correct');
+  }
+  const stxt=document.getElementById('lvt-score-txt');if(stxt)stxt.textContent='✓ '+lvtScore;
+  setTimeout(()=>{
+    lvtCur++;
+    if(lvtCur>=lvtQs.length)showLvtResult();
+    else renderLvtQ();
+  },900);
+}
+
+function showLvtResult(){
+  const area=document.getElementById('lvt-question-area');
+  const needed=4;
+  const passed=lvtScore>=needed;
+  const pbar=document.getElementById('lvt-pbar');if(pbar)pbar.style.width='100%';
+  area.innerHTML=`
+    <div style="text-align:center;padding:16px 0">
+      <div style="font-size:60px;margin-bottom:12px;animation:${passed?'levelUp':'shake'} .7s ease">${passed?'🎉':'😔'}</div>
+      <div style="font-size:22px;font-weight:900;color:#1a1a2e;margin-bottom:6px">${passed?'Блестяще!':'Попробуй ещё'}</div>
+      <div style="font-size:14px;color:#9ca3af;margin-bottom:16px">${lvtScore} из ${lvtQs.length} правильно</div>
+      <div style="border-radius:16px;padding:14px 16px;margin-bottom:16px;font-size:14px;font-weight:700;background:${passed?'#e8fdf1':'#fef2f2'};color:${passed?'#16a34a':'#ef4444'}">
+        ${passed?'✅ Уровень '+lvtTarget+' разблокирован!':'❌ Нужно минимум '+needed+' правильных ответа'}
+      </div>
+      ${passed?`<button onclick="applyNewLevel('${lvtTarget}')" style="background:linear-gradient(135deg,#6c47ff,#8b5cf6);color:#fff;border:none;border-radius:16px;padding:15px;font-size:15px;font-weight:700;cursor:pointer;width:100%;margin-bottom:8px;transition:.2s" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">🚀 Применить уровень ${lvtTarget}</button>`:''}
+      <button id="lvt-close-btn" style="background:#f5f4ff;border:none;border-radius:16px;padding:13px;font-size:14px;font-weight:700;cursor:pointer;width:100%;color:#6c47ff;transition:.2s" onmouseover="this.style.background='#ede9ff'" onmouseout="this.style.background='#f5f4ff'">${passed?'Закрыть':'Попробовать снова'}</button>
+    </div>`;
+  const closeBtn=document.getElementById('lvt-close-btn');
+  if(closeBtn)closeBtn.onclick=passed?closeLevelTest:()=>startLevelTest(lvtTarget);
+}
+
+function applyNewLevel(lv){
+  currentLevel=lv;
+  localStorage.setItem('level',lv);
+  closeLevelTest();
+  syncSettings();
+  setHomeLevel(lv);
+  addXP(50);
+  spawnParticles();
+  showToast('🎉 Уровень '+lv+' установлен! +50 XP');
+}
+
+function closeLevelTest(){
+  const modal=document.getElementById('lvl-test-modal');
+  if(modal)modal.style.display='none';
+}
+
+
 function updateXPBar(){
   const max=500;const lvl=Math.floor(xpTotal/max)+1;const pct=(xpTotal%max)/max*100;
   const bar=document.getElementById('home-pbar');if(bar)bar.style.width=pct+'%';
@@ -6828,6 +7339,7 @@ function answerIelts(btn,chosen,correct){
 // ===================== INIT =====================
 window.addEventListener('DOMContentLoaded',()=>{
   updateXPBar();
+  initSettings();
   const today=new Date().toDateString();
   const last=localStorage.getItem('lastVisit');
   if(last!==today){
