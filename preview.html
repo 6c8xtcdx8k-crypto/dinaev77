@@ -37,7 +37,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
 .sc-name{font-size:14px;font-weight:700;color:#1a1a2e;margin-bottom:3px}
 .sc-desc{font-size:11px;color:#9ca3af;margin-bottom:5px;line-height:1.4}
 .xp-tag{font-size:11px;font-weight:700;color:#6c47ff;background:#ede9ff;padding:2px 8px;border-radius:999px}
-.diff-e{font-size:10px;font-weight:700;background:#e8fdf1;color:#16a34a;padding:2px 8px;border-radius:999px}
+.diff-e{font-size:10px;font-weight:700;background:rgba(196,181,253,.3);color:#7c3aed;padding:2px 8px;border-radius:999px}
 .diff-m{font-size:10px;font-weight:700;background:#fef9ec;color:#d97706;padding:2px 8px;border-radius:999px}
 .stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:8px 16px}
 .stat-b{background:#fff;border-radius:14px;padding:10px 4px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05);transition:.2s;cursor:default}
@@ -48,8 +48,8 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
 .tab.active{background:#6c47ff;color:#fff;box-shadow:0 4px 12px rgba(108,71,255,.35);transform:scale(1.03)}
 .tab:not(.active){background:#ede9ff;color:#6c47ff}
 .tab:not(.active):hover{background:#d8d0ff}
-.season{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;background:#e8fdf1;color:#16a34a;font-size:11px;font-weight:700}
-.season::before{content:'';width:7px;height:7px;border-radius:50%;background:#22c55e;display:block;animation:pulse 2s infinite}
+.season{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;background:rgba(196,181,253,.3);color:#7c3aed;font-size:11px;font-weight:700}
+.season::before{content:'';width:7px;height:7px;border-radius:50%;background:#a78bfa;display:block;animation:pulse 2s infinite}
 .subpage{display:none;position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(255,255,255,.6);z-index:50;overflow-y:auto;padding-bottom:30px}
 .subpage.open{display:block;animation:slideInRight .3s ease}
 .sub-hdr{display:flex;align-items:center;gap:10px;padding:14px 20px 12px;background:#fff;border-bottom:1px solid #ede9ff;position:sticky;top:0;z-index:5}
@@ -62,7 +62,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
 .w-ph{font-size:12px;color:#9ca3af;font-style:italic;margin:2px 0}
 .w-ru{font-size:14px;font-weight:700;color:#6c47ff}
 .w-ex{font-size:11px;color:#9ca3af;margin-top:4px;line-height:1.5;border-left:3px solid #ede9ff;padding-left:8px}
-.sent-card{background:#fff;border-radius:14px;margin:0 16px 8px;padding:14px;box-shadow:0 2px 10px rgba(0,0,0,.05);animation:fadeInUp .3s ease both;border-left:4px solid #10b981}
+.sent-card{background:#fff;border-radius:14px;margin:0 16px 8px;padding:14px;box-shadow:0 2px 10px rgba(0,0,0,.05);animation:fadeInUp .3s ease both;border-left:4px solid #a78bfa}
 .q-card{background:#fff;border-radius:18px;padding:18px;margin:10px 16px;box-shadow:0 2px 14px rgba(0,0,0,.07);animation:fadeInUp .3s ease}
 .q-num{font-size:11px;color:#9ca3af;font-weight:600;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center}
 .q-timer{background:#ede9ff;color:#6c47ff;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:800;font-family:monospace;min-width:36px;text-align:center}
@@ -194,7 +194,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
 .phone[data-theme="ocean"] .nb.active::after{background:#0284c7!important}
 .phone[data-theme="ocean"] .tab.active{background:#0284c7!important}
 .phone[data-theme="ocean"] .pbar-f{background:linear-gradient(90deg,#0284c7,#38bdf8)!important}
-.phone[data-theme="forest"]{background:#dcfce7!important}
+.phone[data-theme="forest"]{background:rgba(196,181,253,.25)!important}
 .phone[data-theme="forest"] .page{background:#f0faf4!important}
 .phone[data-theme="forest"] .bnav,.phone[data-theme="forest"] .hdr{background:#fff!important;border-color:#bbf7d0!important}
 .phone[data-theme="forest"] .nb.active{color:#16a34a!important}
@@ -468,7 +468,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
         <div style="font-size:11px;font-weight:800;color:#1F2937;line-height:1.3">Открывай<br>локации</div>
       </div>
       <div onclick="showPage('dashboard');setNav(document.querySelectorAll('.nb')[3])" style="background:#fff;border-radius:18px;padding:12px;display:flex;align-items:center;gap:10px;box-shadow:0 3px 14px rgba(0,0,0,.06);cursor:pointer;transition:.2s" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
-        <div style="width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#10B981,#34D399);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;box-shadow:0 4px 12px rgba(16,185,129,.4)">🎁</div>
+        <div style="width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#c4b5fd 0%,#f0d9f7 50%,#fddcbc 100%);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;box-shadow:0 4px 12px rgba(16,185,129,.4)">🎁</div>
         <div style="font-size:11px;font-weight:800;color:#1F2937;line-height:1.3">Получай<br>награды</div>
       </div>
     </div>
@@ -719,7 +719,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
   <div id="stab-ielts" style="display:none">
     <div class="banner" style="background:linear-gradient(135deg,#6c47ff,#8b5cf6);color:#fff;margin-top:10px"><div style="font-size:15px;font-weight:800;margin-bottom:4px">🎓 IELTS — Международный экзамен</div><div style="font-size:12px;opacity:.85">Шкала 0–9 · Признаётся в 140+ странах</div></div>
     <div class="ielts-card" onclick="showSubPage('ielts-reading')"><div style="width:52px;height:52px;border-radius:14px;background:#dbeafe;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0">📖</div><div style="flex:1"><div style="font-size:14px;font-weight:800;color:#1a1a2e;margin-bottom:3px">Reading</div><div style="font-size:11px;color:#9ca3af">60 мин · 40 вопросов</div></div><div style="color:#d1d5db;font-size:20px">›</div></div>
-    <div class="ielts-card" onclick="showSubPage('ielts-writing')"><div style="width:52px;height:52px;border-radius:14px;background:#dcfce7;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0">✍️</div><div style="flex:1"><div style="font-size:14px;font-weight:800;color:#1a1a2e;margin-bottom:3px">Writing</div><div style="font-size:11px;color:#9ca3af">60 мин · 2 задания</div></div><div style="color:#d1d5db;font-size:20px">›</div></div>
+    <div class="ielts-card" onclick="showSubPage('ielts-writing')"><div style="width:52px;height:52px;border-radius:14px;background:rgba(196,181,253,.25);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0">✍️</div><div style="flex:1"><div style="font-size:14px;font-weight:800;color:#1a1a2e;margin-bottom:3px">Writing</div><div style="font-size:11px;color:#9ca3af">60 мин · 2 задания</div></div><div style="color:#d1d5db;font-size:20px">›</div></div>
     <div class="ielts-card" onclick="showSubPage('ielts-listening')"><div style="width:52px;height:52px;border-radius:14px;background:#fef3c7;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0">🎧</div><div style="flex:1"><div style="font-size:14px;font-weight:800;color:#1a1a2e;margin-bottom:3px">Listening</div><div style="font-size:11px;color:#9ca3af">30 мин · 40 вопросов</div></div><div style="color:#d1d5db;font-size:20px">›</div></div>
     <div class="ielts-card" onclick="showSubPage('ielts-speaking')"><div style="width:52px;height:52px;border-radius:14px;background:#fce7f3;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0">🗣️</div><div style="flex:1"><div style="font-size:14px;font-weight:800;color:#1a1a2e;margin-bottom:3px">Speaking</div><div style="font-size:11px;color:#9ca3af">11–14 мин · 3 части</div></div><div style="color:#d1d5db;font-size:20px">›</div></div>
   </div>
@@ -778,7 +778,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
     <div style="flex:1;padding:14px 10px 14px 16px;z-index:1">
       <div style="font-size:14px;font-weight:900;color:#1a1a2e;line-height:1.25">Проверь знания!</div>
       <div style="font-size:11px;color:#16a34a;font-weight:700;margin-top:3px">5 267 тестов · выбор / ввод / аудио</div>
-      <button onclick="document.querySelector('#test-start-btn')?.click()" style="margin-top:8px;background:linear-gradient(135deg,#16a34a,#8b5cf6);color:#fff;border:none;border-radius:10px;padding:7px 14px;font-size:11px;font-weight:700;cursor:pointer;transition:.2s">🧪 Начать тест</button>
+      <button onclick="document.querySelector('#test-start-btn')?.click()" style="margin-top:8px;background:linear-gradient(135deg,#7c3aed,#a78bfa);color:#fff;border:none;border-radius:10px;padding:7px 14px;font-size:11px;font-weight:700;cursor:pointer;transition:.2s">🧪 Начать тест</button>
     </div>
     <div style="width:108px;height:106px;overflow:hidden;position:relative;flex-shrink:0">
       <img class="fox-img" style="width:108px;height:auto;position:absolute;bottom:0" alt="fox"/>
@@ -944,7 +944,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
 
       <!-- Present Perfect -->
       <div style="background:#fff;border-radius:20px;margin-bottom:12px;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.06)">
-        <div style="background:linear-gradient(135deg,#10B981,#34D399);padding:14px 16px;display:flex;align-items:center;justify-content:space-between">
+        <div style="background:linear-gradient(135deg,#c4b5fd 0%,#f0d9f7 50%,#fddcbc 100%);padding:14px 16px;display:flex;align-items:center;justify-content:space-between">
           <div><div style="font-size:15px;font-weight:900;color:#fff">Present Perfect</div><div style="font-size:11px;color:rgba(255,255,255,.8)">Настоящее совершённое</div></div>
           <button onclick="speak('Present Perfect. I have finished. She has been to Paris. Have you eaten?')" style="background:rgba(255,255,255,.2);border:none;border-radius:10px;padding:6px 10px;color:#fff;font-size:14px;cursor:pointer">🔊</button>
         </div>
