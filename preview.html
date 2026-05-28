@@ -67,7 +67,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
 .q-num{font-size:11px;color:#9ca3af;font-weight:600;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center}
 .q-timer{background:#ede9ff;color:#6c47ff;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:800;font-family:monospace;min-width:36px;text-align:center}
 .q-text{font-size:14px;font-weight:700;color:#1a1a2e;line-height:1.55;margin-bottom:14px}
-.q-opt{display:flex;align-items:center;gap:10px;padding:12px 13px;border-radius:12px;margin-bottom:7px;cursor:pointer;border:2px solid #ede9ff;background:#faf9ff;transition:.2s;font-size:13px;color:#1a1a2e}
+.q-opt{display:flex;align-items:center;gap:10px;padding:12px 13px;border-radius:12px;margin-bottom:7px;cursor:pointer;border:2px solid #ede9ff;background:#faf9ff;transition:.2s;font-size:13px;color:#1a1a2e}.q-opt:disabled,.q-opt[disabled]{opacity:1!important;cursor:default}
 .q-opt:hover{border-color:#6c47ff;background:#ede9ff;transform:translateX(3px)}
 .q-opt.correct{border-color:#22c55e;background:#e8fdf1;animation:bounceIn .4s ease}
 .q-opt.wrong{border-color:#ef4444;background:#fef2f2;animation:shake .4s ease}
@@ -8760,7 +8760,7 @@ function renderChoiceTest(t){
   area.innerHTML=`
     <div class="test-card">
       <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:14px">
-        <div style="font-size:13px;font-weight:800;color:#1a1a2e;flex:1">${wrapDialogText(t.q)}</div>
+        <div id="test-q-text" style="font-size:13px;font-weight:800;color:#1a1a2e;flex:1">${t.q}</div>
         ${hasEn?`<button onclick="speak('${(t.q||'').replace(/'/g,"\'")}')" style="background:none;border:none;cursor:pointer;font-size:16px;padding:0;flex-shrink:0" title="Озвучить вопрос">🔊</button>`:''}
       </div>
       <div style="display:flex;flex-direction:column;gap:8px" id="choice-opts">
@@ -8791,6 +8791,9 @@ function answerChoice(chosen,correct,xp,btn){
     }
     result.textContent='❌ Неверно. Правильный ответ выделен зелёным';result.style.color='#f43f5e';
   }
+  // Unlock word translation in question after answering
+  const qEl=document.getElementById('test-q-text');
+  if(qEl)qEl.innerHTML=wrapDialogText(qEl.textContent);
 }
 function renderInputTest(t){
   const area=document.getElementById('test-input-area');if(!area)return;
