@@ -339,6 +339,22 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
 .goal-icon-wrap{background:transparent!important;}
 .rr-avatar{background:transparent!important;}
 /* === END GLASS THEME === */
+
+/* Dialog word flip cards */
+.dw-wrap{display:inline-flex;flex-wrap:wrap;gap:4px;width:100%}
+.dw{display:inline-block;cursor:pointer;border-radius:8px;transition:.15s;position:relative}
+.dw:active{opacity:.7}
+.dw-card{display:inline-block;perspective:400px;vertical-align:top}
+.dw-inner{position:relative;transform-style:preserve-3d;transition:transform .45s cubic-bezier(.4,0,.2,1);cursor:pointer}
+.dw-inner.flipped{transform:rotateY(180deg)}
+.dw-face{backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.dw-front{padding:2px 5px;border-radius:7px;background:rgba(108,71,255,.08);border-bottom:1.5px dotted rgba(108,71,255,.4);color:#1a1a2e;font-size:13px;font-weight:600;white-space:nowrap}
+.dw-back{position:absolute;top:0;left:0;transform:rotateY(180deg);background:rgba(255,255,255,.95);border-radius:10px;padding:5px 8px;box-shadow:0 4px 16px rgba(108,71,255,.18);min-width:80px;text-align:center;z-index:10}
+.dw-back .dw-en{font-size:12px;font-weight:800;color:#1a1a2e}
+.dw-back .dw-ph{font-size:10px;color:#9ca3af;margin:1px 0}
+.dw-back .dw-ru{font-size:12px;font-weight:700;color:#7c3aed}
+.dw-speak{background:none;border:none;cursor:pointer;font-size:12px;padding:1px 3px}
+
 </style>
 </head>
 <body>
@@ -8844,6 +8860,30 @@ function startSim(id){
   document.getElementById('chat-opts-area').innerHTML='';
   setTimeout(()=>showSimStep(),400);
 }
+function wrapDialogText(text){
+  const tokens=text.split(/(\s+|[,!?.;:]+)/);
+  return '<span class="dw-wrap">'+tokens.map(tok=>{
+    const word=tok.trim().replace(/[^a-zA-Z']/g,'').toLowerCase();
+    if(!word)return tok==' '?'<span style="display:inline-block;width:4px"></span>':
+      '<span style="color:#9ca3af;font-size:13px">'+tok+'</span>';
+    const entry=wordsData.find(w=>w.en.toLowerCase()===word||w.en.toLowerCase().replace(/[^a-z]/g,'')===word);
+    const raw=tok.replace(/[^a-zA-Z']/g,'');
+    const punct=tok.slice(raw.length);
+    if(entry){
+      const id='dw'+Math.random().toString(36).slice(2,7);
+      return `<span class="dw-card"><span class="dw-inner" id="${id}" onclick="flipDw('${id}','${entry.en.replace(/'/g,"\'")}')"><span class="dw-face dw-front">${raw}</span><span class="dw-face dw-back"><span class="dw-en">${entry.en}</span><span class="dw-ph">[${entry.ph}]</span><span class="dw-ru">${entry.ru}</span><button class="dw-speak" onclick="event.stopPropagation();speak('${entry.en.replace(/'/g,"\'")}')">🔊</button></span></span></span>${punct?'<span style="color:#9ca3af;font-size:13px">'+punct+'</span>':''}`;
+    }
+    return `<span class="dw" onclick="event.stopPropagation();speak('${raw}')" title="🔊 ${raw}">${tok}</span>`;
+  }).join('')+'</span>';
+}
+function flipDw(id,word){
+  const el=document.getElementById(id);
+  if(!el)return;
+  const wasFlipped=el.classList.contains('flipped');
+  document.querySelectorAll('.dw-inner.flipped').forEach(e=>{if(e.id!==id)e.classList.remove('flipped');});
+  if(wasFlipped){el.classList.remove('flipped');}
+  else{el.classList.add('flipped');speak(word,'en-US');}
+}
 function showSimStep(){
   const sim=simsData[currentSimId];
   if(!sim||currentSimStep>=sim.steps.length){endSim();return;}
@@ -8852,19 +8892,24 @@ function showSimStep(){
   const chatArea=document.getElementById('chat-area');
   const typing=document.createElement('div');
   typing.className='chat-bubble ai';
+  typing.style.cssText='cursor:default;position:relative';
   typing.innerHTML='<span class="typing-dot" style="animation-delay:0s"></span><span class="typing-dot" style="animation-delay:.15s"></span><span class="typing-dot" style="animation-delay:.3s"></span>';
   chatArea.appendChild(typing);chatArea.scrollTop=chatArea.scrollHeight;
   setTimeout(()=>{
     const aiText=step.ai;
-    typing.innerHTML=aiText;
-    const spkBtn=document.createElement('button');
-    spkBtn.textContent='🔊';
-    spkBtn.title='Повторить';
-    spkBtn.style.cssText='background:none;border:none;cursor:pointer;font-size:13px;vertical-align:middle;margin-left:6px';
-    spkBtn.onclick=()=>speak(aiText.replace(/<[^>]*>/g,''),'en-US');
-    typing.appendChild(spkBtn);
+    typing.innerHTML=wrapDialogText(aiText);
+    const row=document.createElement('div');
+    row.style.cssText='display:flex;align-items:center;gap:6px;margin-top:6px';
+    const hint=document.createElement('span');
+    hint.style.cssText='font-size:10px;color:#9ca3af';hint.textContent='Нажми на слово для перевода';
+    const spk=document.createElement('button');
+    spk.textContent='🔊';spk.title='Прослушать';
+    spk.style.cssText='background:none;border:none;cursor:pointer;font-size:14px;padding:0';
+    spk.onclick=()=>speak(aiText,'en-US');
+    row.appendChild(hint);row.appendChild(spk);
+    typing.appendChild(row);
     chatArea.scrollTop=chatArea.scrollHeight;
-    setTimeout(()=>speak(aiText.replace(/<[^>]*>/g,''),'en-US'),400);
+    setTimeout(()=>speak(aiText,'en-US'),500);
     showSimOpts(step.opts);
   },900);
 }
@@ -8877,7 +8922,7 @@ function pickSimOpt(i,score){
   simScore+=score;
   document.getElementById('chat-opts-area').innerHTML='';
   const chatArea=document.getElementById('chat-area');
-  const bubble=document.createElement('div');bubble.className='chat-bubble user';bubble.textContent=step.opts[i].t;
+  const bubble=document.createElement('div');bubble.className='chat-bubble user';bubble.innerHTML=wrapDialogText(step.opts[i].t);
   chatArea.appendChild(bubble);chatArea.scrollTop=chatArea.scrollHeight;
   if(score===0){
     const hint=document.createElement('div');
