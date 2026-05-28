@@ -8513,22 +8513,21 @@ function renderLvtQ(){
   const letters=['A','B','C','D'];
   const optsHtml=q.opts.map((o,i)=>
     `<div class="q-opt" onclick="answerLvtQ(${i})" style="animation:fadeInUp .3s ease ${i*.08}s both">
-      <div class="q-letter">${letters[i]}</div>${o.t}
+      <div class="q-letter">${letters[i]}</div>${o}
     </div>`
   ).join('');
-  area.innerHTML=`<div class="q-card" style="margin:0 0 8px"><div class="q-text">${q.q}</div>${optsHtml}</div>`;
+  area.innerHTML=`<div class="q-card" style="margin:0 0 8px"><div class="q-text">${wrapDialogText(q.q)}</div>${optsHtml}</div>`;
 }
 
 function answerLvtQ(idx){
   const q=lvtQs[lvtCur];
   const opts=document.querySelectorAll('#lvt-question-area .q-opt');
   opts.forEach(o=>o.style.pointerEvents='none');
-  const correct=q.opts[idx].s===2;
+  const correct=idx===q.a;
   if(correct){opts[idx].classList.add('correct');lvtScore++;}
   else{
     opts[idx].classList.add('wrong');
-    const ci=q.opts.findIndex(o=>o.s===2);
-    if(ci>=0&&opts[ci])opts[ci].classList.add('correct');
+    if(opts[q.a])opts[q.a].classList.add('correct');
   }
   const stxt=document.getElementById('lvt-score-txt');if(stxt)stxt.textContent='✓ '+lvtScore;
   setTimeout(()=>{
@@ -8752,14 +8751,22 @@ function renderChoiceTest(t){
 function answerChoice(chosen,correct,xp,btn){
   document.querySelectorAll('#choice-opts .q-opt').forEach(b=>b.disabled=true);
   const result=document.getElementById('choice-result');result.style.display='block';
+  const btns=document.querySelectorAll('#choice-opts .q-opt');
   if(chosen===correct){
     btn.style.background='linear-gradient(135deg,#10b981,#6ee7b7)';btn.style.color='#fff';
+    btn.style.borderColor='#10b981';
     result.textContent='✅ Правильно! +'+xp+' XP';result.style.color='#10b981';
     addXP(xp);testsDone++;localStorage.setItem('td',testsDone);updateTestProgress();
   } else {
     btn.style.background='linear-gradient(135deg,#f43f5e,#fb7185)';btn.style.color='#fff';
-    document.querySelectorAll('#choice-opts .q-opt')[correct].style.cssText+='background:linear-gradient(135deg,#10b981,#6ee7b7);color:#fff';
-    result.textContent='❌ Неверно. Правильный ответ выделен';result.style.color='#f43f5e';
+    btn.style.borderColor='#f43f5e';
+    const correctBtn=btns[correct];
+    if(correctBtn){
+      correctBtn.style.background='linear-gradient(135deg,#10b981,#6ee7b7)';
+      correctBtn.style.color='#fff';
+      correctBtn.style.borderColor='#10b981';
+    }
+    result.textContent='❌ Неверно. Правильный ответ выделен зелёным';result.style.color='#f43f5e';
   }
 }
 function renderInputTest(t){
