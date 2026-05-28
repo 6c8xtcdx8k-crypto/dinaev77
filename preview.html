@@ -8319,7 +8319,7 @@ let userName = localStorage.getItem('userName') || 'Игрок';
 let userAvatar = localStorage.getItem('userAvatar') || '🦊';
 let currentTheme = localStorage.getItem('theme') || 'default';
 let currentLevel = localStorage.getItem('level') || 'A1';
-let currentTestLevel = 'A1';
+let currentTestLevel = currentLevel; // stays in sync with profile level
 let currentTestType = 'choice';
 let currentSimId = -1;
 let currentSimStep = 0;
@@ -8351,7 +8351,7 @@ function showPage(p) {
   const fab=document.getElementById('back-fab');
   if(fab)fab.classList.toggle('visible',p!=='quests');
   if(p==='study'){renderWords();renderSents();}
-  if(p==='tests'){initTestQueue();renderCurrentTest();}
+  if(p==='tests'){currentTestLevel=currentLevel;_syncTestLevelUI(currentLevel);initTestQueue();renderCurrentTest();}
   if(p==='sims'){renderSimsMenu();}
   if(p==='quests'){updateXPBar();updateHomeUserName();updateRatingPage();updateDashboard();}
   if(p==='profile'){syncSettings();updateProfilePage();}
@@ -8378,12 +8378,14 @@ function startApp(){
 }
 function selectOnboardLevel(lv,btn){
   currentLevel=lv;
+  currentTestLevel=lv;
   localStorage.setItem('level',lv);
   document.querySelectorAll('#onboarding .lv-card').forEach(b=>{b.classList.remove('sel');});
   if(btn&&btn.classList)btn.classList.add('sel');
 }
 function setHomeLevel(lv){
   currentLevel=lv;
+  currentTestLevel=lv;
   localStorage.setItem('level',lv);
   ['A1','A2','B1','B2','C1','C2'].forEach(l=>{
     const el=document.getElementById('hmlv-'+l);
@@ -8818,12 +8820,21 @@ function showTestType(t,btn){
 }
 function setTestLevel(lv,btn){
   currentTestLevel=lv;
-  document.getElementById('test-level-show').textContent=lv;
-  document.querySelectorAll('#page-tests .tab').forEach(b=>{
-    if(['A1','A2','B1','B2','C1'].includes(b.textContent)){b.classList.remove('active');}
-  });
-  btn.classList.add('active');
+  currentLevel=lv;
+  localStorage.setItem('level',lv);
+  _syncTestLevelUI(lv);
   initTestQueue();renderCurrentTest();
+}
+function _syncTestLevelUI(lv){
+  const show=document.getElementById('test-level-show');
+  if(show)show.textContent=lv;
+  document.querySelectorAll('#page-tests .tab').forEach(b=>{
+    if(['A1','A2','B1','B2','C1','C2'].includes(b.textContent.trim()))b.classList.remove('active');
+  });
+  // activate the matching button
+  document.querySelectorAll('#page-tests .tab').forEach(b=>{
+    if(b.textContent.trim()===lv)b.classList.add('active');
+  });
 }
 function initTestQueue(){
   const pool=getTestPool(currentTestType,currentTestLevel);
@@ -8847,7 +8858,12 @@ function renderCurrentTest(){
     showToast('🔄 Новый раунд! Вопросы перемешаны');
   }
   const t=currentTestQueue[currentTestIndex];
-  if(!t)return;
+  if(!t){
+    // Pool empty for this level — show friendly message
+    const area=document.getElementById('test-choice-area')||document.getElementById('test-input-area')||document.getElementById('test-listen-area');
+    if(area)area.innerHTML=`<div class="test-card" style="text-align:center;padding:24px 16px"><div style="font-size:40px;margin-bottom:10px">🔍</div><div style="font-size:15px;font-weight:900;color:#1a1a2e;margin-bottom:6px">Нет заданий для уровня ${currentTestLevel}</div><div style="font-size:12px;color:#9ca3af;margin-bottom:16px">Попробуй выбрать другой уровень выше</div></div>`;
+    return;
+  }
   if(currentTestType==='choice')renderChoiceTest(t);
   else if(currentTestType==='input')renderInputTest(t);
   else renderListenTest(t);
