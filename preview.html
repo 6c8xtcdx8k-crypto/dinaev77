@@ -17,6 +17,11 @@ button{cursor:pointer}
 .page{display:none;flex:1;overflow-y:auto;background:transparent;padding-bottom:80px;animation:fadeInPage .3s ease}
 .page.active{display:block}
 .bnav{position:sticky;bottom:0;background:rgba(255,255,255,.55);backdrop-filter:blur(14px);border-top:1px solid rgba(255,255,255,.4);display:flex;z-index:100;flex-shrink:0}
+/* ═══ BACK FAB ═══ */
+.back-fab{position:absolute;bottom:82px;left:14px;width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#6c47ff,#a78bfa);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 4px 18px rgba(108,71,255,.45);z-index:99;opacity:0;transform:scale(0) translateX(-8px);transition:opacity .28s ease,transform .35s cubic-bezier(0.34,1.56,0.64,1);pointer-events:none}
+.back-fab.visible{opacity:1;transform:scale(1) translateX(0);pointer-events:auto}
+.back-fab:hover{transform:scale(1.12)!important;box-shadow:0 6px 24px rgba(108,71,255,.55)}
+.back-fab:active{transform:scale(.93)!important;transition:transform .1s ease!important}
 .nb{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:9px 0;border:none;background:none;cursor:pointer;color:#9ca3af;font-size:9px;font-weight:700;transition:.2s;position:relative}
 .nb.active{color:#6c47ff}
 .nb.active::after{content:'';position:absolute;top:0;left:20%;right:20%;height:2px;background:#6c47ff;border-radius:999px;animation:slideIn .2s ease}
@@ -2443,6 +2448,7 @@ button{cursor:pointer}
 </div>
 
 <!-- BOTTOM NAV -->
+<button id="back-fab" class="back-fab" onclick="showPage('quests');setNav(document.querySelectorAll('.nb')[0])" title="На главную">←</button>
 <div class="bnav" id="main-bnav" style="display:none;background:#fff;border-top:1.5px solid #F3F4F6">
   <button class="nb active" onclick="showPage('quests');setNav(this)"><div class="ico">✈️</div>Квесты</button>
   <button class="nb" onclick="showPage('tests');setNav(this)"><div class="ico">⚡</div>Тесты</button>
@@ -8341,12 +8347,14 @@ function showPage(p) {
   if(pg){pg.style.display='block';pg.classList.add('active');}
   document.getElementById('main-bnav').style.display='flex';
   window.scrollTo(0,0);
+  // Show/hide back FAB — hidden only on the main quests page
+  const fab=document.getElementById('back-fab');
+  if(fab)fab.classList.toggle('visible',p!=='quests');
   if(p==='study'){renderWords();renderSents();}
   if(p==='tests'){initTestQueue();renderCurrentTest();}
   if(p==='sims'){renderSimsMenu();}
   if(p==='quests'){updateXPBar();updateHomeUserName();updateRatingPage();updateDashboard();}
   if(p==='profile'){syncSettings();updateProfilePage();}
-  
 }
 function setNav(btn){
   document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
