@@ -340,21 +340,16 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
 .rr-avatar{background:transparent!important;}
 /* === END GLASS THEME === */
 
-/* Dialog word flip cards */
-.dw-wrap{display:inline-flex;flex-wrap:wrap;gap:4px;width:100%}
-.dw{display:inline-block;cursor:pointer;border-radius:8px;transition:.15s;position:relative}
-.dw:active{opacity:.7}
-.dw-card{display:inline-block;perspective:400px;vertical-align:top}
-.dw-inner{position:relative;transform-style:preserve-3d;transition:transform .45s cubic-bezier(.4,0,.2,1);cursor:pointer}
-.dw-inner.flipped{transform:rotateY(180deg)}
-.dw-face{backface-visibility:hidden;-webkit-backface-visibility:hidden}
-.dw-front{padding:2px 5px;border-radius:7px;background:rgba(108,71,255,.08);border-bottom:1.5px dotted rgba(108,71,255,.4);color:#1a1a2e;font-size:13px;font-weight:600;white-space:nowrap}
-.dw-back{position:absolute;top:0;left:0;transform:rotateY(180deg);background:rgba(255,255,255,.95);border-radius:10px;padding:5px 8px;box-shadow:0 4px 16px rgba(108,71,255,.18);min-width:80px;text-align:center;z-index:10}
-.dw-back .dw-en{font-size:12px;font-weight:800;color:#1a1a2e}
-.dw-back .dw-ph{font-size:10px;color:#9ca3af;margin:1px 0}
-.dw-back .dw-ru{font-size:12px;font-weight:700;color:#7c3aed}
-.dw-speak{background:none;border:none;cursor:pointer;font-size:12px;padding:1px 3px}
 
+/* Dialog word popup */
+.dw-word{display:inline;cursor:pointer;padding:1px 3px;border-radius:5px;border-bottom:1.5px dotted rgba(108,71,255,.4);font-weight:600;transition:.15s}
+.dw-word.has-tr{border-bottom:2px solid #7c3aed}
+.dw-word:active{background:rgba(108,71,255,.1)}
+.dw-popup{position:fixed;background:#fff;border-radius:16px;padding:12px 14px;box-shadow:0 8px 32px rgba(108,71,255,.25);z-index:9999;min-width:130px;max-width:200px;text-align:center;animation:fadeInUp .2s ease}
+.dw-popup .dp-en{font-size:14px;font-weight:900;color:#1a1a2e;margin-bottom:2px}
+.dw-popup .dp-ph{font-size:11px;color:#9ca3af;margin-bottom:5px}
+.dw-popup .dp-ru{font-size:15px;font-weight:800;color:#7c3aed;margin-bottom:8px}
+.dw-popup .dp-spk{background:linear-gradient(135deg,#7c3aed,#a78bfa);border:none;border-radius:10px;color:#fff;padding:6px 14px;font-size:12px;font-weight:700;cursor:pointer;width:100%}
 </style>
 </head>
 <body>
@@ -8860,30 +8855,83 @@ function startSim(id){
   document.getElementById('chat-opts-area').innerHTML='';
   setTimeout(()=>showSimStep(),400);
 }
+
+
+const miniDict={
+  good:{ru:'хороший/добрый',ph:'ɡʊd'},morning:{ru:'утро',ph:'ˈmɔːnɪŋ'},evening:{ru:'вечер',ph:'ˈiːvnɪŋ'},
+  night:{ru:'ночь',ph:'naɪt'},welcome:{ru:'добро пожаловать',ph:'ˈwelkəm'},please:{ru:'пожалуйста',ph:'pliːz'},
+  thank:{ru:'благодарить',ph:'θæŋk'},thanks:{ru:'спасибо',ph:'θæŋks'},sorry:{ru:'извините',ph:'ˈsɒri'},
+  yes:{ru:'да',ph:'jes'},no:{ru:'нет',ph:'nəʊ'},see:{ru:'видеть',ph:'siː'},
+  may:{ru:'могу/мочь',ph:'meɪ'},can:{ru:'мочь/уметь',ph:'kæn'},could:{ru:'мог бы',ph:'kʊd'},
+  have:{ru:'иметь',ph:'hæv'},has:{ru:'иметь',ph:'hæz'},had:{ru:'имел',ph:'hæd'},
+  need:{ru:'нуждаться',ph:'niːd'},want:{ru:'хотеть',ph:'wɒnt'},like:{ru:'нравиться',ph:'laɪk'},
+  help:{ru:'помочь',ph:'help'},know:{ru:'знать',ph:'nəʊ'},think:{ru:'думать',ph:'θɪŋk'},
+  show:{ru:'показать',ph:'ʃəʊ'},give:{ru:'дать',ph:'ɡɪv'},take:{ru:'взять',ph:'teɪk'},
+  get:{ru:'получить',ph:'ɡet'},go:{ru:'идти',ph:'ɡəʊ'},come:{ru:'прийти',ph:'kʌm'},
+  pay:{ru:'платить',ph:'peɪ'},check:{ru:'проверить',ph:'tʃek'},book:{ru:'бронировать',ph:'bʊk'},
+  open:{ru:'открыть',ph:'ˈəʊpən'},close:{ru:'закрыть',ph:'kləʊz'},wait:{ru:'ждать',ph:'weɪt'},
+  room:{ru:'комната',ph:'ruːm'},door:{ru:'дверь',ph:'dɔː'},floor:{ru:'этаж',ph:'flɔː'},
+  time:{ru:'время',ph:'taɪm'},day:{ru:'день',ph:'deɪ'},minute:{ru:'минута',ph:'ˈmɪnɪt'},
+  hour:{ru:'час',ph:'aʊə'},today:{ru:'сегодня',ph:'təˈdeɪ'},here:{ru:'здесь',ph:'hɪə'},
+  right:{ru:'правый/верно',ph:'raɪt'},left:{ru:'левый',ph:'left'},back:{ru:'назад',ph:'bæk'},
+  name:{ru:'имя',ph:'neɪm'},card:{ru:'карточка',ph:'kɑːd'},number:{ru:'номер',ph:'ˈnʌmbə'},
+  money:{ru:'деньги',ph:'ˈmʌni'},cash:{ru:'наличные',ph:'kæʃ'},price:{ru:'цена',ph:'praɪs'},
+  free:{ru:'бесплатно/свободно',ph:'friː'},ready:{ru:'готов',ph:'ˈredi'},sure:{ru:'конечно',ph:'ʃʊə'},
+  fine:{ru:'хорошо/штраф',ph:'faɪn'},great:{ru:'отлично',ph:'ɡreɪt'},okay:{ru:'хорошо',ph:'ˌəʊˈkeɪ'},
+  luggage:{ru:'багаж',ph:'ˈlʌɡɪdʒ'},bag:{ru:'сумка',ph:'bæɡ'},ticket:{ru:'билет',ph:'ˈtɪkɪt'},
+  flight:{ru:'рейс',ph:'flaɪt'},gate:{ru:'выход/ворота',ph:'ɡeɪt'},seat:{ru:'место',ph:'siːt'},
+  account:{ru:'счёт',ph:'əˈkaʊnt'},transfer:{ru:'перевод',ph:'ˈtrænsfɜː'},
+  reservation:{ru:'бронирование',ph:'ˌrezəˈveɪʃn'},breakfast:{ru:'завтрак',ph:'ˈbrekfəst'},
+  address:{ru:'адрес',ph:'ˈædrəs'},document:{ru:'документ',ph:'ˈdɒkjʊmənt'},
+  form:{ru:'бланк',ph:'fɔːm'},check:{ru:'проверить',ph:'tʃek'},
+};
+function lookupWord(w){
+  const clean=w.toLowerCase().replace(/[^a-z]/g,'');
+  const found=wordsData.find(x=>x.en.toLowerCase()===clean||x.en.toLowerCase().replace(/[^a-z]/g,'')===clean);
+  if(found)return found;
+  if(miniDict[clean])return{en:w,ph:miniDict[clean].ph,ru:miniDict[clean].ru};
+  return null;
+}
 function wrapDialogText(text){
-  const tokens=text.split(/(\s+|[,!?.;:]+)/);
-  return '<span class="dw-wrap">'+tokens.map(tok=>{
-    const word=tok.trim().replace(/[^a-zA-Z']/g,'').toLowerCase();
-    if(!word)return tok==' '?'<span style="display:inline-block;width:4px"></span>':
-      '<span style="color:#9ca3af;font-size:13px">'+tok+'</span>';
-    const entry=wordsData.find(w=>w.en.toLowerCase()===word||w.en.toLowerCase().replace(/[^a-z]/g,'')===word);
-    const raw=tok.replace(/[^a-zA-Z']/g,'');
-    const punct=tok.slice(raw.length);
+  return text.split(/(\s+)/).map(tok=>{
+    if(/^\s+$/.test(tok))return ' ';
+    const clean=tok.replace(/[^a-zA-Z]/g,'');
+    if(!clean)return '<span style="color:#555">'+tok+'</span>';
+    const entry=lookupWord(clean);
     if(entry){
-      const id='dw'+Math.random().toString(36).slice(2,7);
-      return `<span class="dw-card"><span class="dw-inner" id="${id}" onclick="flipDw('${id}','${entry.en.replace(/'/g,"\'")}')"><span class="dw-face dw-front">${raw}</span><span class="dw-face dw-back"><span class="dw-en">${entry.en}</span><span class="dw-ph">[${entry.ph}]</span><span class="dw-ru">${entry.ru}</span><button class="dw-speak" onclick="event.stopPropagation();speak('${entry.en.replace(/'/g,"\'")}')">🔊</button></span></span></span>${punct?'<span style="color:#9ca3af;font-size:13px">'+punct+'</span>':''}`;
+      const ru=(entry.ru||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+      const ph=(entry.ph||'').replace(/'/g,"\\'");
+      const en=clean.replace(/'/g,"\\'");
+      return '<span class="dw-word has-tr" onclick="showDwPopup(event,\''+en+'\',\''+ph+'\',\''+ru+'\')">'+tok+'</span>';
     }
-    return `<span class="dw" onclick="event.stopPropagation();speak('${raw}')" title="🔊 ${raw}">${tok}</span>`;
-  }).join('')+'</span>';
+    const en=clean.replace(/'/g,"\\'");
+    return '<span class="dw-word" onclick="showDwPopup(event,\''+en+'\',\'\',\'\')">'+tok+'</span>';
+  }).join('');
 }
-function flipDw(id,word){
-  const el=document.getElementById(id);
-  if(!el)return;
-  const wasFlipped=el.classList.contains('flipped');
-  document.querySelectorAll('.dw-inner.flipped').forEach(e=>{if(e.id!==id)e.classList.remove('flipped');});
-  if(wasFlipped){el.classList.remove('flipped');}
-  else{el.classList.add('flipped');speak(word,'en-US');}
+let _dwPopup=null;
+function showDwPopup(e,word,ph,ru){
+  e.stopPropagation();
+  if(_dwPopup){_dwPopup.remove();_dwPopup=null;}
+  const pop=document.createElement('div');
+  pop.className='dw-popup';
+  if(ru){
+    pop.innerHTML='<div class="dp-en">'+word+'</div><div class="dp-ph">['+ph+']</div><div class="dp-ru">'+ru+'</div><button class="dp-spk" onclick="speak(\''+word.replace(/'/g,"\\'")+'\')" >🔊 Прослушать</button>';
+  } else {
+    pop.innerHTML='<div class="dp-en">'+word+'</div><div class="dp-ph" style="color:#9ca3af;font-size:11px">не найдено в словаре</div><button class="dp-spk" onclick="speak(\''+word.replace(/'/g,"\\'")+'\')" >🔊 Прослушать</button>';
+  }
+  document.body.appendChild(pop);
+  _dwPopup=pop;
+  const r=e.target.getBoundingClientRect();
+  let top=r.bottom+8;
+  let left=r.left;
+  const pw=200;
+  if(left+pw>window.innerWidth-8)left=window.innerWidth-pw-8;
+  if(top+130>window.innerHeight)top=r.top-140;
+  pop.style.top=top+'px';pop.style.left=left+'px';
+  speak(word,'en-US');
+  setTimeout(()=>document.addEventListener('click',function h(){if(_dwPopup){_dwPopup.remove();_dwPopup=null;}document.removeEventListener('click',h);},50));
 }
+
 function showSimStep(){
   const sim=simsData[currentSimId];
   if(!sim||currentSimStep>=sim.steps.length){endSim();return;}
