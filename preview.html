@@ -336,7 +336,7 @@ button{cursor:pointer}
 .cat-bar-icon{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
 /* Profile */
 .profile-hdr-card{background:linear-gradient(155deg,#F5F3FF,#EDE9FE);border-radius:24px;margin:10px 16px 12px;padding:18px 18px 16px;display:flex;gap:14px;align-items:flex-start;position:relative;overflow:hidden;box-shadow:0 4px 24px rgba(124,58,237,.12)}
-.profile-fox-wrap{width:90px;height:110px;border-radius:18px;overflow:hidden;flex-shrink:0;background:#fff;box-shadow:0 4px 16px rgba(124,58,237,.15)}
+.profile-fox-wrap{width:90px;height:90px;border-radius:18px;overflow:hidden;flex-shrink:0;background:linear-gradient(135deg,#ede9ff,#f0eeff);box-shadow:0 4px 16px rgba(124,58,237,.2);display:flex;align-items:center;justify-content:center;font-size:54px;line-height:1}
 .profile-rank-card{background:linear-gradient(135deg,#4F46E5,#7C3AED);border-radius:20px;margin:0 16px 12px;padding:16px 18px;box-shadow:0 6px 24px rgba(79,70,229,.3)}
 .info-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #F3F4F6;font-size:11px}
 .info-row:last-child{border-bottom:none}
@@ -2264,8 +2264,8 @@ button{cursor:pointer}
 
   <!-- PROFILE CARD -->
   <div class="profile-hdr-card">
-    <div class="profile-fox-wrap">
-      <img class="fox-img" style="width:90px;height:auto" alt="fox"/>
+    <div class="profile-fox-wrap" id="profile-avatar-wrap">
+      <span id="profile-avatar-el">🦊</span>
     </div>
     <div style="flex:1;min-width:0">
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
@@ -2362,7 +2362,7 @@ button{cursor:pointer}
       <div style="position:absolute;right:-30px;top:-30px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.1)"></div>
       <div style="position:absolute;left:-20px;bottom:-20px;width:100px;height:100px;border-radius:50%;background:rgba(255,255,255,.06)"></div>
       <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px">
-        <div id="settings-avatar" style="width:72px;height:72px;border-radius:18px;background:rgba(255,255,255,.15);overflow:hidden;display:flex;align-items:flex-end;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.2);animation:breathe 3s ease-in-out infinite"><img class="fox-img" style="width:72px;height:auto" alt="fox"/></div>
+        <div id="settings-avatar" style="width:72px;height:72px;border-radius:18px;background:rgba(255,255,255,.15);overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:42px;line-height:1;box-shadow:0 4px 16px rgba(0,0,0,.2);animation:breathe 3s ease-in-out infinite">🦊</div>
         <div>
           <div style="font-size:20px;font-weight:900" id="settings-name-display">Игрок</div>
           <div style="font-size:12px;opacity:.8;margin-top:2px" id="settings-level-desc">Уровень A1 · Начинающий</div>
@@ -8499,6 +8499,7 @@ function setAvatar(emoji,id){
   const el=document.getElementById('av-'+id);if(el)el.classList.add('selected');
   const ha=document.getElementById('home-avatar');if(ha)ha.textContent=emoji;
   const sa=document.getElementById('settings-avatar');if(sa)sa.textContent=emoji;
+  const pa=document.getElementById('profile-avatar-el');if(pa)pa.textContent=emoji;
   showToast('✅ Аватар изменён!');
 }
 
@@ -8567,6 +8568,7 @@ function syncSettings(){
   // Avatar
   const sa=document.getElementById('settings-avatar');if(sa)sa.textContent=userAvatar;
   const ha=document.getElementById('home-avatar');if(ha)ha.textContent=userAvatar;
+  const pa=document.getElementById('profile-avatar-el');if(pa)pa.textContent=userAvatar;
   document.querySelectorAll('.avatar-pick').forEach(a=>a.classList.remove('selected'));
   const avatarMap={'🦊':'fox','🐺':'wolf','🦁':'lion','🐸':'frog','🐼':'panda','🦅':'eagle','🐉':'dragon','🦄':'unicorn','🚀':'rocket','⚡':'lightning','🌟':'star','💎':'gem'};
   const avId=avatarMap[userAvatar];
@@ -9349,6 +9351,7 @@ function claimDailyReward(){
 }
 
 function updateProfilePage(){
+  const pa=document.getElementById('profile-avatar-el');if(pa)pa.textContent=userAvatar;
   const un=document.getElementById('profile-username-display');
   if(un)un.textContent=userName;
   const lv=document.getElementById('profile-level-display');
