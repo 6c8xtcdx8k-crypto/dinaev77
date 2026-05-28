@@ -220,6 +220,7 @@ button{cursor:pointer}
 .phone[data-theme="sunset"] .pbar-f{background:linear-gradient(90deg,#ea580c,#fb923c)!important}
 /* ═══ MORE ANIMATIONS ═══ */
 @keyframes slideUp{from{transform:translateY(100%);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes scaleIn{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
 @keyframes shimmer{0%{opacity:.6}50%{opacity:1}100%{opacity:.6}}
 @keyframes slideInLeft{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}
@@ -2259,7 +2260,7 @@ button{cursor:pointer}
   <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px 10px;background:#fff;box-shadow:0 1px 0 #F3F4F6">
     <button style="width:38px;height:38px;border-radius:12px;background:#F5F3FF;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px">≡</button>
     <div style="font-size:17px;font-weight:900;color:#1F2937">Профиль</div>
-    <button style="width:38px;height:38px;border-radius:12px;background:#F5F3FF;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px">⚙️</button>
+    <button onclick="toggleProfileInfo()" style="width:38px;height:38px;border-radius:12px;background:#F5F3FF;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px">⚙️</button>
   </div>
 
   <!-- PROFILE CARD -->
@@ -9461,6 +9462,83 @@ function toggleRatingHelp(e){
       document.removeEventListener('click',h);
     });
   },60);
+}
+function toggleProfileInfo(){
+  const existing=document.getElementById('profile-info-overlay');
+  if(existing){existing.remove();return;}
+  const levelNames={A1:'Начинающий',A2:'Базовый',B1:'Средний',B2:'Выше среднего',C1:'Продвинутый',C2:'Мастер'};
+  const lvXP={A1:500,A2:1000,B1:2000,B2:3600,C1:6000,C2:10000};
+  const maxXP=lvXP[currentLevel]||500;
+  const pct=Math.min(100,Math.round(xpTotal/maxXP*100));
+  const overlay=document.createElement('div');
+  overlay.id='profile-info-overlay';
+  overlay.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9000;display:flex;align-items:flex-end;justify-content:center;animation:fadeIn .2s ease';
+  overlay.innerHTML=`
+    <div style="background:#fff;border-radius:28px 28px 0 0;width:100%;max-width:480px;padding:0 0 32px;animation:slideUp .35s cubic-bezier(.34,1.56,.64,1)">
+      <div style="width:40px;height:4px;background:#e5e7eb;border-radius:99px;margin:12px auto 0"></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px 12px">
+        <div style="font-size:16px;font-weight:900;color:#1F2937">Обо мне</div>
+        <button onclick="document.getElementById('profile-info-overlay').remove()" style="width:32px;height:32px;border-radius:50%;background:#f3f4f6;border:none;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;color:#6b7280;line-height:1">×</button>
+      </div>
+      <!-- Avatar + name block -->
+      <div style="display:flex;align-items:center;gap:14px;padding:0 20px 16px">
+        <div style="width:72px;height:72px;border-radius:20px;background:linear-gradient(135deg,#ede9ff,#f0eeff);display:flex;align-items:center;justify-content:center;font-size:42px;flex-shrink:0;box-shadow:0 4px 16px rgba(108,71,255,.2)">${userAvatar}</div>
+        <div style="flex:1">
+          <div style="font-size:20px;font-weight:900;color:#1F2937;margin-bottom:2px">${userName}</div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:700">🏅 Путешественник</div>
+          <div style="font-size:11px;color:#9CA3AF;margin-top:2px">${currentLevel} · ${levelNames[currentLevel]||''}</div>
+        </div>
+      </div>
+      <!-- XP bar -->
+      <div style="margin:0 20px 16px;background:#f5f3ff;border-radius:16px;padding:14px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <div style="font-size:12px;font-weight:700;color:#1F2937">⚡ Опыт</div>
+          <div style="font-size:12px;font-weight:900;color:#7C3AED">${xpTotal.toLocaleString('ru')} / ${maxXP} XP</div>
+        </div>
+        <div style="height:8px;background:#ddd6fe;border-radius:999px;overflow:hidden">
+          <div style="height:100%;width:${pct}%;background:linear-gradient(90deg,#7C3AED,#A78BFA);border-radius:999px;transition:.8s ease"></div>
+        </div>
+        <div style="font-size:10px;color:#9CA3AF;margin-top:5px">До следующего уровня: ${Math.max(0,maxXP-xpTotal).toLocaleString('ru')} XP</div>
+      </div>
+      <!-- Stats grid -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0 20px 16px">
+        <div style="background:#fff7ed;border-radius:14px;padding:12px;text-align:center">
+          <div style="font-size:20px;font-weight:900;color:#F59E0B">${testsDone}</div>
+          <div style="font-size:10px;color:#9CA3AF;font-weight:600;margin-top:2px">Тестов</div>
+        </div>
+        <div style="background:#fdf4ff;border-radius:14px;padding:12px;text-align:center">
+          <div style="font-size:20px;font-weight:900;color:#9333EA">${simsDone}</div>
+          <div style="font-size:10px;color:#9CA3AF;font-weight:600;margin-top:2px">Симуляций</div>
+        </div>
+        <div style="background:#fff1f2;border-radius:14px;padding:12px;text-align:center">
+          <div style="font-size:20px;font-weight:900;color:#F43F5E">${streak}</div>
+          <div style="font-size:10px;color:#9CA3AF;font-weight:600;margin-top:2px">Дней подряд</div>
+        </div>
+      </div>
+      <!-- Info rows -->
+      <div style="margin:0 20px;background:#f9fafb;border-radius:16px;overflow:hidden">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid #f3f4f6">
+          <span style="font-size:12px;color:#6B7280;font-weight:600">🌍 Страна</span>
+          <span style="font-size:12px;font-weight:700;color:#1F2937">Россия 🇷🇺</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid #f3f4f6">
+          <span style="font-size:12px;color:#6B7280;font-weight:600">🗣 Родной язык</span>
+          <span style="font-size:12px;font-weight:700;color:#1F2937">Русский</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid #f3f4f6">
+          <span style="font-size:12px;color:#6B7280;font-weight:600">📅 В приложении с</span>
+          <span style="font-size:12px;font-weight:700;color:#1F2937">2024</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 14px">
+          <span style="font-size:12px;color:#6B7280;font-weight:600">🎯 Цель</span>
+          <span style="font-size:12px;font-weight:700;color:#7C3AED">Переезд за рубеж</span>
+        </div>
+      </div>
+    </div>`;
+  overlay.addEventListener('click',function(e){
+    if(e.target===overlay)overlay.remove();
+  });
+  document.body.appendChild(overlay);
 }
 function showRatingTab(tab,btn){
   ['players','friends','countries'].forEach(t=>{
