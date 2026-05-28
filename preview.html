@@ -2273,7 +2273,7 @@ button{cursor:pointer}
         <div style="font-size:18px;font-weight:900;color:#1F2937" id="profile-username-display">Игрок</div>
         <button onclick="focusProfileNameEdit()" style="background:none;border:none;cursor:pointer;font-size:14px">✏️</button>
       </div>
-      <div style="display:inline-flex;align-items:center;gap:4px;background:transparent;color:#7C3AED;font-size:10px;font-weight:700;padding:3px 10px;border-radius:999px;margin-bottom:10px">🏅 Путешественник</div>
+      <div id="profile-rank-badge" style="display:inline-flex;align-items:center;gap:4px;background:transparent;color:#7C3AED;font-size:10px;font-weight:700;padding:3px 10px;border-radius:999px;margin-bottom:10px">🏅 Новичок</div>
       <div style="font-size:13px;font-weight:700;color:#1F2937;margin-bottom:5px">Уровень <span id="profile-level-display">A1</span></div>
       <div style="height:6px;background:#DDD6FE;border-radius:999px;overflow:hidden;margin-bottom:4px"><div id="profile-xp-bar" style="height:100%;background:linear-gradient(90deg,#7C3AED,#A78BFA);width:0%;transition:.8s ease;border-radius:999px"></div></div>
       <div style="font-size:10px;color:#7C3AED;font-weight:600" id="profile-xp-text">0 / 500 XP</div>
@@ -2310,7 +2310,7 @@ button{cursor:pointer}
       <div style="width:44px;height:44px;background:rgba(255,255,255,.2);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px">🛡️</div>
       <div>
         <div style="font-size:11px;color:rgba(255,255,255,.7);margin-bottom:2px">Твой ранг</div>
-        <div style="font-size:18px;font-weight:900;color:#fff">Путешественник</div>
+        <div id="profile-rank-name" style="font-size:18px;font-weight:900;color:#fff">Новичок</div>
       </div>
       <div style="margin-left:auto;text-align:right">
         <div style="font-size:11px;color:rgba(255,255,255,.7)">Топ 7% игроков</div>
@@ -9351,6 +9351,14 @@ function claimDailyReward(){
   showToast('🎁 +100 XP — Ежедневная награда!',2800);
 }
 
+function getCurrentRank(){
+  if(xpTotal>=15000)return{icon:'👑',name:'Чемпион'};
+  if(xpTotal>=7000) return{icon:'💎',name:'Легенда'};
+  if(xpTotal>=3000) return{icon:'🏆',name:'Мастер'};
+  if(xpTotal>=1000) return{icon:'⚔️',name:'Искатель'};
+  if(xpTotal>=200)  return{icon:'🗺️',name:'Путешественник'};
+  return{icon:'🌱',name:'Новичок'};
+}
 function updateProfilePage(){
   const pa=document.getElementById('profile-avatar-el');if(pa)pa.textContent=userAvatar;
   const un=document.getElementById('profile-username-display');
@@ -9363,6 +9371,12 @@ function updateProfilePage(){
   if(st)st.textContent=streak;
   const tx=document.getElementById('profile-total-xp');
   if(tx)tx.textContent=xpTotal.toLocaleString('ru');
+  // Rank
+  const rank=getCurrentRank();
+  const rb=document.getElementById('profile-rank-badge');
+  if(rb)rb.textContent=rank.icon+' '+rank.name;
+  const rn=document.getElementById('profile-rank-name');
+  if(rn)rn.textContent=rank.name;
   // XP bar
   const lvXP={A1:500,A2:1000,B1:2000,B2:3600,C1:6000,C2:10000};
   const maxXP=lvXP[currentLevel]||500;
@@ -9551,7 +9565,7 @@ function showRankDetails(){
     {icon:'💎',name:'Легенда',range:'7 000 – 14 999 XP',desc:'Входишь в топ игроков. Тебе под силу любой квест.',color:'#3B82F6',bg:'#EFF6FF',active:xpTotal>=7000&&xpTotal<15000},
     {icon:'👑',name:'Чемпион',range:'15 000+ XP',desc:'Высший ранг. Настоящий знаток английского.',color:'#D97706',bg:'#FFFBEB',active:xpTotal>=15000},
   ];
-  const currentRank=ranks.find(r=>r.active)||ranks[0];
+  const currentRank=getCurrentRank();const currentRankFull=ranks.find(r=>r.name===currentRank.name)||ranks[0];
   const overlay=document.createElement('div');
   overlay.id='rank-details-overlay';
   overlay.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9000;display:flex;align-items:flex-end;justify-content:center;animation:fadeIn .2s ease';
@@ -9569,7 +9583,7 @@ function showRankDetails(){
           <div style="font-size:32px">${currentRank.icon}</div>
           <div>
             <div style="font-size:20px;font-weight:900">${currentRank.name}</div>
-            <div style="font-size:11px;opacity:.8;margin-top:2px">${currentRank.range}</div>
+            <div style="font-size:11px;opacity:.8;margin-top:2px">${(currentRankFull||{range:''}).range}</div>
           </div>
           <div style="margin-left:auto;text-align:right">
             <div style="font-size:22px;font-weight:900">${xpTotal.toLocaleString('ru')}</div>
