@@ -8616,24 +8616,26 @@ function toggleNotifications(e){
   if(existing){existing.remove();return;}
   const hdr=document.getElementById('quests-hdr');
   if(!hdr)return;
-  const unread=notifData.filter(n=>!n.read).length;
+  // Mark all read the moment the panel opens
+  notifData.forEach(n=>n.read=true);
+  const dot=document.getElementById('notif-dot-el');
+  if(dot)dot.style.display='none';
   const panel=document.createElement('div');
   panel.id='notif-panel';
   panel.className='notif-panel';
   panel.innerHTML=`
     <div class="notif-hdr">
-      <div style="font-size:14px;font-weight:900;color:#1a1a2e">Уведомления <span style="font-size:11px;background:#ede9ff;color:#6c47ff;border-radius:999px;padding:1px 8px;font-weight:800;margin-left:4px">${unread}</span></div>
-      <button onclick="markAllNotifsRead()" style="font-size:11px;color:#7C3AED;background:none;border:none;cursor:pointer;font-weight:700;padding:0">Всё прочитано</button>
+      <div style="font-size:14px;font-weight:900;color:#1a1a2e">Уведомления</div>
+      <div style="font-size:11px;color:#9ca3af">Все прочитаны ✓</div>
     </div>
     ${notifData.map((n,i)=>`
-      <div class="notif-item ${n.read?'':'unread'}" onclick="markNotifRead(${i})">
+      <div class="notif-item" onclick="markNotifRead(${i})">
         <div class="notif-ico">${n.icon}</div>
         <div style="flex:1;min-width:0">
-          <div style="font-size:12px;font-weight:${n.read?'700':'900'};color:#1a1a2e;margin-bottom:1px">${n.title}</div>
+          <div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:1px">${n.title}</div>
           <div style="font-size:11px;color:#6b7280;line-height:1.4;margin-bottom:2px">${n.text}</div>
           <div style="font-size:10px;color:#9ca3af">${n.time}</div>
         </div>
-        ${n.read?'':'<div style="width:8px;height:8px;background:#7C3AED;border-radius:50%;flex-shrink:0;margin-top:5px"></div>'}
       </div>`).join('')}`;
   hdr.appendChild(panel);
   setTimeout(()=>{
