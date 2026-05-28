@@ -260,34 +260,396 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
 <div class="phone">
 
 <!-- ONBOARDING -->
-<div class="onboarding" id="onboarding">
-  <div style="text-align:center;margin-bottom:6px">
-    <div style="font-size:56px;margin-bottom:8px;animation:floatY 3s ease-in-out infinite">🦊</div>
-    <div style="font-size:26px;font-weight:900;color:#1a1a2e;letter-spacing:1px">CATCH <span style="color:#6c47ff">QUEST</span></div>
-    <div style="font-size:13px;color:#9ca3af;margin-top:4px">Английский для переезда за рубеж</div>
+<div class="onboarding" id="onboarding" style="background:linear-gradient(170deg,#faf9ff 0%,#f0eeff 40%,#e8e2f8 70%,#f0eeff 100%);padding:0;overflow-x:hidden">
+
+  <!-- Decorative background elements -->
+  <div style="position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;overflow:hidden">
+    <!-- Large glow blob -->
+    <div style="position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(108,71,255,.12),transparent 70%)"></div>
+    <!-- Small sparkles -->
+    <div style="position:absolute;top:12%;left:8%;color:#b8a9f0;font-size:16px;animation:sparkle 2.4s ease-in-out infinite">✦</div>
+    <div style="position:absolute;top:8%;right:14%;color:#c4b5fd;font-size:11px;animation:sparkle 1.9s .5s ease-in-out infinite">✦</div>
+    <div style="position:absolute;top:22%;right:5%;color:#ddd6fe;font-size:8px;animation:sparkle 2.1s .9s ease-in-out infinite">✦</div>
+    <div style="position:absolute;top:6%;left:30%;color:#e0d7ff;font-size:7px;animation:sparkle 1.7s 1.2s ease-in-out infinite">✦</div>
+    <!-- Dotted flight path -->
+    <svg style="position:absolute;top:4%;left:0;width:100%;height:200px;pointer-events:none" viewBox="0 0 390 200" fill="none">
+      <path d="M 30 170 Q 140 40 310 30" stroke="#b8a9f0" stroke-width="1.4" stroke-dasharray="7,6" fill="none" opacity=".5"/>
+      <polygon points="310,30 300,36 314,40" fill="#b8a9f0" opacity=".5"/>
+    </svg>
+    <!-- Airplane -->
+    <div style="position:absolute;top:6%;right:16%;font-size:24px;color:#c4b5fd;opacity:.75;transform:rotate(-15deg);animation:planefloat 4.5s ease-in-out infinite">✈</div>
+    <!-- Compass -->
+    <div style="position:absolute;top:55%;left:4%;font-size:22px;opacity:.35;animation:sparkle 3s ease-in-out infinite">🧭</div>
+    <!-- Gear -->
+    <div style="position:absolute;top:14%;left:16%;font-size:18px;opacity:.2;animation:spin 8s linear infinite">⚙️</div>
   </div>
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0 4px">
-    <div style="background:rgba(108,71,255,.08);border-radius:12px;padding:10px 6px;text-align:center"><div style="font-size:20px;margin-bottom:4px">🧪</div><div style="font-size:10px;font-weight:700;color:#1a1a2e">2 000<br>тестов</div></div>
-    <div style="background:rgba(108,71,255,.08);border-radius:12px;padding:10px 6px;text-align:center"><div style="font-size:20px;margin-bottom:4px">📚</div><div style="font-size:10px;font-weight:700;color:#1a1a2e">3 000<br>слов/фраз</div></div>
-    <div style="background:rgba(108,71,255,.08);border-radius:12px;padding:10px 6px;text-align:center"><div style="font-size:20px;margin-bottom:4px">💬</div><div style="font-size:10px;font-weight:700;color:#1a1a2e">500<br>симуляций</div></div>
+
+  <!-- Top: Logo -->
+  <div style="position:relative;z-index:2;text-align:center;padding:28px 20px 0">
+    <div style="font-size:28px;font-weight:900;color:#1a1a2e;letter-spacing:1.5px;animation:headerSlide .4s ease">CATCH <span style="color:#6c47ff">QUEST</span></div>
+    <div style="font-size:12px;color:#8b83b0;margin-top:4px;font-weight:600;animation:fadeInUp .5s .1s ease both">Английский для переезда за рубеж 🌍</div>
   </div>
-  <div style="font-size:16px;font-weight:800;color:#1a1a2e;text-align:center;margin:14px 0 4px">Выбери свой уровень</div>
-  <div style="font-size:12px;color:#9ca3af;text-align:center;margin-bottom:10px">Получишь задания именно для тебя</div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
-    <div class="lv-card sel" onclick="selectLevel(this,'A1')"><div class="lv-badge">A1</div><div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Начинающий</div><div style="font-size:10px;color:#9ca3af">Только начинаю</div></div>
-    <div class="lv-card" onclick="selectLevel(this,'A2')"><div class="lv-badge">A2</div><div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Базовый</div><div style="font-size:10px;color:#9ca3af">Знаю основы</div></div>
-    <div class="lv-card" onclick="selectLevel(this,'B1')"><div class="lv-badge">B1</div><div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Средний</div><div style="font-size:10px;color:#9ca3af">Объясняюсь просто</div></div>
-    <div class="lv-card" onclick="selectLevel(this,'B2')"><div class="lv-badge">B2</div><div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Выше среднего</div><div style="font-size:10px;color:#9ca3af">Общаюсь свободно</div></div>
-    <div class="lv-card" onclick="selectLevel(this,'C1')"><div class="lv-badge">C1</div><div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Продвинутый</div><div style="font-size:10px;color:#9ca3af">Почти носитель</div></div>
-    <div class="lv-card" onclick="selectLevel(this,'C2')"><div class="lv-badge">C2</div><div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Мастер</div><div style="font-size:10px;color:#9ca3af">Уровень носителя</div></div>
+
+  <!-- FOX CHARACTER -->
+  <div style="position:relative;z-index:2;display:flex;justify-content:center;margin:4px 0 0;animation:scaleIn .5s cubic-bezier(.34,1.56,.64,1)">
+    <svg viewBox="0 0 320 440" xmlns="http://www.w3.org/2000/svg" style="width:272px;height:auto;filter:drop-shadow(0 14px 44px rgba(108,71,255,.32));animation:floatY 4s ease-in-out infinite">
+  <defs>
+    <radialGradient id="gFur" cx="45%" cy="30%" r="62%">
+      <stop offset="0%" stop-color="#FFAA40"/>
+      <stop offset="55%" stop-color="#F07020"/>
+      <stop offset="100%" stop-color="#C05010"/>
+    </radialGradient>
+    <radialGradient id="gFurDark" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#E07828"/>
+      <stop offset="100%" stop-color="#A04010"/>
+    </radialGradient>
+    <radialGradient id="gMuz" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#FFF9F2"/>
+      <stop offset="100%" stop-color="#FFE8CC"/>
+    </radialGradient>
+    <linearGradient id="gHood" x1="15%" y1="0%" x2="85%" y2="100%">
+      <stop offset="0%" stop-color="#9B6FFF"/>
+      <stop offset="50%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#6026C8"/>
+    </linearGradient>
+    <linearGradient id="gHoodSide" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6C47FF"/>
+      <stop offset="100%" stop-color="#4C1D95"/>
+    </linearGradient>
+    <linearGradient id="gSuit" x1="5%" y1="0%" x2="95%" y2="100%">
+      <stop offset="0%" stop-color="#F0F2F5"/>
+      <stop offset="45%" stop-color="#CDD2DA"/>
+      <stop offset="100%" stop-color="#A8ADB8"/>
+    </linearGradient>
+    <linearGradient id="gPass" x1="0%" y1="0%" x2="80%" y2="100%">
+      <stop offset="0%" stop-color="#2052CC"/>
+      <stop offset="100%" stop-color="#1532A0"/>
+    </linearGradient>
+    <linearGradient id="gPack" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3D4754"/>
+      <stop offset="100%" stop-color="#1F2733"/>
+    </linearGradient>
+    <linearGradient id="gTail" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFAA40"/>
+      <stop offset="100%" stop-color="#D05810"/>
+    </linearGradient>
+    <linearGradient id="gJeans" x1="20%" y1="0%" x2="80%" y2="100%">
+      <stop offset="0%" stop-color="#1E3A5F"/>
+      <stop offset="100%" stop-color="#152C49"/>
+    </linearGradient>
+    <linearGradient id="gGlass" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8B5CF6" stop-opacity="0.92"/>
+      <stop offset="100%" stop-color="#4C1D95" stop-opacity="0.96"/>
+    </linearGradient>
+    <linearGradient id="gEarIn" x1="0%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#FDA4AF"/>
+      <stop offset="100%" stop-color="#FBBF24" stop-opacity="0.55"/>
+    </linearGradient>
+    <radialGradient id="gGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="rgba(108,71,255,0.18)"/>
+      <stop offset="100%" stop-color="rgba(108,71,255,0)"/>
+    </radialGradient>
+    <filter id="fDrop" x="-25%" y="-20%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="rgba(0,0,0,0.18)"/>
+    </filter>
+    <filter id="fGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="2" stdDeviation="10" flood-color="rgba(108,71,255,0.45)"/>
+    </filter>
+    <filter id="fFur" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="2" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+
+  <!-- Ground shadow -->
+  <ellipse cx="160" cy="435" rx="115" ry="12" fill="rgba(108,71,255,0.1)"/>
+
+  <!-- ═══ AMBIENT GLOW ═══ -->
+  <ellipse cx="160" cy="300" rx="140" ry="160" fill="url(#gGlow)"/>
+
+  <!-- ═══ TAIL (behind body) ═══ -->
+  <path d="M 218 235 Q 292 198 298 272 Q 303 336 262 346 Q 232 353 222 322 Q 214 296 228 272 Q 238 255 230 242 Z"
+        fill="url(#gTail)" filter="url(#fDrop)"/>
+  <!-- Tail inner shading -->
+  <path d="M 225 260 Q 268 238 282 272 Q 285 300 262 310 Q 240 316 232 295 Q 225 278 235 268 Z"
+        fill="rgba(220,90,20,0.2)"/>
+  <!-- Tail white tip -->
+  <ellipse cx="270" cy="332" rx="28" ry="21" fill="url(#gMuz)" transform="rotate(-14,270,332)"/>
+  <!-- Tail tip shading -->
+  <ellipse cx="272" cy="338" rx="18" ry="12" fill="rgba(255,230,180,0.4)" transform="rotate(-14,272,338)"/>
+
+  <!-- ═══ BACKPACK ═══ -->
+  <rect x="194" y="185" width="52" height="82" rx="11" fill="url(#gPack)" filter="url(#fDrop)"/>
+  <!-- Backpack left strap -->
+  <path d="M 194 200 Q 184 230 186 268" stroke="#2D3748" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <!-- Backpack panel lines -->
+  <line x1="207" y1="192" x2="237" y2="192" stroke="#4A5568" stroke-width="1.5" opacity="0.7"/>
+  <!-- Backpack main pocket -->
+  <rect x="202" y="210" width="37" height="36" rx="7" fill="#2D3748"/>
+  <!-- Pocket zipper -->
+  <line x1="206" y1="207" x2="234" y2="207" stroke="#6B7280" stroke-width="2" stroke-linecap="round"/>
+  <!-- Logo -->
+  <circle cx="221" cy="228" r="8" fill="#6C47FF" opacity="0.7"/>
+  <text x="221" y="232" text-anchor="middle" font-size="8" fill="white" font-family="Arial">CQ</text>
+  <!-- Side pocket -->
+  <rect x="202" y="254" width="37" height="10" rx="4" fill="#252D38"/>
+
+  <!-- ═══ SUITCASE ═══ -->
+  <rect x="70" y="320" width="126" height="96" rx="11" fill="url(#gSuit)" filter="url(#fDrop)"/>
+  <!-- Suitcase metallic edge left -->
+  <rect x="70" y="320" width="7" height="96" rx="4" fill="rgba(255,255,255,0.35)"/>
+  <!-- Suitcase grooves -->
+  <line x1="70" y1="350" x2="196" y2="350" stroke="rgba(150,160,175,0.5)" stroke-width="1.5"/>
+  <line x1="70" y1="378" x2="196" y2="378" stroke="rgba(150,160,175,0.5)" stroke-width="1.5"/>
+  <!-- Top purple trim -->
+  <rect x="70" y="320" width="126" height="9" rx="5" fill="#7C3AED" opacity="0.55"/>
+  <!-- Bottom purple trim -->
+  <rect x="70" y="407" width="126" height="9" rx="5" fill="#7C3AED" opacity="0.55"/>
+  <!-- Handle bar -->
+  <rect x="116" y="307" width="34" height="16" rx="8" fill="none" stroke="#A0A8B8" stroke-width="3.5"/>
+  <!-- Handle post -->
+  <line x1="128" y1="318" x2="128" y2="322" stroke="#A0A8B8" stroke-width="3"/>
+  <line x1="138" y1="318" x2="138" y2="322" stroke="#A0A8B8" stroke-width="3"/>
+  <!-- Center latch -->
+  <rect x="122" y="331" width="22" height="12" rx="3" fill="#B0B8C8"/>
+  <circle cx="133" cy="337" r="3" fill="#7C3AED"/>
+  <!-- Suitcase shine (reflection) -->
+  <path d="M 82 325 Q 90 330 88 360 Q 80 355 78 325 Z" fill="rgba(255,255,255,0.3)"/>
+  <!-- WHEELS -->
+  <rect x="80" y="410" width="18" height="9" rx="4" fill="#3D4754"/>
+  <rect x="168" y="410" width="18" height="9" rx="4" fill="#3D4754"/>
+  <ellipse cx="89" cy="415" rx="5" ry="5" fill="#252D38"/>
+  <ellipse cx="177" cy="415" rx="5" ry="5" fill="#252D28"/>
+  <!-- STICKER: CATCH QUEST (purple badge) -->
+  <rect x="80" y="355" width="60" height="30" rx="7" fill="#6C47FF" opacity="0.95" filter="url(#fDrop)"/>
+  <text x="110" y="366" text-anchor="middle" font-size="8" font-weight="900" fill="white" font-family="Arial,sans-serif">CATCH</text>
+  <text x="110" y="378" text-anchor="middle" font-size="8" font-weight="900" fill="white" font-family="Arial,sans-serif">QUEST</text>
+  <!-- STICKER: XP (dark circle) -->
+  <circle cx="172" cy="378" r="15" fill="#1A1A2E" filter="url(#fDrop)"/>
+  <text x="172" y="383" text-anchor="middle" font-size="10" font-weight="900" fill="#6C47FF" font-family="Arial,sans-serif">XP</text>
+  <!-- STICKER: Plane (blue rect) -->
+  <rect x="148" y="346" width="30" height="22" rx="6" fill="#38BDF8" opacity="0.9"/>
+  <text x="163" y="362" text-anchor="middle" font-size="13">✈</text>
+
+  <!-- ═══ JEANS (legs) ═══ -->
+  <rect x="109" y="298" width="36" height="60" rx="11" fill="url(#gJeans)"/>
+  <rect x="152" y="298" width="36" height="60" rx="11" fill="url(#gJeans)"/>
+  <!-- Jeans seam lines -->
+  <line x1="126" y1="300" x2="126" y2="354" stroke="#2563EB" stroke-width="1" stroke-dasharray="3,2.5" opacity="0.35"/>
+  <line x1="169" y1="300" x2="169" y2="354" stroke="#2563EB" stroke-width="1" stroke-dasharray="3,2.5" opacity="0.35"/>
+  <!-- Pocket lines -->
+  <path d="M 112 310 Q 126 308 140 310" stroke="#2563EB" stroke-width="1" fill="none" opacity="0.3"/>
+  <!-- Shoes -->
+  <ellipse cx="128" cy="356" rx="24" ry="10" fill="#1A1A2E"/>
+  <ellipse cx="170" cy="356" rx="24" ry="10" fill="#1A1A2E"/>
+  <!-- Shoe highlight -->
+  <ellipse cx="122" cy="353" rx="8" ry="4" fill="rgba(255,255,255,0.1)" transform="rotate(-10,122,353)"/>
+
+  <!-- ═══ BODY / HOODIE ═══ -->
+  <!-- Body main shape -->
+  <ellipse cx="155" cy="254" rx="80" ry="74" fill="url(#gHood)" filter="url(#fDrop)"/>
+  <!-- Hoodie shoulder shadow left -->
+  <path d="M 88 210 Q 100 245 96 280" stroke="rgba(60,10,140,0.3)" stroke-width="16" fill="none" stroke-linecap="round"/>
+  <!-- Hoodie shoulder shadow right -->
+  <path d="M 222 210 Q 210 245 214 280" stroke="rgba(60,10,140,0.3)" stroke-width="16" fill="none" stroke-linecap="round"/>
+  <!-- Center vertical shadow (hoodie fold) -->
+  <line x1="155" y1="200" x2="155" y2="322" stroke="rgba(40,0,100,0.2)" stroke-width="6"/>
+  <!-- Ribbed bottom band -->
+  <rect x="78" y="306" width="155" height="20" rx="10" fill="url(#gHoodSide)"/>
+  <!-- Ribs on band -->
+  <line x1="90" y1="310" x2="90" y2="322" stroke="rgba(255,255,255,0.12)" stroke-width="2"/>
+  <line x1="100" y1="310" x2="100" y2="322" stroke="rgba(255,255,255,0.12)" stroke-width="2"/>
+  <line x1="210" y1="310" x2="210" y2="322" stroke="rgba(255,255,255,0.12)" stroke-width="2"/>
+  <line x1="220" y1="310" x2="220" y2="322" stroke="rgba(255,255,255,0.12)" stroke-width="2"/>
+  <!-- Kangaroo pocket -->
+  <path d="M 118 272 Q 155 264 192 272 L 190 302 Q 155 310 120 302 Z" fill="rgba(80,20,180,0.45)"/>
+  <!-- Pocket stitching -->
+  <path d="M 118 272 Q 155 264 192 272" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" fill="none"/>
+  <!-- Drawstrings -->
+  <line x1="147" y1="224" x2="142" y2="248" stroke="#C4B5FD" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="142" cy="250" r="3.5" fill="#DDD6FE"/>
+  <line x1="163" y1="224" x2="168" y2="248" stroke="#C4B5FD" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="168" cy="250" r="3.5" fill="#DDD6FE"/>
+  <!-- CATCH QUEST embroidery text -->
+  <text x="155" y="251" text-anchor="middle" font-size="13" font-weight="900" fill="rgba(255,255,255,0.96)" font-family="Arial,sans-serif" letter-spacing="1">CATCH</text>
+  <text x="155" y="267" text-anchor="middle" font-size="13" font-weight="900" fill="rgba(255,255,255,0.96)" font-family="Arial,sans-serif" letter-spacing="1">QUEST</text>
+  <!-- Hoodie highlight (left shoulder sheen) -->
+  <ellipse cx="108" cy="222" rx="20" ry="28" fill="rgba(255,255,255,0.09)" transform="rotate(-20,108,222)"/>
+
+  <!-- ═══ LEFT ARM (passport side) ═══ -->
+  <ellipse cx="86" cy="256" rx="26" ry="50" fill="url(#gHood)" transform="rotate(-20,86,256)" filter="url(#fDrop)"/>
+  <!-- Left sleeve cuff -->
+  <ellipse cx="70" cy="298" rx="20" ry="10" fill="url(#gHoodSide)" transform="rotate(-20,70,298)"/>
+  <!-- Left paw -->
+  <ellipse cx="64" cy="308" rx="19" ry="15" fill="url(#gFur)"/>
+  <!-- Paw knuckle tufts -->
+  <circle cx="52" cy="302" r="7" fill="url(#gFur)"/>
+  <circle cx="58" cy="294" r="7" fill="url(#gFur)"/>
+  <circle cx="68" cy="291" r="7" fill="url(#gFur)"/>
+  <!-- Paw pads (slightly darker) -->
+  <ellipse cx="64" cy="312" rx="12" ry="7" fill="rgba(180,80,20,0.2)"/>
+
+  <!-- ═══ PASSPORT ═══ -->
+  <rect x="22" y="264" width="48" height="66" rx="6" fill="url(#gPass)" filter="url(#fGlow)"/>
+  <!-- Passport cover texture -->
+  <rect x="22" y="264" width="48" height="66" rx="6" fill="url(#gPass)"/>
+  <!-- Passport spine shadow -->
+  <rect x="22" y="264" width="6" height="66" rx="3" fill="rgba(0,0,0,0.25)"/>
+  <!-- Top gold strip -->
+  <rect x="22" y="264" width="48" height="6" rx="3" fill="#F59E0B" opacity="0.65"/>
+  <!-- Globe emblem -->
+  <circle cx="46" cy="292" r="12.5" fill="none" stroke="#93C5FD" stroke-width="1.8"/>
+  <ellipse cx="46" cy="292" rx="6.5" ry="12.5" fill="none" stroke="#93C5FD" stroke-width="1.2"/>
+  <line x1="33.5" y1="292" x2="58.5" y2="292" stroke="#93C5FD" stroke-width="1"/>
+  <line x1="36" y1="284" x2="56" y2="284" stroke="#93C5FD" stroke-width="0.8"/>
+  <line x1="36" y1="300" x2="56" y2="300" stroke="#93C5FD" stroke-width="0.8"/>
+  <!-- Stars on globe -->
+  <circle cx="46" cy="278" r="1.5" fill="#FBBF24"/>
+  <!-- PASSPORT text -->
+  <text x="46" y="312" text-anchor="middle" font-size="5.5" font-weight="900" fill="#93C5FD" font-family="Arial,sans-serif" letter-spacing="0.5">PASSPORT</text>
+  <line x1="26" y1="316" x2="66" y2="316" stroke="#60A5FA" stroke-width="0.6" opacity="0.5"/>
+  <text x="46" y="323" text-anchor="middle" font-size="4.5" fill="#BFDBFE" font-family="Arial,sans-serif">• CATCH QUEST •</text>
+
+  <!-- ═══ RIGHT ARM ═══ -->
+  <ellipse cx="224" cy="262" rx="26" ry="50" fill="url(#gHood)" transform="rotate(24,224,262)" filter="url(#fDrop)"/>
+  <!-- Right sleeve cuff -->
+  <ellipse cx="238" cy="302" rx="20" ry="10" fill="url(#gHoodSide)" transform="rotate(24,238,302)"/>
+  <!-- Right paw -->
+  <ellipse cx="244" cy="312" rx="19" ry="15" fill="url(#gFur)"/>
+  <!-- Paw knuckle tufts -->
+  <circle cx="256" cy="307" r="7" fill="url(#gFur)"/>
+  <circle cx="250" cy="298" r="7" fill="url(#gFur)"/>
+  <circle cx="240" cy="295" r="7" fill="url(#gFur)"/>
+  <!-- Paw pads -->
+  <ellipse cx="244" cy="316" rx="12" ry="7" fill="rgba(180,80,20,0.2)"/>
+
+  <!-- ═══ NECK CHEST FUR ═══ -->
+  <ellipse cx="155" cy="208" rx="36" ry="28" fill="url(#gMuz)"/>
+  <!-- Chest fur texture -->
+  <ellipse cx="155" cy="214" rx="28" ry="20" fill="rgba(255,235,190,0.35)"/>
+
+  <!-- ═══ HEAD ═══ -->
+  <ellipse cx="155" cy="158" rx="75" ry="68" fill="url(#gFur)" filter="url(#fDrop)"/>
+  <!-- Head top highlight (subsurface-like) -->
+  <ellipse cx="140" cy="128" rx="38" ry="24" fill="rgba(255,200,100,0.18)" transform="rotate(-18,140,128)"/>
+  <!-- Head side shadows -->
+  <ellipse cx="98" cy="162" rx="22" ry="36" fill="rgba(150,60,10,0.2)"/>
+  <ellipse cx="212" cy="162" rx="22" ry="36" fill="rgba(150,60,10,0.2)"/>
+
+  <!-- ═══ EARS ═══ -->
+  <!-- Left ear outer -->
+  <polygon points="96,122 72,46 126,106" fill="url(#gFur)"/>
+  <!-- Left ear inner -->
+  <polygon points="98,116 82,58 118,104" fill="url(#gEarIn)"/>
+  <!-- Left ear tip highlight -->
+  <ellipse cx="88" cy="62" rx="8" ry="16" fill="rgba(255,180,80,0.25)" transform="rotate(-32,88,62)"/>
+  <!-- Right ear outer -->
+  <polygon points="214,122 238,46 184,106" fill="url(#gFur)"/>
+  <!-- Right ear inner -->
+  <polygon points="212,116 228,58 192,104" fill="url(#gEarIn)"/>
+  <!-- Right ear tip highlight -->
+  <ellipse cx="222" cy="62" rx="8" ry="16" fill="rgba(255,180,80,0.25)" transform="rotate(32,222,62)"/>
+
+  <!-- ═══ MUZZLE ═══ -->
+  <ellipse cx="155" cy="182" rx="48" ry="40" fill="url(#gMuz)"/>
+  <ellipse cx="155" cy="190" rx="40" ry="30" fill="rgba(255,240,210,0.35)"/>
+
+  <!-- Cheek blush patches -->
+  <ellipse cx="104" cy="170" rx="15" ry="10" fill="rgba(250,140,60,0.28)" transform="rotate(-22,104,170)"/>
+  <ellipse cx="206" cy="170" rx="15" ry="10" fill="rgba(250,140,60,0.28)" transform="rotate(22,206,170)"/>
+
+  <!-- ═══ SUNGLASSES ═══ -->
+  <!-- Left lens frame -->
+  <rect x="97" y="143" width="46" height="29" rx="14" fill="url(#gGlass)"/>
+  <!-- Right lens frame -->
+  <rect x="157" y="143" width="46" height="29" rx="14" fill="url(#gGlass)"/>
+  <!-- Bridge connector -->
+  <rect x="143" y="151" width="14" height="6" rx="3" fill="#4C1D95"/>
+  <!-- Left temple arm -->
+  <path d="M 97 156 Q 86 152 76 148" stroke="#5B21B6" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <!-- Right temple arm -->
+  <path d="M 203 156 Q 214 152 224 148" stroke="#5B21B6" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <!-- Lens reflections (large) -->
+  <ellipse cx="111" cy="149" rx="10" ry="7" fill="rgba(255,255,255,0.22)" transform="rotate(-18,111,149)"/>
+  <ellipse cx="171" cy="149" rx="10" ry="7" fill="rgba(255,255,255,0.22)" transform="rotate(-18,171,149)"/>
+  <!-- Lens highlight dots -->
+  <circle cx="103" cy="147" r="3.5" fill="rgba(255,255,255,0.38)"/>
+  <circle cx="163" cy="147" r="3.5" fill="rgba(255,255,255,0.38)"/>
+  <!-- Lens secondary shine -->
+  <ellipse cx="128" cy="162" rx="6" ry="3" fill="rgba(255,255,255,0.1)"/>
+  <ellipse cx="188" cy="162" rx="6" ry="3" fill="rgba(255,255,255,0.1)"/>
+
+  <!-- ═══ NOSE ═══ -->
+  <ellipse cx="155" cy="169" rx="9" ry="7" fill="#1A1A2E"/>
+  <ellipse cx="151" cy="166" rx="3.5" ry="2.5" fill="rgba(255,255,255,0.55)"/>
+
+  <!-- ═══ MOUTH / SMILE ═══ -->
+  <path d="M 138 182 Q 155 200 172 182" stroke="#1A1A2E" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+  <!-- Tongue -->
+  <ellipse cx="155" cy="197" rx="11" ry="8" fill="#F87171"/>
+  <!-- Tongue crease -->
+  <line x1="155" y1="191" x2="155" y2="203" stroke="#EF4444" stroke-width="1.8" opacity="0.55"/>
+  <!-- Tongue tip curve -->
+  <path d="M 145 200 Q 155 206 165 200" stroke="#EF4444" stroke-width="1.2" fill="none" opacity="0.4"/>
+
+  <!-- ═══ WHISKERS ═══ -->
+  <line x1="108" y1="175" x2="74" y2="166" stroke="#78716C" stroke-width="1.3" opacity="0.5"/>
+  <line x1="108" y1="180" x2="72" y2="180" stroke="#78716C" stroke-width="1.3" opacity="0.5"/>
+  <line x1="108" y1="185" x2="74" y2="194" stroke="#78716C" stroke-width="1.3" opacity="0.4"/>
+  <line x1="202" y1="175" x2="236" y2="166" stroke="#78716C" stroke-width="1.3" opacity="0.5"/>
+  <line x1="202" y1="180" x2="238" y2="180" stroke="#78716C" stroke-width="1.3" opacity="0.5"/>
+  <line x1="202" y1="185" x2="236" y2="194" stroke="#78716C" stroke-width="1.3" opacity="0.4"/>
+</svg>
   </div>
-  <div style="margin-bottom:14px">
-    <div style="font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:8px;text-align:center">Как тебя зовут? 👤</div>
-    <input id="onb-name-input" class="username-input" placeholder="Введи своё имя..." maxlength="20" style="text-align:center;font-size:16px;border-radius:14px"/>
+
+  <!-- Stats pills row -->
+  <div style="position:relative;z-index:2;display:grid;grid-template-columns:repeat(4,1fr);gap:7px;padding:0 14px 14px;margin-top:-16px">
+    <div style="background:rgba(255,255,255,.85);border-radius:14px;padding:10px 4px;text-align:center;box-shadow:0 2px 14px rgba(108,71,255,.12);backdrop-filter:blur(4px);animation:fadeInUp .4s .1s ease both">
+      <div style="font-size:15px;font-weight:900;color:#6c47ff;line-height:1">1 542</div>
+      <div style="font-size:9px;color:#9ca3af;font-weight:700;margin-top:2px">📚 слова</div>
+    </div>
+    <div style="background:rgba(255,255,255,.85);border-radius:14px;padding:10px 4px;text-align:center;box-shadow:0 2px 14px rgba(108,71,255,.12);backdrop-filter:blur(4px);animation:fadeInUp .4s .2s ease both">
+      <div style="font-size:15px;font-weight:900;color:#6c47ff;line-height:1">641</div>
+      <div style="font-size:9px;color:#9ca3af;font-weight:700;margin-top:2px">💬 фразы</div>
+    </div>
+    <div style="background:rgba(255,255,255,.85);border-radius:14px;padding:10px 4px;text-align:center;box-shadow:0 2px 14px rgba(108,71,255,.12);backdrop-filter:blur(4px);animation:fadeInUp .4s .3s ease both">
+      <div style="font-size:15px;font-weight:900;color:#6c47ff;line-height:1">5 267</div>
+      <div style="font-size:9px;color:#9ca3af;font-weight:700;margin-top:2px">🧪 тестов</div>
+    </div>
+    <div style="background:rgba(255,255,255,.85);border-radius:14px;padding:10px 4px;text-align:center;box-shadow:0 2px 14px rgba(108,71,255,.12);backdrop-filter:blur(4px);animation:fadeInUp .4s .4s ease both">
+      <div style="font-size:15px;font-weight:900;color:#6c47ff;line-height:1">500</div>
+      <div style="font-size:9px;color:#9ca3af;font-weight:700;margin-top:2px">🎭 диалогов</div>
+    </div>
   </div>
-  <button class="btn-pu" onclick="startAppWithName()" style="width:100%;margin:0;border-radius:18px;font-size:16px;padding:17px;justify-content:center">🚀 Начать обучение →</button>
-  <div style="text-align:center;margin-top:10px;font-size:11px;color:#c4b5fd">Уровень можно изменить в Настройках</div>
+
+  <!-- Main form card -->
+  <div style="position:relative;z-index:2;background:rgba(255,255,255,.92);border-radius:28px 28px 0 0;padding:22px 20px 36px;box-shadow:0 -6px 32px rgba(108,71,255,.1);backdrop-filter:blur(8px);animation:slideUp .4s ease">
+
+    <!-- Username input -->
+    <div style="margin-bottom:16px">
+      <div style="font-size:13px;font-weight:800;color:#1a1a2e;margin-bottom:8px;text-align:center">Как тебя зовут? 👤</div>
+      <input id="onb-name-input" class="username-input" placeholder="Введи своё имя..." maxlength="20" style="text-align:center;font-size:16px;border-radius:14px;background:#f5f4ff"/>
+    </div>
+
+    <!-- Level selector -->
+    <div style="font-size:14px;font-weight:800;color:#1a1a2e;text-align:center;margin-bottom:4px">Выбери свой уровень</div>
+    <div style="font-size:11px;color:#9ca3af;text-align:center;margin-bottom:12px">Получишь задания именно для тебя</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px">
+      <div class="lv-card sel" onclick="selectLevel(this,'A1')"><div class="lv-badge">A1</div><div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Начинающий</div><div style="font-size:10px;color:#9ca3af">Только начинаю</div></div>
+      <div class="lv-card" onclick="selectLevel(this,'A2')"><div class="lv-badge">A2</div><div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Базовый</div><div style="font-size:10px;color:#9ca3af">Знаю основы</div></div>
+      <div class="lv-card" onclick="selectLevel(this,'B1')"><div class="lv-badge">B1</div><div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Средний</div><div style="font-size:10px;color:#9ca3af">Объясняюсь просто</div></div>
+      <div class="lv-card" onclick="selectLevel(this,'B2')"><div class="lv-badge">B2</div><div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Выше среднего</div><div style="font-size:10px;color:#9ca3af">Общаюсь свободно</div></div>
+      <div class="lv-card" onclick="selectLevel(this,'C1')"><div class="lv-badge">C1</div><div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Продвинутый</div><div style="font-size:10px;color:#9ca3af">Почти носитель</div></div>
+      <div class="lv-card" onclick="selectLevel(this,'C2')"><div class="lv-badge">C2</div><div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Мастер</div><div style="font-size:10px;color:#9ca3af">Уровень носителя</div></div>
+    </div>
+
+    <!-- CTA button -->
+    <button class="btn-pu" onclick="startAppWithName()" style="width:100%;margin:0;border-radius:18px;font-size:16px;padding:17px;justify-content:center;animation:glowPulse 2s ease-in-out infinite">🚀 Начать обучение →</button>
+    <div style="text-align:center;margin-top:10px;font-size:11px;color:#9ca3af">Уровень можно изменить в <span style="color:#6c47ff;font-weight:700">Профиле</span></div>
+  </div>
 </div>
+
+
 
 <!-- HEADER -->
 <div class="hdr" id="main-hdr" style="display:none">
