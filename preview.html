@@ -8773,33 +8773,23 @@ function renderChoiceTest(t){
 }
 function answerChoice(chosen,correct,xp,btn){
   const btns=document.querySelectorAll('#choice-opts .q-opt');
-  btns.forEach(b=>{b.style.pointerEvents='none';b.style.cursor='default';});
-  const result=document.getElementById('choice-result');result.style.display='block';
+  // Step 1: freeze ALL buttons — no interaction, no hover, full opacity, black text
+  btns.forEach(b=>{
+    b.style.cssText += ';pointer-events:none!important;cursor:default!important;opacity:1!important;color:#1a1a2e!important;transform:none!important;transition:none!important';
+  });
+  // Step 2: highlight chosen and correct
   if(chosen===correct){
-    btn.style.background='linear-gradient(135deg,#10b981,#6ee7b7)';btn.style.color='#fff';
-    btn.style.borderColor='#10b981';
-    result.textContent='✅ Правильно! +'+xp+' XP';result.style.color='#10b981';
+    btn.style.cssText += ';background:#dcfce7!important;border:2.5px solid #22c55e!important;color:#15803d!important;font-weight:900!important';
+    const result=document.getElementById('choice-result');
+    if(result){result.style.display='block';result.textContent='✅ Правильно! +'+xp+' XP';result.style.color='#16a34a';}
     addXP(xp);testsDone++;localStorage.setItem('td',testsDone);updateTestProgress();
   } else {
-    btn.style.background='linear-gradient(135deg,#f43f5e,#fb7185)';btn.style.color='#fff';
-    btn.style.borderColor='#f43f5e';
+    btn.style.cssText += ';background:#fee2e2!important;border:2.5px solid #ef4444!important;color:#dc2626!important;font-weight:700!important';
     const correctBtn=btns[correct];
-    if(correctBtn){
-      correctBtn.style.background='linear-gradient(135deg,#10b981,#6ee7b7)';
-      correctBtn.style.color='#fff';
-      correctBtn.style.borderColor='#10b981';
-    }
-    result.textContent='❌ Неверно. Правильный ответ выделен зелёным';result.style.color='#f43f5e';
+    if(correctBtn) correctBtn.style.cssText += ';background:#dcfce7!important;border:2.5px solid #22c55e!important;color:#15803d!important;font-weight:900!important';
+    const result=document.getElementById('choice-result');
+    if(result){result.style.display='block';result.textContent='❌ Неверно. Правильный ответ выделен зелёным';result.style.color='#ef4444';}
   }
-  // Dim neutral options (not chosen, not correct) but keep text readable
-  btns.forEach((b,i)=>{
-    if(i!==chosen && i!==correct){
-      b.style.opacity='0.45';
-    }
-  });
-  // Unlock word translation in question after answering
-  const qEl=document.getElementById('test-q-text');
-  if(qEl)qEl.innerHTML=wrapDialogText(qEl.textContent);
 }
 function renderInputTest(t){
   const area=document.getElementById('test-input-area');if(!area)return;
@@ -8854,12 +8844,12 @@ function answerListen(chosen,correct,xp,btn){
   document.querySelectorAll('#listen-opts .q-opt').forEach(b=>{b.style.pointerEvents='none';b.style.cursor='default';});
   const result=document.getElementById('listen-result');result.style.display='block';
   if(chosen===correct){
-    btn.style.background='linear-gradient(135deg,#10b981,#6ee7b7)';btn.style.color='#fff';
+    btn.style.background='rgba(220,252,231,0.9)';btn.style.borderColor='#22c55e';btn.style.color='#1a1a2e';btn.style.fontWeight='900';
     result.textContent='✅ Правильно! +'+xp+' XP';result.style.color='#10b981';
     addXP(xp);testsDone++;localStorage.setItem('td',testsDone);updateTestProgress();
   } else {
-    btn.style.background='linear-gradient(135deg,#f43f5e,#fb7185)';btn.style.color='#fff';
-    document.querySelectorAll('#listen-opts .q-opt').forEach(b=>{if(b.textContent===correct){b.style.background='linear-gradient(135deg,#10b981,#6ee7b7)';b.style.color='#fff';}});
+    btn.style.background='rgba(254,226,226,0.9)';btn.style.borderColor='#ef4444';btn.style.color='#1a1a2e';
+    document.querySelectorAll('#listen-opts .q-opt').forEach(b=>{if(b.textContent===correct){b.style.background='rgba(220,252,231,0.9)';b.style.borderColor='#22c55e';b.style.color='#1a1a2e';b.style.fontWeight='900';}});
     result.textContent='❌ Правильный ответ: '+correct;result.style.color='#f43f5e';
   }
 }
@@ -9067,12 +9057,12 @@ function answerIelts(btn,chosen,correct){
   btn.parentElement.querySelectorAll('.q-opt').forEach(b=>{b.style.pointerEvents='none';b.style.cursor='default';});
   const res=btn.parentElement.nextElementSibling;
   if(chosen===correct){
-    btn.style.background='linear-gradient(135deg,#10b981,#6ee7b7)';btn.style.color='#fff';
+    btn.style.background='rgba(220,252,231,0.9)';btn.style.borderColor='#22c55e';btn.style.color='#1a1a2e';btn.style.fontWeight='900';
     if(res){res.textContent='✅ Правильно! +20 XP';res.style.color='#10b981';}
     addXP(20);
   } else {
-    btn.style.background='linear-gradient(135deg,#f43f5e,#fb7185)';btn.style.color='#fff';
-    btn.parentElement.querySelectorAll('.q-opt').forEach(b=>{if(b.textContent===correct){b.style.background='linear-gradient(135deg,#10b981,#6ee7b7)';b.style.color='#fff';}});
+    btn.style.background='rgba(254,226,226,0.9)';btn.style.borderColor='#ef4444';btn.style.color='#1a1a2e';
+    btn.parentElement.querySelectorAll('.q-opt').forEach(b=>{if(b.textContent===correct){b.style.background='rgba(220,252,231,0.9)';b.style.borderColor='#22c55e';b.style.color='#1a1a2e';b.style.fontWeight='900';}});
     if(res){res.textContent='❌ Правильный ответ: '+correct;res.style.color='#f43f5e';}
   }
 }
