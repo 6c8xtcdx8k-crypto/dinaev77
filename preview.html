@@ -8738,7 +8738,7 @@ function renderChoiceTest(t){
   area.innerHTML=`
     <div class="test-card">
       <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:14px">
-        <div style="font-size:13px;font-weight:800;color:#1a1a2e;flex:1">${t.q}</div>
+        <div style="font-size:13px;font-weight:800;color:#1a1a2e;flex:1">${wrapDialogText(t.q)}</div>
         ${hasEn?`<button onclick="speak('${(t.q||'').replace(/'/g,"\'")}')" style="background:none;border:none;cursor:pointer;font-size:16px;padding:0;flex-shrink:0" title="Озвучить вопрос">🔊</button>`:''}
       </div>
       <div style="display:flex;flex-direction:column;gap:8px" id="choice-opts">
@@ -8767,7 +8767,7 @@ function renderInputTest(t){
   const ans=t.a.replace(/'/g,"\\'");
   area.innerHTML=`
     <div class="test-card">
-      <div style="font-size:13px;font-weight:800;color:#1a1a2e;margin-bottom:14px">${t.q}</div>
+      <div style="font-size:13px;font-weight:800;color:#1a1a2e;margin-bottom:14px">${wrapDialogText(t.q)}</div>
       <input class="q-input" id="input-answer" placeholder="Введи ответ…" onkeydown="if(event.key==='Enter')checkInput('${ans}',${t.xp||12})"/>
       <button onclick="checkInput('${ans}',${t.xp||12})" style="margin-top:10px;background:linear-gradient(135deg,#6c47ff,#a78bfa);color:#fff;border:none;padding:10px;border-radius:999px;font-size:13px;font-weight:800;cursor:pointer;width:100%">Проверить ✓</button>
       <div id="input-result" style="margin-top:10px;font-size:13px;font-weight:700;display:none"></div>
@@ -8883,7 +8883,7 @@ const miniDict={
   account:{ru:'счёт',ph:'əˈkaʊnt'},transfer:{ru:'перевод',ph:'ˈtrænsfɜː'},
   reservation:{ru:'бронирование',ph:'ˌrezəˈveɪʃn'},breakfast:{ru:'завтрак',ph:'ˈbrekfəst'},
   address:{ru:'адрес',ph:'ˈædrəs'},document:{ru:'документ',ph:'ˈdɒkjʊmənt'},
-  form:{ru:'бланк',ph:'fɔːm'},check:{ru:'проверить',ph:'tʃek'},
+  form:{ru:'бланк',ph:'fɔːm'},
 };
 function lookupWord(w){
   const clean=w.toLowerCase().replace(/[^a-z]/g,'');
@@ -8929,7 +8929,7 @@ function showDwPopup(e,word,ph,ru){
   if(top+130>window.innerHeight)top=r.top-140;
   pop.style.top=top+'px';pop.style.left=left+'px';
   speak(word,'en-US');
-  setTimeout(()=>document.addEventListener('click',function h(){if(_dwPopup){_dwPopup.remove();_dwPopup=null;}document.removeEventListener('click',h);},50));
+  setTimeout(()=>{document.addEventListener('click',function h(){if(_dwPopup){_dwPopup.remove();_dwPopup=null;}document.removeEventListener('click',h);});},50);
 }
 
 function showSimStep(){
