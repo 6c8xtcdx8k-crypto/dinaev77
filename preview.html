@@ -2314,7 +2314,7 @@ button{cursor:pointer}
       </div>
       <div style="margin-left:auto;text-align:right">
         <div style="font-size:11px;color:rgba(255,255,255,.7)">Топ 7% игроков</div>
-        <button style="background:rgba(255,255,255,.2);color:#fff;border:none;border-radius:10px;padding:5px 10px;font-size:10px;font-weight:700;cursor:pointer;margin-top:4px">Подробнее →</button>
+        <button onclick="showRankDetails()" style="background:rgba(255,255,255,.2);color:#fff;border:none;border-radius:10px;padding:5px 10px;font-size:10px;font-weight:700;cursor:pointer;margin-top:4px">Подробнее →</button>
       </div>
     </div>
   </div>
@@ -9538,6 +9538,71 @@ function toggleProfileInfo(){
   overlay.addEventListener('click',function(e){
     if(e.target===overlay)overlay.remove();
   });
+  document.body.appendChild(overlay);
+}
+function showRankDetails(){
+  const existing=document.getElementById('rank-details-overlay');
+  if(existing){existing.remove();return;}
+  const ranks=[
+    {icon:'🌱',name:'Новичок',range:'0 – 199 XP',desc:'Делаешь первые шаги. Главное — начать!',color:'#10B981',bg:'#ECFDF5',active:xpTotal<200},
+    {icon:'🗺️',name:'Путешественник',range:'200 – 999 XP',desc:'Ты уже знаешь основы и движешься вперёд.',color:'#7C3AED',bg:'#F5F3FF',active:xpTotal>=200&&xpTotal<1000},
+    {icon:'⚔️',name:'Искатель',range:'1 000 – 2 999 XP',desc:'Берёшься за сложные сценарии и тесты.',color:'#F59E0B',bg:'#FFFBEB',active:xpTotal>=1000&&xpTotal<3000},
+    {icon:'🏆',name:'Мастер',range:'3 000 – 6 999 XP',desc:'Уверенно говоришь на английском в реальной жизни.',color:'#EF4444',bg:'#FFF1F2',active:xpTotal>=3000&&xpTotal<7000},
+    {icon:'💎',name:'Легенда',range:'7 000 – 14 999 XP',desc:'Входишь в топ игроков. Тебе под силу любой квест.',color:'#3B82F6',bg:'#EFF6FF',active:xpTotal>=7000&&xpTotal<15000},
+    {icon:'👑',name:'Чемпион',range:'15 000+ XP',desc:'Высший ранг. Настоящий знаток английского.',color:'#D97706',bg:'#FFFBEB',active:xpTotal>=15000},
+  ];
+  const currentRank=ranks.find(r=>r.active)||ranks[0];
+  const overlay=document.createElement('div');
+  overlay.id='rank-details-overlay';
+  overlay.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9000;display:flex;align-items:flex-end;justify-content:center;animation:fadeIn .2s ease';
+  overlay.innerHTML=`
+    <div style="background:#fff;border-radius:28px 28px 0 0;width:100%;max-width:480px;padding:0 0 36px;animation:slideUp .35s cubic-bezier(.34,1.56,.64,1);max-height:90vh;overflow-y:auto">
+      <div style="width:40px;height:4px;background:#e5e7eb;border-radius:99px;margin:12px auto 0"></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px 4px">
+        <div style="font-size:16px;font-weight:900;color:#1F2937">🛡️ Система рангов</div>
+        <button onclick="document.getElementById('rank-details-overlay').remove()" style="width:32px;height:32px;border-radius:50%;background:#f3f4f6;border:none;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;color:#6b7280;line-height:1">×</button>
+      </div>
+      <!-- Current rank highlight -->
+      <div style="margin:12px 20px 4px;background:linear-gradient(135deg,#6c47ff,#8b5cf6);border-radius:18px;padding:16px;color:#fff">
+        <div style="font-size:11px;opacity:.8;margin-bottom:4px">Твой текущий ранг</div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="font-size:32px">${currentRank.icon}</div>
+          <div>
+            <div style="font-size:20px;font-weight:900">${currentRank.name}</div>
+            <div style="font-size:11px;opacity:.8;margin-top:2px">${currentRank.range}</div>
+          </div>
+          <div style="margin-left:auto;text-align:right">
+            <div style="font-size:22px;font-weight:900">${xpTotal.toLocaleString('ru')}</div>
+            <div style="font-size:10px;opacity:.8">XP набрано</div>
+          </div>
+        </div>
+      </div>
+      <!-- All ranks list -->
+      <div style="padding:12px 20px 4px;font-size:11px;font-weight:700;color:#9CA3AF;letter-spacing:.4px">ВСЕ РАНГИ</div>
+      <div style="padding:0 20px">
+        ${ranks.map((r,i)=>`
+          <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:14px;margin-bottom:6px;background:${r.active?r.bg:'#f9fafb'};border:2px solid ${r.active?r.color:'transparent'};transition:.2s">
+            <div style="font-size:28px;width:38px;text-align:center;flex-shrink:0">${r.icon}</div>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:13px;font-weight:900;color:${r.active?r.color:'#1F2937'}">${r.name}${r.active?' ← ты здесь':''}</div>
+              <div style="font-size:10px;color:#6B7280;margin-top:1px">${r.range}</div>
+              <div style="font-size:10px;color:#9CA3AF;margin-top:2px;line-height:1.4">${r.desc}</div>
+            </div>
+            ${r.active?`<div style="width:10px;height:10px;border-radius:50%;background:${r.color};flex-shrink:0"></div>`:`<div style="width:10px;height:10px;border-radius:50%;background:#e5e7eb;flex-shrink:0"></div>`}
+          </div>`).join('')}
+      </div>
+      <!-- How to level up -->
+      <div style="margin:8px 20px 0;background:#f5f3ff;border-radius:16px;padding:14px">
+        <div style="font-size:12px;font-weight:900;color:#6c47ff;margin-bottom:8px">⚡ Как повысить ранг?</div>
+        <div style="font-size:11px;color:#6B7280;line-height:1.7">
+          • Проходи тесты — каждый даёт XP<br>
+          • Выполняй симуляции диалогов<br>
+          • Поддерживай серию дней подряд 🔥<br>
+          • Открывай новые локации и квесты
+        </div>
+      </div>
+    </div>`;
+  overlay.addEventListener('click',e=>{if(e.target===overlay)overlay.remove();});
   document.body.appendChild(overlay);
 }
 function showRatingTab(tab,btn){
