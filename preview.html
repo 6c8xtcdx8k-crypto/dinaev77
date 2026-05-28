@@ -290,7 +290,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
 .rating-row{background:#fff;border-radius:14px;margin:0 16px 6px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05);transition:.15s}
 .rating-row.me{background:linear-gradient(135deg,#F5F3FF,#EDE9FE);border:2px solid #7C3AED}
 .rr-rank{width:22px;font-size:13px;font-weight:900;color:#9CA3AF;text-align:center;flex-shrink:0}
-.rr-avatar{width:34px;height:34px;border-radius:50%;overflow:hidden;background:#EDE9FE;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.rr-avatar{width:34px;height:34px;border-radius:50%;overflow:hidden;background:transparent;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
 .rr-name{flex:1;font-size:13px;font-weight:700;color:#1F2937}
 .rr-xp{font-size:11px;font-weight:700;color:#7C3AED;white-space:nowrap}
 /* Dashboard */
@@ -313,7 +313,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
 @keyframes chestFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-4px) scale(1.05)}}
 /* Goal item */
 .goal-item{background:#fff;border-radius:14px;margin:0 16px 8px;padding:12px 14px;box-shadow:0 2px 8px rgba(0,0,0,.05);display:flex;align-items:center;gap:10px}
-.goal-icon-wrap{width:36px;height:36px;border-radius:10px;background:#EDE9FE;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.goal-icon-wrap{width:36px;height:36px;border-radius:10px;background:transparent;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
 /* Nav icon override */
 .nb.active{color:#7C3AED!important}
 .nb.active::after{background:#7C3AED!important}
@@ -334,6 +334,10 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
 .q-input,.username-input{background:rgba(255,255,255,.55)!important;}
 .phone:not([data-theme="dark"]) .page{background:transparent!important;}
 .phone{background:linear-gradient(135deg,#e0d7ff 0%,#f0d9f7 40%,#fddcbc 100%)!important;}
+
+/* Icon backgrounds → transparent */
+.goal-icon-wrap{background:transparent!important;}
+.rr-avatar{background:transparent!important;}
 /* === END GLASS THEME === */
 </style>
 </head>
@@ -484,7 +488,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
         </div>
         <div style="flex:1">
           <div style="font-size:18px;font-weight:900;color:#1F2937;margin-bottom:6px" id="home-xp-text">0 / 500 XP</div>
-          <div style="height:8px;border-radius:999px;background:#EDE9FE;overflow:hidden"><div id="home-pbar" style="height:100%;border-radius:999px;background:linear-gradient(90deg,#7C3AED,#A78BFA);width:0%;transition:.8s ease"></div></div>
+          <div style="height:8px;border-radius:999px;background:transparent;overflow:hidden"><div id="home-pbar" style="height:100%;border-radius:999px;background:linear-gradient(90deg,#7C3AED,#A78BFA);width:0%;transition:.8s ease"></div></div>
           <div style="font-size:10px;color:#9CA3AF;margin-top:4px" id="home-xp-left">До следующего уровня: 500 XP</div>
         </div>
       </div>
@@ -719,7 +723,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
   <div id="stab-ielts" style="display:none">
     <div class="banner" style="background:linear-gradient(135deg,#6c47ff,#8b5cf6);color:#fff;margin-top:10px"><div style="font-size:15px;font-weight:800;margin-bottom:4px">🎓 IELTS — Международный экзамен</div><div style="font-size:12px;opacity:.85">Шкала 0–9 · Признаётся в 140+ странах</div></div>
     <div class="ielts-card" onclick="showSubPage('ielts-reading')"><div style="width:52px;height:52px;border-radius:14px;background:#dbeafe;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0">📖</div><div style="flex:1"><div style="font-size:14px;font-weight:800;color:#1a1a2e;margin-bottom:3px">Reading</div><div style="font-size:11px;color:#9ca3af">60 мин · 40 вопросов</div></div><div style="color:#d1d5db;font-size:20px">›</div></div>
-    <div class="ielts-card" onclick="showSubPage('ielts-writing')"><div style="width:52px;height:52px;border-radius:14px;background:rgba(196,181,253,.25);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0">✍️</div><div style="flex:1"><div style="font-size:14px;font-weight:800;color:#1a1a2e;margin-bottom:3px">Writing</div><div style="font-size:11px;color:#9ca3af">60 мин · 2 задания</div></div><div style="color:#d1d5db;font-size:20px">›</div></div>
+    <div class="ielts-card" onclick="showSubPage('ielts-writing')"><div style="width:52px;height:52px;border-radius:14px;background:transparent;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0">✍️</div><div style="flex:1"><div style="font-size:14px;font-weight:800;color:#1a1a2e;margin-bottom:3px">Writing</div><div style="font-size:11px;color:#9ca3af">60 мин · 2 задания</div></div><div style="color:#d1d5db;font-size:20px">›</div></div>
     <div class="ielts-card" onclick="showSubPage('ielts-listening')"><div style="width:52px;height:52px;border-radius:14px;background:#fef3c7;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0">🎧</div><div style="flex:1"><div style="font-size:14px;font-weight:800;color:#1a1a2e;margin-bottom:3px">Listening</div><div style="font-size:11px;color:#9ca3af">30 мин · 40 вопросов</div></div><div style="color:#d1d5db;font-size:20px">›</div></div>
     <div class="ielts-card" onclick="showSubPage('ielts-speaking')"><div style="width:52px;height:52px;border-radius:14px;background:#fce7f3;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0">🗣️</div><div style="flex:1"><div style="font-size:14px;font-weight:800;color:#1a1a2e;margin-bottom:3px">Speaking</div><div style="font-size:11px;color:#9ca3af">11–14 мин · 3 части</div></div><div style="color:#d1d5db;font-size:20px">›</div></div>
   </div>
@@ -841,19 +845,19 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="display:flex;flex-direction:column;gap:7px">
             <div style="display:flex;align-items:center;justify-content:space-between;background:#F9FAFB;border-radius:10px;padding:9px 12px">
               <div><div style="font-size:13px;font-weight:700;color:#1F2937">I work every day.</div><div style="font-size:11px;color:#6B7280">Я работаю каждый день.</div></div>
-              <button onclick="speak('I work every day.')" style="background:#EDE9FE;border:none;border-radius:8px;padding:5px 8px;cursor:pointer;font-size:13px">🔊</button>
+              <button onclick="speak('I work every day.')" style="background:transparent;border:none;border-radius:8px;padding:5px 8px;cursor:pointer;font-size:13px">🔊</button>
             </div>
             <div style="display:flex;align-items:center;justify-content:space-between;background:#F9FAFB;border-radius:10px;padding:9px 12px">
               <div><div style="font-size:13px;font-weight:700;color:#1F2937">She likes coffee.</div><div style="font-size:11px;color:#6B7280">Она любит кофе.</div></div>
-              <button onclick="speak('She likes coffee.')" style="background:#EDE9FE;border:none;border-radius:8px;padding:5px 8px;cursor:pointer;font-size:13px">🔊</button>
+              <button onclick="speak('She likes coffee.')" style="background:transparent;border:none;border-radius:8px;padding:5px 8px;cursor:pointer;font-size:13px">🔊</button>
             </div>
             <div style="display:flex;align-items:center;justify-content:space-between;background:#F9FAFB;border-radius:10px;padding:9px 12px">
               <div><div style="font-size:13px;font-weight:700;color:#1F2937">Do you speak English?</div><div style="font-size:11px;color:#6B7280">Вы говорите по-английски?</div></div>
-              <button onclick="speak('Do you speak English?')" style="background:#EDE9FE;border:none;border-radius:8px;padding:5px 8px;cursor:pointer;font-size:13px">🔊</button>
+              <button onclick="speak('Do you speak English?')" style="background:transparent;border:none;border-radius:8px;padding:5px 8px;cursor:pointer;font-size:13px">🔊</button>
             </div>
             <div style="display:flex;align-items:center;justify-content:space-between;background:#F9FAFB;border-radius:10px;padding:9px 12px">
               <div><div style="font-size:13px;font-weight:700;color:#1F2937">He does not drive.</div><div style="font-size:11px;color:#6B7280">Он не водит машину.</div></div>
-              <button onclick="speak('He does not drive.')" style="background:#EDE9FE;border:none;border-radius:8px;padding:5px 8px;cursor:pointer;font-size:13px">🔊</button>
+              <button onclick="speak('He does not drive.')" style="background:transparent;border:none;border-radius:8px;padding:5px 8px;cursor:pointer;font-size:13px">🔊</button>
             </div>
           </div>
         </div>
@@ -1036,7 +1040,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">быть / являться</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">I am happy.</div>
         </div>
-        <button onclick="speak('be')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('be')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1044,7 +1048,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">иметь</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">I have a car.</div>
         </div>
-        <button onclick="speak('have')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('have')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1052,7 +1056,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">делать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Do your homework.</div>
         </div>
-        <button onclick="speak('do')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('do')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1060,7 +1064,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">говорить/сказать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">She said yes.</div>
         </div>
-        <button onclick="speak('say')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('say')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1068,7 +1072,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">получать / становиться</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Get the keys.</div>
         </div>
-        <button onclick="speak('get')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('get')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1076,7 +1080,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">делать / создавать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Make a plan.</div>
         </div>
-        <button onclick="speak('make')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('make')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1084,7 +1088,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">идти / ехать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Let's go!</div>
         </div>
-        <button onclick="speak('go')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('go')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1092,7 +1096,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">знать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">I know the answer.</div>
         </div>
-        <button onclick="speak('know')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('know')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1100,7 +1104,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">брать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Take your bag.</div>
         </div>
-        <button onclick="speak('take')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('take')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1108,7 +1112,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">видеть</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">I see you.</div>
         </div>
-        <button onclick="speak('see')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('see')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1116,7 +1120,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">приходить</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Come here.</div>
         </div>
-        <button onclick="speak('come')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('come')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1124,7 +1128,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">думать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">I think so.</div>
         </div>
-        <button onclick="speak('think')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('think')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1132,7 +1136,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">смотреть</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Look at me.</div>
         </div>
-        <button onclick="speak('look')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('look')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1140,7 +1144,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">хотеть</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">I want coffee.</div>
         </div>
-        <button onclick="speak('want')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('want')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1148,7 +1152,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">давать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Give me a hand.</div>
         </div>
-        <button onclick="speak('give')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('give')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1156,7 +1160,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">использовать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Use a pen.</div>
         </div>
-        <button onclick="speak('use')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('use')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1164,7 +1168,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">находить</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Find the key.</div>
         </div>
-        <button onclick="speak('find')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('find')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1172,7 +1176,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">рассказывать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Tell me more.</div>
         </div>
-        <button onclick="speak('tell')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('tell')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1180,7 +1184,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">спрашивать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Ask a question.</div>
         </div>
-        <button onclick="speak('ask')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('ask')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1188,7 +1192,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">работать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">I work here.</div>
         </div>
-        <button onclick="speak('work')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('work')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1196,7 +1200,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">казаться</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">It seems fine.</div>
         </div>
-        <button onclick="speak('seem')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('seem')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1204,7 +1208,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">чувствовать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">I feel great.</div>
         </div>
-        <button onclick="speak('feel')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('feel')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1212,7 +1216,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">пробовать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Try again.</div>
         </div>
-        <button onclick="speak('try')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('try')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1220,7 +1224,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">уходить / оставлять</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Leave now.</div>
         </div>
-        <button onclick="speak('leave')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('leave')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1228,7 +1232,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">звонить / называть</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Call me later.</div>
         </div>
-        <button onclick="speak('call')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('call')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1236,7 +1240,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">держать / продолжать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Keep going.</div>
         </div>
-        <button onclick="speak('keep')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('keep')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1244,7 +1248,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">позволять</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Let me in.</div>
         </div>
-        <button onclick="speak('let')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('let')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1252,7 +1256,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">начинать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Begin the task.</div>
         </div>
-        <button onclick="speak('begin')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('begin')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1260,7 +1264,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">показывать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Show me.</div>
         </div>
-        <button onclick="speak('show')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('show')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1268,7 +1272,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">слышать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">I hear music.</div>
         </div>
-        <button onclick="speak('hear')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('hear')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1276,7 +1280,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">играть</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Play outside.</div>
         </div>
-        <button onclick="speak('play')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('play')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1284,7 +1288,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">бежать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Run fast.</div>
         </div>
-        <button onclick="speak('run')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('run')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1292,7 +1296,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">двигаться</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Move forward.</div>
         </div>
-        <button onclick="speak('move')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('move')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1300,7 +1304,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">жить</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">I live here.</div>
         </div>
-        <button onclick="speak('live')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('live')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1308,7 +1312,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">верить</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">I believe you.</div>
         </div>
-        <button onclick="speak('believe')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('believe')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1316,7 +1320,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">держать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Hold on.</div>
         </div>
-        <button onclick="speak('hold')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('hold')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1324,7 +1328,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">приносить</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Bring water.</div>
         </div>
-        <button onclick="speak('bring')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('bring')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1332,7 +1336,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">случаться</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">What happened?</div>
         </div>
-        <button onclick="speak('happen')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('happen')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1340,7 +1344,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">писать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Write it down.</div>
         </div>
-        <button onclick="speak('write')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('write')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1348,7 +1352,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">предоставлять</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Provide info.</div>
         </div>
-        <button onclick="speak('provide')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('provide')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1356,7 +1360,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">сидеть</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Sit down.</div>
         </div>
-        <button onclick="speak('sit')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('sit')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1364,7 +1368,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">стоять</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Stand up.</div>
         </div>
-        <button onclick="speak('stand')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('stand')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1372,7 +1376,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">терять / проигрывать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Don't lose it.</div>
         </div>
-        <button onclick="speak('lose')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('lose')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1380,7 +1384,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">платить</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Pay the bill.</div>
         </div>
-        <button onclick="speak('pay')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('pay')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1388,7 +1392,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">встречать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Meet me here.</div>
         </div>
-        <button onclick="speak('meet')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('meet')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1396,7 +1400,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">включать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Include me.</div>
         </div>
-        <button onclick="speak('include')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('include')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1404,7 +1408,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">продолжать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Continue walking.</div>
         </div>
-        <button onclick="speak('continue')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('continue')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1412,7 +1416,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">устанавливать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Set the alarm.</div>
         </div>
-        <button onclick="speak('set')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('set')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1420,7 +1424,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">учиться</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Learn English.</div>
         </div>
-        <button onclick="speak('learn')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('learn')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1428,7 +1432,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">менять(ся)</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Change your mind.</div>
         </div>
-        <button onclick="speak('change')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('change')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1436,7 +1440,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">вести / руководить</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Lead the way.</div>
         </div>
-        <button onclick="speak('lead')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('lead')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1444,7 +1448,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">понимать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">I understand.</div>
         </div>
-        <button onclick="speak('understand')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('understand')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1452,7 +1456,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">наблюдать / смотреть</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Watch TV.</div>
         </div>
-        <button onclick="speak('watch')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('watch')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1460,7 +1464,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">следовать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Follow me.</div>
         </div>
-        <button onclick="speak('follow')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('follow')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1468,7 +1472,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">останавливать(ся)</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Stop talking.</div>
         </div>
-        <button onclick="speak('stop')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('stop')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1476,7 +1480,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">создавать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Create art.</div>
         </div>
-        <button onclick="speak('create')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('create')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1484,7 +1488,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">говорить</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Speak slowly.</div>
         </div>
-        <button onclick="speak('speak')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('speak')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1492,7 +1496,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">читать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Read a book.</div>
         </div>
-        <button onclick="speak('read')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('read')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1500,7 +1504,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">тратить</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Spend wisely.</div>
         </div>
-        <button onclick="speak('spend')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('spend')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1508,7 +1512,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">расти</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Grow up.</div>
         </div>
-        <button onclick="speak('grow')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('grow')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1516,7 +1520,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">открывать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Open the door.</div>
         </div>
-        <button onclick="speak('open')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('open')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1524,7 +1528,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">ходить / гулять</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Walk the dog.</div>
         </div>
-        <button onclick="speak('walk')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('walk')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1532,7 +1536,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">побеждать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Win the game.</div>
         </div>
-        <button onclick="speak('win')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('win')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1540,7 +1544,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">предлагать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Offer help.</div>
         </div>
-        <button onclick="speak('offer')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('offer')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1548,7 +1552,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">помнить</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Remember me.</div>
         </div>
-        <button onclick="speak('remember')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('remember')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1556,7 +1560,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">любить</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">I love you.</div>
         </div>
-        <button onclick="speak('love')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('love')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1564,7 +1568,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">рассматривать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Consider this.</div>
         </div>
-        <button onclick="speak('consider')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('consider')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1572,7 +1576,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">появляться</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Appear on time.</div>
         </div>
-        <button onclick="speak('appear')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('appear')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1580,7 +1584,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">покупать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Buy groceries.</div>
         </div>
-        <button onclick="speak('buy')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('buy')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1588,7 +1592,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">ждать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Wait here.</div>
         </div>
-        <button onclick="speak('wait')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('wait')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1596,7 +1600,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">служить / обслуживать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Serve the guests.</div>
         </div>
-        <button onclick="speak('serve')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('serve')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1604,7 +1608,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">умирать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Plants die.</div>
         </div>
-        <button onclick="speak('die')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('die')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1612,7 +1616,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">отправлять</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Send a message.</div>
         </div>
-        <button onclick="speak('send')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('send')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1620,7 +1624,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">ожидать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Expect results.</div>
         </div>
-        <button onclick="speak('expect')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('expect')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1628,7 +1632,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">строить</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Build a house.</div>
         </div>
-        <button onclick="speak('build')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('build')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1636,7 +1640,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">оставаться</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Stay here.</div>
         </div>
-        <button onclick="speak('stay')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('stay')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1644,7 +1648,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">падать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Don't fall.</div>
         </div>
-        <button onclick="speak('fall')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('fall')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1652,7 +1656,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">резать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Cut the rope.</div>
         </div>
-        <button onclick="speak('cut')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('cut')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1660,7 +1664,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">достигать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Reach the top.</div>
         </div>
-        <button onclick="speak('reach')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('reach')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1668,7 +1672,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">убивать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Kill the bug.</div>
         </div>
-        <button onclick="speak('kill')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('kill')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1676,7 +1680,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">оставаться</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Remain calm.</div>
         </div>
-        <button onclick="speak('remain')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('remain')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1684,7 +1688,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">предлагать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Suggest ideas.</div>
         </div>
-        <button onclick="speak('suggest')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('suggest')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1692,7 +1696,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">поднимать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Raise your hand.</div>
         </div>
-        <button onclick="speak('raise')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('raise')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1700,7 +1704,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">проходить / передавать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Pass the test.</div>
         </div>
-        <button onclick="speak('pass')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('pass')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1708,7 +1712,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">продавать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Sell the car.</div>
         </div>
-        <button onclick="speak('sell')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('sell')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1716,7 +1720,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">требовать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">It requires effort.</div>
         </div>
-        <button onclick="speak('require')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('require')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1724,7 +1728,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">сообщать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Report the bug.</div>
         </div>
-        <button onclick="speak('report')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('report')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1732,7 +1736,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">решать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Decide now.</div>
         </div>
-        <button onclick="speak('decide')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('decide')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1740,7 +1744,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">тянуть</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Pull the door.</div>
         </div>
-        <button onclick="speak('pull')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('pull')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1748,7 +1752,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">ломать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Break the ice.</div>
         </div>
-        <button onclick="speak('break')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('break')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1756,7 +1760,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">получать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Receive a gift.</div>
         </div>
-        <button onclick="speak('receive')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('receive')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1764,7 +1768,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">соглашаться</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">I agree.</div>
         </div>
-        <button onclick="speak('agree')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('agree')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1772,7 +1776,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">поддерживать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Support the team.</div>
         </div>
-        <button onclick="speak('support')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('support')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1780,7 +1784,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">ударять</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Hit the target.</div>
         </div>
-        <button onclick="speak('hit')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('hit')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1788,7 +1792,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">производить</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Produce results.</div>
         </div>
-        <button onclick="speak('produce')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('produce')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1796,7 +1800,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">есть</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Eat your food.</div>
         </div>
-        <button onclick="speak('eat')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('eat')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1804,7 +1808,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">покрывать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Cover the topic.</div>
         </div>
-        <button onclick="speak('cover')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('cover')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1812,7 +1816,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">ловить</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Catch the ball.</div>
         </div>
-        <button onclick="speak('catch')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('catch')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
       <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
         <div style="flex:1">
@@ -1820,7 +1824,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
           <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">выбирать</div>
           <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Choose wisely.</div>
         </div>
-        <button onclick="speak('choose')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+        <button onclick="speak('choose')" style="width:34px;height:34px;background:transparent;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
       </div>
     </div><!-- end basics-verbs -->
 
@@ -1968,7 +1972,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
       <!-- 2nd -->
       <div style="background:#fff;border-radius:18px;padding:14px 8px;text-align:center;box-shadow:0 3px 14px rgba(0,0,0,.06)">
         <div style="font-size:20px;margin-bottom:6px">🥈</div>
-        <div style="width:52px;height:52px;border-radius:50%;overflow:hidden;margin:0 auto 6px;border:2px solid #E5E7EB;background:#EDE9FE;display:flex;align-items:center;justify-content:center"><img class="fox-img" style="width:52px;height:auto" alt="fox"/></div>
+        <div style="width:52px;height:52px;border-radius:50%;overflow:hidden;margin:0 auto 6px;border:2px solid #E5E7EB;background:transparent;display:flex;align-items:center;justify-content:center"><img class="fox-img" style="width:52px;height:auto" alt="fox"/></div>
         <div style="font-size:11px;font-weight:800;color:#1F2937;margin-bottom:2px">SkyWalker</div>
         <div style="font-size:10px;font-weight:700;color:#7C3AED">XP 18 450</div>
         <div style="font-size:20px;font-weight:900;color:#6B7280;margin-top:4px">2</div>
@@ -1976,7 +1980,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
       <!-- 1st -->
       <div style="background:linear-gradient(145deg,#FEF9C3,#FDE68A);border-radius:20px;padding:16px 10px;text-align:center;box-shadow:0 6px 24px rgba(245,158,11,.3)">
         <div style="font-size:22px;margin-bottom:6px">👑</div>
-        <div style="width:60px;height:60px;border-radius:50%;overflow:hidden;margin:0 auto 6px;border:3px solid #F59E0B;background:#EDE9FE;display:flex;align-items:center;justify-content:center"><img class="fox-img" style="width:60px;height:auto" alt="fox"/></div>
+        <div style="width:60px;height:60px;border-radius:50%;overflow:hidden;margin:0 auto 6px;border:3px solid #F59E0B;background:transparent;display:flex;align-items:center;justify-content:center"><img class="fox-img" style="width:60px;height:auto" alt="fox"/></div>
         <div style="font-size:12px;font-weight:900;color:#1F2937;margin-bottom:2px">FoxLegend</div>
         <div style="font-size:11px;font-weight:700;color:#7C3AED">XP 24 500</div>
         <div style="font-size:22px;font-weight:900;color:#D97706;margin-top:4px">1</div>
@@ -1984,7 +1988,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
       <!-- 3rd -->
       <div style="background:#fff;border-radius:18px;padding:14px 8px;text-align:center;box-shadow:0 3px 14px rgba(0,0,0,.06)">
         <div style="font-size:20px;margin-bottom:6px">🥉</div>
-        <div style="width:52px;height:52px;border-radius:50%;overflow:hidden;margin:0 auto 6px;border:2px solid #E5E7EB;background:#EDE9FE;display:flex;align-items:center;justify-content:center"><img class="fox-img" style="width:52px;height:auto" alt="fox"/></div>
+        <div style="width:52px;height:52px;border-radius:50%;overflow:hidden;margin:0 auto 6px;border:2px solid #E5E7EB;background:transparent;display:flex;align-items:center;justify-content:center"><img class="fox-img" style="width:52px;height:auto" alt="fox"/></div>
         <div style="font-size:11px;font-weight:800;color:#1F2937;margin-bottom:2px">AeroNinja</div>
         <div style="font-size:10px;font-weight:700;color:#7C3AED">XP 22 300</div>
         <div style="font-size:20px;font-weight:900;color:#6B7280;margin-top:4px">3</div>
@@ -2073,35 +2077,35 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
       <div class="cat-bar-row">
         <div class="cat-bar-icon" style="background:#E0F2FE">✈️</div>
         <div style="font-size:12px;font-weight:700;color:#1F2937;flex:1">Аэропорт</div>
-        <div style="flex:2;height:6px;background:#EDE9FE;border-radius:999px;overflow:hidden;margin:0 8px"><div style="width:75%;height:100%;background:linear-gradient(90deg,#7C3AED,#A78BFA);border-radius:999px"></div></div>
+        <div style="flex:2;height:6px;background:transparent;border-radius:999px;overflow:hidden;margin:0 8px"><div style="width:75%;height:100%;background:linear-gradient(90deg,#7C3AED,#A78BFA);border-radius:999px"></div></div>
         <div style="font-size:11px;color:#7C3AED;font-weight:700;width:30px;text-align:right">75%</div>
         <div style="font-size:11px;color:#9CA3AF;width:32px;text-align:right">6/8</div>
       </div>
       <div class="cat-bar-row">
         <div class="cat-bar-icon" style="background:#ECFDF5">🏥</div>
         <div style="font-size:12px;font-weight:700;color:#1F2937;flex:1">Врач</div>
-        <div style="flex:2;height:6px;background:#EDE9FE;border-radius:999px;overflow:hidden;margin:0 8px"><div style="width:60%;height:100%;background:linear-gradient(90deg,#7C3AED,#A78BFA);border-radius:999px"></div></div>
+        <div style="flex:2;height:6px;background:transparent;border-radius:999px;overflow:hidden;margin:0 8px"><div style="width:60%;height:100%;background:linear-gradient(90deg,#7C3AED,#A78BFA);border-radius:999px"></div></div>
         <div style="font-size:11px;color:#7C3AED;font-weight:700;width:30px;text-align:right">60%</div>
         <div style="font-size:11px;color:#9CA3AF;width:32px;text-align:right">4/8</div>
       </div>
       <div class="cat-bar-row">
         <div class="cat-bar-icon" style="background:#FFFBEB">🏠</div>
         <div style="font-size:12px;font-weight:700;color:#1F2937;flex:1">Аренда жилья</div>
-        <div style="flex:2;height:6px;background:#EDE9FE;border-radius:999px;overflow:hidden;margin:0 8px"><div style="width:50%;height:100%;background:linear-gradient(90deg,#7C3AED,#A78BFA);border-radius:999px"></div></div>
+        <div style="flex:2;height:6px;background:transparent;border-radius:999px;overflow:hidden;margin:0 8px"><div style="width:50%;height:100%;background:linear-gradient(90deg,#7C3AED,#A78BFA);border-radius:999px"></div></div>
         <div style="font-size:11px;color:#7C3AED;font-weight:700;width:30px;text-align:right">50%</div>
         <div style="font-size:11px;color:#9CA3AF;width:32px;text-align:right">3/5</div>
       </div>
       <div class="cat-bar-row">
         <div class="cat-bar-icon" style="background:#EFF6FF">🏦</div>
         <div style="font-size:12px;font-weight:700;color:#1F2937;flex:1">Банк</div>
-        <div style="flex:2;height:6px;background:#EDE9FE;border-radius:999px;overflow:hidden;margin:0 8px"><div style="width:40%;height:100%;background:linear-gradient(90deg,#7C3AED,#A78BFA);border-radius:999px"></div></div>
+        <div style="flex:2;height:6px;background:transparent;border-radius:999px;overflow:hidden;margin:0 8px"><div style="width:40%;height:100%;background:linear-gradient(90deg,#7C3AED,#A78BFA);border-radius:999px"></div></div>
         <div style="font-size:11px;color:#7C3AED;font-weight:700;width:30px;text-align:right">40%</div>
         <div style="font-size:11px;color:#9CA3AF;width:32px;text-align:right">2/5</div>
       </div>
       <div class="cat-bar-row">
         <div class="cat-bar-icon" style="background:#F5F3FF">💼</div>
         <div style="font-size:12px;font-weight:700;color:#1F2937;flex:1">Собеседование</div>
-        <div style="flex:2;height:6px;background:#EDE9FE;border-radius:999px;overflow:hidden;margin:0 8px"><div style="width:30%;height:100%;background:linear-gradient(90deg,#7C3AED,#A78BFA);border-radius:999px"></div></div>
+        <div style="flex:2;height:6px;background:transparent;border-radius:999px;overflow:hidden;margin:0 8px"><div style="width:30%;height:100%;background:linear-gradient(90deg,#7C3AED,#A78BFA);border-radius:999px"></div></div>
         <div style="font-size:11px;color:#7C3AED;font-weight:700;width:30px;text-align:right">30%</div>
         <div style="font-size:11px;color:#9CA3AF;width:32px;text-align:right">1/3</div>
       </div>
@@ -2120,17 +2124,17 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
         <div style="font-size:11px;font-weight:900;color:#1F2937;margin-bottom:10px">БЛИЖАЙШИЕ ЦЕЛИ</div>
         <div style="margin-bottom:10px">
           <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px"><span style="font-size:14px">🎯</span><div style="font-size:10px;font-weight:700;color:#1F2937;flex:1">Пройди 5 сценариев «Банк»</div><div style="font-size:10px;font-weight:700;color:#7C3AED">200</div></div>
-          <div style="height:4px;background:#EDE9FE;border-radius:999px"><div style="width:40%;height:100%;background:#7C3AED;border-radius:999px"></div></div>
+          <div style="height:4px;background:transparent;border-radius:999px"><div style="width:40%;height:100%;background:#7C3AED;border-radius:999px"></div></div>
           <div style="font-size:9px;color:#9CA3AF;margin-top:2px">2 / 5</div>
         </div>
         <div style="margin-bottom:10px">
           <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px"><span style="font-size:14px">📍</span><div style="font-size:10px;font-weight:700;color:#1F2937;flex:1">Открой 5 новых локаций</div><div style="font-size:10px;font-weight:700;color:#7C3AED">150</div></div>
-          <div style="height:4px;background:#EDE9FE;border-radius:999px"><div style="width:60%;height:100%;background:#7C3AED;border-radius:999px"></div></div>
+          <div style="height:4px;background:transparent;border-radius:999px"><div style="width:60%;height:100%;background:#7C3AED;border-radius:999px"></div></div>
           <div style="font-size:9px;color:#9CA3AF;margin-top:2px">3 / 5</div>
         </div>
         <div>
           <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px"><span style="font-size:14px">⚡</span><div style="font-size:10px;font-weight:700;color:#1F2937;flex:1">Заработай 2000 XP</div><div style="font-size:10px;font-weight:700;color:#7C3AED">300</div></div>
-          <div style="height:4px;background:#EDE9FE;border-radius:999px"><div id="goal-xp-bar" style="width:0%;height:100%;background:#7C3AED;border-radius:999px;transition:.8s ease"></div></div>
+          <div style="height:4px;background:transparent;border-radius:999px"><div id="goal-xp-bar" style="width:0%;height:100%;background:#7C3AED;border-radius:999px;transition:.8s ease"></div></div>
           <div style="font-size:9px;color:#9CA3AF;margin-top:2px" id="goal-xp-txt">0 / 2000</div>
         </div>
       </div>
@@ -2159,7 +2163,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
         <div style="font-size:18px;font-weight:900;color:#1F2937" id="profile-username-display">Игрок</div>
         <button onclick="focusProfileNameEdit()" style="background:none;border:none;cursor:pointer;font-size:14px">✏️</button>
       </div>
-      <div style="display:inline-flex;align-items:center;gap:4px;background:#EDE9FE;color:#7C3AED;font-size:10px;font-weight:700;padding:3px 10px;border-radius:999px;margin-bottom:10px">🏅 Путешественник</div>
+      <div style="display:inline-flex;align-items:center;gap:4px;background:transparent;color:#7C3AED;font-size:10px;font-weight:700;padding:3px 10px;border-radius:999px;margin-bottom:10px">🏅 Путешественник</div>
       <div style="font-size:13px;font-weight:700;color:#1F2937;margin-bottom:5px">Уровень <span id="profile-level-display">A1</span></div>
       <div style="height:6px;background:#DDD6FE;border-radius:999px;overflow:hidden;margin-bottom:4px"><div id="profile-xp-bar" style="height:100%;background:linear-gradient(90deg,#7C3AED,#A78BFA);width:0%;transition:.8s ease;border-radius:999px"></div></div>
       <div style="font-size:10px;color:#7C3AED;font-weight:600" id="profile-xp-text">0 / 500 XP</div>
