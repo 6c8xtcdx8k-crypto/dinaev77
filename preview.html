@@ -4810,7 +4810,10 @@ function generateChoiceTests() {
     if (!byLevel[w.lv]) byLevel[w.lv] = [];
     byLevel[w.lv].push(w);
   });
+  const seenQ=new Set();
   wordsData.forEach(w => {
+    const qKey=w.en.toLowerCase();
+    if(seenQ.has(qKey))return;seenQ.add(qKey);
     const distractors = wordsData
       .filter(x => x !== w && x.lv === w.lv)
       .sort(() => Math.random() - .5).slice(0, 3).map(x => x.ru);
@@ -4848,6 +4851,20 @@ function generateSentenceTests() {
   });
 }
 
+
+// ── Deduplicate data arrays ──
+(()=>{
+  const seenW=new Set();
+  wordsData.splice(0,wordsData.length,...wordsData.filter(w=>{
+    const k=w.en.toLowerCase();
+    if(seenW.has(k))return false;seenW.add(k);return true;
+  }));
+  const seenS=new Set();
+  sentencesData.splice(0,sentencesData.length,...sentencesData.filter(s=>{
+    const k=s.en.toLowerCase();
+    if(seenS.has(k))return false;seenS.add(k);return true;
+  }));
+})();
 let _choicePool = null, _inputPool = null, _listenPool = null, _sentPool = null;
 function getTestPool(type, lv) {
   if (!_choicePool) { _choicePool = generateChoiceTests(); _inputPool = generateInputTests(); _listenPool = generateListenTests(); _sentPool = generateSentenceTests(); }
@@ -8719,7 +8736,13 @@ function updateTestProgress(){
 }
 function renderCurrentTest(){
   if(!currentTestQueue.length)initTestQueue();
-  const t=currentTestQueue[currentTestIndex%currentTestQueue.length];
+  if(currentTestIndex>=currentTestQueue.length){
+    // All tests done — reshuffle for new round, no immediate repeats
+    currentTestQueue=currentTestQueue.sort(()=>Math.random()-.5);
+    currentTestIndex=0;
+    showToast('🔄 Новый раунд! Вопросы перемешаны');
+  }
+  const t=currentTestQueue[currentTestIndex];
   if(!t)return;
   if(currentTestType==='choice')renderChoiceTest(t);
   else if(currentTestType==='input')renderInputTest(t);
