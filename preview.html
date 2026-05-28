@@ -392,12 +392,12 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
     <div style="font-size:14px;font-weight:800;color:#1a1a2e;text-align:center;margin-bottom:4px">Выбери свой уровень</div>
     <div style="font-size:11px;color:#9ca3af;text-align:center;margin-bottom:12px">Получишь задания именно для тебя</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px">
-      <div class="lv-card sel" onclick="selectLevel(this,'A1')"><div class="lv-badge">A1</div><div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Начинающий</div><div style="font-size:10px;color:#9ca3af">Только начинаю</div></div>
-      <div class="lv-card" onclick="selectLevel(this,'A2')"><div class="lv-badge">A2</div><div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Базовый</div><div style="font-size:10px;color:#9ca3af">Знаю основы</div></div>
-      <div class="lv-card" onclick="selectLevel(this,'B1')"><div class="lv-badge">B1</div><div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Средний</div><div style="font-size:10px;color:#9ca3af">Объясняюсь просто</div></div>
-      <div class="lv-card" onclick="selectLevel(this,'B2')"><div class="lv-badge">B2</div><div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Выше среднего</div><div style="font-size:10px;color:#9ca3af">Общаюсь свободно</div></div>
-      <div class="lv-card" onclick="selectLevel(this,'C1')"><div class="lv-badge">C1</div><div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Продвинутый</div><div style="font-size:10px;color:#9ca3af">Почти носитель</div></div>
-      <div class="lv-card" onclick="selectLevel(this,'C2')"><div class="lv-badge">C2</div><div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Мастер</div><div style="font-size:10px;color:#9ca3af">Уровень носителя</div></div>
+      <div class="lv-card sel" onclick="selectOnboardLevel('A1',this)"><div class="lv-badge">A1</div><div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Начинающий</div><div style="font-size:10px;color:#9ca3af">Только начинаю</div></div>
+      <div class="lv-card" onclick="selectOnboardLevel('A2',this)"><div class="lv-badge">A2</div><div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Базовый</div><div style="font-size:10px;color:#9ca3af">Знаю основы</div></div>
+      <div class="lv-card" onclick="selectOnboardLevel('B1',this)"><div class="lv-badge">B1</div><div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Средний</div><div style="font-size:10px;color:#9ca3af">Объясняюсь просто</div></div>
+      <div class="lv-card" onclick="selectOnboardLevel('B2',this)"><div class="lv-badge">B2</div><div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Выше среднего</div><div style="font-size:10px;color:#9ca3af">Общаюсь свободно</div></div>
+      <div class="lv-card" onclick="selectOnboardLevel('C1',this)"><div class="lv-badge">C1</div><div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Продвинутый</div><div style="font-size:10px;color:#9ca3af">Почти носитель</div></div>
+      <div class="lv-card" onclick="selectOnboardLevel('C2',this)"><div class="lv-badge">C2</div><div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Мастер</div><div style="font-size:10px;color:#9ca3af">Уровень носителя</div></div>
     </div>
 
     <!-- CTA button -->
@@ -768,6 +768,12 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
 
 <!-- PAGE: TESTS -->
 <div class="page" id="page-tests">
+  <!-- Sub-tab bar: Практика vs Основы -->
+  <div style="display:flex;background:#fff;border-bottom:2px solid #F3F4F6">
+    <button id="tab-practice" onclick="showTestsSection('practice',this)" style="flex:1;padding:13px 8px;border:none;background:none;font-size:13px;font-weight:800;color:#7C3AED;border-bottom:3px solid #7C3AED;cursor:pointer">🧪 Практика</button>
+    <button id="tab-basics" onclick="showTestsSection('basics',this)" style="flex:1;padding:13px 8px;border:none;background:none;font-size:13px;font-weight:800;color:#9CA3AF;border-bottom:3px solid transparent;cursor:pointer">📖 Основы</button>
+  </div>
+  <div id="tests-practice-section">
   <div style="padding:14px 20px 8px;background:#fff;border-bottom:1px solid #ede9ff">
     <div style="font-size:18px;font-weight:900;color:#1a1a2e">Тесты 🧪</div>
     <div style="font-size:12px;color:#9ca3af;margin-top:2px">5 267 авто-тестов — выбор, ввод, аудирование</div>
@@ -789,6 +795,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
     <button class="tab" style="padding:6px 14px;font-size:12px" onclick="setTestLevel('B1',this)">B1</button>
     <button class="tab" style="padding:6px 14px;font-size:12px" onclick="setTestLevel('B2',this)">B2</button>
     <button class="tab" style="padding:6px 14px;font-size:12px" onclick="setTestLevel('C1',this)">C1</button>
+    <button class="tab" style="padding:6px 14px;font-size:12px" onclick="setTestLevel('C2',this)">C2</button>
   </div></div>
   <div class="tabs" id="test-type-tabs">
     <button class="tab active" onclick="showTestType('choice',this)">🔘 Выбор ответа</button>
@@ -804,6 +811,1074 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
   <div id="test-choice-area"></div>
   <div id="test-input-area" style="display:none"></div>
   <div id="test-listen-area" style="display:none"></div>
+
+  </div><!-- end tests-practice-section -->
+  <div id="tests-basics-section" style="display:none;overflow-y:auto;padding-bottom:84px">
+    <!-- BASICS HEADER -->
+    <div style="padding:16px 20px 10px;background:#fff;border-bottom:1px solid #F3F4F6">
+      <div style="font-size:18px;font-weight:900;color:#1F2937">Основы грамматики</div>
+      <div style="font-size:11px;color:#9CA3AF;margin-top:2px">Времена, глаголы, структуры</div>
+    </div>
+
+    <!-- TENSE TABS -->
+    <div style="display:flex;gap:6px;padding:12px 16px 8px;overflow-x:auto">
+      <button class="filter-tab active" onclick="showBasicsTab('tenses',this)">🕐 Времена</button>
+      <button class="filter-tab" onclick="showBasicsTab('verbs',this)">⚡ Глаголы</button>
+      <button class="filter-tab" onclick="showBasicsTab('articles',this)">📌 Артикли</button>
+    </div>
+
+    <!-- TENSES SECTION -->
+    <div id="basics-tenses" style="padding:0 16px 16px">
+
+      <!-- Present Simple -->
+      <div style="background:#fff;border-radius:20px;margin-bottom:12px;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.06)">
+        <div style="background:linear-gradient(135deg,#7C3AED,#9333EA);padding:14px 16px;display:flex;align-items:center;justify-content:space-between">
+          <div><div style="font-size:15px;font-weight:900;color:#fff">Present Simple</div><div style="font-size:11px;color:rgba(255,255,255,.8)">Настоящее простое</div></div>
+          <button onclick="speak('Present Simple. I work. She works. Do you work? She does not work.')" style="background:rgba(255,255,255,.2);border:none;border-radius:10px;padding:6px 10px;color:#fff;font-size:14px;cursor:pointer">🔊</button>
+        </div>
+        <div style="padding:14px 16px">
+          <div style="background:#F5F3FF;border-radius:12px;padding:10px 12px;margin-bottom:10px">
+            <div style="font-size:11px;font-weight:700;color:#7C3AED;margin-bottom:4px">ФОРМУЛА</div>
+            <div style="font-size:13px;font-weight:800;color:#1F2937">I/You/We/They + V<br>He/She/It + V<span style="color:#7C3AED">s/es</span></div>
+          </div>
+          <div style="font-size:11px;font-weight:700;color:#9CA3AF;margin-bottom:8px">ПРИМЕНЕНИЕ: постоянные факты, привычки, расписания</div>
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <div style="display:flex;align-items:center;justify-content:space-between;background:#F9FAFB;border-radius:10px;padding:9px 12px">
+              <div><div style="font-size:13px;font-weight:700;color:#1F2937">I work every day.</div><div style="font-size:11px;color:#6B7280">Я работаю каждый день.</div></div>
+              <button onclick="speak('I work every day.')" style="background:#EDE9FE;border:none;border-radius:8px;padding:5px 8px;cursor:pointer;font-size:13px">🔊</button>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;background:#F9FAFB;border-radius:10px;padding:9px 12px">
+              <div><div style="font-size:13px;font-weight:700;color:#1F2937">She likes coffee.</div><div style="font-size:11px;color:#6B7280">Она любит кофе.</div></div>
+              <button onclick="speak('She likes coffee.')" style="background:#EDE9FE;border:none;border-radius:8px;padding:5px 8px;cursor:pointer;font-size:13px">🔊</button>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;background:#F9FAFB;border-radius:10px;padding:9px 12px">
+              <div><div style="font-size:13px;font-weight:700;color:#1F2937">Do you speak English?</div><div style="font-size:11px;color:#6B7280">Вы говорите по-английски?</div></div>
+              <button onclick="speak('Do you speak English?')" style="background:#EDE9FE;border:none;border-radius:8px;padding:5px 8px;cursor:pointer;font-size:13px">🔊</button>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;background:#F9FAFB;border-radius:10px;padding:9px 12px">
+              <div><div style="font-size:13px;font-weight:700;color:#1F2937">He does not drive.</div><div style="font-size:11px;color:#6B7280">Он не водит машину.</div></div>
+              <button onclick="speak('He does not drive.')" style="background:#EDE9FE;border:none;border-radius:8px;padding:5px 8px;cursor:pointer;font-size:13px">🔊</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Present Continuous -->
+      <div style="background:#fff;border-radius:20px;margin-bottom:12px;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.06)">
+        <div style="background:linear-gradient(135deg,#0EA5E9,#38BDF8);padding:14px 16px;display:flex;align-items:center;justify-content:space-between">
+          <div><div style="font-size:15px;font-weight:900;color:#fff">Present Continuous</div><div style="font-size:11px;color:rgba(255,255,255,.8)">Настоящее длительное</div></div>
+          <button onclick="speak('Present Continuous. I am working. She is reading. Are you sleeping?')" style="background:rgba(255,255,255,.2);border:none;border-radius:10px;padding:6px 10px;color:#fff;font-size:14px;cursor:pointer">🔊</button>
+        </div>
+        <div style="padding:14px 16px">
+          <div style="background:#F0F9FF;border-radius:12px;padding:10px 12px;margin-bottom:10px">
+            <div style="font-size:11px;font-weight:700;color:#0284C7;margin-bottom:4px">ФОРМУЛА</div>
+            <div style="font-size:13px;font-weight:800;color:#1F2937">am/is/are + V<span style="color:#0284C7">-ing</span></div>
+          </div>
+          <div style="font-size:11px;font-weight:700;color:#9CA3AF;margin-bottom:8px">ПРИМЕНЕНИЕ: действие происходит прямо сейчас, временная ситуация</div>
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <div style="display:flex;align-items:center;justify-content:space-between;background:#F9FAFB;border-radius:10px;padding:9px 12px">
+              <div><div style="font-size:13px;font-weight:700;color:#1F2937">I am studying now.</div><div style="font-size:11px;color:#6B7280">Я сейчас учусь.</div></div>
+              <button onclick="speak('I am studying now.')" style="background:#E0F2FE;border:none;border-radius:8px;padding:5px 8px;cursor:pointer;font-size:13px">🔊</button>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;background:#F9FAFB;border-radius:10px;padding:9px 12px">
+              <div><div style="font-size:13px;font-weight:700;color:#1F2937">She is watching TV.</div><div style="font-size:11px;color:#6B7280">Она смотрит телевизор.</div></div>
+              <button onclick="speak('She is watching TV.')" style="background:#E0F2FE;border:none;border-radius:8px;padding:5px 8px;cursor:pointer;font-size:13px">🔊</button>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;background:#F9FAFB;border-radius:10px;padding:9px 12px">
+              <div><div style="font-size:13px;font-weight:700;color:#1F2937">Are you coming?</div><div style="font-size:11px;color:#6B7280">Ты идёшь?</div></div>
+              <button onclick="speak('Are you coming?')" style="background:#E0F2FE;border:none;border-radius:8px;padding:5px 8px;cursor:pointer;font-size:13px">🔊</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Past Simple -->
+      <div style="background:#fff;border-radius:20px;margin-bottom:12px;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.06)">
+        <div style="background:linear-gradient(135deg,#F59E0B,#FBBF24);padding:14px 16px;display:flex;align-items:center;justify-content:space-between">
+          <div><div style="font-size:15px;font-weight:900;color:#fff">Past Simple</div><div style="font-size:11px;color:rgba(255,255,255,.8)">Прошедшее простое</div></div>
+          <button onclick="speak('Past Simple. I worked yesterday. She went home. Did you call?')" style="background:rgba(255,255,255,.2);border:none;border-radius:10px;padding:6px 10px;color:#fff;font-size:14px;cursor:pointer">🔊</button>
+        </div>
+        <div style="padding:14px 16px">
+          <div style="background:#FFFBEB;border-radius:12px;padding:10px 12px;margin-bottom:10px">
+            <div style="font-size:11px;font-weight:700;color:#D97706;margin-bottom:4px">ФОРМУЛА</div>
+            <div style="font-size:13px;font-weight:800;color:#1F2937">V<span style="color:#D97706">-ed</span> (правильные) / 2-я форма (неправильные)</div>
+          </div>
+          <div style="font-size:11px;font-weight:700;color:#9CA3AF;margin-bottom:8px">ПРИМЕНЕНИЕ: завершённые действия в прошлом</div>
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <div style="display:flex;align-items:center;justify-content:space-between;background:#F9FAFB;border-radius:10px;padding:9px 12px">
+              <div><div style="font-size:13px;font-weight:700;color:#1F2937">I worked all day.</div><div style="font-size:11px;color:#6B7280">Я работал весь день.</div></div>
+              <button onclick="speak('I worked all day.')" style="background:#FEF3C7;border:none;border-radius:8px;padding:5px 8px;cursor:pointer;font-size:13px">🔊</button>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;background:#F9FAFB;border-radius:10px;padding:9px 12px">
+              <div><div style="font-size:13px;font-weight:700;color:#1F2937">She went to London.</div><div style="font-size:11px;color:#6B7280">Она поехала в Лондон.</div></div>
+              <button onclick="speak('She went to London.')" style="background:#FEF3C7;border:none;border-radius:8px;padding:5px 8px;cursor:pointer;font-size:13px">🔊</button>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;background:#F9FAFB;border-radius:10px;padding:9px 12px">
+              <div><div style="font-size:13px;font-weight:700;color:#1F2937">Did you call me?</div><div style="font-size:11px;color:#6B7280">Ты мне звонил?</div></div>
+              <button onclick="speak('Did you call me?')" style="background:#FEF3C7;border:none;border-radius:8px;padding:5px 8px;cursor:pointer;font-size:13px">🔊</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Past Continuous -->
+      <div style="background:#fff;border-radius:20px;margin-bottom:12px;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.06)">
+        <div style="background:linear-gradient(135deg,#EC4899,#F472B6);padding:14px 16px;display:flex;align-items:center;justify-content:space-between">
+          <div><div style="font-size:15px;font-weight:900;color:#fff">Past Continuous</div><div style="font-size:11px;color:rgba(255,255,255,.8)">Прошедшее длительное</div></div>
+          <button onclick="speak('Past Continuous. I was reading when she called. They were sleeping.')" style="background:rgba(255,255,255,.2);border:none;border-radius:10px;padding:6px 10px;color:#fff;font-size:14px;cursor:pointer">🔊</button>
+        </div>
+        <div style="padding:14px 16px">
+          <div style="background:#FDF2F8;border-radius:12px;padding:10px 12px;margin-bottom:10px">
+            <div style="font-size:11px;font-weight:700;color:#BE185D;margin-bottom:4px">ФОРМУЛА</div>
+            <div style="font-size:13px;font-weight:800;color:#1F2937">was/were + V<span style="color:#BE185D">-ing</span></div>
+          </div>
+          <div style="font-size:11px;font-weight:700;color:#9CA3AF;margin-bottom:8px">ПРИМЕНЕНИЕ: длительное действие в прошлом, фон для другого события</div>
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <div style="display:flex;align-items:center;justify-content:space-between;background:#F9FAFB;border-radius:10px;padding:9px 12px">
+              <div><div style="font-size:13px;font-weight:700;color:#1F2937">I was sleeping at midnight.</div><div style="font-size:11px;color:#6B7280">В полночь я спал.</div></div>
+              <button onclick="speak('I was sleeping at midnight.')" style="background:#FCE7F3;border:none;border-radius:8px;padding:5px 8px;cursor:pointer;font-size:13px">🔊</button>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;background:#F9FAFB;border-radius:10px;padding:9px 12px">
+              <div><div style="font-size:13px;font-weight:700;color:#1F2937">She was reading when I came.</div><div style="font-size:11px;color:#6B7280">Она читала, когда я пришёл.</div></div>
+              <button onclick="speak('She was reading when I came.')" style="background:#FCE7F3;border:none;border-radius:8px;padding:5px 8px;cursor:pointer;font-size:13px">🔊</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Present Perfect -->
+      <div style="background:#fff;border-radius:20px;margin-bottom:12px;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.06)">
+        <div style="background:linear-gradient(135deg,#10B981,#34D399);padding:14px 16px;display:flex;align-items:center;justify-content:space-between">
+          <div><div style="font-size:15px;font-weight:900;color:#fff">Present Perfect</div><div style="font-size:11px;color:rgba(255,255,255,.8)">Настоящее совершённое</div></div>
+          <button onclick="speak('Present Perfect. I have finished. She has been to Paris. Have you eaten?')" style="background:rgba(255,255,255,.2);border:none;border-radius:10px;padding:6px 10px;color:#fff;font-size:14px;cursor:pointer">🔊</button>
+        </div>
+        <div style="padding:14px 16px">
+          <div style="background:#ECFDF5;border-radius:12px;padding:10px 12px;margin-bottom:10px">
+            <div style="font-size:11px;font-weight:700;color:#059669;margin-bottom:4px">ФОРМУЛА</div>
+            <div style="font-size:13px;font-weight:800;color:#1F2937">have/has + V<span style="color:#059669">3 (past participle)</span></div>
+          </div>
+          <div style="font-size:11px;font-weight:700;color:#9CA3AF;margin-bottom:8px">ПРИМЕНЕНИЕ: прошлое с результатом в настоящем, опыт, недавние события</div>
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <div style="display:flex;align-items:center;justify-content:space-between;background:#F9FAFB;border-radius:10px;padding:9px 12px">
+              <div><div style="font-size:13px;font-weight:700;color:#1F2937">I have finished the work.</div><div style="font-size:11px;color:#6B7280">Я закончил работу.</div></div>
+              <button onclick="speak('I have finished the work.')" style="background:#D1FAE5;border:none;border-radius:8px;padding:5px 8px;cursor:pointer;font-size:13px">🔊</button>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;background:#F9FAFB;border-radius:10px;padding:9px 12px">
+              <div><div style="font-size:13px;font-weight:700;color:#1F2937">Have you ever been to London?</div><div style="font-size:11px;color:#6B7280">Ты бывал в Лондоне?</div></div>
+              <button onclick="speak('Have you ever been to London?')" style="background:#D1FAE5;border:none;border-radius:8px;padding:5px 8px;cursor:pointer;font-size:13px">🔊</button>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;background:#F9FAFB;border-radius:10px;padding:9px 12px">
+              <div><div style="font-size:13px;font-weight:700;color:#1F2937">She has just left.</div><div style="font-size:11px;color:#6B7280">Она только что ушла.</div></div>
+              <button onclick="speak('She has just left.')" style="background:#D1FAE5;border:none;border-radius:8px;padding:5px 8px;cursor:pointer;font-size:13px">🔊</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Future Simple -->
+      <div style="background:#fff;border-radius:20px;margin-bottom:12px;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.06)">
+        <div style="background:linear-gradient(135deg,#6366F1,#818CF8);padding:14px 16px;display:flex;align-items:center;justify-content:space-between">
+          <div><div style="font-size:15px;font-weight:900;color:#fff">Future Simple</div><div style="font-size:11px;color:rgba(255,255,255,.8)">Будущее простое</div></div>
+          <button onclick="speak('Future Simple. I will call you. She will not come. Will you help me?')" style="background:rgba(255,255,255,.2);border:none;border-radius:10px;padding:6px 10px;color:#fff;font-size:14px;cursor:pointer">🔊</button>
+        </div>
+        <div style="padding:14px 16px">
+          <div style="background:#EEF2FF;border-radius:12px;padding:10px 12px;margin-bottom:10px">
+            <div style="font-size:11px;font-weight:700;color:#4F46E5;margin-bottom:4px">ФОРМУЛА</div>
+            <div style="font-size:13px;font-weight:800;color:#1F2937"><span style="color:#4F46E5">will</span> + V (инфинитив)</div>
+          </div>
+          <div style="font-size:11px;font-weight:700;color:#9CA3AF;margin-bottom:8px">ПРИМЕНЕНИЕ: решения в момент речи, предсказания, обещания</div>
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <div style="display:flex;align-items:center;justify-content:space-between;background:#F9FAFB;border-radius:10px;padding:9px 12px">
+              <div><div style="font-size:13px;font-weight:700;color:#1F2937">I will help you.</div><div style="font-size:11px;color:#6B7280">Я помогу тебе.</div></div>
+              <button onclick="speak('I will help you.')" style="background:#E0E7FF;border:none;border-radius:8px;padding:5px 8px;cursor:pointer;font-size:13px">🔊</button>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;background:#F9FAFB;border-radius:10px;padding:9px 12px">
+              <div><div style="font-size:13px;font-weight:700;color:#1F2937">It will rain tomorrow.</div><div style="font-size:11px;color:#6B7280">Завтра будет дождь.</div></div>
+              <button onclick="speak('It will rain tomorrow.')" style="background:#E0E7FF;border:none;border-radius:8px;padding:5px 8px;cursor:pointer;font-size:13px">🔊</button>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;background:#F9FAFB;border-radius:10px;padding:9px 12px">
+              <div><div style="font-size:13px;font-weight:700;color:#1F2937">Will you marry me?</div><div style="font-size:11px;color:#6B7280">Ты выйдешь за меня?</div></div>
+              <button onclick="speak('Will you marry me?')" style="background:#E0E7FF;border:none;border-radius:8px;padding:5px 8px;cursor:pointer;font-size:13px">🔊</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Past Perfect -->
+      <div style="background:#fff;border-radius:20px;margin-bottom:12px;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.06)">
+        <div style="background:linear-gradient(135deg,#64748B,#94A3B8);padding:14px 16px;display:flex;align-items:center;justify-content:space-between">
+          <div><div style="font-size:15px;font-weight:900;color:#fff">Past Perfect</div><div style="font-size:11px;color:rgba(255,255,255,.8)">Прошедшее совершённое</div></div>
+          <button onclick="speak('Past Perfect. I had eaten before she arrived. Had you seen the film?')" style="background:rgba(255,255,255,.2);border:none;border-radius:10px;padding:6px 10px;color:#fff;font-size:14px;cursor:pointer">🔊</button>
+        </div>
+        <div style="padding:14px 16px">
+          <div style="background:#F1F5F9;border-radius:12px;padding:10px 12px;margin-bottom:10px">
+            <div style="font-size:11px;font-weight:700;color:#475569;margin-bottom:4px">ФОРМУЛА</div>
+            <div style="font-size:13px;font-weight:800;color:#1F2937"><span style="color:#475569">had</span> + V3</div>
+          </div>
+          <div style="font-size:11px;font-weight:700;color:#9CA3AF;margin-bottom:8px">ПРИМЕНЕНИЕ: действие, завершённое до другого действия в прошлом</div>
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <div style="display:flex;align-items:center;justify-content:space-between;background:#F9FAFB;border-radius:10px;padding:9px 12px">
+              <div><div style="font-size:13px;font-weight:700;color:#1F2937">She had left before I arrived.</div><div style="font-size:11px;color:#6B7280">Она ушла до того, как я пришёл.</div></div>
+              <button onclick="speak('She had left before I arrived.')" style="background:#F1F5F9;border:none;border-radius:8px;padding:5px 8px;cursor:pointer;font-size:13px">🔊</button>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;background:#F9FAFB;border-radius:10px;padding:9px 12px">
+              <div><div style="font-size:13px;font-weight:700;color:#1F2937">I had never seen snow before.</div><div style="font-size:11px;color:#6B7280">Я никогда раньше не видел снега.</div></div>
+              <button onclick="speak('I had never seen snow before.')" style="background:#F1F5F9;border:none;border-radius:8px;padding:5px 8px;cursor:pointer;font-size:13px">🔊</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end basics-tenses -->
+
+    <!-- VERBS SECTION -->
+    <div id="basics-verbs" style="display:none;padding:0 16px 16px">
+      <div style="font-size:12px;font-weight:700;color:#9CA3AF;padding:8px 0 12px;letter-spacing:.3px">100 ОСНОВНЫХ ГЛАГОЛОВ</div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">be</span><span style="font-size:10px;color:#9CA3AF">[biː]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">быть / являться</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">I am happy.</div>
+        </div>
+        <button onclick="speak('be')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">have</span><span style="font-size:10px;color:#9CA3AF">[hæv]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">иметь</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">I have a car.</div>
+        </div>
+        <button onclick="speak('have')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">do</span><span style="font-size:10px;color:#9CA3AF">[duː]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">делать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Do your homework.</div>
+        </div>
+        <button onclick="speak('do')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">say</span><span style="font-size:10px;color:#9CA3AF">[seɪ]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">говорить/сказать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">She said yes.</div>
+        </div>
+        <button onclick="speak('say')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">get</span><span style="font-size:10px;color:#9CA3AF">[ɡet]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">получать / становиться</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Get the keys.</div>
+        </div>
+        <button onclick="speak('get')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">make</span><span style="font-size:10px;color:#9CA3AF">[meɪk]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">делать / создавать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Make a plan.</div>
+        </div>
+        <button onclick="speak('make')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">go</span><span style="font-size:10px;color:#9CA3AF">[ɡəʊ]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">идти / ехать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Let's go!</div>
+        </div>
+        <button onclick="speak('go')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">know</span><span style="font-size:10px;color:#9CA3AF">[nəʊ]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">знать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">I know the answer.</div>
+        </div>
+        <button onclick="speak('know')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">take</span><span style="font-size:10px;color:#9CA3AF">[teɪk]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">брать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Take your bag.</div>
+        </div>
+        <button onclick="speak('take')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">see</span><span style="font-size:10px;color:#9CA3AF">[siː]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">видеть</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">I see you.</div>
+        </div>
+        <button onclick="speak('see')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">come</span><span style="font-size:10px;color:#9CA3AF">[kʌm]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">приходить</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Come here.</div>
+        </div>
+        <button onclick="speak('come')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">think</span><span style="font-size:10px;color:#9CA3AF">[θɪŋk]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">думать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">I think so.</div>
+        </div>
+        <button onclick="speak('think')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">look</span><span style="font-size:10px;color:#9CA3AF">[lʊk]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">смотреть</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Look at me.</div>
+        </div>
+        <button onclick="speak('look')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">want</span><span style="font-size:10px;color:#9CA3AF">[wɒnt]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">хотеть</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">I want coffee.</div>
+        </div>
+        <button onclick="speak('want')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">give</span><span style="font-size:10px;color:#9CA3AF">[ɡɪv]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">давать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Give me a hand.</div>
+        </div>
+        <button onclick="speak('give')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">use</span><span style="font-size:10px;color:#9CA3AF">[juːz]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">использовать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Use a pen.</div>
+        </div>
+        <button onclick="speak('use')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">find</span><span style="font-size:10px;color:#9CA3AF">[faɪnd]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">находить</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Find the key.</div>
+        </div>
+        <button onclick="speak('find')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">tell</span><span style="font-size:10px;color:#9CA3AF">[tel]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">рассказывать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Tell me more.</div>
+        </div>
+        <button onclick="speak('tell')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">ask</span><span style="font-size:10px;color:#9CA3AF">[ɑːsk]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">спрашивать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Ask a question.</div>
+        </div>
+        <button onclick="speak('ask')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">work</span><span style="font-size:10px;color:#9CA3AF">[wɜːk]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">работать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">I work here.</div>
+        </div>
+        <button onclick="speak('work')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">seem</span><span style="font-size:10px;color:#9CA3AF">[siːm]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">казаться</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">It seems fine.</div>
+        </div>
+        <button onclick="speak('seem')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">feel</span><span style="font-size:10px;color:#9CA3AF">[fiːl]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">чувствовать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">I feel great.</div>
+        </div>
+        <button onclick="speak('feel')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">try</span><span style="font-size:10px;color:#9CA3AF">[traɪ]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">пробовать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Try again.</div>
+        </div>
+        <button onclick="speak('try')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">leave</span><span style="font-size:10px;color:#9CA3AF">[liːv]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">уходить / оставлять</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Leave now.</div>
+        </div>
+        <button onclick="speak('leave')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">call</span><span style="font-size:10px;color:#9CA3AF">[kɔːl]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">звонить / называть</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Call me later.</div>
+        </div>
+        <button onclick="speak('call')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">keep</span><span style="font-size:10px;color:#9CA3AF">[kiːp]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">держать / продолжать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Keep going.</div>
+        </div>
+        <button onclick="speak('keep')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">let</span><span style="font-size:10px;color:#9CA3AF">[let]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">позволять</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Let me in.</div>
+        </div>
+        <button onclick="speak('let')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">begin</span><span style="font-size:10px;color:#9CA3AF">[bɪˈɡɪn]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">начинать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Begin the task.</div>
+        </div>
+        <button onclick="speak('begin')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">show</span><span style="font-size:10px;color:#9CA3AF">[ʃəʊ]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">показывать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Show me.</div>
+        </div>
+        <button onclick="speak('show')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">hear</span><span style="font-size:10px;color:#9CA3AF">[hɪə]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">слышать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">I hear music.</div>
+        </div>
+        <button onclick="speak('hear')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">play</span><span style="font-size:10px;color:#9CA3AF">[pleɪ]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">играть</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Play outside.</div>
+        </div>
+        <button onclick="speak('play')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">run</span><span style="font-size:10px;color:#9CA3AF">[rʌn]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">бежать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Run fast.</div>
+        </div>
+        <button onclick="speak('run')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">move</span><span style="font-size:10px;color:#9CA3AF">[muːv]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">двигаться</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Move forward.</div>
+        </div>
+        <button onclick="speak('move')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">live</span><span style="font-size:10px;color:#9CA3AF">[lɪv]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">жить</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">I live here.</div>
+        </div>
+        <button onclick="speak('live')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">believe</span><span style="font-size:10px;color:#9CA3AF">[bɪˈliːv]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">верить</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">I believe you.</div>
+        </div>
+        <button onclick="speak('believe')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">hold</span><span style="font-size:10px;color:#9CA3AF">[həʊld]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">держать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Hold on.</div>
+        </div>
+        <button onclick="speak('hold')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">bring</span><span style="font-size:10px;color:#9CA3AF">[brɪŋ]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">приносить</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Bring water.</div>
+        </div>
+        <button onclick="speak('bring')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">happen</span><span style="font-size:10px;color:#9CA3AF">[ˈhæpən]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">случаться</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">What happened?</div>
+        </div>
+        <button onclick="speak('happen')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">write</span><span style="font-size:10px;color:#9CA3AF">[raɪt]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">писать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Write it down.</div>
+        </div>
+        <button onclick="speak('write')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">provide</span><span style="font-size:10px;color:#9CA3AF">[prəˈvaɪd]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">предоставлять</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Provide info.</div>
+        </div>
+        <button onclick="speak('provide')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">sit</span><span style="font-size:10px;color:#9CA3AF">[sɪt]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">сидеть</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Sit down.</div>
+        </div>
+        <button onclick="speak('sit')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">stand</span><span style="font-size:10px;color:#9CA3AF">[stænd]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">стоять</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Stand up.</div>
+        </div>
+        <button onclick="speak('stand')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">lose</span><span style="font-size:10px;color:#9CA3AF">[luːz]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">терять / проигрывать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Don't lose it.</div>
+        </div>
+        <button onclick="speak('lose')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">pay</span><span style="font-size:10px;color:#9CA3AF">[peɪ]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">платить</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Pay the bill.</div>
+        </div>
+        <button onclick="speak('pay')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">meet</span><span style="font-size:10px;color:#9CA3AF">[miːt]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">встречать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Meet me here.</div>
+        </div>
+        <button onclick="speak('meet')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">include</span><span style="font-size:10px;color:#9CA3AF">[ɪnˈkluːd]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">включать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Include me.</div>
+        </div>
+        <button onclick="speak('include')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">continue</span><span style="font-size:10px;color:#9CA3AF">[kənˈtɪnjuː]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">продолжать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Continue walking.</div>
+        </div>
+        <button onclick="speak('continue')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">set</span><span style="font-size:10px;color:#9CA3AF">[set]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">устанавливать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Set the alarm.</div>
+        </div>
+        <button onclick="speak('set')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">learn</span><span style="font-size:10px;color:#9CA3AF">[lɜːn]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">учиться</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Learn English.</div>
+        </div>
+        <button onclick="speak('learn')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">change</span><span style="font-size:10px;color:#9CA3AF">[tʃeɪndʒ]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">менять(ся)</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Change your mind.</div>
+        </div>
+        <button onclick="speak('change')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">lead</span><span style="font-size:10px;color:#9CA3AF">[liːd]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">вести / руководить</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Lead the way.</div>
+        </div>
+        <button onclick="speak('lead')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">understand</span><span style="font-size:10px;color:#9CA3AF">[ˌʌndəˈstænd]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">понимать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">I understand.</div>
+        </div>
+        <button onclick="speak('understand')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">watch</span><span style="font-size:10px;color:#9CA3AF">[wɒtʃ]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">наблюдать / смотреть</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Watch TV.</div>
+        </div>
+        <button onclick="speak('watch')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">follow</span><span style="font-size:10px;color:#9CA3AF">[ˈfɒləʊ]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">следовать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Follow me.</div>
+        </div>
+        <button onclick="speak('follow')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">stop</span><span style="font-size:10px;color:#9CA3AF">[stɒp]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">останавливать(ся)</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Stop talking.</div>
+        </div>
+        <button onclick="speak('stop')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">create</span><span style="font-size:10px;color:#9CA3AF">[kriˈeɪt]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">создавать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Create art.</div>
+        </div>
+        <button onclick="speak('create')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">speak</span><span style="font-size:10px;color:#9CA3AF">[spiːk]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">говорить</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Speak slowly.</div>
+        </div>
+        <button onclick="speak('speak')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">read</span><span style="font-size:10px;color:#9CA3AF">[riːd]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">читать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Read a book.</div>
+        </div>
+        <button onclick="speak('read')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">spend</span><span style="font-size:10px;color:#9CA3AF">[spend]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">тратить</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Spend wisely.</div>
+        </div>
+        <button onclick="speak('spend')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">grow</span><span style="font-size:10px;color:#9CA3AF">[ɡrəʊ]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">расти</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Grow up.</div>
+        </div>
+        <button onclick="speak('grow')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">open</span><span style="font-size:10px;color:#9CA3AF">[ˈəʊpən]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">открывать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Open the door.</div>
+        </div>
+        <button onclick="speak('open')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">walk</span><span style="font-size:10px;color:#9CA3AF">[wɔːk]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">ходить / гулять</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Walk the dog.</div>
+        </div>
+        <button onclick="speak('walk')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">win</span><span style="font-size:10px;color:#9CA3AF">[wɪn]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">побеждать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Win the game.</div>
+        </div>
+        <button onclick="speak('win')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">offer</span><span style="font-size:10px;color:#9CA3AF">[ˈɒfə]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">предлагать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Offer help.</div>
+        </div>
+        <button onclick="speak('offer')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">remember</span><span style="font-size:10px;color:#9CA3AF">[rɪˈmembə]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">помнить</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Remember me.</div>
+        </div>
+        <button onclick="speak('remember')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">love</span><span style="font-size:10px;color:#9CA3AF">[lʌv]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">любить</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">I love you.</div>
+        </div>
+        <button onclick="speak('love')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">consider</span><span style="font-size:10px;color:#9CA3AF">[kənˈsɪdə]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">рассматривать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Consider this.</div>
+        </div>
+        <button onclick="speak('consider')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">appear</span><span style="font-size:10px;color:#9CA3AF">[əˈpɪə]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">появляться</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Appear on time.</div>
+        </div>
+        <button onclick="speak('appear')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">buy</span><span style="font-size:10px;color:#9CA3AF">[baɪ]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">покупать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Buy groceries.</div>
+        </div>
+        <button onclick="speak('buy')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">wait</span><span style="font-size:10px;color:#9CA3AF">[weɪt]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">ждать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Wait here.</div>
+        </div>
+        <button onclick="speak('wait')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">serve</span><span style="font-size:10px;color:#9CA3AF">[sɜːv]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">служить / обслуживать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Serve the guests.</div>
+        </div>
+        <button onclick="speak('serve')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">die</span><span style="font-size:10px;color:#9CA3AF">[daɪ]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">умирать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Plants die.</div>
+        </div>
+        <button onclick="speak('die')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">send</span><span style="font-size:10px;color:#9CA3AF">[send]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">отправлять</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Send a message.</div>
+        </div>
+        <button onclick="speak('send')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">expect</span><span style="font-size:10px;color:#9CA3AF">[ɪkˈspekt]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">ожидать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Expect results.</div>
+        </div>
+        <button onclick="speak('expect')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">build</span><span style="font-size:10px;color:#9CA3AF">[bɪld]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">строить</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Build a house.</div>
+        </div>
+        <button onclick="speak('build')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">stay</span><span style="font-size:10px;color:#9CA3AF">[steɪ]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">оставаться</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Stay here.</div>
+        </div>
+        <button onclick="speak('stay')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">fall</span><span style="font-size:10px;color:#9CA3AF">[fɔːl]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">падать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Don't fall.</div>
+        </div>
+        <button onclick="speak('fall')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">cut</span><span style="font-size:10px;color:#9CA3AF">[kʌt]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">резать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Cut the rope.</div>
+        </div>
+        <button onclick="speak('cut')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">reach</span><span style="font-size:10px;color:#9CA3AF">[riːtʃ]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">достигать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Reach the top.</div>
+        </div>
+        <button onclick="speak('reach')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">kill</span><span style="font-size:10px;color:#9CA3AF">[kɪl]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">убивать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Kill the bug.</div>
+        </div>
+        <button onclick="speak('kill')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">remain</span><span style="font-size:10px;color:#9CA3AF">[rɪˈmeɪn]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">оставаться</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Remain calm.</div>
+        </div>
+        <button onclick="speak('remain')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">suggest</span><span style="font-size:10px;color:#9CA3AF">[səˈdʒest]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">предлагать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Suggest ideas.</div>
+        </div>
+        <button onclick="speak('suggest')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">raise</span><span style="font-size:10px;color:#9CA3AF">[reɪz]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">поднимать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Raise your hand.</div>
+        </div>
+        <button onclick="speak('raise')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">pass</span><span style="font-size:10px;color:#9CA3AF">[pɑːs]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">проходить / передавать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Pass the test.</div>
+        </div>
+        <button onclick="speak('pass')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">sell</span><span style="font-size:10px;color:#9CA3AF">[sel]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">продавать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Sell the car.</div>
+        </div>
+        <button onclick="speak('sell')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">require</span><span style="font-size:10px;color:#9CA3AF">[rɪˈkwaɪə]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">требовать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">It requires effort.</div>
+        </div>
+        <button onclick="speak('require')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">report</span><span style="font-size:10px;color:#9CA3AF">[rɪˈpɔːt]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">сообщать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Report the bug.</div>
+        </div>
+        <button onclick="speak('report')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">decide</span><span style="font-size:10px;color:#9CA3AF">[dɪˈsaɪd]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">решать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Decide now.</div>
+        </div>
+        <button onclick="speak('decide')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">pull</span><span style="font-size:10px;color:#9CA3AF">[pʊl]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">тянуть</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Pull the door.</div>
+        </div>
+        <button onclick="speak('pull')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">break</span><span style="font-size:10px;color:#9CA3AF">[breɪk]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">ломать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Break the ice.</div>
+        </div>
+        <button onclick="speak('break')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">receive</span><span style="font-size:10px;color:#9CA3AF">[rɪˈsiːv]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">получать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Receive a gift.</div>
+        </div>
+        <button onclick="speak('receive')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">agree</span><span style="font-size:10px;color:#9CA3AF">[əˈɡriː]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">соглашаться</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">I agree.</div>
+        </div>
+        <button onclick="speak('agree')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">support</span><span style="font-size:10px;color:#9CA3AF">[səˈpɔːt]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">поддерживать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Support the team.</div>
+        </div>
+        <button onclick="speak('support')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">hit</span><span style="font-size:10px;color:#9CA3AF">[hɪt]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">ударять</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Hit the target.</div>
+        </div>
+        <button onclick="speak('hit')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">produce</span><span style="font-size:10px;color:#9CA3AF">[prəˈdjuːs]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">производить</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Produce results.</div>
+        </div>
+        <button onclick="speak('produce')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">eat</span><span style="font-size:10px;color:#9CA3AF">[iːt]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">есть</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Eat your food.</div>
+        </div>
+        <button onclick="speak('eat')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">cover</span><span style="font-size:10px;color:#9CA3AF">[ˈkʌvə]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">покрывать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Cover the topic.</div>
+        </div>
+        <button onclick="speak('cover')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">catch</span><span style="font-size:10px;color:#9CA3AF">[kætʃ]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">ловить</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Catch the ball.</div>
+        </div>
+        <button onclick="speak('catch')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;margin-bottom:8px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:900;color:#1F2937">choose</span><span style="font-size:10px;color:#9CA3AF">[tʃuːz]</span></div>
+          <div style="font-size:12px;color:#7C3AED;font-weight:600;margin-top:2px">выбирать</div>
+          <div style="font-size:11px;color:#6B7280;font-style:italic;margin-top:2px">Choose wisely.</div>
+        </div>
+        <button onclick="speak('choose')" style="width:34px;height:34px;background:#EDE9FE;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🔊</button>
+      </div>
+    </div><!-- end basics-verbs -->
+
+    <!-- ARTICLES SECTION -->
+    <div id="basics-articles" style="display:none;padding:0 16px 16px">
+      <div style="background:#fff;border-radius:20px;margin-bottom:12px;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.06)">
+        <div style="background:linear-gradient(135deg,#F97316,#FB923C);padding:14px 16px">
+          <div style="font-size:15px;font-weight:900;color:#fff">Артикль A / AN</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.8)">Неопределённый артикль</div>
+        </div>
+        <div style="padding:14px 16px">
+          <div style="background:#FFF7ED;border-radius:12px;padding:10px 12px;margin-bottom:10px">
+            <div style="font-size:11px;font-weight:700;color:#EA580C;margin-bottom:4px">ПРАВИЛО</div>
+            <div style="font-size:12px;color:#1F2937;line-height:1.6"><b>A</b> — перед согласным звуком: <i>a cat, a dog, a university</i><br><b>AN</b> — перед гласным звуком: <i>an apple, an hour, an idea</i></div>
+          </div>
+          <div style="font-size:11px;font-weight:700;color:#9CA3AF;margin-bottom:8px">ПРИМЕНЕНИЕ: первое упоминание, класс/группа, профессии</div>
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <div style="display:flex;align-items:center;justify-content:space-between;background:#F9FAFB;border-radius:10px;padding:9px 12px">
+              <div><div style="font-size:13px;font-weight:700;color:#1F2937">I saw a cat in the garden.</div><div style="font-size:11px;color:#6B7280">Я увидел кота в саду.</div></div>
+              <button onclick="speak('I saw a cat in the garden.')" style="background:#FED7AA;border:none;border-radius:8px;padding:5px 8px;cursor:pointer;font-size:13px">🔊</button>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;background:#F9FAFB;border-radius:10px;padding:9px 12px">
+              <div><div style="font-size:13px;font-weight:700;color:#1F2937">She is an engineer.</div><div style="font-size:11px;color:#6B7280">Она инженер.</div></div>
+              <button onclick="speak('She is an engineer.')" style="background:#FED7AA;border:none;border-radius:8px;padding:5px 8px;cursor:pointer;font-size:13px">🔊</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.06)">
+        <div style="background:linear-gradient(135deg,#0D9488,#14B8A6);padding:14px 16px">
+          <div style="font-size:15px;font-weight:900;color:#fff">Артикль THE</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.8)">Определённый артикль</div>
+        </div>
+        <div style="padding:14px 16px">
+          <div style="background:#F0FDFA;border-radius:12px;padding:10px 12px;margin-bottom:10px">
+            <div style="font-size:11px;font-weight:700;color:#0D9488;margin-bottom:4px">ПРАВИЛО</div>
+            <div style="font-size:12px;color:#1F2937;line-height:1.6">Когда предмет уже известен обеим сторонам. Единственный в своём роде. Географические названия с rivers, oceans.</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <div style="display:flex;align-items:center;justify-content:space-between;background:#F9FAFB;border-radius:10px;padding:9px 12px">
+              <div><div style="font-size:13px;font-weight:700;color:#1F2937">Close the door, please.</div><div style="font-size:11px;color:#6B7280">Закройте дверь, пожалуйста.</div></div>
+              <button onclick="speak('Close the door, please.')" style="background:#CCFBF1;border:none;border-radius:8px;padding:5px 8px;cursor:pointer;font-size:13px">🔊</button>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;background:#F9FAFB;border-radius:10px;padding:9px 12px">
+              <div><div style="font-size:13px;font-weight:700;color:#1F2937">The Sun is very bright.</div><div style="font-size:11px;color:#6B7280">Солнце очень яркое.</div></div>
+              <button onclick="speak('The Sun is very bright.')" style="background:#CCFBF1;border:none;border-radius:8px;padding:5px 8px;cursor:pointer;font-size:13px">🔊</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- end basics-articles -->
+
+  </div><!-- end tests-basics-section -->
+
 </div>
 
 <!-- PAGE: SIMULATIONS -->
@@ -1238,26 +2313,14 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
   <!-- Theme -->
   <div style="padding:2px 16px 4px"><div style="font-size:10px;font-weight:800;color:#9ca3af;letter-spacing:.5px;text-transform:uppercase">🎨 Тема оформления</div></div>
   <div class="settings-section">
-    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px" id="theme-grid">
+    <div style="display:flex;gap:16px;justify-content:center" id="theme-grid">
       <div id="th-default" onclick="setTheme('default')" style="text-align:center;cursor:pointer;transition:.25s" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
-        <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#6c47ff,#a78bfa);margin:0 auto 5px;border:3px solid #6c47ff;box-shadow:0 0 0 3px #6c47ff;transition:.2s"></div>
-        <div style="font-size:10px;font-weight:700;color:#1a1a2e">Фиолет</div>
+        <div style="width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#7C3AED,#a78bfa);margin:0 auto 7px;border:3px solid #7C3AED;box-shadow:0 0 0 3px #7C3AED;transition:.2s"></div>
+        <div style="font-size:12px;font-weight:700;color:#1a1a2e">Светлая</div>
       </div>
       <div id="th-dark" onclick="setTheme('dark')" style="text-align:center;cursor:pointer;transition:.25s" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
-        <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#0f0f1e,#1e1e3a);margin:0 auto 5px;border:3px solid transparent;transition:.2s"></div>
-        <div style="font-size:10px;font-weight:700;color:#1a1a2e">Тёмная</div>
-      </div>
-      <div id="th-ocean" onclick="setTheme('ocean')" style="text-align:center;cursor:pointer;transition:.25s" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
-        <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#0284c7,#38bdf8);margin:0 auto 5px;border:3px solid transparent;transition:.2s"></div>
-        <div style="font-size:10px;font-weight:700;color:#1a1a2e">Океан</div>
-      </div>
-      <div id="th-forest" onclick="setTheme('forest')" style="text-align:center;cursor:pointer;transition:.25s" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
-        <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#16a34a,#4ade80);margin:0 auto 5px;border:3px solid transparent;transition:.2s"></div>
-        <div style="font-size:10px;font-weight:700;color:#1a1a2e">Лес</div>
-      </div>
-      <div id="th-sunset" onclick="setTheme('sunset')" style="text-align:center;cursor:pointer;transition:.25s" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
-        <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#ea580c,#fb923c);margin:0 auto 5px;border:3px solid transparent;transition:.2s"></div>
-        <div style="font-size:10px;font-weight:700;color:#1a1a2e">Закат</div>
+        <div style="width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#0f0f1e,#1e1e3a);margin:0 auto 7px;border:3px solid transparent;transition:.2s"></div>
+        <div style="font-size:12px;font-weight:700;color:#1a1a2e">Тёмная</div>
       </div>
     </div>
   </div>
@@ -3687,6 +4750,42 @@ const sentencesData = [
 {en:"Speculative realism challenges the Kantian correlationist circle by reasserting the independence of reality from thought.",ru:"Спекулятивный реализм оспаривает кантовский корреляционистский круг, вновь утверждая независимость реальности от мышления.",lv:"C2",cat:"misc"},
 {en:"The narrative of linear progress has been thoroughly deconstructed by postmodern historiography.",ru:"Нарратив линейного прогресса был основательно деконструирован постмодернистской историографией.",lv:"C2",cat:"misc"},
 {en:"The tension between the universal claims of human rights discourse and the particularity of cultural practices remains unresolved.",ru:"Противоречие между универсальными притязаниями дискурса прав человека и особенностями культурных практик остаётся неразрешённым.",lv:"C2",cat:"misc"},
+
+{en:"phenomenal",ph:"fɪˈnɒmɪnəl",ru:"феноменальный",ex:"The results were phenomenal.",lv:"C2",cat:"misc"},
+{en:"meticulous",ph:"mɪˈtɪkjʊləs",ru:"скрупулёзный",ex:"He is meticulous about details.",lv:"C2",cat:"misc"},
+{en:"reverberate",ph:"rɪˈvɜːbəreɪt",ru:"резонировать/отдаваться",ex:"The sound reverberated around the hall.",lv:"C2",cat:"misc"},
+{en:"ostensibly",ph:"ɒˈstensɪbli",ru:"по всей видимости",ex:"Ostensibly, he was helping — but wasn't.",lv:"C2",cat:"misc"},
+{en:"equivocal",ph:"ɪˈkwɪvəkəl",ru:"двусмысленный",ex:"His reply was equivocal.",lv:"C2",cat:"misc"},
+{en:"propensity",ph:"prəˈpensɪti",ru:"склонность",ex:"She has a propensity for drama.",lv:"C2",cat:"misc"},
+{en:"surreptitious",ph:"ˌsʌrəpˈtɪʃəs",ru:"тайный/скрытный",ex:"A surreptitious glance across the room.",lv:"C2",cat:"misc"},
+{en:"ameliorate",ph:"əˈmiːlɪəreɪt",ru:"улучшать",ex:"Steps were taken to ameliorate conditions.",lv:"C2",cat:"misc"},
+{en:"cogent",ph:"ˈkəʊdʒənt",ru:"убедительный/весомый",ex:"A cogent argument won the debate.",lv:"C2",cat:"misc"},
+{en:"perfunctory",ph:"pəˈfʌŋktəri",ru:"небрежный/формальный",ex:"He gave a perfunctory nod.",lv:"C2",cat:"misc"},
+{en:"obfuscate",ph:"ˈɒbfʌskeɪt",ru:"запутывать",ex:"Jargon can obfuscate meaning.",lv:"C2",cat:"misc"},
+{en:"recalcitrant",ph:"rɪˈkælsɪtrənt",ru:"строптивый/непокорный",ex:"The recalcitrant student refused.",lv:"C2",cat:"misc"},
+{en:"umbrage",ph:"ˈʌmbrɪdʒ",ru:"обида/недовольство",ex:"She took umbrage at the remark.",lv:"C2",cat:"misc"},
+{en:"proclivity",ph:"prəˈklɪvɪti",ru:"пристрастие",ex:"A proclivity for risk-taking.",lv:"C2",cat:"misc"},
+{en:"pernicious",ph:"pəˈnɪʃəs",ru:"пагубный",ex:"A pernicious habit.",lv:"C2",cat:"misc"},
+{en:"ignominious",ph:"ˌɪɡnəˈmɪniəs",ru:"позорный",ex:"An ignominious defeat.",lv:"C2",cat:"misc"},
+{en:"sagacious",ph:"səˈɡeɪʃəs",ru:"мудрый/проницательный",ex:"A sagacious leader sees far ahead.",lv:"C2",cat:"misc"},
+{en:"impecunious",ph:"ˌɪmpɪˈkjuːniəs",ru:"безденежный",ex:"He was an impecunious student.",lv:"C2",cat:"misc"},
+{en:"tendentious",ph:"tenˈdenʃəs",ru:"тенденциозный",ex:"A tendentious account of events.",lv:"C2",cat:"misc"},
+{en:"verisimilitude",ph:"ˌverɪsɪˈmɪlɪtjuːd",ru:"правдоподобие",ex:"The film lacks verisimilitude.",lv:"C2",cat:"misc"},
+{en:"pellucid",ph:"pɪˈluːsɪd",ru:"кристально ясный",ex:"A pellucid explanation.",lv:"C2",cat:"misc"},
+{en:"enervate",ph:"ˈenəveɪt",ru:"обессиливать",ex:"The heat enervated everyone.",lv:"C2",cat:"misc"},
+{en:"inveterate",ph:"ɪnˈvetərɪt",ru:"закоренелый",ex:"An inveterate gambler.",lv:"C2",cat:"misc"},
+{en:"contumacious",ph:"ˌkɒntjʊˈmeɪʃəs",ru:"непокорный/мятежный",ex:"A contumacious refusal to comply.",lv:"C2",cat:"misc"},
+{en:"vituperate",ph:"vɪˈtjuːpəreɪt",ru:"поносить/осыпать бранью",ex:"He vituperated his opponents.",lv:"C2",cat:"misc"},
+{en:"perspicacious",ph:"ˌpɜːspɪˈkeɪʃəs",ru:"проницательный",ex:"A perspicacious observer.",lv:"C2",cat:"misc"},
+{en:"truculent",ph:"ˈtrʌkjʊlənt",ru:"агрессивный/задиристый",ex:"A truculent attitude put people off.",lv:"C2",cat:"misc"},
+{en:"pusillanimous",ph:"ˌpjuːsɪˈlænɪməs",ru:"малодушный",ex:"A pusillanimous response to the crisis.",lv:"C2",cat:"misc"},
+{en:"magniloquent",ph:"mæɡˈnɪləkwənt",ru:"высокопарный",ex:"Magniloquent speeches are rarely believed.",lv:"C2",cat:"misc"},
+{en:"opprobrium",ph:"əˈprəʊbriəm",ru:"поношение/позор",ex:"His actions brought opprobrium.",lv:"C2",cat:"misc"},
+{en:"sanctimonious",ph:"ˌsæŋktɪˈməʊniəs",ru:"ханжеский",ex:"He sounded sanctimonious.",lv:"C2",cat:"misc"},
+{en:"tendentiously",ph:"tenˈdenʃəsli",ru:"тенденциозно",ex:"The facts were tendentiously presented.",lv:"C2",cat:"misc"},
+{en:"lachrymose",ph:"ˈlækrɪməʊs",ru:"слезливый",ex:"A lachrymose farewell speech.",lv:"C2",cat:"misc"},
+{en:"meretricious",ph:"ˌmerɪˈtrɪʃəs",ru:"показной/мнимо-привлекательный",ex:"Meretricious rhetoric hides weak logic.",lv:"C2",cat:"misc"},
+{en:"veracious",ph:"vəˈreɪʃəs",ru:"правдивый",ex:"A veracious reporter.",lv:"C2",cat:"misc"},
 
 ];
 
@@ -7213,8 +8312,9 @@ function startApp(){
 }
 function selectOnboardLevel(lv,btn){
   currentLevel=lv;
-  document.querySelectorAll('.onb-lv').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
+  localStorage.setItem('level',lv);
+  document.querySelectorAll('#onboarding .lv-card').forEach(b=>{b.classList.remove('sel');});
+  if(btn&&btn.classList)btn.classList.add('sel');
 }
 function setHomeLevel(lv){
   currentLevel=lv;
@@ -7380,7 +8480,7 @@ let lvtScore=0;
 
 function startLevelTest(lv){
   lvtTarget=lv;lvtScore=0;lvtCur=0;
-  const pool=allTests.filter(t=>t.type==='choice'&&t.lv===lv);
+  const pool=getTestPool('choice',lv);
   lvtQs=pool.sort(()=>Math.random()-.5).slice(0,5);
   if(lvtQs.length<3){showToast('❌ Мало вопросов для уровня '+lv);return;}
   const modal=document.getElementById('lvl-test-modal');
@@ -7519,11 +8619,11 @@ function renderWords(){
       <div class="word-front">
         <div style="font-size:16px;font-weight:900;color:#1a1a2e">${w.en}</div>
         <div style="font-size:11px;color:#9ca3af;margin-top:2px">[${w.ph}]</div>
-        <div style="font-size:10px;background:#ede9ff;color:#6c47ff;padding:2px 8px;border-radius:999px;display:inline-block;margin-top:4px">${w.lv} · ${w.cat}</div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:4px"><div style="font-size:10px;background:#ede9ff;color:#6c47ff;padding:2px 8px;border-radius:999px">${w.lv} · ${w.cat}</div><button onclick="speakBtn(this)" data-speak="${w.en}")}')" style="width:24px;height:24px;border-radius:50%;background:#f0eeff;border:none;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center" title="Прослушать">🔊</button></div>
       </div>
       <div class="word-back" style="display:none">
         <div style="font-size:15px;font-weight:800;color:#6c47ff">${w.ru}</div>
-        <div style="font-size:12px;color:#374151;margin-top:6px;font-style:italic">"${w.ex}"</div>
+        <div style="font-size:12px;color:#374151;margin-top:6px;font-style:italic">"${w.ex}" <button onclick="speakBtn(this)" data-speak="${w.ex}")}')" style="background:none;border:none;cursor:pointer;font-size:13px" title="Прослушать">🔊</button></div>
         <button onclick="event.stopPropagation();markLearned()" style="margin-top:8px;background:#6c47ff;color:#fff;border:none;padding:5px 16px;border-radius:999px;font-size:11px;font-weight:700;cursor:pointer">✓ Знаю</button>
       </div>
     </div>`).join('');
@@ -7942,6 +9042,37 @@ function filterScenarios(type,btn){
     if(type==='all')c.style.display='flex';
     else c.style.display=c.dataset.diff===type?'flex':'none';
   });
+}
+
+
+// ── TTS / SPEECH ────────────────────────────────────────────
+function speakBtn(btn){speak(btn.dataset.speak||btn.closest("[data-speak]").dataset.speak);}
+function speak(text,lang){
+  if(!window.speechSynthesis)return;
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang=lang||'en-US';u.rate=0.85;u.pitch=1;
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(u);
+}
+
+
+// ── ОСНОВЫ / BASICS ─────────────────────────────────────────
+function showTestsSection(section,btn){
+  document.getElementById('tests-practice-section').style.display=section==='practice'?'block':'none';
+  document.getElementById('tests-basics-section').style.display=section==='basics'?'block':'none';
+  // update tab styles
+  document.getElementById('tab-practice').style.color=section==='practice'?'#7C3AED':'#9CA3AF';
+  document.getElementById('tab-practice').style.borderBottom=section==='practice'?'3px solid #7C3AED':'3px solid transparent';
+  document.getElementById('tab-basics').style.color=section==='basics'?'#7C3AED':'#9CA3AF';
+  document.getElementById('tab-basics').style.borderBottom=section==='basics'?'3px solid #7C3AED':'3px solid transparent';
+}
+function showBasicsTab(tab,btn){
+  ['tenses','verbs','articles'].forEach(t=>{
+    const el=document.getElementById('basics-'+t);
+    if(el)el.style.display=t===tab?'block':'none';
+  });
+  document.querySelectorAll('#tests-basics-section .filter-tab').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
 }
 
 </script>
