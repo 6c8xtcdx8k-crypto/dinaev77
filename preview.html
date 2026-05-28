@@ -254,6 +254,70 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
 .wcard:hover{transform:translateX(5px) scale(1.01)!important}
 /* ═══ TOAST ═══ */
 .toast-msg{position:absolute;bottom:90px;left:50%;transform:translateX(-50%);background:rgba(26,26,46,.92);color:#fff;padding:10px 20px;border-radius:24px;font-size:13px;font-weight:700;z-index:999;white-space:nowrap;pointer-events:none;transition:opacity .3s;box-shadow:0 4px 20px rgba(0,0,0,.3)}
+
+/* ═══ V2 DESIGN SYSTEM ═══ */
+.season-badge{display:inline-flex;align-items:center;gap:6px;background:#DCFCE7;color:#15803D;font-size:11px;font-weight:700;padding:4px 12px;border-radius:999px;letter-spacing:.3px}
+.season-dot{width:7px;height:7px;border-radius:50%;background:#22C55E;animation:pulse 1.5s ease-in-out infinite}
+/* Scenario cards */
+.sc-card{background:#fff;border-radius:18px;margin:0 16px 10px;box-shadow:0 2px 14px rgba(0,0,0,.07);overflow:hidden;display:flex;cursor:pointer;transition:.2s cubic-bezier(.34,1.56,.64,1);min-height:88px}
+.sc-card:active{transform:scale(.98)}
+.sc-photo{width:92px;min-height:88px;flex-shrink:0;position:relative;display:flex;align-items:center;justify-content:center;font-size:40px}
+.sc-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 55%,rgba(255,255,255,.9))}
+.sp-airport{background:linear-gradient(140deg,#BAE6FD,#7DD3FC,#60A5FA)}
+.sp-doctor{background:linear-gradient(140deg,#A7F3D0,#6EE7B7,#34D399)}
+.sp-rent{background:linear-gradient(140deg,#FDE68A,#FCD34D,#FBBF24)}
+.sp-bank{background:linear-gradient(140deg,#BFDBFE,#93C5FD,#60A5FA)}
+.sp-job{background:linear-gradient(140deg,#DDD6FE,#C4B5FD,#A78BFA)}
+.sc-body{flex:1;padding:12px 4px 12px 14px;display:flex;flex-direction:column;justify-content:space-between}
+.sc-title{font-size:14px;font-weight:800;color:#1F2937;margin-bottom:3px}
+.sc-desc{font-size:10px;color:#6B7280;line-height:1.5;margin-bottom:5px}
+.sc-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.sc-badge-easy{background:#DCFCE7;color:#166534;font-size:9px;font-weight:700;padding:2px 8px;border-radius:999px}
+.sc-badge-mid{background:#FEF3C7;color:#92400E;font-size:9px;font-weight:700;padding:2px 8px;border-radius:999px}
+.sc-badge-hard{background:#FEE2E2;color:#991B1B;font-size:9px;font-weight:700;padding:2px 8px;border-radius:999px}
+.sc-xp{font-size:10px;font-weight:700;color:#7C3AED}
+.sc-stars{font-size:10px;color:#F59E0B;font-weight:700}
+.sc-arrow{width:28px;height:28px;border-radius:50%;background:#F3F4F6;display:flex;align-items:center;justify-content:center;font-size:14px;color:#9CA3AF;flex-shrink:0;margin:auto 10px auto 0}
+/* Filter tabs */
+.filter-tabs{display:flex;gap:6px;padding:0 16px 12px;overflow-x:auto}
+.filter-tab{padding:6px 14px;background:#F3F4F6;border:none;border-radius:999px;font-size:12px;font-weight:700;color:#6B7280;cursor:pointer;white-space:nowrap;transition:.15s}
+.filter-tab.active{background:#7C3AED;color:#fff}
+/* Tab bar */
+.tab-bar{display:flex;background:#F3F4F6;border-radius:12px;margin:0 16px 12px;padding:3px}
+.tab-btn{flex:1;padding:7px 4px;border:none;background:none;font-size:11px;font-weight:700;color:#9CA3AF;border-radius:9px;cursor:pointer;transition:.2s}
+.tab-btn.active{background:#fff;color:#7C3AED;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+/* Rating */
+.rating-row{background:#fff;border-radius:14px;margin:0 16px 6px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.05);transition:.15s}
+.rating-row.me{background:linear-gradient(135deg,#F5F3FF,#EDE9FE);border:2px solid #7C3AED}
+.rr-rank{width:22px;font-size:13px;font-weight:900;color:#9CA3AF;text-align:center;flex-shrink:0}
+.rr-avatar{width:34px;height:34px;border-radius:50%;overflow:hidden;background:#EDE9FE;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.rr-name{flex:1;font-size:13px;font-weight:700;color:#1F2937}
+.rr-xp{font-size:11px;font-weight:700;color:#7C3AED;white-space:nowrap}
+/* Dashboard */
+.dash-banner{background:linear-gradient(135deg,#7C3AED,#4F46E5);border-radius:22px;margin:12px 16px 14px;padding:20px 16px;position:relative;overflow:hidden;box-shadow:0 8px 32px rgba(124,58,237,.35)}
+.dash-stat-card{background:#fff;border-radius:18px;padding:14px;box-shadow:0 3px 14px rgba(0,0,0,.06)}
+.cat-bar-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #F3F4F6}
+.cat-bar-row:last-child{border-bottom:none}
+.cat-bar-icon{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+/* Profile */
+.profile-hdr-card{background:linear-gradient(155deg,#F5F3FF,#EDE9FE);border-radius:24px;margin:10px 16px 12px;padding:18px 18px 16px;display:flex;gap:14px;align-items:flex-start;position:relative;overflow:hidden;box-shadow:0 4px 24px rgba(124,58,237,.12)}
+.profile-fox-wrap{width:90px;height:110px;border-radius:18px;overflow:hidden;flex-shrink:0;background:#fff;box-shadow:0 4px 16px rgba(124,58,237,.15)}
+.profile-rank-card{background:linear-gradient(135deg,#4F46E5,#7C3AED);border-radius:20px;margin:0 16px 12px;padding:16px 18px;box-shadow:0 6px 24px rgba(79,70,229,.3)}
+.info-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #F3F4F6;font-size:11px}
+.info-row:last-child{border-bottom:none}
+.ach-card{background:#fff;border-radius:16px;padding:12px 8px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+/* Daily reward card */
+.dr-card{background:linear-gradient(135deg,#F5F3FF,#EDE9FE);border-radius:20px;margin:0 16px 12px;padding:18px;display:flex;align-items:center;gap:14px;box-shadow:0 4px 18px rgba(124,58,237,.1)}
+/* Chest */
+.chest-box{width:66px;height:66px;background:linear-gradient(145deg,#7C3AED,#4F46E5);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:36px;box-shadow:0 6px 20px rgba(124,58,237,.5);flex-shrink:0;animation:chestFloat 2.5s ease-in-out infinite}
+@keyframes chestFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-4px) scale(1.05)}}
+/* Goal item */
+.goal-item{background:#fff;border-radius:14px;margin:0 16px 8px;padding:12px 14px;box-shadow:0 2px 8px rgba(0,0,0,.05);display:flex;align-items:center;gap:10px}
+.goal-icon-wrap{width:36px;height:36px;border-radius:10px;background:#EDE9FE;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+/* Nav icon override */
+.nb.active{color:#7C3AED!important}
+.nb.active::after{background:#7C3AED!important}
+
 </style>
 </head>
 <body>
@@ -354,224 +418,244 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
   </div>
 </div>
 
-<!-- PAGE: HOME -->
-<div class="page" id="page-home" style="background:#f0eeff;padding-bottom:20px">
+<!-- PAGE: QUESTS -->
+<div class="page" id="page-quests" style="background:#F9FAFB;padding-bottom:0">
 
-  <!-- ═══ HEADER ═══ -->
-  <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px 10px;background:#f0eeff">
-    <button onclick="showPage('settings');setNav(document.querySelectorAll('.nb')[5])" style="width:44px;height:44px;border-radius:14px;background:#fff;border:none;box-shadow:0 2px 10px rgba(0,0,0,.09);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:.25s" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><span id="home-avatar" style="font-size:22px">🦊</span></button>
-    <div style="text-align:center;flex:1">
-      <div style="font-size:20px;font-weight:900;color:#1a1a2e;letter-spacing:.5px">CATCH <span style="color:#6c47ff">QUEST</span></div>
-      <div style="font-size:10px;color:#8b83b0;margin-top:1px">Английский для переезда за рубеж 🌍</div>
+  <!-- HEADER -->
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px 10px;background:#fff;box-shadow:0 1px 0 #F3F4F6">
+    <button onclick="showPage('profile');setNav(document.querySelectorAll('.nb')[4])" style="width:38px;height:38px;border-radius:12px;background:#F5F3FF;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px">≡</button>
+    <div style="text-align:center">
+      <div style="font-size:17px;font-weight:900;letter-spacing:.5px"><span style="color:#7C3AED">CATCH</span><span style="color:#1F2937"> QUEST</span></div>
+      <div style="font-size:10px;color:#9CA3AF">Survive • Win</div>
     </div>
-    <button style="width:44px;height:44px;border-radius:14px;background:#fff;border:none;box-shadow:0 2px 10px rgba(0,0,0,.09);display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;flex-shrink:0">
-      <span style="font-size:18px">🔔</span>
-      <span style="position:absolute;top:7px;right:7px;width:15px;height:15px;background:#ef4444;border-radius:50%;font-size:9px;font-weight:900;color:#fff;display:flex;align-items:center;justify-content:center">3</span>
+    <button style="width:38px;height:38px;border-radius:12px;background:#F5F3FF;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;position:relative">
+      🔔<span style="position:absolute;top:7px;right:7px;width:8px;height:8px;background:#EF4444;border-radius:50%"></span>
     </button>
   </div>
 
-  <!-- ═══ HERO ═══ -->
-  <div style="position:relative;background:linear-gradient(155deg,#faf9ff 0%,#f0eeff 50%,#e9e4fb 100%);min-height:298px;overflow:hidden">
-    <!-- Glow blob -->
-    <div style="position:absolute;right:30px;top:20px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.7),transparent 70%);pointer-events:none;animation:glow 4s ease-in-out infinite"></div>
-    <!-- Sparkles -->
-    <div style="position:absolute;top:12%;left:8%;color:#b8a9f0;font-size:14px;animation:sparkle 2.4s ease-in-out infinite">✦</div>
-    <div style="position:absolute;top:6%;left:34%;color:#c4b5fd;font-size:9px;animation:sparkle 1.8s .4s ease-in-out infinite">✦</div>
-    <div style="position:absolute;top:55%;left:5%;color:#c4b5fd;font-size:11px;animation:sparkle 2.2s .2s ease-in-out infinite">✦</div>
-    <div style="position:absolute;bottom:10%;left:38%;color:#ddd6fe;font-size:7px;animation:sparkle 2s .8s ease-in-out infinite">✦</div>
-    <!-- Animated plane -->
-    <div style="position:absolute;top:7%;right:14%;font-size:20px;color:#c4b5fd;opacity:.7;transform:rotate(-14deg);animation:planefloat 4.2s ease-in-out infinite">✈</div>
-    <!-- Flight path -->
-    <svg style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none" viewBox="0 0 390 298" fill="none">
-      <path d="M 30 270 Q 130 60 295 28" stroke="#c4b5fd" stroke-width="1.4" stroke-dasharray="7,6" fill="none" opacity=".45"/>
-      <polygon points="295,28 285,35 299,38" fill="#c4b5fd" opacity=".45"/>
-    </svg>
-    <!-- Paper planes decoration -->
-    <div style="position:absolute;top:28%;left:16%;font-size:12px;color:#c4b5fd;opacity:.6;transform:rotate(20deg);animation:floatY 3.5s .6s ease-in-out infinite">✉</div>
-    <!-- Text LEFT -->
-    <div style="position:relative;z-index:2;padding:22px 4px 18px 20px;max-width:52%">
-      <div style="font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:6px">Привет, <span id="home-username" style="color:#6c47ff">Игрок</span>! 👋</div>
-      <h1 style="font-size:26px;font-weight:900;color:#1a1a2e;line-height:1.16;margin:0 0 10px">Английский<br>как <span style="color:#6c47ff">квест,</span><br>не как урок. 🚀</h1>
-      <p style="font-size:11px;color:#8b83b0;line-height:1.6;margin:0">Прокачивай язык через реальные сценарии переезда.</p>
-    </div>
-    <!-- FOX RIGHT (head + upper body, cropped from top) -->
-    <div style="position:absolute;right:-6px;top:-4px;width:196px;height:302px;overflow:hidden;z-index:3">
-      <img class="fox-img" style="width:196px;height:auto;display:block" alt="fox"/>
-    </div>
-  </div>
+  <div style="overflow-y:auto;padding-bottom:84px">
 
-  <!-- ═══ FEATURE PILLS ═══ -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px 16px 8px;animation:fadeInUp .4s .1s ease both">
-    <!-- Pill 1: Scenarios -->
-    <div onclick="showPage('sims');setNav(document.querySelectorAll('.nb')[3])" style="background:#fff;border-radius:18px;padding:12px 12px;display:flex;align-items:center;gap:10px;box-shadow:0 3px 16px rgba(108,71,255,.1);cursor:pointer;transition:.25s cubic-bezier(.34,1.56,.64,1)" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
-      <div style="width:46px;height:46px;border-radius:14px;background:linear-gradient(135deg,#6c47ff,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;box-shadow:0 4px 12px rgba(108,71,255,.4)">🧳</div>
-      <div style="flex:1"><div style="font-size:11px;font-weight:800;color:#1a1a2e;line-height:1.3">Реальные<br>сценарии</div></div>
-      <div style="width:22px;height:22px;border-radius:50%;background:#ede9ff;display:flex;align-items:center;justify-content:center;font-size:11px;color:#6c47ff;font-weight:900">›</div>
+    <!-- SEASON BADGE -->
+    <div style="padding:12px 20px 4px">
+      <div class="season-badge"><span class="season-dot"></span> SEASON 1 • LIVE</div>
     </div>
-    <!-- Pill 2: Level up -->
-    <div onclick="showPage('study');setNav(document.querySelectorAll('.nb')[1])" style="background:#fff;border-radius:18px;padding:12px 12px;display:flex;align-items:center;gap:10px;box-shadow:0 3px 16px rgba(245,158,11,.12);cursor:pointer;transition:.25s cubic-bezier(.34,1.56,.64,1)" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
-      <div style="width:46px;height:46px;border-radius:14px;background:linear-gradient(135deg,#f59e0b,#fbbf24);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;box-shadow:0 4px 12px rgba(245,158,11,.4)">⚡</div>
-      <div style="flex:1"><div style="font-size:11px;font-weight:800;color:#1a1a2e;line-height:1.3">Прокачивай<br>уровень</div></div>
-      <div style="width:22px;height:22px;border-radius:50%;background:#fef9e7;display:flex;align-items:center;justify-content:center;font-size:11px;color:#d97706;font-weight:900">›</div>
-    </div>
-    <!-- Pill 3: Locations -->
-    <div onclick="showPage('move');setNav(document.querySelectorAll('.nb')[4])" style="background:#fff;border-radius:18px;padding:12px 12px;display:flex;align-items:center;gap:10px;box-shadow:0 3px 16px rgba(239,68,68,.1);cursor:pointer;transition:.25s cubic-bezier(.34,1.56,.64,1)" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
-      <div style="width:46px;height:46px;border-radius:14px;background:linear-gradient(135deg,#ef4444,#f87171);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;box-shadow:0 4px 12px rgba(239,68,68,.35)">📍</div>
-      <div style="flex:1"><div style="font-size:11px;font-weight:800;color:#1a1a2e;line-height:1.3">Открывай<br>локации</div></div>
-      <div style="width:22px;height:22px;border-radius:50%;background:#fef2f2;display:flex;align-items:center;justify-content:center;font-size:11px;color:#ef4444;font-weight:900">›</div>
-    </div>
-    <!-- Pill 4: Rewards -->
-    <div onclick="showPage('tests');setNav(document.querySelectorAll('.nb')[2])" style="background:#fff;border-radius:18px;padding:12px 12px;display:flex;align-items:center;gap:10px;box-shadow:0 3px 16px rgba(16,185,129,.1);cursor:pointer;transition:.25s cubic-bezier(.34,1.56,.64,1)" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
-      <div style="width:46px;height:46px;border-radius:14px;background:linear-gradient(135deg,#10b981,#34d399);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;box-shadow:0 4px 12px rgba(16,185,129,.35)">🎁</div>
-      <div style="flex:1"><div style="font-size:11px;font-weight:800;color:#1a1a2e;line-height:1.3">Получай<br>награды</div></div>
-      <div style="width:22px;height:22px;border-radius:50%;background:#ecfdf5;display:flex;align-items:center;justify-content:center;font-size:11px;color:#10b981;font-weight:900">›</div>
-    </div>
-  </div>
 
-  <!-- ═══ PROGRESS CARD ═══ -->
-  <div style="background:#fff;border-radius:22px;margin:6px 16px 10px;padding:16px 16px 18px;box-shadow:0 4px 24px rgba(108,71,255,.12);animation:scaleIn .4s .15s cubic-bezier(.34,1.56,.64,1) both">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-      <div style="display:flex;align-items:center;gap:8px">
-        <div style="width:52px;height:52px;border-radius:14px;overflow:hidden;background:#f0eeff;display:flex;align-items:flex-end;flex-shrink:0"><img class="fox-img" style="width:52px;height:auto" alt="fox"/></div>
-        <div style="font-size:15px;font-weight:900;color:#1a1a2e">Твой прогресс ↗</div>
+    <!-- HERO CARD -->
+    <div style="margin:8px 16px 0;background:#fff;border-radius:24px;overflow:hidden;position:relative;min-height:220px;box-shadow:0 4px 24px rgba(124,58,237,.1)">
+      <!-- Dashed circle decoration -->
+      <svg style="position:absolute;right:80px;top:20px;width:160px;height:160px;opacity:.15" viewBox="0 0 160 160"><circle cx="80" cy="80" r="70" stroke="#7C3AED" stroke-width="1.5" stroke-dasharray="8 6" fill="none"/></svg>
+      <!-- Airplane decoration -->
+      <div style="position:absolute;top:14px;right:16px;font-size:18px;opacity:.5;transform:rotate(-15deg);animation:planefloat 4s ease-in-out infinite">✈️</div>
+      <!-- Text -->
+      <div style="padding:22px 18px 18px;max-width:58%;position:relative;z-index:2">
+        <h1 style="font-size:24px;font-weight:900;color:#1F2937;line-height:1.18;margin:0 0 10px">Английский<br>как <span style="color:#7C3AED">квест</span>,<br>не как урок.</h1>
+        <p style="font-size:11px;color:#6B7280;line-height:1.6">Аэропорт, врач, аренда, банк — пройди реальные сценарии переезда.</p>
       </div>
-      <div style="width:44px;height:44px;background:linear-gradient(135deg,#fef9e7,#fde68a);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 3px 10px rgba(251,191,36,.3)">🏆</div>
+      <!-- FOX (head+upper body) -->
+      <div style="position:absolute;right:0;bottom:0;width:175px;height:210px;overflow:hidden;z-index:3">
+        <img class="fox-img" style="width:175px;height:auto;display:block;margin-top:-10px" alt="fox"/>
+      </div>
     </div>
-    <div style="display:flex;align-items:center;gap:14px">
-      <div style="flex-shrink:0;width:66px;height:74px;background:linear-gradient(135deg,#6c47ff,#8b5cf6);clip-path:polygon(25% 0%,75% 0%,100% 50%,75% 100%,25% 100%,0% 50%);display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(108,71,255,.4)">
-        <div style="font-size:8px;color:rgba(255,255,255,.8);font-weight:700;margin-top:4px;text-transform:uppercase;letter-spacing:.5px">уровень</div>
-        <div style="font-size:24px;font-weight:900;color:#fff;line-height:1" id="home-level-num">1</div>
+
+    <!-- FEATURE GRID -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px 16px 4px;animation:fadeInUp .4s .1s ease both">
+      <div onclick="showPage('scenarios');setNav(document.querySelectorAll('.nb')[0])" style="background:#fff;border-radius:18px;padding:12px;display:flex;align-items:center;gap:10px;box-shadow:0 3px 14px rgba(0,0,0,.06);cursor:pointer;transition:.2s" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+        <div style="width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#7C3AED,#9333EA);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;box-shadow:0 4px 12px rgba(124,58,237,.4)">🧳</div>
+        <div style="font-size:11px;font-weight:800;color:#1F2937;line-height:1.3">Реальные<br>сценарии</div>
       </div>
+      <div onclick="showPage('tests');setNav(document.querySelectorAll('.nb')[1])" style="background:#fff;border-radius:18px;padding:12px;display:flex;align-items:center;gap:10px;box-shadow:0 3px 14px rgba(0,0,0,.06);cursor:pointer;transition:.2s" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+        <div style="width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#F59E0B,#FBBF24);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;box-shadow:0 4px 12px rgba(245,158,11,.4)">⚡</div>
+        <div style="font-size:11px;font-weight:800;color:#1F2937;line-height:1.3">Прокачивай<br>уровень</div>
+      </div>
+      <div onclick="showPage('rating');setNav(document.querySelectorAll('.nb')[2])" style="background:#fff;border-radius:18px;padding:12px;display:flex;align-items:center;gap:10px;box-shadow:0 3px 14px rgba(0,0,0,.06);cursor:pointer;transition:.2s" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+        <div style="width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#3B82F6,#60A5FA);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;box-shadow:0 4px 12px rgba(59,130,246,.4)">📍</div>
+        <div style="font-size:11px;font-weight:800;color:#1F2937;line-height:1.3">Открывай<br>локации</div>
+      </div>
+      <div onclick="showPage('dashboard');setNav(document.querySelectorAll('.nb')[3])" style="background:#fff;border-radius:18px;padding:12px;display:flex;align-items:center;gap:10px;box-shadow:0 3px 14px rgba(0,0,0,.06);cursor:pointer;transition:.2s" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+        <div style="width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#10B981,#34D399);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;box-shadow:0 4px 12px rgba(16,185,129,.4)">🎁</div>
+        <div style="font-size:11px;font-weight:800;color:#1F2937;line-height:1.3">Получай<br>награды</div>
+      </div>
+    </div>
+
+    <!-- PROGRESS CARD -->
+    <div style="background:#fff;border-radius:22px;margin:12px 16px 10px;padding:16px;box-shadow:0 4px 20px rgba(124,58,237,.1);animation:scaleIn .4s .15s cubic-bezier(.34,1.56,.64,1) both">
+      <div style="font-size:11px;font-weight:700;color:#9CA3AF;letter-spacing:.5px;margin-bottom:10px">ТВОЙ ПРОГРЕСС</div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <!-- Level circle -->
+        <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#7C3AED,#9333EA);display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(124,58,237,.45);flex-shrink:0">
+          <div style="font-size:8px;color:rgba(255,255,255,.8);font-weight:700">УР.</div>
+          <div style="font-size:20px;font-weight:900;color:#fff;line-height:1" id="home-level-num">1</div>
+        </div>
+        <div style="flex:1">
+          <div style="font-size:18px;font-weight:900;color:#1F2937;margin-bottom:6px" id="home-xp-text">0 / 500 XP</div>
+          <div style="height:8px;border-radius:999px;background:#EDE9FE;overflow:hidden"><div id="home-pbar" style="height:100%;border-radius:999px;background:linear-gradient(90deg,#7C3AED,#A78BFA);width:0%;transition:.8s ease"></div></div>
+          <div style="font-size:10px;color:#9CA3AF;margin-top:4px" id="home-xp-left">До следующего уровня: 500 XP</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATS ROW -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:0 16px 14px">
+      <div style="background:#fff;border-radius:14px;padding:10px 4px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05)">
+        <div style="font-size:14px;margin-bottom:3px">⚡</div>
+        <div style="font-size:11px;font-weight:900;color:#7C3AED" id="home-total-xp">0</div>
+        <div style="font-size:9px;color:#9CA3AF;font-weight:600">XP<br>Заработано</div>
+      </div>
+      <div style="background:#fff;border-radius:14px;padding:10px 4px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05)">
+        <div style="font-size:14px;margin-bottom:3px">⭐</div>
+        <div style="font-size:11px;font-weight:900;color:#1F2937" id="home-tests-done">0</div>
+        <div style="font-size:9px;color:#9CA3AF;font-weight:600">Дости-<br>жений</div>
+      </div>
+      <div style="background:#fff;border-radius:14px;padding:10px 4px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05)">
+        <div style="font-size:14px;margin-bottom:3px">📍</div>
+        <div style="font-size:11px;font-weight:900;color:#1F2937" id="home-sims-done">0/500</div>
+        <div style="font-size:9px;color:#9CA3AF;font-weight:600">Лока-<br>ций</div>
+      </div>
+      <div style="background:#fff;border-radius:14px;padding:10px 4px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05)">
+        <div style="font-size:14px;margin-bottom:3px">🔥</div>
+        <div style="font-size:11px;font-weight:900;color:#1F2937" id="home-streak">0</div>
+        <div style="font-size:9px;color:#9CA3AF;font-weight:600">Дней<br>подряд</div>
+      </div>
+    </div>
+
+    <!-- POPULAR SCENARIOS -->
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:4px 16px 10px">
+      <div style="font-size:12px;font-weight:900;color:#1F2937;letter-spacing:.4px">ПОПУЛЯРНЫЕ СЦЕНАРИИ</div>
+      <button onclick="showPage('scenarios');setNav(document.querySelectorAll('.nb')[0])" style="font-size:11px;color:#7C3AED;font-weight:700;background:none;border:none;cursor:pointer">Смотреть все →</button>
+    </div>
+
+    <div class="sc-card" onclick="showPage('scenarios');setNav(document.querySelectorAll('.nb')[0])">
+      <div class="sc-photo sp-airport"><span style="position:relative;z-index:1">✈️</span></div>
+      <div class="sc-body">
+        <div><div class="sc-title">Аэропорт</div><div class="sc-desc">Регистрация на рейс, багаж, паспортный контроль, таможня.</div></div>
+        <div class="sc-meta"><span class="sc-badge-easy">Лёгкий</span><span class="sc-xp">XP 250</span><span class="sc-stars">⭐ 50</span></div>
+      </div>
+      <div class="sc-arrow">›</div>
+    </div>
+
+    <div class="sc-card" onclick="showPage('scenarios');setNav(document.querySelectorAll('.nb')[0])">
+      <div class="sc-photo sp-doctor"><span style="position:relative;z-index:1">🏥</span></div>
+      <div class="sc-body">
+        <div><div class="sc-title">Врач</div><div class="sc-desc">Запись на приём, симптомы, медицинские термины, рецепты.</div></div>
+        <div class="sc-meta"><span class="sc-badge-easy">Лёгкий</span><span class="sc-xp">XP 300</span><span class="sc-stars">⭐ 60</span></div>
+      </div>
+      <div class="sc-arrow">›</div>
+    </div>
+
+    <div class="sc-card" onclick="showPage('scenarios');setNav(document.querySelectorAll('.nb')[0])">
+      <div class="sc-photo sp-rent"><span style="position:relative;z-index:1">🏠</span></div>
+      <div class="sc-body">
+        <div><div class="sc-title">Аренда жилья</div><div class="sc-desc">Поиск квартиры, просмотр, договор аренды, депозит.</div></div>
+        <div class="sc-meta"><span class="sc-badge-mid">Средний</span><span class="sc-xp">XP 350</span><span class="sc-stars">⭐ 70</span></div>
+      </div>
+      <div class="sc-arrow">›</div>
+    </div>
+
+    <!-- DAILY REWARD -->
+    <div style="padding:4px 16px 10px"><div style="font-size:12px;font-weight:900;color:#1F2937;letter-spacing:.4px">ЕЖЕДНЕВНАЯ НАГРАДА</div></div>
+    <div class="dr-card">
       <div style="flex:1">
-        <div style="font-size:20px;font-weight:900;color:#1a1a2e;margin-bottom:7px" id="home-xp-text">0 / 500 XP</div>
-        <div style="height:10px;border-radius:6px;background:#ede9ff;overflow:hidden;box-shadow:inset 0 1px 3px rgba(0,0,0,.06)"><div id="home-pbar" style="height:10px;border-radius:6px;background:linear-gradient(90deg,#6c47ff,#a78bfa);width:0%;transition:.8s ease;box-shadow:0 2px 6px rgba(108,71,255,.4)"></div></div>
-        <div style="font-size:10px;color:#9ca3af;margin-top:5px" id="home-xp-left">До следующего уровня: 500 XP</div>
+        <div style="font-size:14px;font-weight:900;color:#1F2937;margin-bottom:4px">Заходи каждый день</div>
+        <div style="font-size:11px;color:#6B7280;line-height:1.5;margin-bottom:12px">и получай XP и бонусы!</div>
+        <button onclick="claimDailyReward()" style="background:linear-gradient(135deg,#7C3AED,#9333EA);color:#fff;border:none;border-radius:14px;padding:10px 24px;font-size:13px;font-weight:800;cursor:pointer;box-shadow:0 4px 16px rgba(124,58,237,.4);transition:.2s" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'">Получить</button>
       </div>
+      <div class="chest-box">🎁</div>
     </div>
-  </div>
 
-  <!-- ═══ STATS BAR ═══ -->
-  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:0 16px 14px;animation:fadeInUp .4s .25s ease both">
-    <div style="background:#fff;border-radius:16px;padding:12px 5px 10px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.06)">
-      <div style="width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,#f59e0b,#fbbf24);display:flex;align-items:center;justify-content:center;font-size:17px;margin:0 auto 5px;box-shadow:0 3px 8px rgba(245,158,11,.35)">⚡</div>
-      <div style="font-size:11px;font-weight:900;color:#6c47ff;white-space:nowrap" id="home-total-xp">0</div>
-      <div style="font-size:9px;color:#9ca3af;font-weight:600;margin-top:1px">XP</div>
+    <!-- CTA -->
+    <div style="padding:4px 16px 16px">
+      <button onclick="showPage('scenarios');setNav(document.querySelectorAll('.nb')[0])" style="width:100%;background:linear-gradient(135deg,#7C3AED,#4F46E5);border:none;border-radius:20px;padding:18px;font-size:16px;font-weight:900;color:#fff;cursor:pointer;box-shadow:0 8px 30px rgba(124,58,237,.45);display:flex;align-items:center;justify-content:center;gap:8px;animation:glowPulse 2.5s ease-in-out infinite;transition:.2s" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+        Начать квест <span style="font-size:18px">→</span>
+      </button>
     </div>
-    <div style="background:#fff;border-radius:16px;padding:12px 5px 10px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.06)">
-      <div style="width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,#f59e0b,#facc15);display:flex;align-items:center;justify-content:center;font-size:17px;margin:0 auto 5px;box-shadow:0 3px 8px rgba(234,179,8,.3)">⭐</div>
-      <div style="font-size:11px;font-weight:900;color:#1a1a2e" id="home-tests-done">0</div>
-      <div style="font-size:9px;color:#9ca3af;font-weight:600;margin-top:1px">Достижений</div>
-    </div>
-    <div style="background:#fff;border-radius:16px;padding:12px 5px 10px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.06)">
-      <div style="width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,#ef4444,#f87171);display:flex;align-items:center;justify-content:center;font-size:17px;margin:0 auto 5px;box-shadow:0 3px 8px rgba(239,68,68,.3)">📍</div>
-      <div style="font-size:11px;font-weight:900;color:#1a1a2e" id="home-sims-done">0/500</div>
-      <div style="font-size:9px;color:#9ca3af;font-weight:600;margin-top:1px">Локаций</div>
-    </div>
-    <div style="background:#fff;border-radius:16px;padding:12px 5px 10px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.06)">
-      <div style="width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,#ef4444,#fb923c);display:flex;align-items:center;justify-content:center;font-size:17px;margin:0 auto 5px;box-shadow:0 3px 8px rgba(239,68,68,.3)">🔥</div>
-      <div style="font-size:11px;font-weight:900;color:#1a1a2e" id="home-streak">0</div>
-      <div style="font-size:9px;color:#9ca3af;font-weight:600;margin-top:1px">Дней подряд</div>
-    </div>
-  </div>
 
-  <!-- ═══ LEVEL SELECTOR ═══ -->
-  <div style="padding:0 16px 16px">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:13px">
-      <div style="font-size:17px;font-weight:900;color:#1a1a2e">Выбери свой уровень</div>
-      <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:#6c47ff;font-weight:700;cursor:pointer;background:#ede9ff;padding:5px 10px;border-radius:999px">
-        <span style="font-size:12px">ⓘ</span> О уровнях
-      </div>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px" id="home-level-grid">
-
-      <!-- A1 -->
-      <div onclick="setHomeLevel('A1')" id="hmlv-A1" style="background:linear-gradient(145deg,#6c47ff,#8b5cf6);border-radius:20px;overflow:hidden;cursor:pointer;position:relative;box-shadow:0 7px 24px rgba(108,71,255,.42);transition:.25s cubic-bezier(.34,1.56,.64,1)" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-        <div style="height:76px;overflow:hidden;position:relative">
-          <img class="fox-img" style="width:115%;height:auto;position:absolute;top:-2%;left:-5%" alt="fox"/>
-          <div style="position:absolute;bottom:0;left:0;right:0;height:24px;background:linear-gradient(to top,rgba(108,71,255,.7),transparent)"></div>
-        </div>
-        <div style="padding:6px 8px 12px;text-align:center;position:relative">
-          <div style="position:absolute;top:-13px;right:7px;font-size:15px;background:rgba(255,255,255,.25);width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center">✏️</div>
-          <div style="font-size:23px;font-weight:900;color:#fff;line-height:1">A1</div>
-          <div style="font-size:9px;color:rgba(255,255,255,.88);font-weight:600;margin-top:2px">Начинающий</div>
-        </div>
-      </div>
-
-      <!-- A2 -->
-      <div onclick="setHomeLevel('A2')" id="hmlv-A2" style="background:linear-gradient(145deg,#ede9ff,#ddd6fe);border-radius:20px;overflow:hidden;cursor:pointer;box-shadow:0 4px 16px rgba(108,71,255,.14);transition:.25s cubic-bezier(.34,1.56,.64,1)" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-        <div style="height:76px;overflow:hidden;position:relative">
-          <img class="fox-img" style="width:115%;height:auto;position:absolute;top:-2%;left:-5%" alt="fox"/>
-          <div style="position:absolute;bottom:0;left:0;right:0;height:24px;background:linear-gradient(to top,rgba(200,180,255,.6),transparent)"></div>
-        </div>
-        <div style="padding:6px 8px 12px;text-align:center;position:relative">
-          <div style="position:absolute;top:-13px;right:7px;font-size:15px;background:rgba(108,71,255,.15);width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center">📖</div>
-          <div style="font-size:23px;font-weight:900;color:#6c47ff;line-height:1">A2</div>
-          <div style="font-size:9px;color:#8b83b0;font-weight:600;margin-top:2px">Базовый</div>
-        </div>
-      </div>
-
-      <!-- B1 -->
-      <div onclick="setHomeLevel('B1')" id="hmlv-B1" style="background:linear-gradient(145deg,#dbeafe,#bfdbfe);border-radius:20px;overflow:hidden;cursor:pointer;box-shadow:0 4px 16px rgba(59,130,246,.18);transition:.25s cubic-bezier(.34,1.56,.64,1)" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-        <div style="height:76px;overflow:hidden;position:relative">
-          <img class="fox-img" style="width:115%;height:auto;position:absolute;top:-2%;left:-5%" alt="fox"/>
-          <div style="position:absolute;bottom:0;left:0;right:0;height:24px;background:linear-gradient(to top,rgba(147,197,253,.6),transparent)"></div>
-        </div>
-        <div style="padding:6px 8px 12px;text-align:center;position:relative">
-          <div style="position:absolute;top:-13px;right:7px;font-size:15px;background:rgba(59,130,246,.15);width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center">👍</div>
-          <div style="font-size:23px;font-weight:900;color:#1d4ed8;line-height:1">B1</div>
-          <div style="font-size:9px;color:#3b82f6;font-weight:600;margin-top:2px">Средний</div>
-        </div>
-      </div>
-
-      <!-- B2 -->
-      <div onclick="setHomeLevel('B2')" id="hmlv-B2" style="background:linear-gradient(145deg,#1e3a5f,#1e40af);border-radius:20px;overflow:hidden;cursor:pointer;box-shadow:0 4px 18px rgba(30,64,175,.32);transition:.25s cubic-bezier(.34,1.56,.64,1)" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-        <div style="height:76px;overflow:hidden;position:relative">
-          <img class="fox-img" style="width:115%;height:auto;position:absolute;top:-2%;left:-5%" alt="fox"/>
-          <div style="position:absolute;bottom:0;left:0;right:0;height:24px;background:linear-gradient(to top,rgba(30,64,175,.7),transparent)"></div>
-        </div>
-        <div style="padding:6px 8px 12px;text-align:center;position:relative">
-          <div style="position:absolute;top:-13px;right:7px;font-size:15px;background:rgba(255,255,255,.15);width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center">💻</div>
-          <div style="font-size:23px;font-weight:900;color:#fff;line-height:1">B2</div>
-          <div style="font-size:9px;color:rgba(255,255,255,.78);font-weight:600;margin-top:2px">Выше среднего</div>
-        </div>
-      </div>
-
-      <!-- C1 -->
-      <div onclick="setHomeLevel('C1')" id="hmlv-C1" style="background:linear-gradient(145deg,#ede9ff,#c4b5fd);border-radius:20px;overflow:hidden;cursor:pointer;box-shadow:0 4px 16px rgba(124,58,237,.2);transition:.25s cubic-bezier(.34,1.56,.64,1)" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-        <div style="height:76px;overflow:hidden;position:relative">
-          <img class="fox-img" style="width:115%;height:auto;position:absolute;top:-2%;left:-5%" alt="fox"/>
-          <div style="position:absolute;bottom:0;left:0;right:0;height:24px;background:linear-gradient(to top,rgba(167,139,250,.6),transparent)"></div>
-        </div>
-        <div style="padding:6px 8px 12px;text-align:center;position:relative">
-          <div style="position:absolute;top:-13px;right:7px;font-size:15px;background:rgba(91,33,182,.15);width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center">🌍</div>
-          <div style="font-size:23px;font-weight:900;color:#5b21b6;line-height:1">C1</div>
-          <div style="font-size:9px;color:#7c3aed;font-weight:600;margin-top:2px">Продвинутый</div>
-        </div>
-      </div>
-
-      <!-- C2 -->
-      <div onclick="setHomeLevel('C2')" id="hmlv-C2" style="background:linear-gradient(145deg,#fef3c7,#fde68a);border-radius:20px;overflow:hidden;cursor:pointer;box-shadow:0 4px 16px rgba(251,191,36,.35);transition:.25s cubic-bezier(.34,1.56,.64,1)" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-        <div style="height:76px;overflow:hidden;position:relative">
-          <img class="fox-img" style="width:115%;height:auto;position:absolute;top:-2%;left:-5%" alt="fox"/>
-          <div style="position:absolute;bottom:0;left:0;right:0;height:24px;background:linear-gradient(to top,rgba(251,191,36,.6),transparent)"></div>
-        </div>
-        <div style="padding:6px 8px 12px;text-align:center;position:relative">
-          <div style="position:absolute;top:-13px;right:7px;font-size:15px;background:rgba(146,64,14,.1);width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center">🏆</div>
-          <div style="font-size:23px;font-weight:900;color:#92400e;line-height:1">C2</div>
-          <div style="font-size:9px;color:#b45309;font-weight:600;margin-top:2px">Мастер</div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ═══ CTA BUTTON ═══ -->
-  <div style="padding:2px 16px 16px">
-    <button onclick="showPage('sims');setNav(document.querySelectorAll('.nb')[3])" style="width:100%;background:linear-gradient(135deg,#6c47ff,#7c3aed);border:none;border-radius:22px;padding:19px 16px;font-size:17px;font-weight:900;color:#fff;cursor:pointer;box-shadow:0 10px 36px rgba(108,71,255,.48);letter-spacing:.3px;display:flex;align-items:center;justify-content:center;gap:10px;animation:glowPulse 2.5s ease-in-out infinite;transition:.25s cubic-bezier(.34,1.56,.64,1)" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
-      ✦ 🚀 Начать обучение → ✦
-    </button>
   </div>
 </div>
+
+<!-- PAGE: SCENARIOS -->
+<div class="page" id="page-scenarios" style="background:#F9FAFB">
+  <div style="display:flex;align-items:center;gap:12px;padding:14px 16px 10px;background:#fff;box-shadow:0 1px 0 #F3F4F6">
+    <button onclick="showPage('quests');setNav(document.querySelectorAll('.nb')[0])" style="width:36px;height:36px;border-radius:12px;background:#F5F3FF;border:none;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center">←</button>
+    <div style="font-size:17px;font-weight:900;color:#1F2937;flex:1;text-align:center">Сценарии</div>
+    <div style="width:36px;height:36px;border-radius:12px;background:#F5F3FF;display:flex;align-items:center;justify-content:center;font-size:16px">🔍</div>
+  </div>
+  <div style="overflow-y:auto;padding-bottom:84px">
+    <div style="padding:12px 0 4px">
+      <div class="filter-tabs">
+        <button class="filter-tab active" onclick="filterScenarios('all',this)">Все</button>
+        <button class="filter-tab" onclick="filterScenarios('easy',this)">Начальные</button>
+        <button class="filter-tab" onclick="filterScenarios('mid',this)">Продвинутые</button>
+        <button class="filter-tab" onclick="filterScenarios('hard',this)">Эксперт</button>
+      </div>
+    </div>
+
+    <div id="scenarios-list">
+      <div class="sc-card" data-diff="easy" onclick="showPage('sims');setNav(document.querySelectorAll('.nb')[0])">
+        <div class="sc-photo sp-airport"><span style="position:relative;z-index:1">✈️</span></div>
+        <div class="sc-body">
+          <div><div class="sc-title">Аэропорт</div><div class="sc-desc">Регистрация на рейс, багаж, паспортный контроль, таможня.</div></div>
+          <div class="sc-meta"><span class="sc-badge-easy">Лёгкий</span><span class="sc-xp">XP 250</span><span class="sc-stars">⭐ 50</span></div>
+        </div>
+        <div class="sc-arrow">›</div>
+      </div>
+      <div class="sc-card" data-diff="easy" onclick="showPage('sims');setNav(document.querySelectorAll('.nb')[0])">
+        <div class="sc-photo sp-doctor"><span style="position:relative;z-index:1">🏥</span></div>
+        <div class="sc-body">
+          <div><div class="sc-title">Врач</div><div class="sc-desc">Запись на приём, симптомы, медицинские термины, рецепты.</div></div>
+          <div class="sc-meta"><span class="sc-badge-easy">Лёгкий</span><span class="sc-xp">XP 300</span><span class="sc-stars">⭐ 60</span></div>
+        </div>
+        <div class="sc-arrow">›</div>
+      </div>
+      <div class="sc-card" data-diff="mid" onclick="showPage('sims');setNav(document.querySelectorAll('.nb')[0])">
+        <div class="sc-photo sp-rent"><span style="position:relative;z-index:1">🏠</span></div>
+        <div class="sc-body">
+          <div><div class="sc-title">Аренда жилья</div><div class="sc-desc">Поиск квартиры, просмотр, договор аренды, депозит.</div></div>
+          <div class="sc-meta"><span class="sc-badge-mid">Средний</span><span class="sc-xp">XP 350</span><span class="sc-stars">⭐ 70</span></div>
+        </div>
+        <div class="sc-arrow">›</div>
+      </div>
+      <div class="sc-card" data-diff="mid" onclick="showPage('sims');setNav(document.querySelectorAll('.nb')[0])">
+        <div class="sc-photo sp-bank"><span style="position:relative;z-index:1">🏦</span></div>
+        <div class="sc-body">
+          <div><div class="sc-title">Банк</div><div class="sc-desc">Открытие счёта, карты, онлайн-банкинг, переводы.</div></div>
+          <div class="sc-meta"><span class="sc-badge-mid">Средний</span><span class="sc-xp">XP 400</span><span class="sc-stars">⭐ 80</span></div>
+        </div>
+        <div class="sc-arrow">›</div>
+      </div>
+      <div class="sc-card" data-diff="hard" onclick="showPage('sims');setNav(document.querySelectorAll('.nb')[0])">
+        <div class="sc-photo sp-job"><span style="position:relative;z-index:1">💼</span></div>
+        <div class="sc-body">
+          <div><div class="sc-title">Собеседование</div><div class="sc-desc">Типичные вопросы, ответы о себе, навыки, опыт работы.</div></div>
+          <div class="sc-meta"><span class="sc-badge-hard">Сложный</span><span class="sc-xp">XP 500</span><span class="sc-stars">⭐ 100</span></div>
+        </div>
+        <div class="sc-arrow">›</div>
+      </div>
+    </div>
+
+    <!-- PROGRESS -->
+    <div style="background:#fff;border-radius:20px;margin:12px 16px 10px;padding:16px;box-shadow:0 3px 14px rgba(0,0,0,.06);display:flex;align-items:center;gap:14px">
+      <div style="position:relative;width:68px;height:68px;flex-shrink:0">
+        <svg width="68" height="68" viewBox="0 0 68 68"><circle cx="34" cy="34" r="28" stroke="#EDE9FE" stroke-width="6" fill="none"/><circle cx="34" cy="34" r="28" stroke="#7C3AED" stroke-width="6" fill="none" stroke-dasharray="176" stroke-dashoffset="120" stroke-linecap="round" transform="rotate(-90 34 34)"/></svg>
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center"><div style="font-size:14px;font-weight:900;color:#7C3AED">33%</div></div>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:700;color:#9CA3AF;letter-spacing:.3px;margin-bottom:3px">ОБЩИЙ ПРОГРЕСС</div>
+        <div style="font-size:15px;font-weight:900;color:#1F2937">8 / 24 сценария</div>
+        <div style="font-size:11px;color:#6B7280;margin-top:2px">пройдено</div>
+      </div>
+      <div class="chest-box" style="width:52px;height:52px;font-size:28px;margin-left:auto">🏆</div>
+    </div>
+
+    <!-- ACHIEVEMENTS -->
+    <div style="padding:4px 16px 8px"><div style="font-size:12px;font-weight:900;color:#1F2937;letter-spacing:.4px">ТВОИ ДОСТИЖЕНИЯ</div></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:0 16px 16px">
+      <div class="ach-card"><div style="font-size:26px;margin-bottom:5px">🎯</div><div style="font-size:10px;font-weight:700;color:#1F2937">Первые шаги</div><div style="font-size:9px;color:#9CA3AF;margin-top:2px">Пройди 3 сценария</div><div style="font-size:10px;font-weight:700;color:#7C3AED;margin-top:4px">3 / 3</div></div>
+      <div class="ach-card"><div style="font-size:26px;margin-bottom:5px">✈️</div><div style="font-size:10px;font-weight:700;color:#1F2937">Путеше-<br>ственник</div><div style="font-size:9px;color:#9CA3AF;margin-top:2px">Открой 5 локаций</div><div style="font-size:10px;font-weight:700;color:#7C3AED;margin-top:4px">5 / 5</div></div>
+      <div class="ach-card" style="opacity:.55"><div style="font-size:26px;margin-bottom:5px">🔒</div><div style="font-size:10px;font-weight:700;color:#1F2937">Стажёр</div><div style="font-size:9px;color:#9CA3AF;margin-top:2px">Заработай 1 000 XP</div><div style="font-size:10px;font-weight:700;color:#9CA3AF;margin-top:4px">1000/1000</div></div>
+    </div>
+  </div>
+</div>
+
 <!-- PAGE: STUDY -->
 <div class="page" id="page-study">
   <div style="padding:14px 20px 8px;background:#fff;border-bottom:1px solid #ede9ff">
@@ -790,8 +874,299 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
 </div>
 
 
+<!-- PAGE: RATING -->
+<div class="page" id="page-rating" style="background:#F9FAFB">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px 10px;background:#fff;box-shadow:0 1px 0 #F3F4F6">
+    <button style="width:38px;height:38px;border-radius:12px;background:#F5F3FF;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px">≡</button>
+    <div style="font-size:17px;font-weight:900;color:#1F2937">Рейтинг</div>
+    <div style="width:38px;height:38px;border-radius:12px;background:#F5F3FF;display:flex;align-items:center;justify-content:center;font-size:16px">❓</div>
+  </div>
+  <div style="overflow-y:auto;padding-bottom:84px">
+    <div class="tab-bar" style="margin-top:12px">
+      <button class="tab-btn active">Игроки</button>
+      <button class="tab-btn">Друзья</button>
+      <button class="tab-btn">Страны</button>
+    </div>
+    <!-- Season banner -->
+    <div style="background:linear-gradient(135deg,#EDE9FE,#DDD6FE);border-radius:18px;margin:0 16px 14px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between">
+      <div><div style="display:inline-flex;align-items:center;gap:5px;background:#DCFCE7;color:#15803D;font-size:10px;font-weight:700;padding:2px 9px;border-radius:999px;margin-bottom:5px"><span style="width:5px;height:5px;border-radius:50%;background:#22C55E;display:inline-block"></span> SEASON 1 • LIVE</div><div style="font-size:13px;font-weight:700;color:#4F46E5">До конца сезона: 32 дн.</div></div>
+      <button style="display:flex;align-items:center;gap:6px;background:#7C3AED;color:#fff;border:none;border-radius:12px;padding:8px 12px;font-size:11px;font-weight:700;cursor:pointer">🎁 Награды сезона</button>
+    </div>
+    <!-- TOP 3 PODIUM -->
+    <div style="display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:8px;padding:0 16px 14px;align-items:flex-end">
+      <!-- 2nd -->
+      <div style="background:#fff;border-radius:18px;padding:14px 8px;text-align:center;box-shadow:0 3px 14px rgba(0,0,0,.06)">
+        <div style="font-size:20px;margin-bottom:6px">🥈</div>
+        <div style="width:52px;height:52px;border-radius:50%;overflow:hidden;margin:0 auto 6px;border:2px solid #E5E7EB;background:#EDE9FE;display:flex;align-items:center;justify-content:center"><img class="fox-img" style="width:52px;height:auto" alt="fox"/></div>
+        <div style="font-size:11px;font-weight:800;color:#1F2937;margin-bottom:2px">SkyWalker</div>
+        <div style="font-size:10px;font-weight:700;color:#7C3AED">XP 18 450</div>
+        <div style="font-size:20px;font-weight:900;color:#6B7280;margin-top:4px">2</div>
+      </div>
+      <!-- 1st -->
+      <div style="background:linear-gradient(145deg,#FEF9C3,#FDE68A);border-radius:20px;padding:16px 10px;text-align:center;box-shadow:0 6px 24px rgba(245,158,11,.3)">
+        <div style="font-size:22px;margin-bottom:6px">👑</div>
+        <div style="width:60px;height:60px;border-radius:50%;overflow:hidden;margin:0 auto 6px;border:3px solid #F59E0B;background:#EDE9FE;display:flex;align-items:center;justify-content:center"><img class="fox-img" style="width:60px;height:auto" alt="fox"/></div>
+        <div style="font-size:12px;font-weight:900;color:#1F2937;margin-bottom:2px">FoxLegend</div>
+        <div style="font-size:11px;font-weight:700;color:#7C3AED">XP 24 500</div>
+        <div style="font-size:22px;font-weight:900;color:#D97706;margin-top:4px">1</div>
+      </div>
+      <!-- 3rd -->
+      <div style="background:#fff;border-radius:18px;padding:14px 8px;text-align:center;box-shadow:0 3px 14px rgba(0,0,0,.06)">
+        <div style="font-size:20px;margin-bottom:6px">🥉</div>
+        <div style="width:52px;height:52px;border-radius:50%;overflow:hidden;margin:0 auto 6px;border:2px solid #E5E7EB;background:#EDE9FE;display:flex;align-items:center;justify-content:center"><img class="fox-img" style="width:52px;height:auto" alt="fox"/></div>
+        <div style="font-size:11px;font-weight:800;color:#1F2937;margin-bottom:2px">AeroNinja</div>
+        <div style="font-size:10px;font-weight:700;color:#7C3AED">XP 22 300</div>
+        <div style="font-size:20px;font-weight:900;color:#6B7280;margin-top:4px">3</div>
+      </div>
+    </div>
+    <!-- LEADERBOARD -->
+    <div class="rating-row"><div class="rr-rank">4</div><div class="rr-avatar">🌩️</div><div class="rr-name">CloudChaser</div><div class="rr-xp">XP 17 890</div><div class="rr-arrow">›</div></div>
+    <div class="rating-row"><div class="rr-rank">5</div><div class="rr-avatar">🏇</div><div class="rr-name">QuestRider</div><div class="rr-xp">XP 15 620</div><div class="rr-arrow">›</div></div>
+    <div class="rating-row me"><div class="rr-rank" style="color:#7C3AED;font-weight:900">6</div><div class="rr-avatar" id="rating-avatar">🦊</div><div class="rr-name" style="color:#7C3AED" id="rating-username">Вы</div><div class="rr-xp" id="rating-xp">XP 0</div><div class="rr-arrow">›</div></div>
+    <div class="rating-row"><div class="rr-rank">7</div><div class="rr-avatar">🦆</div><div class="rr-name">TravelDuck</div><div class="rr-xp">XP 11 230</div><div class="rr-arrow">›</div></div>
+    <div class="rating-row"><div class="rr-rank">8</div><div class="rr-avatar">🚀</div><div class="rr-name">MilesAhead</div><div class="rr-xp">XP 9 870</div><div class="rr-arrow">›</div></div>
+    <div class="rating-row"><div class="rr-rank">9</div><div class="rr-avatar">🛫</div><div class="rr-name">JetSetGo</div><div class="rr-xp">XP 8 430</div><div class="rr-arrow">›</div></div>
+    <div class="rating-row"><div class="rr-rank">10</div><div class="rr-avatar">🦝</div><div class="rr-name">WanderFox</div><div class="rr-xp">XP 7 210</div><div class="rr-arrow">›</div></div>
+    <!-- USER POSITION -->
+    <div style="background:linear-gradient(135deg,#F5F3FF,#EDE9FE);margin:12px 16px;border-radius:18px;padding:16px;box-shadow:0 3px 14px rgba(124,58,237,.1)">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;text-align:center">
+        <div><div style="font-size:22px;font-weight:900;color:#7C3AED">6</div><div style="font-size:11px;color:#6B7280">Место</div></div>
+        <div><div style="font-size:22px;font-weight:900;color:#7C3AED" id="rating-xp-big">0</div><div style="font-size:11px;color:#6B7280">XP</div></div>
+        <div><div style="font-size:22px;font-weight:900;color:#7C3AED">Топ 7%</div><div style="font-size:11px;color:#6B7280">Игроков</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: DASHBOARD -->
+<div class="page" id="page-dashboard" style="background:#F9FAFB">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px 10px;background:#fff;box-shadow:0 1px 0 #F3F4F6">
+    <button style="width:38px;height:38px;border-radius:12px;background:#F5F3FF;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px">≡</button>
+    <div style="font-size:17px;font-weight:900;color:#1F2937">Дашборд</div>
+    <button style="width:38px;height:38px;border-radius:12px;background:#F5F3FF;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;position:relative">🔔<span style="position:absolute;top:7px;right:7px;width:8px;height:8px;background:#EF4444;border-radius:50%"></span></button>
+  </div>
+  <div style="overflow-y:auto;padding-bottom:84px">
+    <!-- MOTIVATION BANNER -->
+    <div class="dash-banner">
+      <div style="max-width:58%;position:relative;z-index:2">
+        <div style="font-size:18px;font-weight:900;color:#fff;line-height:1.3;margin-bottom:6px">Продолжай в том же духе!</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.8);margin-bottom:14px">Ты на верном пути к новым вершинам.</div>
+        <button onclick="showPage('scenarios');setNav(document.querySelectorAll('.nb')[0])" style="background:#fff;color:#7C3AED;border:none;border-radius:12px;padding:9px 16px;font-size:12px;font-weight:800;cursor:pointer;transition:.2s">Продолжить квест</button>
+      </div>
+      <div style="position:absolute;right:0;bottom:0;width:120px;height:120px;overflow:hidden;z-index:1;opacity:.9">
+        <img class="fox-img" style="width:120px;height:auto;margin-top:10px" alt="fox"/>
+      </div>
+      <!-- Stars decoration -->
+      <div style="position:absolute;top:12px;right:130px;font-size:12px;color:rgba(255,255,255,.4)">✦</div>
+      <div style="position:absolute;top:22px;right:110px;font-size:8px;color:rgba(255,255,255,.3)">✦</div>
+    </div>
+
+    <!-- WEEKLY STATS -->
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:4px 16px 10px">
+      <div style="font-size:12px;font-weight:900;color:#1F2937;letter-spacing:.4px">ТВОЙ ПРОГРЕСС</div>
+      <div style="font-size:11px;color:#7C3AED;font-weight:700">За неделю ↓</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px 14px">
+      <div class="dash-stat-card">
+        <div style="font-size:20px;margin-bottom:5px">🧳</div>
+        <div style="font-size:22px;font-weight:900;color:#1F2937" id="dash-xp">1 250</div>
+        <div style="font-size:11px;font-weight:700;color:#10B981;margin-top:1px">+250 ↑20%</div>
+        <div style="font-size:10px;color:#9CA3AF;margin-top:2px">Заработано</div>
+      </div>
+      <div class="dash-stat-card">
+        <div style="font-size:20px;margin-bottom:5px">📍</div>
+        <div style="font-size:22px;font-weight:900;color:#1F2937" id="dash-scenes">5 / 8</div>
+        <div style="font-size:11px;font-weight:700;color:#10B981;margin-top:1px">+1 ↑12%</div>
+        <div style="font-size:10px;color:#9CA3AF;margin-top:2px">Сценариев</div>
+      </div>
+      <div class="dash-stat-card">
+        <div style="font-size:20px;margin-bottom:5px">🗺️</div>
+        <div style="font-size:22px;font-weight:900;color:#1F2937">3</div>
+        <div style="font-size:11px;font-weight:700;color:#10B981;margin-top:1px">+1 ↑33%</div>
+        <div style="font-size:10px;color:#9CA3AF;margin-top:2px">Локаций</div>
+      </div>
+      <div class="dash-stat-card">
+        <div style="font-size:20px;margin-bottom:5px">🔥</div>
+        <div style="font-size:22px;font-weight:900;color:#1F2937" id="dash-streak">2</div>
+        <div style="font-size:11px;font-weight:700;color:#10B981;margin-top:1px">+1 ↑100%</div>
+        <div style="font-size:10px;color:#9CA3AF;margin-top:2px">Дня подряд</div>
+      </div>
+    </div>
+
+    <!-- CATEGORIES PROGRESS -->
+    <div style="background:#fff;border-radius:20px;margin:0 16px 12px;padding:16px;box-shadow:0 3px 14px rgba(0,0,0,.06)">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+        <div style="font-size:13px;font-weight:900;color:#1F2937">Прогресс по категориям</div>
+        <div style="font-size:11px;color:#7C3AED;font-weight:700;cursor:pointer">Смотреть все</div>
+      </div>
+      <div class="cat-bar-row">
+        <div class="cat-bar-icon" style="background:#E0F2FE">✈️</div>
+        <div style="font-size:12px;font-weight:700;color:#1F2937;flex:1">Аэропорт</div>
+        <div style="flex:2;height:6px;background:#EDE9FE;border-radius:999px;overflow:hidden;margin:0 8px"><div style="width:75%;height:100%;background:linear-gradient(90deg,#7C3AED,#A78BFA);border-radius:999px"></div></div>
+        <div style="font-size:11px;color:#7C3AED;font-weight:700;width:30px;text-align:right">75%</div>
+        <div style="font-size:11px;color:#9CA3AF;width:32px;text-align:right">6/8</div>
+      </div>
+      <div class="cat-bar-row">
+        <div class="cat-bar-icon" style="background:#ECFDF5">🏥</div>
+        <div style="font-size:12px;font-weight:700;color:#1F2937;flex:1">Врач</div>
+        <div style="flex:2;height:6px;background:#EDE9FE;border-radius:999px;overflow:hidden;margin:0 8px"><div style="width:60%;height:100%;background:linear-gradient(90deg,#7C3AED,#A78BFA);border-radius:999px"></div></div>
+        <div style="font-size:11px;color:#7C3AED;font-weight:700;width:30px;text-align:right">60%</div>
+        <div style="font-size:11px;color:#9CA3AF;width:32px;text-align:right">4/8</div>
+      </div>
+      <div class="cat-bar-row">
+        <div class="cat-bar-icon" style="background:#FFFBEB">🏠</div>
+        <div style="font-size:12px;font-weight:700;color:#1F2937;flex:1">Аренда жилья</div>
+        <div style="flex:2;height:6px;background:#EDE9FE;border-radius:999px;overflow:hidden;margin:0 8px"><div style="width:50%;height:100%;background:linear-gradient(90deg,#7C3AED,#A78BFA);border-radius:999px"></div></div>
+        <div style="font-size:11px;color:#7C3AED;font-weight:700;width:30px;text-align:right">50%</div>
+        <div style="font-size:11px;color:#9CA3AF;width:32px;text-align:right">3/5</div>
+      </div>
+      <div class="cat-bar-row">
+        <div class="cat-bar-icon" style="background:#EFF6FF">🏦</div>
+        <div style="font-size:12px;font-weight:700;color:#1F2937;flex:1">Банк</div>
+        <div style="flex:2;height:6px;background:#EDE9FE;border-radius:999px;overflow:hidden;margin:0 8px"><div style="width:40%;height:100%;background:linear-gradient(90deg,#7C3AED,#A78BFA);border-radius:999px"></div></div>
+        <div style="font-size:11px;color:#7C3AED;font-weight:700;width:30px;text-align:right">40%</div>
+        <div style="font-size:11px;color:#9CA3AF;width:32px;text-align:right">2/5</div>
+      </div>
+      <div class="cat-bar-row">
+        <div class="cat-bar-icon" style="background:#F5F3FF">💼</div>
+        <div style="font-size:12px;font-weight:700;color:#1F2937;flex:1">Собеседование</div>
+        <div style="flex:2;height:6px;background:#EDE9FE;border-radius:999px;overflow:hidden;margin:0 8px"><div style="width:30%;height:100%;background:linear-gradient(90deg,#7C3AED,#A78BFA);border-radius:999px"></div></div>
+        <div style="font-size:11px;color:#7C3AED;font-weight:700;width:30px;text-align:right">30%</div>
+        <div style="font-size:11px;color:#9CA3AF;width:32px;text-align:right">1/3</div>
+      </div>
+    </div>
+
+    <!-- DAILY REWARD + GOALS side by side -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px 14px">
+      <div style="background:linear-gradient(135deg,#F5F3FF,#EDE9FE);border-radius:18px;padding:14px;box-shadow:0 3px 14px rgba(124,58,237,.1)">
+        <div style="font-size:11px;font-weight:900;color:#1F2937;margin-bottom:8px">ЕЖЕДНЕВНАЯ<br>НАГРАДА</div>
+        <div style="font-size:30px;text-align:center;margin:8px 0;animation:chestFloat 2.5s ease-in-out infinite">🎁</div>
+        <div style="font-size:11px;color:#6B7280;margin-bottom:10px">До след. награды:</div>
+        <div style="font-size:16px;font-weight:900;color:#7C3AED;margin-bottom:10px" id="dash-timer">07:45:22</div>
+        <button onclick="claimDailyReward()" style="width:100%;background:linear-gradient(135deg,#7C3AED,#9333EA);color:#fff;border:none;border-radius:12px;padding:9px;font-size:12px;font-weight:800;cursor:pointer">Получить</button>
+      </div>
+      <div style="background:#fff;border-radius:18px;padding:14px;box-shadow:0 3px 14px rgba(0,0,0,.06)">
+        <div style="font-size:11px;font-weight:900;color:#1F2937;margin-bottom:10px">БЛИЖАЙШИЕ ЦЕЛИ</div>
+        <div style="margin-bottom:10px">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px"><span style="font-size:14px">🎯</span><div style="font-size:10px;font-weight:700;color:#1F2937;flex:1">Пройди 5 сценариев «Банк»</div><div style="font-size:10px;font-weight:700;color:#7C3AED">200</div></div>
+          <div style="height:4px;background:#EDE9FE;border-radius:999px"><div style="width:40%;height:100%;background:#7C3AED;border-radius:999px"></div></div>
+          <div style="font-size:9px;color:#9CA3AF;margin-top:2px">2 / 5</div>
+        </div>
+        <div style="margin-bottom:10px">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px"><span style="font-size:14px">📍</span><div style="font-size:10px;font-weight:700;color:#1F2937;flex:1">Открой 5 новых локаций</div><div style="font-size:10px;font-weight:700;color:#7C3AED">150</div></div>
+          <div style="height:4px;background:#EDE9FE;border-radius:999px"><div style="width:60%;height:100%;background:#7C3AED;border-radius:999px"></div></div>
+          <div style="font-size:9px;color:#9CA3AF;margin-top:2px">3 / 5</div>
+        </div>
+        <div>
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px"><span style="font-size:14px">⚡</span><div style="font-size:10px;font-weight:700;color:#1F2937;flex:1">Заработай 2000 XP</div><div style="font-size:10px;font-weight:700;color:#7C3AED">300</div></div>
+          <div style="height:4px;background:#EDE9FE;border-radius:999px"><div id="goal-xp-bar" style="width:0%;height:100%;background:#7C3AED;border-radius:999px;transition:.8s ease"></div></div>
+          <div style="font-size:9px;color:#9CA3AF;margin-top:2px" id="goal-xp-txt">0 / 2000</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <!-- PAGE: SETTINGS -->
-<div class="page" id="page-settings" style="background:#f0eeff;padding-bottom:20px">
+<div class="page" id="page-profile" style="background:#F9FAFB;padding-bottom:20px">
+
+  <!-- PROFILE HEADER -->
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px 10px;background:#fff;box-shadow:0 1px 0 #F3F4F6">
+    <button style="width:38px;height:38px;border-radius:12px;background:#F5F3FF;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px">≡</button>
+    <div style="font-size:17px;font-weight:900;color:#1F2937">Профиль</div>
+    <button style="width:38px;height:38px;border-radius:12px;background:#F5F3FF;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px">⚙️</button>
+  </div>
+
+  <!-- PROFILE CARD -->
+  <div class="profile-hdr-card">
+    <div class="profile-fox-wrap">
+      <img class="fox-img" style="width:90px;height:auto" alt="fox"/>
+    </div>
+    <div style="flex:1;min-width:0">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+        <div style="font-size:18px;font-weight:900;color:#1F2937" id="profile-username-display">Игрок</div>
+        <button onclick="focusProfileNameEdit()" style="background:none;border:none;cursor:pointer;font-size:14px">✏️</button>
+      </div>
+      <div style="display:inline-flex;align-items:center;gap:4px;background:#EDE9FE;color:#7C3AED;font-size:10px;font-weight:700;padding:3px 10px;border-radius:999px;margin-bottom:10px">🏅 Путешественник</div>
+      <div style="font-size:13px;font-weight:700;color:#1F2937;margin-bottom:5px">Уровень <span id="profile-level-display">A1</span></div>
+      <div style="height:6px;background:#DDD6FE;border-radius:999px;overflow:hidden;margin-bottom:4px"><div id="profile-xp-bar" style="height:100%;background:linear-gradient(90deg,#7C3AED,#A78BFA);width:0%;transition:.8s ease;border-radius:999px"></div></div>
+      <div style="font-size:10px;color:#7C3AED;font-weight:600" id="profile-xp-text">0 / 500 XP</div>
+    </div>
+  </div>
+
+  <!-- PROFILE STATS -->
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:0 16px 12px">
+    <div style="background:#fff;border-radius:14px;padding:12px 4px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05)">
+      <div style="font-size:14px;margin-bottom:4px">⚡</div>
+      <div style="font-size:13px;font-weight:900;color:#7C3AED" id="profile-total-xp">0</div>
+      <div style="font-size:9px;color:#9CA3AF;font-weight:600;margin-top:1px">XP</div>
+    </div>
+    <div style="background:#fff;border-radius:14px;padding:12px 4px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05)">
+      <div style="font-size:14px;margin-bottom:4px">⭐</div>
+      <div style="font-size:13px;font-weight:900;color:#1F2937" id="profile-achieve">37</div>
+      <div style="font-size:9px;color:#9CA3AF;font-weight:600;margin-top:1px">Достижений</div>
+    </div>
+    <div style="background:#fff;border-radius:14px;padding:12px 4px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05)">
+      <div style="font-size:14px;margin-bottom:4px">📍</div>
+      <div style="font-size:13px;font-weight:900;color:#1F2937">8/24</div>
+      <div style="font-size:9px;color:#9CA3AF;font-weight:600;margin-top:1px">Локаций</div>
+    </div>
+    <div style="background:#fff;border-radius:14px;padding:12px 4px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05)">
+      <div style="font-size:14px;margin-bottom:4px">🔥</div>
+      <div style="font-size:13px;font-weight:900;color:#1F2937" id="profile-streak">0</div>
+      <div style="font-size:9px;color:#9CA3AF;font-weight:600;margin-top:1px">Дней подряд</div>
+    </div>
+  </div>
+
+  <!-- RANK CARD -->
+  <div class="profile-rank-card">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="width:44px;height:44px;background:rgba(255,255,255,.2);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px">🛡️</div>
+      <div>
+        <div style="font-size:11px;color:rgba(255,255,255,.7);margin-bottom:2px">Твой ранг</div>
+        <div style="font-size:18px;font-weight:900;color:#fff">Путешественник</div>
+      </div>
+      <div style="margin-left:auto;text-align:right">
+        <div style="font-size:11px;color:rgba(255,255,255,.7)">Топ 7% игроков</div>
+        <button style="background:rgba(255,255,255,.2);color:#fff;border:none;border-radius:10px;padding:5px 10px;font-size:10px;font-weight:700;cursor:pointer;margin-top:4px">Подробнее →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- INFO + CATEGORIES -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px 12px">
+    <div style="background:#fff;border-radius:18px;padding:14px;box-shadow:0 2px 12px rgba(0,0,0,.06)">
+      <div style="font-size:11px;font-weight:900;color:#1F2937;margin-bottom:10px">Информация</div>
+      <div class="info-row"><span style="color:#9CA3AF;font-size:10px">Страна</span><span style="font-size:10px;font-weight:700;color:#1F2937">Россия 🇷🇺</span></div>
+      <div class="info-row"><span style="color:#9CA3AF;font-size:10px">Язык</span><span style="font-size:10px;font-weight:700;color:#1F2937">Русский</span></div>
+      <div class="info-row"><span style="color:#9CA3AF;font-size:10px">Уровень</span><span style="font-size:10px;font-weight:700;color:#7C3AED" id="profile-level-info">A1</span></div>
+      <div class="info-row"><span style="color:#9CA3AF;font-size:10px">Регистрация</span><span style="font-size:10px;font-weight:700;color:#1F2937">2024</span></div>
+    </div>
+    <div style="background:#fff;border-radius:18px;padding:14px;box-shadow:0 2px 12px rgba(0,0,0,.06)">
+      <div style="font-size:11px;font-weight:900;color:#1F2937;margin-bottom:10px">Категории</div>
+      <div class="cat-bar-row" style="padding:4px 0"><div class="cat-bar-icon" style="background:#E0F2FE;width:22px;height:22px;font-size:12px;border-radius:6px">✈️</div><div style="flex:1;font-size:10px;font-weight:700;color:#1F2937;margin:0 5px">Аэропорт</div><div style="font-size:10px;font-weight:700;color:#7C3AED">75%</div></div>
+      <div class="cat-bar-row" style="padding:4px 0"><div class="cat-bar-icon" style="background:#ECFDF5;width:22px;height:22px;font-size:12px;border-radius:6px">🏥</div><div style="flex:1;font-size:10px;font-weight:700;color:#1F2937;margin:0 5px">Врач</div><div style="font-size:10px;font-weight:700;color:#7C3AED">60%</div></div>
+      <div class="cat-bar-row" style="padding:4px 0"><div class="cat-bar-icon" style="background:#FFFBEB;width:22px;height:22px;font-size:12px;border-radius:6px">🏠</div><div style="flex:1;font-size:10px;font-weight:700;color:#1F2937;margin:0 5px">Аренда</div><div style="font-size:10px;font-weight:700;color:#7C3AED">50%</div></div>
+      <div class="cat-bar-row" style="padding:4px 0"><div class="cat-bar-icon" style="background:#EFF6FF;width:22px;height:22px;font-size:12px;border-radius:6px">🏦</div><div style="flex:1;font-size:10px;font-weight:700;color:#1F2937;margin:0 5px">Банк</div><div style="font-size:10px;font-weight:700;color:#7C3AED">40%</div></div>
+      <div class="cat-bar-row" style="padding:4px 0;border-bottom:none"><div class="cat-bar-icon" style="background:#F5F3FF;width:22px;height:22px;font-size:12px;border-radius:6px">💼</div><div style="flex:1;font-size:10px;font-weight:700;color:#1F2937;margin:0 5px">Собесед.</div><div style="font-size:10px;font-weight:700;color:#7C3AED">30%</div></div>
+    </div>
+  </div>
+
+  <!-- ACHIEVEMENTS -->
+  <div style="padding:4px 16px 10px"><div style="font-size:12px;font-weight:900;color:#1F2937;letter-spacing:.4px">МОИ ДОСТИЖЕНИЯ</div></div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 16px 14px">
+    <div class="ach-card"><div style="font-size:26px;margin-bottom:4px">🎯</div><div style="font-size:10px;font-weight:700;color:#1F2937">Первые шаги</div><div style="font-size:9px;color:#9CA3AF;margin-top:2px">Пройди 3 сценария</div><div style="font-size:10px;font-weight:700;color:#7C3AED;margin-top:4px">3/3</div></div>
+    <div class="ach-card"><div style="font-size:26px;margin-bottom:4px">✈️</div><div style="font-size:10px;font-weight:700;color:#1F2937">Авиатор</div><div style="font-size:9px;color:#9CA3AF;margin-top:2px">Посети аэропорт</div><div style="font-size:10px;font-weight:700;color:#7C3AED;margin-top:4px">1/1</div></div>
+    <div class="ach-card"><div style="font-size:26px;margin-bottom:4px">🔍</div><div style="font-size:10px;font-weight:700;color:#1F2937">Исследователь</div><div style="font-size:9px;color:#9CA3AF;margin-top:2px">Открой 10 локаций</div><div style="font-size:10px;font-weight:700;color:#7C3AED;margin-top:4px">8/10</div></div>
+    <div class="ach-card"><div style="font-size:26px;margin-bottom:4px">🏦</div><div style="font-size:10px;font-weight:700;color:#1F2937">Банкир</div><div style="font-size:9px;color:#9CA3AF;margin-top:2px">Открой банковский</div><div style="font-size:10px;font-weight:700;color:#7C3AED;margin-top:4px">1/1</div></div>
+    <div class="ach-card" style="opacity:.6"><div style="font-size:26px;margin-bottom:4px">🏆</div><div style="font-size:10px;font-weight:700;color:#1F2937">Мастер квестов</div><div style="font-size:9px;color:#9CA3AF;margin-top:2px">Пройди 50 сценариев</div><div style="font-size:10px;font-weight:700;color:#9CA3AF;margin-top:4px">12/50</div></div>
+    <div class="ach-card" style="opacity:.6"><div style="font-size:26px;margin-bottom:4px">🔒</div><div style="font-size:10px;font-weight:700;color:#1F2937">Эксперт</div><div style="font-size:9px;color:#9CA3AF;margin-top:2px">Уровень C1+</div><div style="font-size:10px;font-weight:700;color:#9CA3AF;margin-top:4px">0/1</div></div>
+  </div>
+
+  <!-- SETTINGS SECTION (compact) -->
+  <div style="padding:4px 16px 10px"><div style="font-size:12px;font-weight:900;color:#1F2937;letter-spacing:.4px">НАСТРОЙКИ</div></div>
+
   <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px 10px;background:#fff;border-bottom:1px solid #ede9ff;position:sticky;top:0;z-index:10;animation:headerSlide .3s ease">
     <div style="font-size:18px;font-weight:900;color:#1a1a2e">⚙️ Настройки</div>
     <div style="font-size:11px;font-weight:700;background:#ede9ff;color:#6c47ff;padding:4px 12px;border-radius:999px" id="settings-level-badge">A1</div>
@@ -964,13 +1339,12 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
 </div>
 
 <!-- BOTTOM NAV -->
-<div class="bnav" id="main-bnav" style="display:none">
-  <button class="nb active" onclick="showPage('home');setNav(this)"><div class="ico">🏠</div>Главная</button>
-  <button class="nb" onclick="showPage('study');setNav(this)"><div class="ico">📚</div>Учёба</button>
+<div class="bnav" id="main-bnav" style="display:none;background:#fff;border-top:1.5px solid #F3F4F6">
+  <button class="nb active" onclick="showPage('quests');setNav(this)"><div class="ico">🧳</div>Квесты</button>
   <button class="nb" onclick="showPage('tests');setNav(this)"><div class="ico">🧪</div>Тесты</button>
-  <button class="nb" onclick="showPage('sims');setNav(this)"><div class="ico">💬</div>Диалоги</button>
-  <button class="nb" onclick="showPage('move');setNav(this)"><div class="ico">✈️</div>Переезд</button>
-  <button class="nb" onclick="showPage('settings');setNav(this)"><div class="ico">⚙️</div>Профиль</button>
+  <button class="nb" onclick="showPage('rating');setNav(this)"><div class="ico">🏆</div>Рейтинг</button>
+  <button class="nb" onclick="showPage('dashboard');setNav(this)"><div class="ico">📊</div>Дашборд</button>
+  <button class="nb" onclick="showPage('profile');setNav(this)"><div class="ico">👤</div>Профиль</button>
 </div>
 
 <!-- SUB-PAGES (overlay) -->
@@ -6813,8 +7187,9 @@ function showPage(p) {
   if(p==='study'){renderWords();renderSents();}
   if(p==='tests'){initTestQueue();renderCurrentTest();}
   if(p==='sims'){renderSimsMenu();}
-  if(p==='home'){updateXPBar();updateHomeUserName();}
-  if(p==='settings'){syncSettings();}
+  if(p==='quests'){updateXPBar();updateHomeUserName();updateRatingPage();updateDashboard();}
+  if(p==='profile'){syncSettings();updateProfilePage();}
+  
 }
 function setNav(btn){
   document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
@@ -6834,7 +7209,7 @@ function startAppWithName(){
 function startApp(){
   document.getElementById('onboarding').style.display='none';
   document.getElementById('main-bnav').style.display='flex';
-  showPage('home');updateXPBar();initSettings();
+  showPage('quests');updateXPBar();initSettings();
 }
 function selectOnboardLevel(lv,btn){
   currentLevel=lv;
@@ -6849,7 +7224,7 @@ function setHomeLevel(lv){
     if(el)el.style.outline=l===lv?'3px solid #fff':'none';
   });
   renderWords();renderSents();
-  showPage('study');
+  showPage('quests');
 }
 // ===================== THEMES =====================
 function setTheme(t){
@@ -7467,6 +7842,108 @@ window.addEventListener('DOMContentLoaded',()=>{
     localStorage.setItem('lastVisit',today);
   }
 });
+
+// ── V2 FUNCTIONS ──────────────────────────────────────────────────────
+function claimDailyReward(){
+  const today=new Date().toDateString();
+  const last=localStorage.getItem('lastClaim');
+  if(last===today){showToast('Награда уже получена сегодня!',2000);return;}
+  xpTotal+=100;
+  localStorage.setItem('xp',xpTotal);
+  localStorage.setItem('lastClaim',today);
+  updateXPBar();
+  spawnParticles();
+  showToast('🎁 +100 XP — Ежедневная награда!',2800);
+}
+
+function updateProfilePage(){
+  const un=document.getElementById('profile-username-display');
+  if(un)un.textContent=userName;
+  const lv=document.getElementById('profile-level-display');
+  if(lv)lv.textContent=currentLevel;
+  const li=document.getElementById('profile-level-info');
+  if(li)li.textContent=currentLevel;
+  const st=document.getElementById('profile-streak');
+  if(st)st.textContent=streak;
+  const tx=document.getElementById('profile-total-xp');
+  if(tx)tx.textContent=xpTotal.toLocaleString('ru');
+  // XP bar
+  const lvXP={A1:500,A2:1000,B1:2000,B2:3600,C1:6000,C2:10000};
+  const maxXP=lvXP[currentLevel]||500;
+  const pct=Math.min(100,Math.round(xpTotal/maxXP*100));
+  const bar=document.getElementById('profile-xp-bar');
+  if(bar)bar.style.width=pct+'%';
+  const pt=document.getElementById('profile-xp-text');
+  if(pt)pt.textContent=xpTotal.toLocaleString('ru')+' / '+maxXP+' XP';
+}
+
+function updateRatingPage(){
+  const ru=document.getElementById('rating-username');
+  if(ru)ru.textContent=userName+' (Вы)';
+  const ra=document.getElementById('rating-avatar');
+  if(ra)ra.textContent=userAvatar;
+  const rx=document.getElementById('rating-xp');
+  if(rx)rx.textContent='XP '+xpTotal.toLocaleString('ru');
+  const rb=document.getElementById('rating-xp-big');
+  if(rb)rb.textContent=xpTotal.toLocaleString('ru');
+}
+
+function updateDashboard(){
+  const ds=document.getElementById('dash-streak');
+  if(ds)ds.textContent=streak;
+  const gx=document.getElementById('goal-xp-bar');
+  if(gx)gx.style.width=Math.min(100,xpTotal/2000*100)+'%';
+  const gt=document.getElementById('goal-xp-txt');
+  if(gt)gt.textContent=xpTotal.toLocaleString('ru')+' / 2000';
+  // timer countdown
+  startDashTimer();
+}
+
+let dashTimerInt=null;
+function startDashTimer(){
+  if(dashTimerInt)clearInterval(dashTimerInt);
+  function tick(){
+    const now=new Date();
+    const end=new Date();end.setHours(23,59,59,0);
+    let diff=Math.max(0,Math.floor((end-now)/1000));
+    const h=String(Math.floor(diff/3600)).padStart(2,'0');
+    const m=String(Math.floor((diff%3600)/60)).padStart(2,'0');
+    const s=String(diff%60).padStart(2,'0');
+    const el=document.getElementById('dash-timer');
+    if(el)el.textContent=h+':'+m+':'+s;
+  }
+  tick();
+  dashTimerInt=setInterval(tick,1000);
+}
+
+function focusProfileNameEdit(){
+  // show inline rename
+  const el=document.getElementById('profile-username-display');
+  if(!el)return;
+  const val=el.textContent;
+  const inp=document.createElement('input');
+  inp.value=val;inp.style.cssText='font-size:18px;font-weight:900;color:#1F2937;border:none;border-bottom:2px solid #7C3AED;background:transparent;outline:none;width:120px';
+  el.replaceWith(inp);
+  inp.focus();
+  inp.onblur=function(){
+    const newName=inp.value.trim()||val;
+    userName=newName;localStorage.setItem('userName',newName);
+    const span=document.createElement('div');
+    span.id='profile-username-display';span.style.cssText='font-size:18px;font-weight:900;color:#1F2937';span.textContent=newName;
+    inp.replaceWith(span);
+    updateHomeUserName();showToast('Имя обновлено!',1800);
+  };
+}
+
+function filterScenarios(type,btn){
+  document.querySelectorAll('.filter-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#scenarios-list .sc-card').forEach(c=>{
+    if(type==='all')c.style.display='flex';
+    else c.style.display=c.dataset.diff===type?'flex':'none';
+  });
+}
+
 </script>
 <!-- IELTS SUB-PAGES -->
 <div class="subpage" id="sub-ielts-reading">
