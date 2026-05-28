@@ -8659,7 +8659,10 @@ function renderSents(){
   document.getElementById('sents-count').textContent=`Показано ${Math.min(slice.length,data.length)} из ${sentencesData.length} предложений`;
   area.innerHTML=slice.map((s,i)=>`
     <div class="sent-card" style="animation-delay:${i*.04}s">
-      <div style="font-size:14px;font-weight:700;color:#1a1a2e;margin-bottom:4px">${s.en}</div>
+      <div style="display:flex;align-items:flex-start;gap:6px;margin-bottom:4px">
+        <div style="font-size:14px;font-weight:700;color:#1a1a2e;flex:1">${s.en}</div>
+        <button onclick="event.stopPropagation();speak('${s.en.replace(/'/g,"\'")}','en-US')" style="background:none;border:none;cursor:pointer;font-size:15px;flex-shrink:0;padding:0" title="Прослушать">🔊</button>
+      </div>
       <div style="font-size:12px;color:#6c47ff">${s.ru}</div>
       <div style="display:flex;gap:6px;margin-top:6px">
         <span style="font-size:10px;background:#ede9ff;color:#6c47ff;padding:2px 8px;border-radius:999px">${s.lv}</span>
@@ -8719,15 +8722,21 @@ function nextTest(){
 function renderChoiceTest(t){
   const area=document.getElementById('test-choice-area');if(!area)return;
   const opts=t.opts||[];
+  const qText=t.q||'';
+  const hasEn=/[a-zA-Z]/.test(qText);
   area.innerHTML=`
     <div class="test-card">
-      <div style="font-size:13px;font-weight:800;color:#1a1a2e;margin-bottom:14px">${t.q}</div>
+      <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:14px">
+        <div style="font-size:13px;font-weight:800;color:#1a1a2e;flex:1">${t.q}</div>
+        ${hasEn?`<button onclick="speak('${(t.q||'').replace(/'/g,"\'")}')" style="background:none;border:none;cursor:pointer;font-size:16px;padding:0;flex-shrink:0" title="Озвучить вопрос">🔊</button>`:''}
+      </div>
       <div style="display:flex;flex-direction:column;gap:8px" id="choice-opts">
         ${opts.map((o,i)=>`<button class="q-opt" onclick="answerChoice(${i},${t.a},${t.xp||10},this)">${o}</button>`).join('')}
       </div>
       <div id="choice-result" style="margin-top:10px;font-size:13px;font-weight:700;display:none"></div>
       <button onclick="nextTest()" style="margin-top:12px;background:linear-gradient(135deg,#6c47ff,#a78bfa);color:#fff;border:none;padding:10px 24px;border-radius:999px;font-size:13px;font-weight:800;cursor:pointer;width:100%">Следующий →</button>
     </div>`;
+  if(hasEn)setTimeout(()=>speak(qText),300);
 }
 function answerChoice(chosen,correct,xp,btn){
   document.querySelectorAll('#choice-opts .q-opt').forEach(b=>b.disabled=true);
@@ -8846,7 +8855,16 @@ function showSimStep(){
   typing.innerHTML='<span class="typing-dot" style="animation-delay:0s"></span><span class="typing-dot" style="animation-delay:.15s"></span><span class="typing-dot" style="animation-delay:.3s"></span>';
   chatArea.appendChild(typing);chatArea.scrollTop=chatArea.scrollHeight;
   setTimeout(()=>{
-    typing.innerHTML=step.ai;chatArea.scrollTop=chatArea.scrollHeight;
+    const aiText=step.ai;
+    typing.innerHTML=aiText;
+    const spkBtn=document.createElement('button');
+    spkBtn.textContent='🔊';
+    spkBtn.title='Повторить';
+    spkBtn.style.cssText='background:none;border:none;cursor:pointer;font-size:13px;vertical-align:middle;margin-left:6px';
+    spkBtn.onclick=()=>speak(aiText.replace(/<[^>]*>/g,''),'en-US');
+    typing.appendChild(spkBtn);
+    chatArea.scrollTop=chatArea.scrollHeight;
+    setTimeout(()=>speak(aiText.replace(/<[^>]*>/g,''),'en-US'),400);
     showSimOpts(step.opts);
   },900);
 }
