@@ -2004,10 +2004,11 @@ button{cursor:pointer}
   </div>
   <div style="overflow-y:auto;padding-bottom:84px">
     <div class="tab-bar" style="margin-top:12px">
-      <button class="tab-btn active">Игроки</button>
-      <button class="tab-btn">Друзья</button>
-      <button class="tab-btn">Страны</button>
+      <button class="tab-btn active" onclick="showRatingTab('players',this)">Игроки</button>
+      <button class="tab-btn" onclick="showRatingTab('friends',this)">Друзья</button>
+      <button class="tab-btn" onclick="showRatingTab('countries',this)">Страны</button>
     </div>
+    <div id="rating-players-tab">
     <!-- Season banner -->
     <div style="background:linear-gradient(135deg,#EDE9FE,#DDD6FE);border-radius:18px;margin:0 16px 14px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between">
       <div><div style="display:inline-flex;align-items:center;gap:5px;background:#DCFCE7;color:#15803D;font-size:10px;font-weight:700;padding:2px 9px;border-radius:999px;margin-bottom:5px"><span style="width:5px;height:5px;border-radius:50%;background:#22C55E;display:inline-block"></span> SEASON 1 • LIVE</div><div style="font-size:13px;font-weight:700;color:#4F46E5">До конца сезона: 32 дн.</div></div>
@@ -2054,6 +2055,68 @@ button{cursor:pointer}
         <div><div style="font-size:22px;font-weight:900;color:#7C3AED">6</div><div style="font-size:11px;color:#6B7280">Место</div></div>
         <div><div style="font-size:22px;font-weight:900;color:#7C3AED" id="rating-xp-big">0</div><div style="font-size:11px;color:#6B7280">XP</div></div>
         <div><div style="font-size:22px;font-weight:900;color:#7C3AED">Топ 7%</div><div style="font-size:11px;color:#6B7280">Игроков</div></div>
+      </div>
+    </div>
+    </div><!-- /rating-players-tab -->
+
+    <!-- FRIENDS TAB -->
+    <div id="rating-friends-tab" style="display:none">
+      <div style="text-align:center;padding:44px 24px 32px;animation:fadeInUp .35s ease both">
+        <div style="font-size:64px;margin-bottom:14px">👥</div>
+        <div style="font-size:18px;font-weight:900;color:#1a1a2e;margin-bottom:8px">Друзей пока нет</div>
+        <div style="font-size:13px;color:#9ca3af;line-height:1.6;margin-bottom:22px">Пригласи друзей и соревнуйтесь вместе!<br>Смотри кто учит английский быстрее.</div>
+        <button onclick="showToast('🔗 Ссылка скопирована!')" style="background:linear-gradient(135deg,#7C3AED,#a78bfa);color:#fff;border:none;border-radius:999px;padding:13px 28px;font-size:13px;font-weight:800;cursor:pointer;box-shadow:0 4px 16px rgba(124,58,237,.35);transition:.2s" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'">📨 Пригласить друга</button>
+        <div style="margin-top:20px;background:rgba(255,255,255,.7);border-radius:16px;padding:14px;font-size:12px;color:#6b7280">
+          <div style="font-weight:800;color:#1a1a2e;margin-bottom:6px">Как добавить друга?</div>
+          Поделись ссылкой на приложение — как только друг зарегистрируется, он появится здесь
+        </div>
+      </div>
+    </div>
+
+    <!-- COUNTRIES TAB -->
+    <div id="rating-countries-tab" style="display:none">
+      <div style="padding:12px 16px 6px;animation:fadeInUp .35s ease both">
+        <div style="font-size:10px;font-weight:800;color:#9ca3af;letter-spacing:.5px;text-transform:uppercase;margin-bottom:12px">🌍 Топ стран по XP</div>
+        <div style="background:linear-gradient(135deg,#7C3AED,#a78bfa);border-radius:18px;padding:14px 16px;margin-bottom:12px;display:flex;align-items:center;gap:12px;box-shadow:0 4px 18px rgba(124,58,237,.3)">
+          <div style="font-size:28px">👑</div>
+          <div style="flex:1"><div style="font-size:13px;font-weight:900;color:#fff">Россия 🇷🇺</div><div style="font-size:11px;color:rgba(255,255,255,.75)">XP 4 280 000 · 12 400 игроков</div></div>
+          <div style="font-size:22px;font-weight:900;color:#FDE68A">#1</div>
+        </div>
+        <div style="background:rgba(255,255,255,.75);border-radius:14px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:10px;backdrop-filter:blur(6px)">
+          <div style="font-size:24px">🇩🇪</div>
+          <div style="flex:1"><div style="font-size:13px;font-weight:800;color:#1a1a2e">Германия</div><div style="font-size:11px;color:#9ca3af">XP 2 150 000 · 6 800 игроков</div></div>
+          <div style="font-size:15px;font-weight:900;color:#7C3AED">#2</div>
+        </div>
+        <div style="background:rgba(255,255,255,.75);border-radius:14px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:10px;backdrop-filter:blur(6px)">
+          <div style="font-size:24px">🇰🇿</div>
+          <div style="flex:1"><div style="font-size:13px;font-weight:800;color:#1a1a2e">Казахстан</div><div style="font-size:11px;color:#9ca3af">XP 1 920 000 · 5 200 игроков</div></div>
+          <div style="font-size:15px;font-weight:900;color:#7C3AED">#3</div>
+        </div>
+        <div style="background:rgba(255,255,255,.75);border-radius:14px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:10px;backdrop-filter:blur(6px)">
+          <div style="font-size:24px">🇺🇦</div>
+          <div style="flex:1"><div style="font-size:13px;font-weight:800;color:#1a1a2e">Украина</div><div style="font-size:11px;color:#9ca3af">XP 1 650 000 · 4 900 игроков</div></div>
+          <div style="font-size:15px;font-weight:900;color:#7C3AED">#4</div>
+        </div>
+        <div style="background:rgba(255,255,255,.75);border-radius:14px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:10px;backdrop-filter:blur(6px)">
+          <div style="font-size:24px">🇬🇧</div>
+          <div style="flex:1"><div style="font-size:13px;font-weight:800;color:#1a1a2e">Великобритания</div><div style="font-size:11px;color:#9ca3af">XP 1 430 000 · 3 700 игроков</div></div>
+          <div style="font-size:15px;font-weight:900;color:#7C3AED">#5</div>
+        </div>
+        <div style="background:rgba(255,255,255,.75);border-radius:14px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:10px;backdrop-filter:blur(6px)">
+          <div style="font-size:24px">🇺🇸</div>
+          <div style="flex:1"><div style="font-size:13px;font-weight:800;color:#1a1a2e">США</div><div style="font-size:11px;color:#9ca3af">XP 1 210 000 · 3 100 игроков</div></div>
+          <div style="font-size:15px;font-weight:900;color:#7C3AED">#6</div>
+        </div>
+        <div style="background:rgba(255,255,255,.75);border-radius:14px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:10px;backdrop-filter:blur(6px)">
+          <div style="font-size:24px">🇫🇷</div>
+          <div style="flex:1"><div style="font-size:13px;font-weight:800;color:#1a1a2e">Франция</div><div style="font-size:11px;color:#9ca3af">XP 980 000 · 2 600 игроков</div></div>
+          <div style="font-size:15px;font-weight:900;color:#7C3AED">#7</div>
+        </div>
+        <div style="background:linear-gradient(135deg,#F5F3FF,#EDE9FE);border-radius:14px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:10px;border:2px solid #c4b5fd">
+          <div style="font-size:20px">🦊</div>
+          <div style="flex:1"><div style="font-size:13px;font-weight:800;color:#7C3AED">Твоя страна</div><div style="font-size:11px;color:#9ca3af" id="rating-country-xp">XP 0 · ты в топе!</div></div>
+          <div style="font-size:15px;font-weight:900;color:#7C3AED">Мой</div>
+        </div>
       </div>
     </div>
   </div>
@@ -9313,6 +9376,19 @@ function updateRatingPage(){
   if(rx)rx.textContent='XP '+xpTotal.toLocaleString('ru');
   const rb=document.getElementById('rating-xp-big');
   if(rb)rb.textContent=xpTotal.toLocaleString('ru');
+  const rc=document.getElementById('rating-country-xp');
+  if(rc)rc.textContent='XP '+xpTotal.toLocaleString('ru')+' · ты в топе!';
+}
+function showRatingTab(tab,btn){
+  ['players','friends','countries'].forEach(t=>{
+    const el=document.getElementById('rating-'+t+'-tab');
+    if(el){
+      el.style.display=t===tab?'block':'none';
+      if(t===tab){el.style.animation='none';void el.offsetWidth;el.style.animation='fadeInUp .3s ease both';}
+    }
+  });
+  document.querySelectorAll('#page-rating .tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
 }
 
 function updateDashboard(){
