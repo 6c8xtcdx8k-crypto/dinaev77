@@ -722,6 +722,7 @@ button{cursor:pointer}
   <div class="tabs" id="study-tabs">
     <button class="tab active" onclick="showStudyTab('words',this)">✨ Слова</button>
     <button class="tab" onclick="showStudyTab('sentences',this)">🗣️ Предложения</button>
+    <button class="tab" onclick="showStudyTab('relocation',this)">🏘️ Переезд</button>
     <button class="tab" onclick="showStudyTab('ielts',this)">🎓 IELTS</button>
     <button class="tab" onclick="showStudyTab('pics',this)">🖼️ Картинки</button>
     <button class="tab" onclick="showStudyTab('slang',this)">😎 Сленг</button>
@@ -784,6 +785,28 @@ button{cursor:pointer}
       <div class="pic-cat" onclick="showSubPage('pics-shop')"><div style="font-size:32px;margin-bottom:6px">🛒</div><div style="font-size:11px;font-weight:700;color:#1a1a2e">Магазин</div></div>
       <div class="pic-cat" onclick="showSubPage('pics-transport')"><div style="font-size:32px;margin-bottom:6px">🚌</div><div style="font-size:11px;font-weight:700;color:#1a1a2e">Транспорт</div></div>
     </div>
+  </div>
+  <div id="stab-relocation" style="display:none">
+    <div style="padding:10px 16px 6px">
+      <div style="font-size:13px;font-weight:900;color:#1a1a2e">🏘️ Фразы для жизни за рубежом</div>
+      <div style="font-size:11px;color:#9ca3af;margin-top:2px" id="reloc-count">1 500 фраз · перевод + транскрипция</div>
+    </div>
+    <div style="display:flex;gap:5px;padding:0 16px 8px;overflow-x:auto">
+      <button class="tab active" style="padding:5px 11px;font-size:10px;white-space:nowrap" onclick="filterReloc('all',this)">Все</button>
+      <button class="tab" style="padding:5px 11px;font-size:10px;white-space:nowrap" onclick="filterReloc('atm',this)">🏧 Банкомат</button>
+      <button class="tab" style="padding:5px 11px;font-size:10px;white-space:nowrap" onclick="filterReloc('neighbor',this)">🏘️ Сосед</button>
+      <button class="tab" style="padding:5px 11px;font-size:10px;white-space:nowrap" onclick="filterReloc('busstop',this)">🚌 Остановка</button>
+      <button class="tab" style="padding:5px 11px;font-size:10px;white-space:nowrap" onclick="filterReloc('airport',this)">✈️ Аэропорт</button>
+      <button class="tab" style="padding:5px 11px;font-size:10px;white-space:nowrap" onclick="filterReloc('doctor',this)">🏥 Врач</button>
+      <button class="tab" style="padding:5px 11px;font-size:10px;white-space:nowrap" onclick="filterReloc('shop',this)">🛒 Магазин</button>
+      <button class="tab" style="padding:5px 11px;font-size:10px;white-space:nowrap" onclick="filterReloc('rent',this)">🏠 Аренда</button>
+      <button class="tab" style="padding:5px 11px;font-size:10px;white-space:nowrap" onclick="filterReloc('work',this)">💼 Работа</button>
+      <button class="tab" style="padding:5px 11px;font-size:10px;white-space:nowrap" onclick="filterReloc('transport',this)">🚗 Транспорт</button>
+      <button class="tab" style="padding:5px 11px;font-size:10px;white-space:nowrap" onclick="filterReloc('restaurant',this)">🍕 Ресторан</button>
+      <button class="tab" style="padding:5px 11px;font-size:10px;white-space:nowrap" onclick="filterReloc('emergency',this)">🚨 Экстренно</button>
+    </div>
+    <div id="reloc-container" style="padding:0 16px 8px"></div>
+    <button class="btn-pu" onclick="loadMoreReloc()" id="reloc-more-btn" style="display:none">Загрузить ещё 20</button>
   </div>
   <div id="stab-slang" style="display:none">
     <div style="padding:12px 20px 8px"><div style="font-size:14px;font-weight:800;color:#1a1a2e">Молодёжный сленг 😎</div></div>
@@ -8402,8 +8425,11 @@ let wordCat = 'all';
 let wordLv = 'all';
 let sentCat = 'all';
 let sentLv = 'all';
+let relocCat = 'all';
+let relocOffset = 0;
 const WORDS_PER_PAGE = 12;
 const SENTS_PER_PAGE = 10;
+const RELOC_PER_PAGE = 20;
 let currentTestQueue = [];
 let currentTestIndex = 0;
 
@@ -8791,7 +8817,7 @@ function addXP(n){
 
 // ===================== STUDY =====================
 function showStudyTab(t,btn){
-  ['words','sentences','ielts','pics','slang'].forEach(s=>{
+  ['words','sentences','relocation','ielts','pics','slang'].forEach(s=>{
     const el=document.getElementById('stab-'+s);if(el)el.style.display='none';
   });
   const el=document.getElementById('stab-'+t);if(el)el.style.display='block';
@@ -8799,6 +8825,7 @@ function showStudyTab(t,btn){
   btn.classList.add('active');
   if(t==='words')renderWords();
   if(t==='sentences')renderSents();
+  if(t==='relocation'){relocCat='all';relocOffset=0;renderReloc();}
 }
 function filterWords(lv,btn){
   wordLv=lv;wordOffset=0;
@@ -8842,6 +8869,42 @@ function flipCard(card){
 }
 function markLearned(){wordsLearned++;localStorage.setItem('wl',wordsLearned);addXP(5);}
 function loadMoreWords(){renderWords();}
+function filterReloc(cat,btn){
+  relocCat=cat;relocOffset=0;
+  document.querySelectorAll('#stab-relocation .tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderReloc();
+}
+function loadMoreReloc(){renderReloc();}
+const catIcons={atm:'🏧',neighbor:'🏘️',busstop:'🚌',airport:'✈️',doctor:'🏥',shop:'🛒',rent:'🏠',work:'💼',transport:'🚗',restaurant:'🍕',emergency:'🚨'};
+const catNames={atm:'Банкомат',neighbor:'Сосед',busstop:'Остановка',airport:'Аэропорт',doctor:'Врач',shop:'Магазин',rent:'Аренда',work:'Работа',transport:'Транспорт',restaurant:'Ресторан',emergency:'Экстренно'};
+function renderReloc(){
+  const area=document.getElementById('reloc-container');if(!area)return;
+  if(typeof movePhrases==='undefined'||!movePhrases.length){area.innerHTML='<div style="text-align:center;padding:30px;color:#9ca3af">Загрузка...</div>';return;}
+  const data=relocCat==='all'?movePhrases:movePhrases.filter(p=>p.cat===relocCat);
+  const slice=data.slice(0,relocOffset+RELOC_PER_PAGE);
+  const cnt=document.getElementById('reloc-count');
+  if(cnt)cnt.textContent=`Показано ${Math.min(slice.length,data.length)} из ${data.length} фраз`;
+  const html=slice.map((p,i)=>`
+    <div style="background:#fff;border-radius:14px;padding:13px 14px;margin-bottom:8px;box-shadow:0 2px 10px rgba(0,0,0,.05);animation:fadeInUp .3s ${(i%RELOC_PER_PAGE)*.03}s both">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
+        <div style="flex:1">
+          <div style="font-size:13px;font-weight:800;color:#1a1a2e;margin-bottom:3px">${p.en}</div>
+          <div style="font-size:11px;color:#7c3aed;font-weight:600;margin-bottom:4px">[${p.ph}]</div>
+          <div style="font-size:12px;color:#374151;font-weight:600">${p.ru}</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0">
+          <button onclick="speak('${p.en.replace(/'/g,"\\'")}')" style="width:28px;height:28px;border-radius:50%;background:#f0eeff;border:none;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center">🔊</button>
+          <div style="font-size:9px;background:#f3f4f6;color:#6b7280;padding:2px 6px;border-radius:999px;white-space:nowrap">${catIcons[p.cat]||''} ${catNames[p.cat]||p.cat}</div>
+        </div>
+      </div>
+    </div>`).join('');
+  if(relocOffset===0)area.innerHTML=html;
+  else area.innerHTML+=html;
+  relocOffset+=RELOC_PER_PAGE;
+  const btn=document.getElementById('reloc-more-btn');
+  if(btn)btn.style.display=(relocOffset<data.length)?'block':'none';
+}
 
 function filterSents(lv,btn){
   sentLv=lv;sentOffset=0;
