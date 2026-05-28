@@ -7,6 +7,7 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;padding:24px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+button{cursor:pointer}
 .phone{width:390px;min-height:844px;background:linear-gradient(135deg,#e0d7ff 0%,#f0d9f7 40%,#fddcbc 100%);border-radius:44px;overflow:hidden;box-shadow:0 30px 80px rgba(108,71,255,.28),0 0 0 8px #1a1a2e;position:relative;display:flex;flex-direction:column}
 .hdr{display:flex;align-items:center;justify-content:space-between;padding:16px 20px 10px;background:rgba(255,255,255,.55);backdrop-filter:blur(10px);flex-shrink:0;z-index:10}
 .hdr-logo{font-size:15px;font-weight:900;letter-spacing:1px;color:#1a1a2e}
@@ -223,6 +224,20 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
 @keyframes countUp{from{opacity:0;transform:translateY(8px) scale(.9)}to{opacity:1;transform:translateY(0) scale(1)}}
 @keyframes borderPulse{0%,100%{border-color:#ede9ff}50%{border-color:#6c47ff}}
 @keyframes glowPulse{0%,100%{box-shadow:0 0 0 0 rgba(108,71,255,.4)}50%{box-shadow:0 0 20px 6px rgba(108,71,255,.2)}}
+/* ═══ FOX BANNER ANIMATION ═══ */
+@keyframes foxFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-7px) scale(1.02)}}
+.fox-banner{animation:foxFloat 3.8s ease-in-out infinite;filter:drop-shadow(0 6px 14px rgba(108,71,255,.18));transform-origin:bottom center}
+/* ═══ NOTIFICATIONS ═══ */
+@keyframes notifPanelIn{from{opacity:0;transform:translateY(-14px) scale(.93)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes pulseBadge{0%,100%{transform:scale(1)}50%{transform:scale(1.5)}}
+.notif-panel{position:absolute;top:60px;right:0;width:300px;background:#fff;border-radius:22px;box-shadow:0 16px 50px rgba(108,71,255,.18),0 4px 16px rgba(0,0,0,.1);z-index:300;overflow:hidden;animation:notifPanelIn .35s cubic-bezier(0.34,1.56,0.64,1) both}
+.notif-hdr{padding:14px 16px 10px;border-bottom:1px solid #f3f4f6;display:flex;align-items:center;justify-content:space-between}
+.notif-item{display:flex;align-items:flex-start;gap:10px;padding:11px 16px;border-bottom:1px solid #f9fafb;cursor:pointer;transition:.18s;text-align:left}
+.notif-item:hover{background:#faf9ff}
+.notif-item.unread{background:rgba(237,233,255,.35)}
+.notif-item:last-child{border-bottom:none}
+.notif-ico{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#ede9ff,#f5f4ff);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.notif-dot-badge{position:absolute;top:7px;right:7px;width:8px;height:8px;background:#EF4444;border-radius:50%;animation:pulseBadge 2s ease-in-out infinite}
 /* ═══ TEST ANSWER ANIMATIONS ═══ */
 @keyframes questionEntrance{0%{opacity:0;transform:translateY(-20px) scale(.93)}55%{transform:translateY(3px) scale(1.015)}100%{opacity:1;transform:translateY(0) scale(1)}}
 @keyframes optionSlideIn{from{opacity:0;transform:translateX(-20px) scale(.95)}to{opacity:1;transform:translateX(0) scale(1)}}
@@ -448,14 +463,14 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
 <div class="page" id="page-quests" style="background:transparent;padding-bottom:0">
 
   <!-- HEADER -->
-  <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px 10px;background:#fff;box-shadow:0 1px 0 #F3F4F6">
+  <div id="quests-hdr" style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px 10px;background:#fff;box-shadow:0 1px 0 #F3F4F6;position:relative">
     <button onclick="showPage('profile');setNav(document.querySelectorAll('.nb')[4])" style="width:38px;height:38px;border-radius:12px;background:#F5F3FF;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px">≡</button>
     <div style="text-align:center">
       <div style="font-size:17px;font-weight:900;letter-spacing:.5px"><span style="color:#7C3AED">CATCH</span><span style="color:#1F2937"> QUEST</span></div>
       <div style="font-size:10px;color:#9CA3AF">Survive • Win</div>
     </div>
-    <button style="width:38px;height:38px;border-radius:12px;background:#F5F3FF;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;position:relative">
-      🔔<span style="position:absolute;top:7px;right:7px;width:8px;height:8px;background:#EF4444;border-radius:50%"></span>
+    <button id="notif-bell-btn" onclick="toggleNotifications(event)" style="width:38px;height:38px;border-radius:12px;background:#F5F3FF;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;position:relative;transition:.2s" onmouseover="this.style.background='#ede9ff'" onmouseout="this.style.background='#F5F3FF'">
+      🔔<span id="notif-dot-el" class="notif-dot-badge"></span>
     </button>
   </div>
 
@@ -695,7 +710,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
       <button onclick="showStudyTab('words',document.querySelector('#study-tabs .tab'))" style="margin-top:8px;background:linear-gradient(135deg,#6c47ff,#8b5cf6);color:#fff;border:none;border-radius:10px;padding:7px 14px;font-size:11px;font-weight:700;cursor:pointer;transition:.2s">✨ К словам</button>
     </div>
     <div style="width:108px;height:106px;overflow:hidden;position:relative;flex-shrink:0">
-      <img class="fox-img" style="width:108px;height:auto;position:absolute;bottom:0" alt="fox"/>
+      <img class="fox-img fox-banner" style="width:108px;height:auto;position:absolute;top:0" alt="fox"/>
     </div>
   </div>
   <div class="tabs" id="study-tabs">
@@ -811,7 +826,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
       <button onclick="document.querySelector('#test-start-btn')?.click()" style="margin-top:8px;background:linear-gradient(135deg,#7c3aed,#a78bfa);color:#fff;border:none;border-radius:10px;padding:7px 14px;font-size:11px;font-weight:700;cursor:pointer;transition:.2s">🧪 Начать тест</button>
     </div>
     <div style="width:108px;height:106px;overflow:hidden;position:relative;flex-shrink:0">
-      <img class="fox-img" style="width:108px;height:auto;position:absolute;bottom:0" alt="fox"/>
+      <img class="fox-img fox-banner" style="width:108px;height:auto;position:absolute;top:0" alt="fox"/>
     </div>
   </div>
   <div style="padding:10px 16px 4px"><div style="font-size:10px;font-weight:800;color:#9ca3af;letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px">Уровень</div>
@@ -1920,7 +1935,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
       <button onclick="startSim(Math.floor(Math.random()*500))" style="margin-top:8px;background:linear-gradient(135deg,#0284c7,#8b5cf6);color:#fff;border:none;border-radius:10px;padding:7px 14px;font-size:11px;font-weight:700;cursor:pointer;transition:.2s">💬 Случайный диалог</button>
     </div>
     <div style="width:108px;height:106px;overflow:hidden;position:relative;flex-shrink:0">
-      <img class="fox-img" style="width:108px;height:auto;position:absolute;bottom:0" alt="fox"/>
+      <img class="fox-img fox-banner" style="width:108px;height:auto;position:absolute;top:0" alt="fox"/>
     </div>
   </div>
   <div id="sims-menu">
@@ -1952,7 +1967,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
       <button onclick="showSubPage('move-countries')" style="margin-top:8px;background:linear-gradient(135deg,#ea580c,#8b5cf6);color:#fff;border:none;border-radius:10px;padding:7px 14px;font-size:11px;font-weight:700;cursor:pointer;transition:.2s">🌍 Выбрать страну</button>
     </div>
     <div style="width:108px;height:106px;overflow:hidden;position:relative;flex-shrink:0">
-      <img class="fox-img" style="width:108px;height:auto;position:absolute;bottom:0" alt="fox"/>
+      <img class="fox-img fox-banner" style="width:108px;height:auto;position:absolute;top:0" alt="fox"/>
     </div>
   </div>
   <div style="padding:12px 16px 8px"><div style="font-size:10px;font-weight:800;color:#9ca3af;letter-spacing:.5px;text-transform:uppercase;margin-bottom:10px">Разделы</div></div>
@@ -2055,7 +2070,7 @@ body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;pad
         <button onclick="showPage('scenarios');setNav(document.querySelectorAll('.nb')[0])" style="background:#fff;color:#7C3AED;border:none;border-radius:12px;padding:9px 16px;font-size:12px;font-weight:800;cursor:pointer;transition:.2s">Продолжить квест</button>
       </div>
       <div style="position:absolute;right:0;bottom:0;width:120px;height:120px;overflow:hidden;z-index:1;opacity:.9">
-        <img class="fox-img" style="width:120px;height:auto;margin-top:10px" alt="fox"/>
+        <img class="fox-img fox-banner" style="width:120px;height:auto" alt="fox"/>
       </div>
       <!-- Stars decoration -->
       <div style="position:absolute;top:12px;right:130px;font-size:12px;color:rgba(255,255,255,.4)">✦</div>
@@ -8513,6 +8528,72 @@ function initFoxImages(){
   const master=document.querySelector('#onboarding img[alt="Catch Quest Fox"]');
   if(!master)return;
   document.querySelectorAll('.fox-img').forEach(img=>{img.src=master.src;});
+}
+
+// ===================== NOTIFICATIONS =====================
+const notifData=[
+  {icon:'🔥',title:'Серия 3 дня подряд!',text:'Так держать — продолжай в том же духе',time:'2 мин назад',read:false},
+  {icon:'✈️',title:'Новый квест разблокирован',text:'Квест «Аэропорт» ждёт тебя',time:'1 час назад',read:false},
+  {icon:'⚡',title:'+150 XP за сегодня',text:'Ты прошёл 5 тестов подряд — молодец!',time:'3 часа назад',read:true},
+  {icon:'🌸',title:'Уровень A2 всё ближе!',text:'Осталось 120 XP — пройди ещё пару тестов',time:'вчера',read:true},
+];
+function toggleNotifications(e){
+  if(e)e.stopPropagation();
+  const existing=document.getElementById('notif-panel');
+  if(existing){existing.remove();return;}
+  const hdr=document.getElementById('quests-hdr');
+  if(!hdr)return;
+  const unread=notifData.filter(n=>!n.read).length;
+  const panel=document.createElement('div');
+  panel.id='notif-panel';
+  panel.className='notif-panel';
+  panel.innerHTML=`
+    <div class="notif-hdr">
+      <div style="font-size:14px;font-weight:900;color:#1a1a2e">Уведомления <span style="font-size:11px;background:#ede9ff;color:#6c47ff;border-radius:999px;padding:1px 8px;font-weight:800;margin-left:4px">${unread}</span></div>
+      <button onclick="markAllNotifsRead()" style="font-size:11px;color:#7C3AED;background:none;border:none;cursor:pointer;font-weight:700;padding:0">Всё прочитано</button>
+    </div>
+    ${notifData.map((n,i)=>`
+      <div class="notif-item ${n.read?'':'unread'}" onclick="markNotifRead(${i})">
+        <div class="notif-ico">${n.icon}</div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:12px;font-weight:${n.read?'700':'900'};color:#1a1a2e;margin-bottom:1px">${n.title}</div>
+          <div style="font-size:11px;color:#6b7280;line-height:1.4;margin-bottom:2px">${n.text}</div>
+          <div style="font-size:10px;color:#9ca3af">${n.time}</div>
+        </div>
+        ${n.read?'':'<div style="width:8px;height:8px;background:#7C3AED;border-radius:50%;flex-shrink:0;margin-top:5px"></div>'}
+      </div>`).join('')}`;
+  hdr.appendChild(panel);
+  setTimeout(()=>{
+    document.addEventListener('click',function h(ev){
+      const p=document.getElementById('notif-panel');
+      if(p&&!p.contains(ev.target)&&ev.target.id!=='notif-bell-btn'){p.remove();}
+      document.removeEventListener('click',h);
+    });
+  },60);
+}
+function markNotifRead(i){
+  notifData[i].read=true;
+  _refreshNotifUI();
+}
+function markAllNotifsRead(){
+  notifData.forEach(n=>n.read=true);
+  _refreshNotifUI();
+}
+function _refreshNotifUI(){
+  const unread=notifData.filter(n=>!n.read).length;
+  const dot=document.getElementById('notif-dot-el');
+  if(dot)dot.style.display=unread>0?'block':'none';
+  // Re-render panel if open
+  const panel=document.getElementById('notif-panel');
+  if(panel){
+    const countSpan=panel.querySelector('.notif-hdr span');
+    if(countSpan)countSpan.textContent=unread;
+    panel.querySelectorAll('.notif-item').forEach((item,i)=>{
+      item.classList.toggle('unread',!notifData[i].read);
+      const dot2=item.querySelector('div[style*="7C3AED"]');
+      if(dot2&&notifData[i].read)dot2.remove();
+    });
+  }
 }
 
 // ===================== LEVEL TEST =====================
