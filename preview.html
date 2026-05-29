@@ -25,8 +25,10 @@ button{cursor:pointer}
 .nb{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:9px 0;border:none;background:none;cursor:pointer;color:#9ca3af;font-size:9px;font-weight:700;transition:.2s;position:relative}
 .nb.active{color:#6c47ff}
 .nb.active::after{content:'';position:absolute;top:0;left:20%;right:20%;height:2px;background:#6c47ff;border-radius:999px;animation:slideIn .2s ease}
-.nb .ico{font-size:20px;transition:.2s}
+.nb .ico{font-size:20px;transition:.2s;display:flex;align-items:center;justify-content:center;height:24px}
 .nb.active .ico{transform:scale(1.15)}
+.nb .ico svg{stroke:#9ca3af;transition:.2s}
+.nb.active .ico svg{stroke:#6c47ff;transform:scale(1.15)}
 .btn-pu{width:calc(100% - 32px);margin:0 16px 12px;background:linear-gradient(135deg,#6c47ff,#8b5cf6);color:#fff;border:none;border-radius:16px;padding:15px;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(108,71,255,.4);transition:.2s;display:flex;align-items:center;justify-content:center;gap:8px}
 .btn-pu:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(108,71,255,.5)}
 .btn-pu:active{transform:scale(.97)}
@@ -2538,12 +2540,12 @@ button{cursor:pointer}
 <!-- BOTTOM NAV -->
 <button id="back-fab" class="back-fab" onclick="showPage('quests');setNav(document.querySelectorAll('.nb')[0])" title="На главную">←</button>
 <div class="bnav" id="main-bnav" style="display:none;background:#fff;border-top:1.5px solid #F3F4F6">
-  <button class="nb active" onclick="showPage('quests');setNav(this)"><div class="ico">🗺️</div>Квесты</button>
-  <button class="nb" onclick="showPage('tests');setNav(this)"><div class="ico">📝</div>Тесты</button>
-  <button class="nb" onclick="showPage('rating');setNav(this)"><div class="ico">🏆</div>Рейтинг</button>
-  <button class="nb" onclick="showPage('dashboard');setNav(this)"><div class="ico">📊</div>Дашборд</button>
-  <button class="nb" onclick="showPage('profile');setNav(this)"><div class="ico">👤</div>Профиль</button>
-  <button class="nb" onclick="goReloc(this)"><div class="ico">📖</div>Словарь</button>
+  <button class="nb active" onclick="showPage('quests');setNav(this)"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3,6 9,3 15,6 21,3 21,18 15,21 9,18 3,21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg></div>Квесты</button>
+  <button class="nb" onclick="showPage('tests');setNav(this)"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="m9 12 2 2 4-4"/></svg></div>Тесты</button>
+  <button class="nb" onclick="showPage('rating');setNav(this)"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg></div>Рейтинг</button>
+  <button class="nb" onclick="showPage('dashboard');setNav(this)"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg></div>Дашборд</button>
+  <button class="nb" onclick="showPage('profile');setNav(this)"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>Профиль</button>
+  <button class="nb" onclick="goReloc(this)"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>Словарь</button>
 </div>
 
 <!-- SUB-PAGES (overlay) -->
