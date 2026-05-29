@@ -554,14 +554,14 @@ button{cursor:pointer}
         <div style="font-size:9px;color:#9CA3AF;font-weight:600">XP<br>Заработано</div>
       </div>
       <div style="background:#fff;border-radius:14px;padding:10px 4px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05)">
-        <div style="font-size:14px;margin-bottom:3px">⭐</div>
-        <div style="font-size:11px;font-weight:900;color:#1F2937" id="home-tests-done">0</div>
-        <div style="font-size:9px;color:#9CA3AF;font-weight:600">Дости-<br>жений</div>
+        <div style="font-size:14px;margin-bottom:3px">📝</div>
+        <div style="font-size:11px;font-weight:900;color:#1F2937" id="home-tests-done">0/2000</div>
+        <div style="font-size:9px;color:#9CA3AF;font-weight:600">Тестов</div>
       </div>
       <div style="background:#fff;border-radius:14px;padding:10px 4px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05)">
-        <div style="font-size:14px;margin-bottom:3px">📍</div>
+        <div style="font-size:14px;margin-bottom:3px">🧳</div>
         <div style="font-size:11px;font-weight:900;color:#1F2937" id="home-sims-done">0/500</div>
-        <div style="font-size:9px;color:#9CA3AF;font-weight:600">Лока-<br>ций</div>
+        <div style="font-size:9px;color:#9CA3AF;font-weight:600">Сцена-<br>риев</div>
       </div>
       <div style="background:#fff;border-radius:14px;padding:10px 4px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05)">
         <div style="font-size:14px;margin-bottom:3px">🔥</div>
@@ -2180,30 +2180,21 @@ button{cursor:pointer}
       <div style="font-size:12px;font-weight:900;color:#1F2937;letter-spacing:.4px">ТВОЙ ПРОГРЕСС</div>
       <div style="font-size:11px;color:#7C3AED;font-weight:700">За неделю ↓</div>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px 14px">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0 16px 14px">
       <div class="dash-stat-card">
-        <div style="font-size:20px;margin-bottom:5px">🧳</div>
-        <div style="font-size:22px;font-weight:900;color:#1F2937" id="dash-xp">1 250</div>
-        <div style="font-size:11px;font-weight:700;color:#10B981;margin-top:1px">+250 ↑20%</div>
-        <div style="font-size:10px;color:#9CA3AF;margin-top:2px">Заработано</div>
+        <div style="font-size:20px;margin-bottom:5px">⚡</div>
+        <div style="font-size:20px;font-weight:900;color:#7C3AED" id="dash-xp">0</div>
+        <div style="font-size:10px;color:#9CA3AF;margin-top:2px">XP всего</div>
       </div>
       <div class="dash-stat-card">
-        <div style="font-size:20px;margin-bottom:5px">📍</div>
-        <div style="font-size:22px;font-weight:900;color:#1F2937" id="dash-scenes">5 / 8</div>
-        <div style="font-size:11px;font-weight:700;color:#10B981;margin-top:1px">+1 ↑12%</div>
+        <div style="font-size:20px;margin-bottom:5px">🧳</div>
+        <div style="font-size:20px;font-weight:900;color:#1F2937" id="dash-scenes">0 / 500</div>
         <div style="font-size:10px;color:#9CA3AF;margin-top:2px">Сценариев</div>
       </div>
       <div class="dash-stat-card">
-        <div style="font-size:20px;margin-bottom:5px">🗺️</div>
-        <div style="font-size:22px;font-weight:900;color:#1F2937">3</div>
-        <div style="font-size:11px;font-weight:700;color:#10B981;margin-top:1px">+1 ↑33%</div>
-        <div style="font-size:10px;color:#9CA3AF;margin-top:2px">Локаций</div>
-      </div>
-      <div class="dash-stat-card">
         <div style="font-size:20px;margin-bottom:5px">🔥</div>
-        <div style="font-size:22px;font-weight:900;color:#1F2937" id="dash-streak">2</div>
-        <div style="font-size:11px;font-weight:700;color:#10B981;margin-top:1px">+1 ↑100%</div>
-        <div style="font-size:10px;color:#9CA3AF;margin-top:2px">Дня подряд</div>
+        <div style="font-size:20px;font-weight:900;color:#1F2937" id="dash-streak">0</div>
+        <div style="font-size:10px;color:#9CA3AF;margin-top:2px">Дней подряд</div>
       </div>
     </div>
 
@@ -2310,11 +2301,16 @@ button{cursor:pointer}
   </div>
 
   <!-- PROFILE STATS -->
-  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:0 16px 12px">
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 16px 12px">
     <div style="background:#fff;border-radius:14px;padding:12px 4px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05)">
       <div style="font-size:14px;margin-bottom:4px">⚡</div>
       <div style="font-size:13px;font-weight:900;color:#7C3AED" id="profile-total-xp">0</div>
       <div style="font-size:9px;color:#9CA3AF;font-weight:600;margin-top:1px">XP</div>
+    </div>
+    <div style="background:#fff;border-radius:14px;padding:12px 4px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05)">
+      <div style="font-size:14px;margin-bottom:4px">🔥</div>
+      <div style="font-size:13px;font-weight:900;color:#1F2937" id="profile-streak">0</div>
+      <div style="font-size:9px;color:#9CA3AF;font-weight:600;margin-top:1px">Дней подряд</div>
     </div>
     <div style="background:#fff;border-radius:14px;padding:12px 4px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05)">
       <div style="font-size:14px;margin-bottom:4px">⭐</div>
@@ -2322,14 +2318,19 @@ button{cursor:pointer}
       <div style="font-size:9px;color:#9CA3AF;font-weight:600;margin-top:1px">Достижений</div>
     </div>
     <div style="background:#fff;border-radius:14px;padding:12px 4px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05)">
-      <div style="font-size:14px;margin-bottom:4px">📍</div>
-      <div style="font-size:13px;font-weight:900;color:#1F2937">8/24</div>
-      <div style="font-size:9px;color:#9CA3AF;font-weight:600;margin-top:1px">Локаций</div>
+      <div style="font-size:14px;margin-bottom:4px">🧳</div>
+      <div style="font-size:13px;font-weight:900;color:#1F2937" id="profile-sims-done">0</div>
+      <div style="font-size:9px;color:#9CA3AF;font-weight:600;margin-top:1px">Сценариев</div>
     </div>
     <div style="background:#fff;border-radius:14px;padding:12px 4px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05)">
-      <div style="font-size:14px;margin-bottom:4px">🔥</div>
-      <div style="font-size:13px;font-weight:900;color:#1F2937" id="profile-streak">0</div>
-      <div style="font-size:9px;color:#9CA3AF;font-weight:600;margin-top:1px">Дней подряд</div>
+      <div style="font-size:14px;margin-bottom:4px">📝</div>
+      <div style="font-size:13px;font-weight:900;color:#1F2937" id="profile-tests-done">0</div>
+      <div style="font-size:9px;color:#9CA3AF;font-weight:600;margin-top:1px">Тестов</div>
+    </div>
+    <div style="background:#fff;border-radius:14px;padding:12px 4px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05)">
+      <div style="font-size:14px;margin-bottom:4px">📖</div>
+      <div style="font-size:13px;font-weight:900;color:#1F2937" id="profile-words-learned">0</div>
+      <div style="font-size:9px;color:#9CA3AF;font-weight:600;margin-top:1px">Слов выучено</div>
     </div>
   </div>
 
@@ -2355,7 +2356,7 @@ button{cursor:pointer}
       <div class="info-row"><span style="color:#9CA3AF;font-size:10px">Страна</span><span style="font-size:10px;font-weight:700;color:#1F2937">Россия 🇷🇺</span></div>
       <div class="info-row"><span style="color:#9CA3AF;font-size:10px">Язык</span><span style="font-size:10px;font-weight:700;color:#1F2937">Русский</span></div>
       <div class="info-row"><span style="color:#9CA3AF;font-size:10px">Уровень</span><span style="font-size:10px;font-weight:700;color:#7C3AED" id="profile-level-info">A1</span></div>
-      <div class="info-row"><span style="color:#9CA3AF;font-size:10px">Регистрация</span><span style="font-size:10px;font-weight:700;color:#1F2937">2024</span></div>
+      <div class="info-row"><span style="color:#9CA3AF;font-size:10px">Регистрация</span><span style="font-size:10px;font-weight:700;color:#1F2937">2026</span></div>
     </div>
     <div style="background:#fff;border-radius:18px;padding:14px;box-shadow:0 2px 12px rgba(0,0,0,.06)">
       <div style="font-size:11px;font-weight:900;color:#1F2937;margin-bottom:10px">Категории</div>
@@ -10069,6 +10070,7 @@ function showPage(p) {
   if(p==='tests'){currentTestLevel=currentLevel;_syncTestLevelUI(currentLevel);initTestQueue();renderCurrentTest();}
   if(p==='sims'){renderSimsMenu();}
   if(p==='quests'){updateXPBar();updateHomeUserName();updateRatingPage();updateDashboard();}
+  if(p==='dashboard'){updateDashboard();}
   if(p==='profile'){syncSettings();updateProfilePage();}
 }
 function setNav(btn){
@@ -11116,6 +11118,9 @@ function updateProfilePage(){
   if(st)st.textContent=streak;
   const tx=document.getElementById('profile-total-xp');
   if(tx)tx.textContent=xpTotal.toLocaleString('ru');
+  const psd=document.getElementById('profile-sims-done');if(psd)psd.textContent=simsDone;
+  const ptd=document.getElementById('profile-tests-done');if(ptd)ptd.textContent=testsDone;
+  const pwd=document.getElementById('profile-words-learned');if(pwd)pwd.textContent=wordsLearned;
   // Rank
   const rank=getCurrentRank();
   const rb=document.getElementById('profile-rank-badge');
@@ -11284,13 +11289,9 @@ function toggleProfileInfo(){
           <span style="font-size:12px;color:#6B7280;font-weight:600">🗣 Родной язык</span>
           <span style="font-size:12px;font-weight:700;color:#1F2937">Русский</span>
         </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid #f3f4f6">
-          <span style="font-size:12px;color:#6B7280;font-weight:600">📅 В приложении с</span>
-          <span style="font-size:12px;font-weight:700;color:#1F2937">2024</span>
-        </div>
         <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 14px">
-          <span style="font-size:12px;color:#6B7280;font-weight:600">🎯 Цель</span>
-          <span style="font-size:12px;font-weight:700;color:#7C3AED">Переезд за рубеж</span>
+          <span style="font-size:12px;color:#6B7280;font-weight:600">📅 В приложении с</span>
+          <span style="font-size:12px;font-weight:700;color:#1F2937">2026</span>
         </div>
       </div>
     </div>`;
@@ -11377,13 +11378,13 @@ function showRatingTab(tab,btn){
 }
 
 function updateDashboard(){
-  const ds=document.getElementById('dash-streak');
-  if(ds)ds.textContent=streak;
+  const ds=document.getElementById('dash-streak');if(ds)ds.textContent=streak;
+  const dx=document.getElementById('dash-xp');if(dx)dx.textContent=xpTotal.toLocaleString('ru');
+  const dsc=document.getElementById('dash-scenes');if(dsc)dsc.textContent=simsDone+' / 500';
   const gx=document.getElementById('goal-xp-bar');
   if(gx)gx.style.width=Math.min(100,xpTotal/2000*100)+'%';
   const gt=document.getElementById('goal-xp-txt');
   if(gt)gt.textContent=xpTotal.toLocaleString('ru')+' / 2000';
-  // timer countdown
   startDashTimer();
 }
 
