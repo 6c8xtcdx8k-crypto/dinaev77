@@ -9949,6 +9949,9 @@ const SENTS_PER_PAGE = 10;
 const RELOC_PER_PAGE = 20;
 let currentTestQueue = [];
 let currentTestIndex = 0;
+let sessionCorrect = 0;
+let sessionXP = 0;
+let sessionTestNum = 0;
 
 // ===================== UI =====================
 function showPage(p) {
@@ -10510,7 +10513,14 @@ function initTestQueue(){
   const pool=getTestPool(currentTestType,currentTestLevel);
   currentTestQueue=pool.sort(()=>Math.random()-.5);
   currentTestIndex=0;
+  sessionCorrect=0;sessionXP=0;sessionTestNum=0;
   updateTestProgress();
+  updateSessionDisplay();
+}
+function updateSessionDisplay(){
+  const cc=document.getElementById('test-correct-count');if(cc)cc.textContent=sessionCorrect;
+  const xc=document.getElementById('test-xp-count');if(xc)xc.textContent='+'+sessionXP;
+  const tn=document.getElementById('test-num');if(tn)tn.textContent=sessionTestNum+1;
 }
 function updateTestProgress(){
   const el=document.getElementById('test-progress-title');
@@ -10539,6 +10549,8 @@ function renderCurrentTest(){
   else renderListenTest(t);
 }
 function nextTest(){
+  sessionTestNum++;
+  updateSessionDisplay();
   const card=document.querySelector('.test-card');
   if(card){
     card.style.animation='testExit .22s ease forwards';
@@ -10597,6 +10609,7 @@ function answerChoice(chosen,correct,xp,btn){
     }
     showXpBubble(btn,xp);
     addXP(xp);testsDone++;localStorage.setItem('td',testsDone);updateTestProgress();
+    sessionCorrect++;sessionXP+=xp;updateSessionDisplay();
     _showNextBtn(400);
   } else {
     btn.style.cssText+=';background:#fee2e2!important;border:2.5px solid #ef4444!important;color:#dc2626!important;font-weight:700!important';
@@ -10650,6 +10663,7 @@ function checkInput(answer,xp){
     result.style.cssText+='color:#16a34a;background:rgba(220,252,231,.6);animation:resultReveal .38s cubic-bezier(0.34,1.56,0.64,1) both';
     showXpBubble(inp,xp);
     addXP(xp);testsDone++;localStorage.setItem('td',testsDone);updateTestProgress();
+    sessionCorrect++;sessionXP+=xp;updateSessionDisplay();
   } else {
     inp.style.borderColor='#ef4444';inp.style.background='#fef2f2';inp.style.animation='wrongShakeDeep .45s cubic-bezier(0.36,0.07,0.19,0.97) both';
     setTimeout(()=>{
@@ -10697,6 +10711,7 @@ function answerListen(chosen,correct,xp,btn){
     }
     showXpBubble(btn,xp);
     addXP(xp);testsDone++;localStorage.setItem('td',testsDone);updateTestProgress();
+    sessionCorrect++;sessionXP+=xp;updateSessionDisplay();
     setTimeout(()=>{const nb=document.getElementById('listen-next-btn');if(nb){nb.style.opacity='1';nb.style.pointerEvents='auto';nb.style.transform='translateY(0)';nb.style.animation='nextBtnReveal .42s cubic-bezier(0.34,1.56,0.64,1) both';}},420);
   } else {
     btn.style.cssText+=';background:#fee2e2!important;border:2.5px solid #ef4444!important;color:#dc2626!important;font-weight:700!important';
