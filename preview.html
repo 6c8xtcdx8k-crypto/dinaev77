@@ -2543,6 +2543,7 @@ button{cursor:pointer}
   <button class="nb" onclick="showPage('rating');setNav(this)"><div class="ico">👑</div>Рейтинг</button>
   <button class="nb" onclick="showPage('dashboard');setNav(this)"><div class="ico">🔮</div>Дашборд</button>
   <button class="nb" onclick="showPage('profile');setNav(this)"><div class="ico">🌸</div>Профиль</button>
+  <button class="nb" onclick="goReloc(this)"><div class="ico">🏘️</div>Переезд</button>
 </div>
 
 <!-- SUB-PAGES (overlay) -->
@@ -9955,6 +9956,12 @@ function showPage(p) {
 function setNav(btn){
   document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
+}
+function goReloc(btn){
+  setNav(btn);
+  showPage('study');
+  const tab=document.querySelector('#study-tabs .tab[onclick*="relocation"]');
+  if(tab)showStudyTab('relocation',tab);
 }
 function selectLevel(lv,btn){
   currentLevel=lv;
