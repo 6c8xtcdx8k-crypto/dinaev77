@@ -61,7 +61,6 @@
 {en:"Genuine curiosity about another person's inner life is, arguably, the foundation of meaningful relationship.",ru:"Подлинное любопытство к внутреннему миру другого человека — это, пожалуй, основа значимых отношений.",lv:"C2",cat:"daily"},
 {en:"I have found that restraint in speech is frequently more eloquent than elaborate articulation.",ru:"Я обнаружил, что сдержанность в речи нередко красноречивее, чем развёрнутое высказывание.",lv:"C2",cat:"daily"},
 {en:"The pursuit of self-knowledge is a lifelong undertaking that yields diminishing certainty, not greater.",ru:"Стремление к самопознанию — это дело всей жизни, которое приносит всё меньше определённости, а не больше.",lv:"C2",cat:"daily"},
-{en:"To engage with ideas that challenge one's foundational beliefs requires considerable intellectual courage.",ru:"Для того чтобы взаимодействовать с идеями, бросающими вызов базовым убеждениям, требуется значительная интеллектуальная смелость.",lv:"C2",cat:"daily"},
 
 // C1 bank sentences
 {en:"I'd like to discuss the options for restructuring my existing mortgage.",ru:"Я хотел бы обсудить варианты реструктуризации моей существующей ипотеки.",lv:"C1",cat:"bank"},
@@ -765,6 +764,7 @@
 {en:"Speed cameras have demonstrably reduced casualty rates in their vicinity, yet their expansion faces persistent political resistance rooted in libertarian rather than evidential objections.",ru:"Камеры контроля скорости наглядно снизили число пострадавших в местах их установки, однако их расширение встречает устойчивое политическое сопротивление, коренящееся в либертарианских, а не доказательных возражениях.",lv:"C2",cat:"transport"},
 {en:"The externalities of private car use — congestion, air pollution, land consumption, and carbon emissions — are not adequately internalised under current pricing regimes.",ru:"Внешние эффекты использования частного автомобиля — перегрузка дорог, загрязнение воздуха, потребление земли и выбросы углерода — не в достаточной мере интернализируются в рамках действующих режимов ценообразования.",lv:"C2",cat:"transport"},
 {en:"Superblock urban design, pioneered in Barcelona, reallocates street space from cars to people in ways that generate measurable improvements in health and community outcomes.",ru:"Градостроительный дизайн суперблоков, начатый в Барселоне, перераспределяет уличное пространство от автомобилей к людям способами, которые приносят измеримые улучшения показателей здоровья и жизни сообщества.",lv:"C2",cat:"transport"},
+{en:"The failure to mainstream active travel infrastructure into urban development appraisal perpetuates car-centric spatial patterns that resist even well-intentioned retrofitting.",ru:"Неспособность включить инфраструктуру активного передвижения в оценку городского развития увековечивает автомобилецентричные пространственные паттерны, которые противостоят даже хорошо задуманной модернизации.",lv:"C2",cat:"transport"},
 
 // C1 education sentences
 {en:"I'd like to discuss the possibility of deferring my enrolment by one year due to personal circumstances.",ru:"Я хотел бы обсудить возможность отсрочки зачисления на один год по личным обстоятельствам.",lv:"C1",cat:"education"},
