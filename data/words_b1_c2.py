@@ -563,7 +563,6 @@ WORDS_B1_C2 = """
 {en:"xerophyte",ph:"ˈzɪərəfaɪt",ru:"ксерофит; засухоустойчивое растение",ex:"Xerophytes store water in thick leaves to survive desert conditions.",lv:"C2",cat:"nature"},
 {en:"rheophyte",ph:"ˈriːəfaɪt",ru:"реофит; растение быстрых течений",ex:"Rheophytes cling to rocks in fast-flowing rivers.",lv:"C2",cat:"nature"},
 {en:"subnivean",ph:"ˌsʌbˈnɪviən",ru:"поднивальный; под снегом",ex:"Small mammals survive winter in the subnivean space beneath the snowpack.",lv:"C2",cat:"nature"},
-{en:"zoochory",ph:"zəʊˈɒkəri",ru:"зоохория; распространение семян животными",ex:"Zoochory accounts for the wide distribution of many tropical fruits.",lv:"C2",cat:"nature"},
 {en:"anemochory",ph:"ˌænɪˈmɒkəri",ru:"анемохория; распространение семян ветром",ex:"Dandelions rely on anemochory to disperse their seeds.",lv:"C2",cat:"nature"},
 
 // C1 numbers words
@@ -668,7 +667,6 @@ WORDS_B1_C2 = """
 {en:"analytic continuation",ph:"ˌænəˈlɪtɪk ˌkɒntɪnjʊˈeɪʃn",ru:"аналитическое продолжение",ex:"Analytic continuation extends functions beyond their original domain.",lv:"C2",cat:"numbers"},
 {en:"Cauchy sequence",ph:"ˈkɔːʃi ˈsiːkwəns",ru:"последовательность Коши",ex:"In a complete metric space every Cauchy sequence converges.",lv:"C2",cat:"numbers"},
 {en:"metric space",ph:"ˈmetrɪk speɪs",ru:"метрическое пространство",ex:"A metric space defines a distance function between any two points.",lv:"C2",cat:"numbers"},
-{en:"Banach space",ph:"ˈbɑːnæk speɪs",ru:"банахово пространство",ex:"A Banach space is a complete normed vector space.",lv:"C2",cat:"numbers"},
 {en:"Hilbert space",ph:"ˈhɪlbət speɪs",ru:"гильбертово пространство",ex:"Quantum mechanics is formulated in an infinite-dimensional Hilbert space.",lv:"C2",cat:"numbers"},
 
 // C1 philosophy words
@@ -772,4 +770,14 @@ WORDS_B1_C2 = """
 {en:"eliminative materialism",ph:"ɪˈlɪmɪnətɪv məˈtɪəriəlɪzəm",ru:"элиминативный материализм",ex:"Eliminative materialism holds that folk psychological concepts will be replaced by neuroscience.",lv:"C2",cat:"philosophy"},
 {en:"compatibilism",ph:"kəmˈpætɪbɪlɪzəm",ru:"компатибилизм",ex:"Compatibilism argues that free will and determinism are not mutually exclusive.",lv:"C2",cat:"philosophy"},
 {en:"incompatibilism",ph:"ˌɪnkəmˈpætɪbɪlɪzəm",ru:"инкомпатибилизм",ex:"Incompatibilism holds that genuine free will requires the falsity of determinism.",lv:"C2",cat:"philosophy"},
+{en:"occasionalism",ph:"əˈkeɪʒənəlɪzəm",ru:"окказионализм",ex:"Occasionalism holds that God is the direct cause of all apparent interactions between mind and body.",lv:"C2",cat:"philosophy"},
+{en:"panopticism",ph:"pæˈnɒptɪsɪzəm",ru:"паноптицизм (Фуко)",ex:"Foucault's panopticism describes how surveillance disciplines behaviour.",lv:"C1",cat:"philosophy"},
+{en:"verisimilitude",ph:"ˌverɪsɪˈmɪlɪtjuːd",ru:"правдоподобие (Поппер)",ex:"Popper used verisimilitude to measure how close a theory is to the truth.",lv:"C2",cat:"literature"},
+{en:"enargeia",ph:"ɪˈnɑːdʒɪə",ru:"энаргейя; живописность описания",ex:"Ancient rhetorical theory prized enargeia, the vividness that makes a scene present to the mind.",lv:"C2",cat:"literature"},
+{en:"factuality",ph:"fækˈtʃuːəlɪti",ru:"фактуальность; документальность",ex:"The journalist's factuality was never questioned despite the sensitivity of the story.",lv:"C1",cat:"media"},
+{en:"narrowcasting",ph:"ˈnærəʊkɑːstɪŋ",ru:"нишевое вещание",ex:"Narrowcasting targets content at specific demographic or interest groups.",lv:"C2",cat:"media"},
+{en:"remediation",ph:"ˌriːmiːdiˈeɪʃn",ru:"ремедиация; переформатирование контента",ex:"Remediation describes how new media absorb and refashion older media forms.",lv:"C2",cat:"media"},
+{en:"hypermediacy",ph:"ˌhaɪpəˈmiːdiəsi",ru:"гипермедиальность",ex:"Hypermediacy foregrounds the medium itself rather than creating a transparent window.",lv:"C2",cat:"media"},
+{en:"immediacy",ph:"ɪˈmiːdiəsi",ru:"непосредственность (медиа)",ex:"Television strives for immediacy, making the viewer feel present at events.",lv:"C2",cat:"media"},
+{en:"wetland",ph:"ˈwetlənd",ru:"заболоченные угодья; водно-болотные угодья",ex:"Wetlands filter pollutants and provide habitat for rare amphibians.",lv:"C1",cat:"nature"},
 """
