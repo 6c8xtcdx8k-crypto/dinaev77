@@ -4985,9 +4985,7 @@ const wordsData = [
 {en:"churn rate",ph:"tʃɜːn reɪt",ru:"коэффициент оттока клиентов",ex:"Reducing churn rate became the product team's top priority.",lv:"C1",cat:"work"},
 {en:"value proposition",ph:"ˈvæljuː ˌprɒpəˈzɪʃən",ru:"ценностное предложение",ex:"The sales team refined their value proposition after customer feedback.",lv:"C1",cat:"work"},
 {en:"disintermediation",ph:"ˌdɪsɪntəˌmiːdiˈeɪʃən",ru:"дезинтермедиация (исключение посредников)",ex:"Digital platforms caused disintermediation in the travel agency sector.",lv:"C2",cat:"work"},
-{en:"monopsony",ph:"məˈnɒpsəni",ru:"монопсония (единственный покупатель)",ex:"A monopsony employer can suppress wages below the competitive
-```
-level.",lv:"C2",cat:"work"},
+{en:"monopsony",ph:"məˈnɒpsəni",ru:"монопсония (единственный покупатель)",ex:"A monopsony employer can suppress wages below the competitive level.",lv:"C2",cat:"work"},
 {en:"oligopsony",ph:"ˌɒlɪˈɡɒpsəni",ru:"олигопсония (несколько крупных покупателей)",ex:"The oligopsony of supermarkets gave them enormous leverage over suppliers.",lv:"C2",cat:"work"},
 {en:"rent-seeking",ph:"rɛnt siːkɪŋ",ru:"рентоориентированное поведение",ex:"Rent-seeking through regulatory lobbying diverted resources from innovation.",lv:"C2",cat:"work"},
 {en:"moral hazard",ph:"ˈmɒrəl ˈhæzəd",ru:"моральный риск",ex:"Bailouts create moral hazard by shielding firms from the consequences of risk.",lv:"C2",cat:"work"},
@@ -19065,8 +19063,6 @@ function updateRatingPage(){
   const ra=document.getElementById('rating-avatar');if(ra)ra.innerHTML=getAvatarSVG(userAvatar);
   const ru=document.getElementById('rating-username');
   if(ru)ru.textContent=userName+' (Вы)';
-  const ra=document.getElementById('rating-avatar');
-  if(ra)ra.textContent=userAvatar;
   const rx=document.getElementById('rating-xp');
   if(rx)rx.textContent='XP '+xpTotal.toLocaleString('ru');
   const rb=document.getElementById('rating-xp-big');
