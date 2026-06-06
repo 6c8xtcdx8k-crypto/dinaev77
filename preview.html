@@ -388,6 +388,11 @@ button{cursor:pointer}
 .dw-word{display:inline;cursor:pointer;padding:1px 3px;border-radius:5px;border-bottom:1.5px dotted rgba(108,71,255,.4);font-weight:600;transition:.15s}
 .dw-word.has-tr{border-bottom:2px solid #7c3aed}
 .dw-word:active{background:rgba(108,71,255,.1)}
+.chat-bubble.user .dw-word{border-bottom:1.5px dotted rgba(255,255,255,.5);color:#fff}
+.chat-bubble.user .dw-word.has-tr{border-bottom:2px solid #fff}
+.chat-bubble.user .dw-word:active{background:rgba(255,255,255,.15)}
+.chat-opt .dw-word{border-bottom:1.5px dotted rgba(108,71,255,.5)}
+.chat-opt .dw-word.has-tr{border-bottom:2px solid #7c3aed}
 .dw-popup{position:fixed;background:#fff;border-radius:16px;padding:12px 14px;box-shadow:0 8px 32px rgba(108,71,255,.25);z-index:9999;min-width:130px;max-width:200px;text-align:center;animation:fadeInUp .2s ease}
 .dw-popup .dp-en{font-size:14px;font-weight:900;color:#1a1a2e;margin-bottom:2px}
 .dw-popup .dp-ph{font-size:11px;color:#9ca3af;margin-bottom:5px}
@@ -19300,7 +19305,7 @@ function showSimStep(){
 }
 function showSimOpts(opts){
   const area=document.getElementById('chat-opts-area');
-  area.innerHTML=opts.map((o,i)=>`<button class="chat-opt" onclick="pickSimOpt(${i},${o.s})">${o.t}</button>`).join('');
+  area.innerHTML=opts.map((o,i)=>`<button class="chat-opt" onclick="pickSimOpt(${i},${o.s})">${wrapDialogText(o.t)}</button>`).join('');
 }
 function pickSimOpt(i,score){
   const sim=simsData[currentSimId];const step=sim.steps[currentSimStep];
