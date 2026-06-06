@@ -742,6 +742,8 @@ button{cursor:pointer}
       <button class="tab" style="padding:5px 12px;font-size:11px" onclick="filterWords('A2',this)">A2</button>
       <button class="tab" style="padding:5px 12px;font-size:11px" onclick="filterWords('B1',this)">B1</button>
       <button class="tab" style="padding:5px 12px;font-size:11px" onclick="filterWords('B2',this)">B2</button>
+      <button class="tab" style="padding:5px 12px;font-size:11px;background:linear-gradient(135deg,#6c47ff,#a78bfa);color:#fff" onclick="filterWords('C1',this)">C1</button>
+      <button class="tab" style="padding:5px 12px;font-size:11px;background:linear-gradient(135deg,#7c3aed,#6c47ff);color:#fff" onclick="filterWords('C2',this)">C2</button>
     </div>
     <div style="display:flex;gap:5px;padding:0 16px 8px;overflow-x:auto">
       <button class="tab" style="padding:4px 10px;font-size:10px" onclick="filterWordsCat('all',this)">Все темы</button>
@@ -764,13 +766,20 @@ button{cursor:pointer}
       <button class="tab" style="padding:5px 12px;font-size:11px" onclick="filterSents('A2',this)">A2</button>
       <button class="tab" style="padding:5px 12px;font-size:11px" onclick="filterSents('B1',this)">B1</button>
       <button class="tab" style="padding:5px 12px;font-size:11px" onclick="filterSents('B2',this)">B2</button>
+      <button class="tab" style="padding:5px 12px;font-size:11px;background:linear-gradient(135deg,#6c47ff,#a78bfa);color:#fff" onclick="filterSents('C1',this)">C1</button>
+      <button class="tab" style="padding:5px 12px;font-size:11px;background:linear-gradient(135deg,#7c3aed,#6c47ff);color:#fff" onclick="filterSents('C2',this)">C2</button>
     </div>
     <div style="display:flex;gap:5px;padding:0 16px 8px;overflow-x:auto">
       <button class="tab" style="padding:4px 10px;font-size:10px" onclick="filterSentsCat('all',this)">Все темы</button>
       <button class="tab" style="padding:4px 10px;font-size:10px" onclick="filterSentsCat('airport',this)">Аэропорт</button>
       <button class="tab" style="padding:4px 10px;font-size:10px" onclick="filterSentsCat('doctor',this)">Врач</button>
-      <button class="tab" style="padding:4px 10px;font-size:10px" onclick="filterSentsCat('daily',this)">🗣️ Повседневное</button>
+      <button class="tab" style="padding:4px 10px;font-size:10px" onclick="filterSentsCat('daily',this)">Повседневное</button>
       <button class="tab" style="padding:4px 10px;font-size:10px" onclick="filterSentsCat('work',this)">Работа</button>
+      <button class="tab" style="padding:4px 10px;font-size:10px" onclick="filterSentsCat('bank',this)">Банк</button>
+      <button class="tab" style="padding:4px 10px;font-size:10px" onclick="filterSentsCat('housing',this)">Жильё</button>
+      <button class="tab" style="padding:4px 10px;font-size:10px" onclick="filterSentsCat('food',this)">Еда</button>
+      <button class="tab" style="padding:4px 10px;font-size:10px" onclick="filterSentsCat('transport',this)">Транспорт</button>
+      <button class="tab" style="padding:4px 10px;font-size:10px" onclick="filterSentsCat('shopping',this)">Шоппинг</button>
     </div>
     <div style="padding:0 16px 8px;font-size:11px;color:#9ca3af" id="sents-count">Показано 15 из 3 000 предложений</div>
     <div id="sents-container"></div>
@@ -12708,6 +12717,134 @@ const sentencesData = [
 {en:"The transfer market in elite football has become increasingly disconnected from the economic realities of most clubs.",ru:"Трансферный рынок в элитном футболе всё больше оторван от экономической реальности большинства клубов.",lv:"B2",cat:"sport"},
 {en:"Cross-training across multiple disciplines is now widely accepted as a strategy to prevent overuse injuries.",ru:"Кросс-тренинг в нескольких дисциплинах теперь широко принят как стратегия профилактики травм от перегрузок.",lv:"B2",cat:"sport"},
 {en:"The legacy of boycotts and political interference in the Olympic Games raises fundamental questions about the role of sport in global affairs.",ru:"Наследие бойкотов и политического вмешательства в Олимпийские игры поднимает фундаментальные вопросы о роли спорта в мировых делах.",lv:"B2",cat:"sport"},
+{en:"Where do you work?",ru:"Где вы работаете?",lv:"A1",cat:"work"},
+{en:"I work in an office.",ru:"Я работаю в офисе.",lv:"A1",cat:"work"},
+{en:"I am a teacher.",ru:"Я учитель.",lv:"A1",cat:"work"},
+{en:"I finish work at five.",ru:"Я заканчиваю работу в пять.",lv:"A1",cat:"work"},
+{en:"I am looking for a job.",ru:"Я ищу работу.",lv:"A1",cat:"work"},
+{en:"Can I speak to the manager?",ru:"Могу я поговорить с менеджером?",lv:"A1",cat:"work"},
+{en:"I need a day off.",ru:"Мне нужен выходной день.",lv:"A1",cat:"work"},
+{en:"My boss is very kind.",ru:"Мой начальник очень добрый.",lv:"A1",cat:"work"},
+{en:"I work five days a week.",ru:"Я работаю пять дней в неделю.",lv:"A1",cat:"work"},
+{en:"What is your job?",ru:"Какая у вас работа?",lv:"A1",cat:"work"},
+{en:"I start work at nine.",ru:"Я начинаю работу в девять.",lv:"A1",cat:"work"},
+{en:"I have a meeting today.",ru:"У меня сегодня встреча.",lv:"A1",cat:"work"},
+{en:"Please call me back.",ru:"Пожалуйста, перезвоните мне.",lv:"A1",cat:"work"},
+{en:"I work from home.",ru:"Я работаю из дома.",lv:"A1",cat:"work"},
+{en:"My office is near here.",ru:"Мой офис рядом.",lv:"A1",cat:"work"},
+{en:"I live in a flat.",ru:"Я живу в квартире.",lv:"A1",cat:"housing"},
+{en:"How much is the rent?",ru:"Сколько стоит аренда?",lv:"A1",cat:"housing"},
+{en:"The flat has two bedrooms.",ru:"В квартире две спальни.",lv:"A1",cat:"housing"},
+{en:"Is water included in the rent?",ru:"Вода включена в аренду?",lv:"A1",cat:"housing"},
+{en:"I need a key for the door.",ru:"Мне нужен ключ от двери.",lv:"A1",cat:"housing"},
+{en:"The heating is broken.",ru:"Отопление сломано.",lv:"A1",cat:"housing"},
+{en:"When can I move in?",ru:"Когда я могу въехать?",lv:"A1",cat:"housing"},
+{en:"Is there a lift in the building?",ru:"Есть ли лифт в здании?",lv:"A1",cat:"housing"},
+{en:"I want to rent a room.",ru:"Я хочу снять комнату.",lv:"A1",cat:"housing"},
+{en:"The neighbours are very loud.",ru:"Соседи очень шумные.",lv:"A1",cat:"housing"},
+{en:"Where is the nearest bank?",ru:"Где ближайший банк?",lv:"A1",cat:"bank"},
+{en:"I want to open an account.",ru:"Я хочу открыть счёт.",lv:"A1",cat:"bank"},
+{en:"My card does not work.",ru:"Моя карта не работает.",lv:"A1",cat:"bank"},
+{en:"Can I pay by card?",ru:"Можно оплатить картой?",lv:"A1",cat:"bank"},
+{en:"I need to send money.",ru:"Мне нужно отправить деньги.",lv:"A1",cat:"bank"},
+{en:"What is the exchange rate?",ru:"Какой обменный курс?",lv:"A1",cat:"bank"},
+{en:"Please give me a receipt.",ru:"Пожалуйста, дайте мне чек.",lv:"A1",cat:"bank"},
+{en:"I forgot my PIN.",ru:"Я забыл свой ПИН-код.",lv:"A1",cat:"bank"},
+{en:"I need to check my balance.",ru:"Мне нужно проверить баланс.",lv:"A1",cat:"bank"},
+{en:"The ATM is not working.",ru:"Банкомат не работает.",lv:"A1",cat:"bank"},
+{en:"I feel sick.",ru:"Мне плохо.",lv:"A1",cat:"doctor"},
+{en:"It hurts here.",ru:"Здесь болит.",lv:"A1",cat:"doctor"},
+{en:"I have a temperature.",ru:"У меня температура.",lv:"A1",cat:"doctor"},
+{en:"I need a doctor.",ru:"Мне нужен врач.",lv:"A1",cat:"doctor"},
+{en:"I have a headache.",ru:"У меня болит голова.",lv:"A1",cat:"doctor"},
+{en:"I am allergic to this.",ru:"У меня аллергия на это.",lv:"A1",cat:"doctor"},
+{en:"Can I have some medicine?",ru:"Можно мне лекарство?",lv:"A1",cat:"doctor"},
+{en:"I cannot sleep.",ru:"Я не могу спать.",lv:"A1",cat:"doctor"},
+{en:"My stomach hurts.",ru:"У меня болит живот.",lv:"A1",cat:"doctor"},
+{en:"I need an ambulance.",ru:"Мне нужна скорая помощь.",lv:"A1",cat:"doctor"},
+{en:"How long have you had this symptom?",ru:"Как давно у вас этот симптом?",lv:"A1",cat:"doctor"},
+{en:"Take this medicine twice a day.",ru:"Принимайте это лекарство дважды в день.",lv:"A1",cat:"doctor"},
+{en:"My colleague underperformed consistently, which forced me to escalate the issue to HR.",ru:"Мой коллега постоянно не справлялся с работой, что вынудило меня передать вопрос в отдел кадров.",lv:"C1",cat:"work"},
+{en:"The redundancy consultation process must follow strict statutory guidelines.",ru:"Процедура консультации по сокращению штата должна строго соответствовать законодательным нормам.",lv:"C1",cat:"work"},
+{en:"Effective stakeholder management is central to successful project delivery.",ru:"Эффективное управление заинтересованными сторонами — ключевой фактор успешной реализации проекта.",lv:"C1",cat:"work"},
+{en:"The onboarding programme has been overhauled to accelerate time-to-productivity for new hires.",ru:"Программа адаптации была переработана для ускорения выхода новых сотрудников на рабочий уровень.",lv:"C1",cat:"work"},
+{en:"We need to align our KPIs with the revised corporate strategy before the end of the quarter.",ru:"Нам необходимо привести наши КПЭ в соответствие с пересмотренной корпоративной стратегией до конца квартала.",lv:"C1",cat:"work"},
+{en:"The merger triggered a significant restructuring of the senior leadership team.",ru:"Слияние повлекло за собой значительную реструктуризацию высшего руководства.",lv:"C1",cat:"work"},
+{en:"Remote-first policies have forced organisations to rethink performance measurement frameworks.",ru:"Политика удалённой работы вынудила организации пересмотреть системы оценки эффективности.",lv:"C1",cat:"work"},
+{en:"The whistleblower raised concerns about financial irregularities in the procurement department.",ru:"Информатор поднял вопросы о финансовых нарушениях в отделе закупок.",lv:"C1",cat:"work"},
+{en:"Cross-functional collaboration is increasingly essential in matrix organisational structures.",ru:"Межфункциональное взаимодействие становится всё более необходимым в матричных организационных структурах.",lv:"C1",cat:"work"},
+{en:"The performance review revealed a significant skills gap in the mid-level management cohort.",ru:"Анализ эффективности выявил значительный дефицит навыков среди менеджеров среднего звена.",lv:"C1",cat:"work"},
+{en:"Burnout among knowledge workers has become a systemic rather than an individual issue.",ru:"Профессиональное выгорание среди работников умственного труда стало системной, а не индивидуальной проблемой.",lv:"C1",cat:"work"},
+{en:"The intellectual discourse surrounding artificial intelligence ethics is becoming increasingly nuanced.",ru:"Интеллектуальная дискуссия вокруг этики искусственного интеллекта становится всё более сложной.",lv:"C1",cat:"daily"},
+{en:"Maintaining a healthy work-life equilibrium demands deliberate boundary-setting.",ru:"Поддержание здорового баланса между работой и личной жизнью требует осознанного установления границ.",lv:"C1",cat:"daily"},
+{en:"The proliferation of misinformation online has eroded public trust in mainstream media.",ru:"Распространение дезинформации в интернете подорвало доверие общества к традиционным СМИ.",lv:"C1",cat:"daily"},
+{en:"Cultural competence is an indispensable skill in an increasingly globalised society.",ru:"Культурная компетентность — незаменимый навык во всё более глобализированном обществе.",lv:"C1",cat:"daily"},
+{en:"She articulated her objections with remarkable clarity during the public consultation.",ru:"Она чётко изложила свои возражения в ходе публичных консультаций.",lv:"C1",cat:"daily"},
+{en:"The prevalence of sedentary lifestyles is contributing to a public health crisis.",ru:"Распространённость малоподвижного образа жизни способствует кризису общественного здравоохранения.",lv:"C1",cat:"daily"},
+{en:"He navigated the bureaucratic obstacles with admirable tenacity.",ru:"Он преодолевал бюрократические препятствия с похвальным упорством.",lv:"C1",cat:"daily"},
+{en:"The intergenerational tension over housing affordability is reshaping political alignments.",ru:"Межпоколенческая напряжённость по вопросу доступности жилья меняет политические расстановки сил.",lv:"C1",cat:"daily"},
+{en:"Compassion fatigue is a documented phenomenon among frontline care workers.",ru:"Усталость от сострадания — задокументированное явление среди работников первичной медицинской помощи.",lv:"C1",cat:"daily"},
+{en:"The circularity principle is gradually being embedded in mainstream consumer culture.",ru:"Принцип цикличности постепенно укореняется в массовой потребительской культуре.",lv:"C1",cat:"daily"},
+{en:"The patient presented with acute pancreatitis requiring immediate surgical intervention.",ru:"Пациент поступил с острым панкреатитом, требующим немедленного хирургического вмешательства.",lv:"C1",cat:"doctor"},
+{en:"The histopathology report confirmed a malignant neoplasm in the left lung.",ru:"Гистопатологический отчёт подтвердил злокачественное новообразование в левом лёгком.",lv:"C1",cat:"doctor"},
+{en:"The neurologist ordered an MRI to rule out demyelinating disease.",ru:"Невролог назначил МРТ для исключения демиелинизирующего заболевания.",lv:"C1",cat:"doctor"},
+{en:"Prophylactic anticoagulation was initiated following the orthopaedic procedure.",ru:"Профилактическая антикоагуляция была начата после ортопедической процедуры.",lv:"C1",cat:"doctor"},
+{en:"The patient's prognosis remains guarded pending further diagnostic workup.",ru:"Прогноз пациента остаётся неопределённым до получения результатов дальнейшей диагностики.",lv:"C1",cat:"doctor"},
+{en:"Secondary hypertension was excluded after a comprehensive endocrine evaluation.",ru:"Вторичная гипертензия была исключена после комплексного эндокринологического обследования.",lv:"C1",cat:"doctor"},
+{en:"Informed consent must be obtained before any invasive diagnostic procedure.",ru:"Информированное согласие должно быть получено до любой инвазивной диагностической процедуры.",lv:"C1",cat:"doctor"},
+{en:"The rehabilitation protocol was tailored to restore full range of motion post-operatively.",ru:"Протокол реабилитации был разработан для восстановления полного объёма движений после операции.",lv:"C1",cat:"doctor"},
+{en:"Palliative care focuses on quality of life rather than curative treatment.",ru:"Паллиативная помощь направлена на качество жизни, а не на лечение.",lv:"C1",cat:"doctor"},
+{en:"The clinic needs to comply with GDPR regulations when handling patient data.",ru:"Клиника обязана соблюдать требования GDPR при обработке данных пациентов.",lv:"C1",cat:"doctor"},
+{en:"The central bank adjusted the base rate to counteract inflationary pressures.",ru:"Центральный банк скорректировал базовую ставку для противодействия инфляционному давлению.",lv:"C1",cat:"bank"},
+{en:"Quantitative easing has been a controversial monetary policy tool since the 2008 crisis.",ru:"Количественное смягчение остаётся спорным инструментом монетарной политики со времён кризиса 2008 года.",lv:"C1",cat:"bank"},
+{en:"The bank's liquidity ratio fell below the regulatory threshold during the stress test.",ru:"Коэффициент ликвидности банка опустился ниже регуляторного порога во время стресс-теста.",lv:"C1",cat:"bank"},
+{en:"Fraudulent transactions were flagged by the bank's anomaly detection algorithm.",ru:"Мошеннические транзакции были выявлены алгоритмом обнаружения аномалий банка.",lv:"C1",cat:"bank"},
+{en:"The collateral requirement for the loan was reassessed following the property revaluation.",ru:"Требования к обеспечению кредита были пересмотрены после переоценки недвижимости.",lv:"C1",cat:"bank"},
+{en:"Anti-money laundering compliance has become a significant operational cost for retail banks.",ru:"Соответствие требованиям по противодействию отмыванию денег стало значительной операционной статьёй расходов для розничных банков.",lv:"C1",cat:"bank"},
+{en:"Open banking legislation has enabled fintechs to access customer data with their consent.",ru:"Законодательство об открытом банкинге позволило финтех-компаниям получать доступ к данным клиентов с их согласия.",lv:"C1",cat:"bank"},
+{en:"The mortgage approval was contingent upon a satisfactory structural survey of the property.",ru:"Одобрение ипотеки зависело от удовлетворительного результата строительной экспертизы объекта.",lv:"C1",cat:"housing"},
+{en:"The landlord is obliged to ensure the property meets the minimum energy efficiency standard.",ru:"Арендодатель обязан обеспечить соответствие объекта минимальным стандартам энергоэффективности.",lv:"C1",cat:"housing"},
+{en:"Squatters' rights legislation varies considerably across different legal jurisdictions.",ru:"Законодательство о правах сквоттеров значительно различается в разных правовых юрисдикциях.",lv:"C1",cat:"housing"},
+{en:"The tenant successfully contested the unlawful eviction notice in the county court.",ru:"Арендатор успешно оспорил незаконное уведомление о выселении в окружном суде.",lv:"C1",cat:"housing"},
+{en:"A service charge dispute can be referred to the First-tier Tribunal for adjudication.",ru:"Спор о сервисных сборах может быть передан в Первый трибунал для разрешения.",lv:"C1",cat:"housing"},
+{en:"The congestion pricing scheme has demonstrably reduced traffic volumes in the city centre.",ru:"Система платного въезда наглядно сократила интенсивность движения в центре города.",lv:"C1",cat:"transport"},
+{en:"Infrastructure investment in high-speed rail is seen as a cornerstone of decarbonisation strategy.",ru:"Инвестиции в инфраструктуру высокоскоростного железнодорожного транспорта рассматриваются как краеугольный камень стратегии декарбонизации.",lv:"C1",cat:"transport"},
+{en:"The interoperability of ticketing systems across operators remains a persistent challenge.",ru:"Совместимость систем продажи билетов между операторами остаётся постоянной проблемой.",lv:"C1",cat:"transport"},
+{en:"Freight logistics have been significantly disrupted by geopolitical instability in key shipping corridors.",ru:"Грузовая логистика была значительно нарушена геополитической нестабильностью в ключевых транспортных коридорах.",lv:"C1",cat:"transport"},
+{en:"Urban air mobility solutions are being piloted in several metropolitan areas worldwide.",ru:"Решения в области городской аэромобильности тестируются в нескольких мегаполисах по всему миру.",lv:"C1",cat:"transport"},
+{en:"The sous-vide technique allows chefs to achieve precise temperature control throughout the cooking process.",ru:"Метод су-вид позволяет поварам достигать точного контроля температуры на протяжении всего процесса приготовления.",lv:"C1",cat:"food"},
+{en:"Provenance labelling has become increasingly important to ethically conscious consumers.",ru:"Маркировка происхождения стала всё более важной для потребителей, осознающих этические вопросы.",lv:"C1",cat:"food"},
+{en:"The umami profile of aged cheeses develops through prolonged proteolytic activity.",ru:"Профиль умами выдержанных сыров формируется в результате длительной протеолитической активности.",lv:"C1",cat:"food"},
+{en:"Plant-based protein alternatives are rapidly gaining mainstream acceptance among non-vegan consumers.",ru:"Растительные белковые альтернативы стремительно завоёвывают массовое признание среди потребителей, не являющихся веганами.",lv:"C1",cat:"food"},
+{en:"The fiduciary duty of the fund manager requires prioritising client interests above proprietary gains.",ru:"Фидуциарная обязанность управляющего фондом предполагает приоритет интересов клиента над собственной выгодой.",lv:"C2",cat:"bank"},
+{en:"Regulatory arbitrage between jurisdictions continues to undermine effective global financial governance.",ru:"Регуляторный арбитраж между юрисдикциями по-прежнему подрывает эффективное глобальное финансовое управление.",lv:"C2",cat:"bank"},
+{en:"The derivatives exposure of systemically important banks warrants continuous macroprudential oversight.",ru:"Деривативные позиции системно значимых банков требуют постоянного макропруденциального надзора.",lv:"C2",cat:"bank"},
+{en:"Sovereign wealth funds have increasingly diversified into alternative asset classes to hedge against currency risk.",ru:"Суверенные фонды благосостояния всё активнее диверсифицируются в альтернативные классы активов для хеджирования валютного риска.",lv:"C2",cat:"bank"},
+{en:"The asset-liability mismatch at regional banks precipitated a confidence crisis among depositors.",ru:"Несоответствие активов и обязательств в региональных банках спровоцировало кризис доверия среди вкладчиков.",lv:"C2",cat:"bank"},
+{en:"The organisation's obfuscatory use of corporate jargon is a deliberate strategy to deflect accountability.",ru:"Намеренное использование организацией корпоративного жаргона — это осознанная стратегия уклонения от ответственности.",lv:"C2",cat:"work"},
+{en:"The epistemological assumptions underpinning the study's methodology were never adequately interrogated.",ru:"Эпистемологические допущения, лежащие в основе методологии исследования, так и не были надлежащим образом подвергнуты критическому анализу.",lv:"C2",cat:"work"},
+{en:"Meritocracy as a legitimising narrative increasingly masks the structural reproduction of privilege.",ru:"Меритократия как легитимизирующий нарратив всё чаще маскирует структурное воспроизводство привилегий.",lv:"C2",cat:"work"},
+{en:"The organisation's failure to codify tacit institutional knowledge contributed to chronic inefficiency after key personnel departed.",ru:"Неспособность организации формализовать неявные институциональные знания привела к хронической неэффективности после ухода ключевых сотрудников.",lv:"C2",cat:"work"},
+{en:"The board's fiduciary negligence was compounded by a series of catastrophic governance failures.",ru:"Фидуциарная халатность совета директоров усугублялась серией катастрофических сбоев в корпоративном управлении.",lv:"C2",cat:"work"},
+{en:"Strategic ambiguity in corporate communications can serve simultaneously as a shield against litigation and a source of employee disorientation.",ru:"Стратегическая неопределённость в корпоративных коммуникациях может одновременно служить щитом от судебных исков и источником дезориентации сотрудников.",lv:"C2",cat:"work"},
+{en:"The ontological security provided by stable routines becomes acutely apparent during periods of systemic disruption.",ru:"Онтологическая безопасность, обеспечиваемая стабильными ритуалами, остро ощущается в периоды системных потрясений.",lv:"C2",cat:"daily"},
+{en:"The commodification of human attention by digital platforms raises profound questions about cognitive sovereignty.",ru:"Коммодификация человеческого внимания цифровыми платформами поднимает глубокие вопросы о когнитивном суверенитете.",lv:"C2",cat:"daily"},
+{en:"Performative allyship, divorced from substantive action, risks exacerbating rather than ameliorating systemic inequalities.",ru:"Показная солидарность, оторванная от реальных действий, рискует усугубить, а не смягчить системное неравенство.",lv:"C2",cat:"daily"},
+{en:"The epistemically closed communities fostered by algorithmic curation pose a democratic challenge of the first order.",ru:"Эпистемически закрытые сообщества, формируемые алгоритмической курацией, представляют собой демократический вызов первостепенной важности.",lv:"C2",cat:"daily"},
+{en:"The tension between individual autonomy and collective welfare is never definitively resolved in liberal democratic theory.",ru:"Напряжённость между индивидуальной автономией и коллективным благополучием никогда окончательно не разрешается в либерально-демократической теории.",lv:"C2",cat:"daily"},
+{en:"Thanatophobia, the fear of death, may paradoxically inhibit the very life-affirming behaviours it ostensibly motivates.",ru:"Танатофобия — страх смерти — может парадоксальным образом подавлять именно те жизнеутверждающие формы поведения, к которым она, казалось бы, побуждает.",lv:"C2",cat:"daily"},
+{en:"The differential diagnosis was complicated by the patient's atypical symptom constellation and equivocal serology.",ru:"Дифференциальная диагностика осложнялась нетипичным симптомокомплексом пациента и неоднозначными результатами серологии.",lv:"C2",cat:"doctor"},
+{en:"Iatrogenic complications arising from polypharmacy represent a significant and underreported morbidity burden.",ru:"Ятрогенные осложнения, возникающие вследствие полипрагмазии, представляют собой значительное и недооцениваемое бремя заболеваемости.",lv:"C2",cat:"doctor"},
+{en:"The pathophysiology of sepsis involves a dysregulated host response that can progress to multi-organ failure.",ru:"Патофизиология сепсиса включает дисрегулированный ответ организма, который может прогрессировать до полиорганной недостаточности.",lv:"C2",cat:"doctor"},
+{en:"Epigenetic modifications may underpin heritable phenotypic changes that cannot be accounted for by classical genetics alone.",ru:"Эпигенетические модификации могут лежать в основе наследственных фенотипических изменений, которые невозможно объяснить только с помощью классической генетики.",lv:"C2",cat:"doctor"},
+{en:"The covenant restrictions attached to the freehold title severely constrained the developer's redevelopment options.",ru:"Ограничительные условия, прилагаемые к праву собственности на землю, существенно ограничивали варианты перестройки для застройщика.",lv:"C2",cat:"housing"},
+{en:"Adverse possession claims require the claimant to demonstrate factual possession and animus possidendi throughout the limitation period.",ru:"Претензии на право приобретательной давности требуют от заявителя доказательства фактического владения и намерения владеть на протяжении всего срока исковой давности.",lv:"C2",cat:"housing"},
+{en:"The leasehold reform agenda seeks to rebalance the fundamentally asymmetric power relationship between freeholders and leaseholders.",ru:"Повестка реформы арендного законодательства направлена на восстановление баланса в принципиально асимметричных властных отношениях между собственниками земли и арендаторами.",lv:"C2",cat:"housing"},
+{en:"The decarbonisation of heavy freight transport is contingent upon breakthroughs in hydrogen fuel cell technology.",ru:"Декарбонизация тяжёлых грузовых перевозок зависит от прорывов в технологии водородных топливных элементов.",lv:"C2",cat:"transport"},
+{en:"The proliferation of autonomous vehicle platforms necessitates a wholesale rethinking of liability frameworks in tort law.",ru:"Распространение платформ автономных транспортных средств требует коренного пересмотра систем ответственности в деликтном праве.",lv:"C2",cat:"transport"},
+{en:"The molecular gastronomy movement interrogates long-held assumptions about the relationship between texture, flavour, and perception.",ru:"Движение молекулярной гастрономии ставит под сомнение давно устоявшиеся представления о взаимосвязи текстуры, вкуса и восприятия.",lv:"C2",cat:"food"},
+{en:"Terroir, as a concept, resists simple translation because it encapsulates the inextricable link between place, culture, and flavour.",ru:"Понятие «терруар» с трудом поддаётся простому переводу, поскольку оно воплощает неразрывную связь места, культуры и вкуса.",lv:"C2",cat:"food"},
+{en:"The fermentation science underlying artisan bread production draws on microbiology, biochemistry, and empirical craft knowledge.",ru:"Наука брожения, лежащая в основе производства хлеба ремесленным способом, опирается на микробиологию, биохимию и эмпирические ремесленные знания.",lv:"C2",cat:"food"},
 ];
 
 const movePhrases = [
