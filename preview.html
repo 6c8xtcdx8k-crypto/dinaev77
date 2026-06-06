@@ -18186,6 +18186,7 @@ function showStudyTab(t,btn){
   if(t==='words')renderWords();
   if(t==='sentences')renderSents();
   if(t==='relocation'){relocCat='all';relocOffset=0;renderReloc();}
+  if(t==='slang')linkifyEnglish(document.getElementById('stab-slang'));
 }
 function filterWords(lv,btn){
   wordLv=lv;wordOffset=0;
@@ -18634,6 +18635,39 @@ function wrapDialogText(text){
     return '<span class="dw-word" onclick="showDwPopup(event,\''+en+'\',\'\',\'\')">'+tok+'</span>';
   }).join('');
 }
+// Make every English word inside a static container tappable for translation + speech
+function linkifyEnglish(root){
+  if(!root||root._linkified)return;
+  root._linkified=true;
+  const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{
+    acceptNode(node){
+      if(!node.nodeValue||!/[a-zA-Z]/.test(node.nodeValue))return NodeFilter.FILTER_REJECT;
+      const p=node.parentElement;if(!p)return NodeFilter.FILTER_REJECT;
+      const tag=p.tagName;
+      if(tag==='BUTTON'||tag==='SCRIPT'||tag==='STYLE'||tag==='SVG'||tag==='svg')return NodeFilter.FILTER_REJECT;
+      if(p.closest('button')||p.closest('svg'))return NodeFilter.FILTER_REJECT;
+      if(p.classList&&(p.classList.contains('dw-word')||p.classList.contains('subpage-hdr')))return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT;
+    }
+  });
+  const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
+  nodes.forEach(node=>{
+    const frag=document.createDocumentFragment();
+    node.nodeValue.split(/(\s+)/).forEach(tok=>{
+      const clean=tok.replace(/[^a-zA-Z]/g,'');
+      if(/^\s*$/.test(tok)||!clean){frag.appendChild(document.createTextNode(tok));return;}
+      const entry=lookupWord(clean);
+      const span=document.createElement('span');
+      span.className='dw-word'+(entry?' has-tr':'');
+      span.textContent=tok;
+      const ph=entry?(entry.ph||''):'';
+      const ru=entry?(entry.ru||''):'';
+      span.addEventListener('click',function(e){showDwPopup(e,clean,ph,ru);});
+      frag.appendChild(span);
+    });
+    node.parentNode.replaceChild(frag,node);
+  });
+}
 let _dwPopup=null;
 function showDwPopup(e,word,ph,ru){
   e.stopPropagation();
@@ -18720,7 +18754,7 @@ function endSim(){
 }
 
 // ===================== SUB-PAGES =====================
-function showSubPage(id){const el=document.getElementById('sub-'+id);if(el)el.classList.add('open');}
+function showSubPage(id){const el=document.getElementById('sub-'+id);if(el){el.classList.add('open');if(/^(pics|ielts)-/.test(id))linkifyEnglish(el);}}
 function hideSubPage(id){const el=document.getElementById('sub-'+id);if(el)el.classList.remove('open');}
 
 // ===================== PROFILE TABS =====================
