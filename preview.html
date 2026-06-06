@@ -416,6 +416,71 @@ button{cursor:pointer}
 .dw-popup .dp-ph{font-size:11px;color:#9ca3af;margin-bottom:5px}
 .dw-popup .dp-ru{font-size:15px;font-weight:800;color:#7c3aed;margin-bottom:8px}
 .dw-popup .dp-spk{background:linear-gradient(135deg,#7c3aed,#a78bfa);border:none;border-radius:10px;color:#fff;padding:6px 14px;font-size:12px;font-weight:700;cursor:pointer;width:100%}
+
+/* ============================================================
+   ✨ WOW POLISH LAYER — smooth transitions & micro-interactions
+   ============================================================ */
+*{-webkit-tap-highlight-color:transparent}
+body,.phone{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.page{scroll-behavior:smooth;animation:pageEnter .46s cubic-bezier(.22,1,.36,1) both}
+@keyframes pageEnter{from{opacity:0;transform:translateY(12px) scale(.99)}to{opacity:1;transform:none}}
+
+/* Tactile cards — lift on hover, press on tap */
+.sc-card,.word-card,.sim-card,.ielts-card,.lv-card,.move-cat,.pic-cat,.tip-card,.site-card,.slang-card,.bank-card,.stat-b,.lb-row,.wcard,.sent-card,.test-card{
+  transition:transform .32s cubic-bezier(.34,1.56,.64,1),box-shadow .3s ease,border-color .25s ease;
+  will-change:transform}
+@media(hover:hover){
+  .sc-card:hover,.sim-card:hover,.ielts-card:hover,.tip-card:hover,.site-card:hover,.slang-card:hover,.wcard:hover,.sent-card:hover,.lb-row:hover,.bank-card:hover{
+    transform:translateY(-4px);box-shadow:0 14px 32px rgba(108,71,255,.17)}
+  .word-card:hover,.lv-card:hover,.move-cat:hover,.pic-cat:hover,.stat-b:hover{
+    transform:translateY(-4px) scale(1.025);box-shadow:0 14px 30px rgba(108,71,255,.2)}
+}
+.sc-card:active,.sim-card:active,.ielts-card:active,.word-card:active,.lv-card:active,.move-cat:active,.pic-cat:active,.tip-card:active,.site-card:active,.slang-card:active,.lb-row:active,.wcard:active,.sent-card:active,.stat-b:active,.bank-card:active{
+  transform:scale(.965);transition:transform .12s ease}
+
+/* Staggered entrance for scenario list */
+#scenarios-list .sc-card{animation:cardIn .55s cubic-bezier(.22,1,.36,1) both}
+#scenarios-list .sc-card:nth-child(1){animation-delay:.03s}
+#scenarios-list .sc-card:nth-child(2){animation-delay:.09s}
+#scenarios-list .sc-card:nth-child(3){animation-delay:.15s}
+#scenarios-list .sc-card:nth-child(4){animation-delay:.21s}
+#scenarios-list .sc-card:nth-child(5){animation-delay:.27s}
+#scenarios-list .sc-card:nth-child(6){animation-delay:.33s}
+#scenarios-list .sc-card:nth-child(7){animation-delay:.39s}
+#scenarios-list .sc-card:nth-child(8){animation-delay:.45s}
+@keyframes cardIn{from{opacity:0;transform:translateY(20px) scale(.96)}to{opacity:1;transform:none}}
+
+/* Primary CTA — living gradient + shine sweep */
+.btn-pu{background-size:220% 220%;animation:gradShift 7s ease infinite;position:relative;overflow:hidden;isolation:isolate}
+.btn-pu::after{content:'';position:absolute;top:0;left:-70%;width:45%;height:100%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-20deg);animation:btnShine 4s ease-in-out infinite;z-index:-1}
+@keyframes gradShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@keyframes btnShine{0%{left:-70%}55%,100%{left:140%}}
+
+/* Tabs — springy active state */
+.tab{transition:transform .26s cubic-bezier(.34,1.56,.64,1),background .2s,color .2s,box-shadow .26s}
+.tab.active{box-shadow:0 4px 14px rgba(108,71,255,.26)}
+.tab:active{transform:scale(.93)}
+
+/* Bottom nav — pop on activation */
+.nb.active .ico{animation:navPop .5s cubic-bezier(.34,1.56,.64,1)}
+@keyframes navPop{0%{transform:scale(1)}45%{transform:scale(1.32) translateY(-4px)}100%{transform:scale(1.25) translateY(-2px)}}
+
+/* Translation popup — springy entrance */
+.dw-popup{animation:popIn .26s cubic-bezier(.34,1.56,.64,1)!important;transform-origin:top left}
+
+/* Generic gradient buttons get a subtle press feedback */
+button{transition:transform .15s ease,box-shadow .2s ease,filter .2s ease}
+button:active{filter:brightness(.97)}
+
+/* Pretty thin scrollbars (desktop preview) */
+.page::-webkit-scrollbar{width:6px}
+.page::-webkit-scrollbar-thumb{background:rgba(108,71,255,.25);border-radius:999px}
+.page::-webkit-scrollbar-track{background:transparent}
+
+/* Respect users who prefer less motion */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
 </style>
 </head>
 <body>
