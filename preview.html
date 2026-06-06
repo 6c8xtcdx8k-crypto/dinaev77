@@ -633,13 +633,13 @@ button:active{filter:brightness(.97)}
         <div style="font-size:11px;font-weight:800;color:#1F2937;line-height:1.3">Открывай<br>локации</div>
       </div>
       <div onclick="showPage('dashboard');setNav(null)" style="background:#fff;border-radius:18px;padding:12px;display:flex;align-items:center;gap:10px;box-shadow:0 3px 14px rgba(0,0,0,.06);cursor:pointer;transition:.2s" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
-        <div style="width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#c4b5fd 0%,#f0d9f7 50%,#fddcbc 100%);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px rgba(16,185,129,.4)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M3 12v8a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-8"/><path d="M12 8V21"/><path d="M12 8C12 8 9 4 6 4s-3 4 6 4c9 0 6-4 6-4s-3 4-6 4"/></svg></div>
+        <div style="width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#10B981,#34D399);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px rgba(16,185,129,.4)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M3 12v8a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-8"/><path d="M12 8V21"/><path d="M12 8C12 8 9 4 6 4s-3 4 6 4c9 0 6-4 6-4s-3 4-6 4"/></svg></div>
         <div style="font-size:11px;font-weight:800;color:#1F2937;line-height:1.3">Получай<br>награды</div>
       </div>
     </div>
 
-    <!-- PROGRESS CARD -->
-    <div style="background:#fff;border-radius:22px;margin:12px 16px 10px;padding:16px;box-shadow:0 4px 20px rgba(124,58,237,.1);animation:scaleIn .4s .15s cubic-bezier(.34,1.56,.64,1) both">
+    <!-- PROGRESS + STATS (unified card) -->
+    <div style="background:#fff;border-radius:22px;margin:12px 16px 14px;padding:16px;box-shadow:0 4px 20px rgba(124,58,237,.1);animation:scaleIn .4s .15s cubic-bezier(.34,1.56,.64,1) both">
       <div style="font-size:11px;font-weight:700;color:#9CA3AF;letter-spacing:.5px;margin-bottom:10px">ТВОЙ ПРОГРЕСС</div>
       <div style="display:flex;align-items:center;gap:12px">
         <!-- Level circle -->
@@ -649,33 +649,34 @@ button:active{filter:brightness(.97)}
         </div>
         <div style="flex:1">
           <div style="font-size:18px;font-weight:900;color:#1F2937;margin-bottom:6px" id="home-xp-text">0 / 500 XP</div>
-          <div style="height:8px;border-radius:999px;background:transparent;overflow:hidden"><div id="home-pbar" style="height:100%;border-radius:999px;background:linear-gradient(90deg,#7C3AED,#A78BFA);width:0%;transition:.8s ease"></div></div>
+          <div style="height:8px;border-radius:999px;background:#F1EDFF;overflow:hidden"><div id="home-pbar" style="height:100%;border-radius:999px;background:linear-gradient(90deg,#7C3AED,#A78BFA);width:0%;transition:.8s ease"></div></div>
           <div style="font-size:10px;color:#9CA3AF;margin-top:4px" id="home-xp-left">До следующего уровня: 500 XP</div>
         </div>
       </div>
-    </div>
-
-    <!-- STATS ROW -->
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:0 16px 14px">
-      <div style="background:#fff;border-radius:14px;padding:10px 4px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05)">
-        <div style="font-size:14px;margin-bottom:3px">⚡</div>
-        <div style="font-size:11px;font-weight:900;color:#7C3AED" id="home-total-xp">0</div>
-        <div style="font-size:9px;color:#9CA3AF;font-weight:600">XP<br>Заработано</div>
-      </div>
-      <div style="background:#fff;border-radius:14px;padding:10px 4px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05)">
-        <div style="font-size:14px;margin-bottom:3px">📝</div>
-        <div style="font-size:11px;font-weight:900;color:#1F2937" id="home-tests-done">0/2000</div>
-        <div style="font-size:9px;color:#9CA3AF;font-weight:600">Тестов</div>
-      </div>
-      <div style="background:#fff;border-radius:14px;padding:10px 4px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05)">
-        <div style="font-size:14px;margin-bottom:3px">🧳</div>
-        <div style="font-size:11px;font-weight:900;color:#1F2937" id="home-sims-done">0/500</div>
-        <div style="font-size:9px;color:#9CA3AF;font-weight:600">Сцена-<br>риев</div>
-      </div>
-      <div style="background:#fff;border-radius:14px;padding:10px 4px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05)">
-        <div style="font-size:14px;margin-bottom:3px">🔥</div>
-        <div style="font-size:11px;font-weight:900;color:#1F2937" id="home-streak">0</div>
-        <div style="font-size:9px;color:#9CA3AF;font-weight:600">Дней<br>подряд</div>
+      <!-- divider -->
+      <div style="height:1px;background:#F1EDFF;margin:14px -4px 12px"></div>
+      <!-- inline stats -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px">
+        <div style="text-align:center">
+          <div style="font-size:15px;margin-bottom:2px">⚡</div>
+          <div style="font-size:13px;font-weight:900;color:#7C3AED" id="home-total-xp">0</div>
+          <div style="font-size:9px;color:#9CA3AF;font-weight:600;margin-top:1px">XP</div>
+        </div>
+        <div style="text-align:center;border-left:1px solid #F1EDFF">
+          <div style="font-size:15px;margin-bottom:2px">📝</div>
+          <div style="font-size:13px;font-weight:900;color:#1F2937" id="home-tests-done">0/2000</div>
+          <div style="font-size:9px;color:#9CA3AF;font-weight:600;margin-top:1px">Тестов</div>
+        </div>
+        <div style="text-align:center;border-left:1px solid #F1EDFF">
+          <div style="font-size:15px;margin-bottom:2px">🧳</div>
+          <div style="font-size:13px;font-weight:900;color:#1F2937" id="home-sims-done">0/500</div>
+          <div style="font-size:9px;color:#9CA3AF;font-weight:600;margin-top:1px">Сценариев</div>
+        </div>
+        <div style="text-align:center;border-left:1px solid #F1EDFF">
+          <div style="font-size:15px;margin-bottom:2px">🔥</div>
+          <div style="font-size:13px;font-weight:900;color:#1F2937" id="home-streak">0</div>
+          <div style="font-size:9px;color:#9CA3AF;font-weight:600;margin-top:1px">Дней</div>
+        </div>
       </div>
     </div>
 
