@@ -18215,7 +18215,7 @@ function renderWords(){
       </div>
       <div class="word-back" style="display:none">
         <div style="font-size:15px;font-weight:800;color:#6c47ff">${w.ru}</div>
-        <div style="font-size:12px;color:#374151;margin-top:6px;font-style:italic">"${w.ex}" <button onclick="event.stopPropagation();speakBtn(this)" data-speak="${(w.ex||'').replace(/"/g,'&quot;')}" style="background:none;border:none;cursor:pointer;font-size:13px" title="Прослушать">🔊</button></div>
+        <div style="font-size:12px;color:#374151;margin-top:6px;font-style:italic">"${wrapDialogText(w.ex||'')}" <button onclick="event.stopPropagation();speakBtn(this)" data-speak="${(w.ex||'').replace(/"/g,'&quot;')}" style="background:none;border:none;cursor:pointer;font-size:13px" title="Прослушать">🔊</button></div>
         <button onclick="event.stopPropagation();markLearned()" style="margin-top:8px;background:#6c47ff;color:#fff;border:none;padding:5px 16px;border-radius:999px;font-size:11px;font-weight:700;cursor:pointer">✓ Знаю</button>
       </div>
     </div>`).join('');
@@ -18864,7 +18864,7 @@ function showDwPopup(e,word,ph,ru){
   if(ru){
     pop.innerHTML='<div class="dp-en">'+word+'</div><div class="dp-ph">['+ph+']</div><div class="dp-ru">'+ru+'</div><button class="dp-spk" onclick="speak(\''+word.replace(/'/g,"\\'")+'\')" >🔊 Прослушать</button>';
   } else {
-    pop.innerHTML='<div class="dp-en">'+word+'</div><div class="dp-ph" style="color:#9ca3af;font-size:11px">не найдено в словаре</div><button class="dp-spk" onclick="speak(\''+word.replace(/'/g,"\\'")+'\')" >🔊 Прослушать</button>';
+    pop.innerHTML='<div class="dp-en">'+word+'</div><button class="dp-spk" onclick="speak(\''+word.replace(/'/g,"\\'")+'\')" >🔊 Прослушать</button>';
   }
   document.body.appendChild(pop);
   _dwPopup=pop;
