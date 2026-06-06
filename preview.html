@@ -174,10 +174,26 @@ button{cursor:pointer}
 @keyframes glow{0%,100%{box-shadow:0 0 0 rgba(108,71,255,0)}50%{box-shadow:0 0 20px rgba(108,71,255,.4)}}
 @keyframes popIn{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
 @keyframes listenAnim{0%,100%{height:6px}50%{height:32px}}
-.word-card{background:#fff;border-radius:16px;padding:16px;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.06);transition:.3s;border:2px solid transparent}
-.word-card:hover{border-color:#c4b5fd;transform:translateY(-2px)}
+.word-card{position:relative;overflow:hidden;background:#fff;border-radius:18px;padding:14px 14px 12px;cursor:pointer;box-shadow:0 3px 14px rgba(108,71,255,.08);transition:.3s;border:1px solid #f1edff;min-height:120px}
+.word-card:hover{border-color:#e0d7ff}
 .word-front,.word-back{min-height:60px}
-.test-card{background:#fff;border-radius:16px;margin:0 16px 10px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,.06);animation:questionEntrance .42s cubic-bezier(0.34,1.56,0.64,1) both}
+.wc-accent{position:absolute;top:0;left:0;right:0;height:5px}
+.wc-lv{font-size:10px;font-weight:900;padding:2px 10px;border-radius:999px;letter-spacing:.4px}
+.wc-spk{width:27px;height:27px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#a78bfa);border:none;cursor:pointer;font-size:12px;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 9px rgba(124,58,237,.32);transition:.2s}
+.wc-spk:active{transform:scale(.88)}
+.wc-en{font-size:18px;font-weight:900;color:#1a1a2e;margin-top:9px;cursor:pointer;line-height:1.15;word-break:break-word}
+.wc-ph{font-size:11px;color:#9ca3af;margin-top:3px}
+.wc-cat{display:inline-block;font-size:9.5px;font-weight:700;color:#6c47ff;background:#f0eeff;padding:3px 9px;border-radius:999px;margin-top:8px;text-transform:capitalize}
+.wc-flip{position:absolute;bottom:9px;right:13px;font-size:8.5px;color:#c9bdf5;font-weight:800;letter-spacing:.3px}
+.wc-ru{font-size:17px;font-weight:900;color:#6c47ff;line-height:1.2}
+.wc-ex{font-size:11.5px;color:#374151;margin-top:8px;font-style:italic;line-height:1.45}
+.wc-known{margin-top:10px;background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;border:none;padding:6px 18px;border-radius:999px;font-size:11px;font-weight:800;cursor:pointer;box-shadow:0 3px 10px rgba(34,197,94,.3)}
+.test-card{position:relative;overflow:hidden;background:#fff;border-radius:20px;margin:0 16px 10px;padding:20px 16px 16px;box-shadow:0 6px 22px rgba(108,71,255,.12);animation:questionEntrance .42s cubic-bezier(0.34,1.56,0.64,1) both;border:1px solid #f1edff}
+.test-card::before{content:'';position:absolute;top:0;left:0;right:0;height:6px;background:linear-gradient(90deg,#6c47ff,#a78bfa,#f0abfc)}
+.tc-tag{display:inline-block;font-size:9px;font-weight:900;letter-spacing:1.5px;color:#a78bfa;background:#f3effe;padding:3px 11px;border-radius:999px;margin-bottom:10px}
+.q-letter{flex-shrink:0;width:27px;height:27px;border-radius:9px;background:#ede9ff;color:#6c47ff;font-weight:900;font-size:13px;display:flex;align-items:center;justify-content:center;transition:.2s}
+.q-otext{flex:1;text-align:left}
+.q-opt:hover .q-letter{background:#6c47ff;color:#fff;transform:scale(1.08)}
 .stat-card{border-radius:16px;padding:16px;text-align:center}
 .subpage-hdr{display:flex;align-items:center;gap:12px;padding:14px 16px;background:#fff;border-bottom:1px solid #ede9ff;font-size:15px;font-weight:800;color:#1a1a2e;position:sticky;top:0;z-index:10}
 
@@ -313,8 +329,12 @@ button{cursor:pointer}
 /* subtle depth on every glyph */
 .phone .ico svg{filter:drop-shadow(0 1.5px 1.5px rgba(0,0,0,.14))}
 /* bottom nav — gradient strokes + volume */
-.nb .ico svg{stroke:url(#gIcoGray)!important;stroke-width:2.2px;filter:drop-shadow(0 1.5px 1px rgba(0,0,0,.16))}
-.nb.active .ico svg{stroke:url(#gIcoPurple)!important;stroke-width:2.3px;filter:drop-shadow(0 2px 3px rgba(108,71,255,.5))}
+.nb .ico svg{fill:url(#gIcoGray)!important;stroke:none!important;filter:drop-shadow(0 1.5px 1px rgba(0,0,0,.12));transition:.25s}
+.nb.active .ico svg{fill:url(#gIcoPurple)!important;stroke:none!important;filter:drop-shadow(0 2px 4px rgba(108,71,255,.5))}
+.nb .ico{position:relative;z-index:1}
+.nb .ico::before{content:'';position:absolute;inset:-7px -16px;border-radius:999px;background:linear-gradient(135deg,rgba(167,139,250,.28),rgba(108,71,255,.16));opacity:0;transform:scale(.6);transition:.3s cubic-bezier(.34,1.56,.64,1);z-index:-1}
+.nb.active .ico::before{opacity:1;transform:scale(1)}
+.nb.active::after{display:none!important}
 /* richer, saturated scenario gradients */
 .sp-airport{background:linear-gradient(140deg,#7DD3FC,#3B82F6,#2563EB)}
 .sp-doctor{background:linear-gradient(140deg,#6EE7B7,#10B981,#059669)}
@@ -367,6 +387,13 @@ button{cursor:pointer}
 .info-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #F3F4F6;font-size:11px}
 .info-row:last-child{border-bottom:none}
 .ach-card{background:#fff;border-radius:16px;padding:12px 8px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.profile-fox-wrap{box-shadow:0 4px 16px rgba(124,58,237,.2),0 0 0 3px rgba(124,58,237,.18)!important}
+.pstat{position:relative;background:#fff;border-radius:16px;padding:13px 6px 11px;text-align:center;box-shadow:0 3px 14px rgba(108,71,255,.08);border:1px solid #f4f0ff;overflow:hidden}
+.pstat-ic{width:34px;height:34px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:16px;margin:0 auto 7px;box-shadow:0 3px 8px rgba(0,0,0,.13)}
+.pstat-num{font-size:17px;font-weight:900;line-height:1;color:#1F2937}
+.pstat-lbl{font-size:9px;color:#9CA3AF;font-weight:700;margin-top:3px}
+.cat-prog{height:6px;background:#f0eeff;border-radius:999px;overflow:hidden;margin-top:5px}
+.cat-prog>i{display:block;height:100%;border-radius:999px;transition:width .8s cubic-bezier(.22,1,.36,1)}
 /* Daily reward card */
 .dr-card{background:linear-gradient(135deg,#F5F3FF,#EDE9FE);border-radius:20px;margin:0 16px 12px;padding:18px;display:flex;align-items:center;gap:14px;box-shadow:0 4px 18px rgba(124,58,237,.1)}
 /* Chest */
@@ -565,7 +592,7 @@ button:active{filter:brightness(.97)}
 
   <!-- HEADER -->
   <div id="quests-hdr" style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px 10px;background:#fff;box-shadow:0 1px 0 #F3F4F6;position:relative">
-    <button onclick="showPage('profile');setNav(document.querySelectorAll('.nb')[6])" style="width:38px;height:38px;border-radius:12px;background:#F5F3FF;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px">≡</button>
+    <button onclick="showPage('profile');setNav(document.querySelectorAll('.nb')[4])" style="width:38px;height:38px;border-radius:12px;background:#F5F3FF;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px">≡</button>
     <div style="text-align:center">
       <div style="font-size:17px;font-weight:900;letter-spacing:.5px"><span style="color:#7C3AED">CATCH</span><span style="color:#1F2937"> QUEST</span></div>
       <div style="font-size:10px;color:#9CA3AF">Survive • Win</div>
@@ -609,11 +636,11 @@ button:active{filter:brightness(.97)}
         <div style="width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#F59E0B,#FBBF24);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px rgba(245,158,11,.4)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
         <div style="font-size:11px;font-weight:800;color:#1F2937;line-height:1.3">Прокачивай<br>уровень</div>
       </div>
-      <div onclick="showPage('rating');setNav(document.querySelectorAll('.nb')[3])" style="background:#fff;border-radius:18px;padding:12px;display:flex;align-items:center;gap:10px;box-shadow:0 3px 14px rgba(0,0,0,.06);cursor:pointer;transition:.2s" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+      <div onclick="showPage('rating');setNav(null)" style="background:#fff;border-radius:18px;padding:12px;display:flex;align-items:center;gap:10px;box-shadow:0 3px 14px rgba(0,0,0,.06);cursor:pointer;transition:.2s" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
         <div style="width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#3B82F6,#60A5FA);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px rgba(59,130,246,.4)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/><path d="M4 6h16"/></svg></div>
         <div style="font-size:11px;font-weight:800;color:#1F2937;line-height:1.3">Открывай<br>локации</div>
       </div>
-      <div onclick="showPage('dashboard');setNav(document.querySelectorAll('.nb')[4])" style="background:#fff;border-radius:18px;padding:12px;display:flex;align-items:center;gap:10px;box-shadow:0 3px 14px rgba(0,0,0,.06);cursor:pointer;transition:.2s" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+      <div onclick="showPage('dashboard');setNav(null)" style="background:#fff;border-radius:18px;padding:12px;display:flex;align-items:center;gap:10px;box-shadow:0 3px 14px rgba(0,0,0,.06);cursor:pointer;transition:.2s" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
         <div style="width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#c4b5fd 0%,#f0d9f7 50%,#fddcbc 100%);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px rgba(16,185,129,.4)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M3 12v8a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-8"/><path d="M12 8V21"/><path d="M12 8C12 8 9 4 6 4s-3 4 6 4c9 0 6-4 6-4s-3 4-6 4"/></svg></div>
         <div style="font-size:11px;font-weight:800;color:#1F2937;line-height:1.3">Получай<br>награды</div>
       </div>
@@ -2401,37 +2428,13 @@ button:active{filter:brightness(.97)}
   </div>
 
   <!-- PROFILE STATS -->
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 16px 12px">
-    <div style="background:#fff;border-radius:14px;padding:12px 4px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05)">
-      <div style="font-size:14px;margin-bottom:4px">⚡</div>
-      <div style="font-size:13px;font-weight:900;color:#7C3AED" id="profile-total-xp">0</div>
-      <div style="font-size:9px;color:#9CA3AF;font-weight:600;margin-top:1px">XP</div>
-    </div>
-    <div style="background:#fff;border-radius:14px;padding:12px 4px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05)">
-      <div style="font-size:14px;margin-bottom:4px">🔥</div>
-      <div style="font-size:13px;font-weight:900;color:#1F2937" id="profile-streak">0</div>
-      <div style="font-size:9px;color:#9CA3AF;font-weight:600;margin-top:1px">Дней подряд</div>
-    </div>
-    <div style="background:#fff;border-radius:14px;padding:12px 4px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05)">
-      <div style="font-size:14px;margin-bottom:4px">⭐</div>
-      <div style="font-size:13px;font-weight:900;color:#1F2937" id="profile-achieve">37</div>
-      <div style="font-size:9px;color:#9CA3AF;font-weight:600;margin-top:1px">Достижений</div>
-    </div>
-    <div style="background:#fff;border-radius:14px;padding:12px 4px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05)">
-      <div style="font-size:14px;margin-bottom:4px">🧳</div>
-      <div style="font-size:13px;font-weight:900;color:#1F2937" id="profile-sims-done">0</div>
-      <div style="font-size:9px;color:#9CA3AF;font-weight:600;margin-top:1px">Сценариев</div>
-    </div>
-    <div style="background:#fff;border-radius:14px;padding:12px 4px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05)">
-      <div style="font-size:14px;margin-bottom:4px">📝</div>
-      <div style="font-size:13px;font-weight:900;color:#1F2937" id="profile-tests-done">0</div>
-      <div style="font-size:9px;color:#9CA3AF;font-weight:600;margin-top:1px">Тестов</div>
-    </div>
-    <div style="background:#fff;border-radius:14px;padding:12px 4px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05)">
-      <div style="font-size:14px;margin-bottom:4px">📖</div>
-      <div style="font-size:13px;font-weight:900;color:#1F2937" id="profile-words-learned">0</div>
-      <div style="font-size:9px;color:#9CA3AF;font-weight:600;margin-top:1px">Слов выучено</div>
-    </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:9px;padding:0 16px 12px">
+    <div class="pstat"><div class="pstat-ic" style="background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#fff">⚡</div><div class="pstat-num" id="profile-total-xp" style="color:#d97706">0</div><div class="pstat-lbl">XP</div></div>
+    <div class="pstat"><div class="pstat-ic" style="background:linear-gradient(135deg,#fb7185,#ef4444);color:#fff">🔥</div><div class="pstat-num" id="profile-streak">0</div><div class="pstat-lbl">Дней подряд</div></div>
+    <div class="pstat"><div class="pstat-ic" style="background:linear-gradient(135deg,#fcd34d,#fbbf24);color:#fff">⭐</div><div class="pstat-num" id="profile-achieve">37</div><div class="pstat-lbl">Достижений</div></div>
+    <div class="pstat"><div class="pstat-ic" style="background:linear-gradient(135deg,#a78bfa,#7c3aed);color:#fff">🧳</div><div class="pstat-num" id="profile-sims-done">0</div><div class="pstat-lbl">Сценариев</div></div>
+    <div class="pstat"><div class="pstat-ic" style="background:linear-gradient(135deg,#60a5fa,#3b82f6);color:#fff">📝</div><div class="pstat-num" id="profile-tests-done">0</div><div class="pstat-lbl">Тестов</div></div>
+    <div class="pstat"><div class="pstat-ic" style="background:linear-gradient(135deg,#34d399,#10b981);color:#fff">📖</div><div class="pstat-num" id="profile-words-learned">0</div><div class="pstat-lbl">Слов выучено</div></div>
   </div>
 
   <!-- RANK CARD -->
@@ -2449,6 +2452,13 @@ button:active{filter:brightness(.97)}
     </div>
   </div>
 
+  <!-- PREMIUM / PAYMENT -->
+  <div onclick="showPage('payment');setNav(null)" style="margin:0 16px 12px;background:linear-gradient(135deg,#1f1147,#4f46e5,#7c3aed);background-size:200% 200%;animation:gradShift 7s ease infinite;border-radius:20px;padding:15px 16px;display:flex;align-items:center;gap:13px;cursor:pointer;box-shadow:0 8px 26px rgba(79,70,229,.4);position:relative;overflow:hidden">
+    <div style="width:44px;height:44px;border-radius:14px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0">💎</div>
+    <div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:900;color:#fff">Catch Premium</div><div style="font-size:10.5px;color:rgba(255,255,255,.8);margin-top:2px">Все уровни, без рекламы, офлайн</div></div>
+    <div style="background:#fff;color:#6c47ff;font-size:11px;font-weight:900;padding:7px 14px;border-radius:999px;flex-shrink:0">Открыть →</div>
+  </div>
+
   <!-- INFO + CATEGORIES -->
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px 12px">
     <div style="background:#fff;border-radius:18px;padding:14px;box-shadow:0 2px 12px rgba(0,0,0,.06)">
@@ -2460,11 +2470,11 @@ button:active{filter:brightness(.97)}
     </div>
     <div style="background:#fff;border-radius:18px;padding:14px;box-shadow:0 2px 12px rgba(0,0,0,.06)">
       <div style="font-size:11px;font-weight:900;color:#1F2937;margin-bottom:10px">Категории</div>
-      <div class="cat-bar-row" style="padding:4px 0"><div class="cat-bar-icon" style="background:#E0F2FE;width:22px;height:22px;font-size:12px;border-radius:6px">✈️</div><div style="flex:1;font-size:10px;font-weight:700;color:#1F2937;margin:0 5px">Аэропорт</div><div style="font-size:10px;font-weight:700;color:#7C3AED">75%</div></div>
-      <div class="cat-bar-row" style="padding:4px 0"><div class="cat-bar-icon" style="background:#ECFDF5;width:22px;height:22px;font-size:12px;border-radius:6px">🏥</div><div style="flex:1;font-size:10px;font-weight:700;color:#1F2937;margin:0 5px">Врач</div><div style="font-size:10px;font-weight:700;color:#7C3AED">60%</div></div>
-      <div class="cat-bar-row" style="padding:4px 0"><div class="cat-bar-icon" style="background:#FFFBEB;width:22px;height:22px;font-size:12px;border-radius:6px">🏠</div><div style="flex:1;font-size:10px;font-weight:700;color:#1F2937;margin:0 5px">Аренда</div><div style="font-size:10px;font-weight:700;color:#7C3AED">50%</div></div>
-      <div class="cat-bar-row" style="padding:4px 0"><div class="cat-bar-icon" style="background:#EFF6FF;width:22px;height:22px;font-size:12px;border-radius:6px">🏦</div><div style="flex:1;font-size:10px;font-weight:700;color:#1F2937;margin:0 5px">Банк</div><div style="font-size:10px;font-weight:700;color:#7C3AED">40%</div></div>
-      <div class="cat-bar-row" style="padding:4px 0;border-bottom:none"><div class="cat-bar-icon" style="background:#F5F3FF;width:22px;height:22px;font-size:12px;border-radius:6px">💼</div><div style="flex:1;font-size:10px;font-weight:700;color:#1F2937;margin:0 5px">Собесед.</div><div style="font-size:10px;font-weight:700;color:#7C3AED">30%</div></div>
+      <div style="margin-bottom:9px"><div style="display:flex;align-items:center;gap:6px"><div class="cat-bar-icon" style="background:#E0F2FE;width:22px;height:22px;font-size:12px;border-radius:7px">✈️</div><div style="flex:1;font-size:10px;font-weight:700;color:#1F2937">Аэропорт</div><div style="font-size:10px;font-weight:800;color:#3b82f6">75%</div></div><div class="cat-prog"><i style="width:75%;background:linear-gradient(90deg,#60a5fa,#3b82f6)"></i></div></div>
+      <div style="margin-bottom:9px"><div style="display:flex;align-items:center;gap:6px"><div class="cat-bar-icon" style="background:#ECFDF5;width:22px;height:22px;font-size:12px;border-radius:7px">🏥</div><div style="flex:1;font-size:10px;font-weight:700;color:#1F2937">Врач</div><div style="font-size:10px;font-weight:800;color:#10b981">60%</div></div><div class="cat-prog"><i style="width:60%;background:linear-gradient(90deg,#34d399,#10b981)"></i></div></div>
+      <div style="margin-bottom:9px"><div style="display:flex;align-items:center;gap:6px"><div class="cat-bar-icon" style="background:#FFFBEB;width:22px;height:22px;font-size:12px;border-radius:7px">🏠</div><div style="flex:1;font-size:10px;font-weight:700;color:#1F2937">Аренда</div><div style="font-size:10px;font-weight:800;color:#f59e0b">50%</div></div><div class="cat-prog"><i style="width:50%;background:linear-gradient(90deg,#fcd34d,#f59e0b)"></i></div></div>
+      <div style="margin-bottom:9px"><div style="display:flex;align-items:center;gap:6px"><div class="cat-bar-icon" style="background:#EFF6FF;width:22px;height:22px;font-size:12px;border-radius:7px">🏦</div><div style="flex:1;font-size:10px;font-weight:700;color:#1F2937">Банк</div><div style="font-size:10px;font-weight:800;color:#6366f1">40%</div></div><div class="cat-prog"><i style="width:40%;background:linear-gradient(90deg,#818cf8,#6366f1)"></i></div></div>
+      <div><div style="display:flex;align-items:center;gap:6px"><div class="cat-bar-icon" style="background:#F5F3FF;width:22px;height:22px;font-size:12px;border-radius:7px">💼</div><div style="flex:1;font-size:10px;font-weight:700;color:#1F2937">Собесед.</div><div style="font-size:10px;font-weight:800;color:#7c3aed">30%</div></div><div class="cat-prog"><i style="width:30%;background:linear-gradient(90deg,#a78bfa,#7c3aed)"></i></div></div>
     </div>
   </div>
 
@@ -2745,14 +2755,11 @@ button:active{filter:brightness(.97)}
 <!-- BOTTOM NAV -->
 <button id="back-fab" class="back-fab" onclick="showPage('quests');setNav(document.querySelectorAll('.nb')[0])" title="На главную">←</button>
 <div class="bnav" id="main-bnav" style="display:none;background:#fff;border-top:1.5px solid #F3F4F6">
-  <button class="nb active" onclick="showPage('quests');setNav(this)"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/><polyline points="9,21 9,12 15,12 15,21"/></svg></div>Главный</button>
-  <button class="nb" onclick="showPage('scenarios');setNav(this)"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>Сценарии</button>
-  <button class="nb" onclick="showPage('tests');setNav(this)"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="m9 12 2 2 4-4"/></svg></div>Тесты</button>
-  <button class="nb" onclick="showPage('rating');setNav(this)"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg></div>Рейтинг</button>
-  <button class="nb" onclick="showPage('dashboard');setNav(this)"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg></div>Дашборд</button>
-  <button class="nb" onclick="goReloc(this)"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>Словарь</button>
-  <button class="nb" onclick="showPage('profile');setNav(this)"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>Профиль</button>
-  <button class="nb" onclick="showPage('payment');setNav(this)"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>Оплата</button>
+  <button class="nb active" onclick="showPage('quests');setNav(this)"><div class="ico"><svg width="23" height="23" viewBox="0 0 24 24"><path d="M12 2.1 1 12h3v9h6v-6h4v6h6v-9h3L12 2.1z"/></svg></div>Главный</button>
+  <button class="nb" onclick="showPage('scenarios');setNav(this)"><div class="ico"><svg width="23" height="23" viewBox="0 0 24 24"><path d="M5 3h14a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3H11l-5 4v-4H5a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3z"/></svg></div>Сценарии</button>
+  <button class="nb" onclick="showPage('tests');setNav(this)"><div class="ico"><svg width="23" height="23" viewBox="0 0 24 24"><path d="M12 3 1 8l11 5 9-4.1V15h2V8L12 3zM4 13.5V17c0 1.7 3.6 3 8 3s8-1.3 8-3v-3.5l-8 3.6-8-3.6z"/></svg></div>Тесты</button>
+  <button class="nb" onclick="goReloc(this)"><div class="ico"><svg width="23" height="23" viewBox="0 0 24 24"><path d="M6.5 2H18a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6.5A2.5 2.5 0 0 1 4 16.5V4.5A2.5 2.5 0 0 1 6.5 2zm0 16H17v-1H6.5a.5.5 0 0 0 0 1z"/></svg></div>Словарь</button>
+  <button class="nb" onclick="showPage('profile');setNav(this)"><div class="ico"><svg width="23" height="23" viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-5 0-9 2.5-9 6v1h18v-1c0-3.5-4-6-9-6z"/></svg></div>Профиль</button>
 </div>
 
 <!-- SEASON REWARDS SHEET -->
@@ -17988,7 +17995,7 @@ function showPage(p) {
 }
 function setNav(btn){
   document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
+  if(btn)btn.classList.add('active');
   soundNav();
 }
 function selectPlan(plan){
@@ -18437,19 +18444,28 @@ function renderWords(){
   if(wordCat!=='all')data=data.filter(w=>w.cat===wordCat);
   const slice=data.slice(0,wordOffset+WORDS_PER_PAGE);
   document.getElementById('words-count').textContent=`Показано ${Math.min(slice.length,data.length)} из ${wordsData.length} слов (всего ${data.length} по фильтру)`;
-  area.innerHTML=slice.map((w,i)=>`
+  const lvColors={A1:'#22c55e',A2:'#14b8a6',B1:'#3b82f6',B2:'#6366f1',C1:'#8b5cf6',C2:'#7c3aed'};
+  area.innerHTML=slice.map((w,i)=>{
+    const c=lvColors[w.lv]||'#6c47ff';
+    return `
     <div class="word-card" style="animation-delay:${i*.03}s" onclick="flipCard(this)">
+      <div class="wc-accent" style="background:linear-gradient(135deg,${c},${c}aa)"></div>
       <div class="word-front">
-        <div style="font-size:16px;font-weight:900;color:#1a1a2e;cursor:pointer" onclick="event.stopPropagation();showDwPopup(event,'${(w.en||'').replace(/'/g,"\\'")}','${(w.ph||'').replace(/'/g,"\\'")}','${(w.ru||'').replace(/'/g,"\\'")}')">${w.en}</div>
-        <div style="font-size:11px;color:#9ca3af;margin-top:2px">[${w.ph}]</div>
-        <div style="display:flex;align-items:center;gap:6px;margin-top:4px"><div style="font-size:10px;background:#ede9ff;color:#6c47ff;padding:2px 8px;border-radius:999px">${w.lv} · ${w.cat}</div><button onclick="event.stopPropagation();speakBtn(this)" data-speak="${(w.en||'').replace(/"/g,'&quot;')}" style="width:24px;height:24px;border-radius:50%;background:#f0eeff;border:none;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center" title="Прослушать">🔊</button></div>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span class="wc-lv" style="background:${c}22;color:${c}">${w.lv}</span>
+          <button class="wc-spk" onclick="event.stopPropagation();speakBtn(this)" data-speak="${(w.en||'').replace(/"/g,'&quot;')}" title="Прослушать">🔊</button>
+        </div>
+        <div class="wc-en" onclick="event.stopPropagation();showDwPopup(event,'${(w.en||'').replace(/'/g,"\\'")}','${(w.ph||'').replace(/'/g,"\\'")}','${(w.ru||'').replace(/'/g,"\\'")}')">${w.en}</div>
+        <div class="wc-ph">[${w.ph}]</div>
+        <div class="wc-cat">${w.cat}</div>
+        <div class="wc-flip">нажми ↻</div>
       </div>
       <div class="word-back" style="display:none">
-        <div style="font-size:15px;font-weight:800;color:#6c47ff">${w.ru}</div>
-        <div style="font-size:12px;color:#374151;margin-top:6px;font-style:italic">"${wrapDialogText(w.ex||'')}" <button onclick="event.stopPropagation();speakBtn(this)" data-speak="${(w.ex||'').replace(/"/g,'&quot;')}" style="background:none;border:none;cursor:pointer;font-size:13px" title="Прослушать">🔊</button></div>
-        <button onclick="event.stopPropagation();markLearned()" style="margin-top:8px;background:#6c47ff;color:#fff;border:none;padding:5px 16px;border-radius:999px;font-size:11px;font-weight:700;cursor:pointer">✓ Знаю</button>
+        <div class="wc-ru">${w.ru}</div>
+        <div class="wc-ex">"${wrapDialogText(w.ex||'')}" <button onclick="event.stopPropagation();speakBtn(this)" data-speak="${(w.ex||'').replace(/"/g,'&quot;')}" style="background:none;border:none;cursor:pointer;font-size:13px" title="Прослушать">🔊</button></div>
+        <button class="wc-known" onclick="event.stopPropagation();markLearned()">✓ Знаю</button>
       </div>
-    </div>`).join('');
+    </div>`;}).join('');
   const lb=document.getElementById('words-more-btn');
   if(lb)lb.style.display=(wordOffset+WORDS_PER_PAGE<data.length)?'block':'none';
   wordOffset+=WORDS_PER_PAGE;
@@ -18623,12 +18639,13 @@ function renderChoiceTest(t){
   const hasEn=/[a-zA-Z]/.test(qText);
   area.innerHTML=`
     <div class="test-card">
-      <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:14px">
-        <div id="test-q-text" style="font-size:13px;font-weight:800;color:#1a1a2e;flex:1;animation:optionSlideIn .35s cubic-bezier(0.34,1.56,0.64,1) both">${t.q}</div>
-        ${hasEn?`<button onclick="speak('${(t.q||'').replace(/'/g,"\'")}')" style="background:none;border:none;cursor:pointer;font-size:16px;padding:0;flex-shrink:0;animation:optionSlideIn .35s ease .1s both" title="Озвучить вопрос">🔊</button>`:''}
+      <div class="tc-tag">ВОПРОС</div>
+      <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:16px">
+        <div id="test-q-text" style="font-size:16px;font-weight:900;color:#1a1a2e;flex:1;line-height:1.4;animation:optionSlideIn .35s cubic-bezier(0.34,1.56,0.64,1) both">${t.q}</div>
+        ${hasEn?`<button onclick="speak('${(t.q||'').replace(/'/g,"\'")}')" style="background:linear-gradient(135deg,#7c3aed,#a78bfa);border:none;cursor:pointer;font-size:14px;width:34px;height:34px;border-radius:11px;color:#fff;padding:0;flex-shrink:0;box-shadow:0 4px 10px rgba(124,58,237,.3);animation:optionSlideIn .35s ease .1s both" title="Озвучить вопрос">🔊</button>`:''}
       </div>
       <div style="display:flex;flex-direction:column;gap:8px" id="choice-opts">
-        ${opts.map((o,i)=>`<button class="q-opt" onclick="answerChoice(${i},${t.a},${t.xp||10},this)" style="animation:optionSlideIn .35s cubic-bezier(0.34,1.56,0.64,1) ${80+i*70}ms both">${o}</button>`).join('')}
+        ${opts.map((o,i)=>`<button class="q-opt" onclick="answerChoice(${i},${t.a},${t.xp||10},this)" style="animation:optionSlideIn .35s cubic-bezier(0.34,1.56,0.64,1) ${80+i*70}ms both"><span class="q-letter">${String.fromCharCode(65+i)}</span><span class="q-otext">${o}</span></button>`).join('')}
       </div>
       <div id="choice-result" style="margin-top:10px;font-size:13px;font-weight:700;display:none;border-radius:10px;padding:8px 12px"></div>
       <button onclick="nextTest()" id="choice-next-btn" style="margin-top:12px;background:linear-gradient(135deg,#6c47ff,#a78bfa);color:#fff;border:none;padding:11px 24px;border-radius:999px;font-size:13px;font-weight:800;cursor:pointer;width:100%;opacity:0;pointer-events:none;transform:translateY(10px);transition:opacity .3s ease,transform .3s cubic-bezier(0.34,1.56,0.64,1)">Следующий →</button>
