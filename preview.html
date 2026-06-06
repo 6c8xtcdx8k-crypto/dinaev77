@@ -14,7 +14,7 @@ button{cursor:pointer}
 .hdr-logo span{color:#6c47ff}
 .hdr-btn{width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.6);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;transition:.2s}
 .hdr-btn:hover{background:#ede9ff;transform:scale(1.1)}
-.page{display:none;flex:1;overflow-y:auto;background:transparent;padding-bottom:16px;animation:fadeInPage .3s ease}
+.page{display:none;flex:1;overflow-y:auto;background:transparent;padding-bottom:16px}
 .page.active{display:block}
 .bnav{background:rgba(255,255,255,.55);backdrop-filter:blur(14px);border-top:1px solid rgba(255,255,255,.4);display:flex;z-index:100;flex-shrink:0}
 .nb{transition:.18s cubic-bezier(.34,1.56,.64,1);}
@@ -443,8 +443,7 @@ button{cursor:pointer}
    ============================================================ */
 *{-webkit-tap-highlight-color:transparent}
 body,.phone{-webkit-font-smoothing:antialiased}
-.page{scroll-behavior:smooth;animation:pageEnter .46s cubic-bezier(.22,1,.36,1) both}
-@keyframes pageEnter{from{opacity:0;transform:translateY(12px) scale(.99)}to{opacity:1;transform:none}}
+.page{scroll-behavior:smooth}
 
 /* Tactile cards — lift on hover, press on tap */
 .sc-card,.word-card,.sim-card,.ielts-card,.lv-card,.move-cat,.pic-cat,.tip-card,.site-card,.slang-card,.bank-card,.stat-b,.lb-row,.wcard,.sent-card,.test-card{
@@ -17976,7 +17975,7 @@ function showPage(p) {
   }
   document.getElementById('main-bnav').style.display='flex';
   window.scrollTo(0,0);
-  if(p==='study'){renderWords();renderSents();}
+  if(p==='study'){wordOffset=0;sentOffset=0;renderWords();renderSents();}
   if(p==='tests'){currentTestLevel=currentLevel;_syncTestLevelUI(currentLevel);initTestQueue();renderCurrentTest();}
   if(p==='sims'){renderSimsMenu();}
   if(p==='quests'){updateXPBar();updateHomeUserName();updateRatingPage();updateDashboard();}
