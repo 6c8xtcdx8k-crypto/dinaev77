@@ -27,10 +27,8 @@ button{cursor:pointer}
 .nb{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:9px 0;border:none;background:none;cursor:pointer;color:#9ca3af;font-size:9px;font-weight:700;transition:.2s;position:relative}
 .nb.active{color:#6c47ff}
 .nb.active::after{content:'';position:absolute;top:0;left:20%;right:20%;height:2px;background:#6c47ff;border-radius:999px;animation:slideIn .2s ease}
-.nb .ico{font-size:20px;transition:.2s;display:flex;align-items:center;justify-content:center;height:24px}
-.nb.active .ico{transform:scale(1.15)}
-.nb .ico svg{stroke:#9ca3af;transition:.2s}
-.nb.active .ico svg{stroke:#6c47ff;transform:scale(1.15)}
+.nb .ico{font-size:22px;transition:.25s cubic-bezier(.34,1.56,.64,1);display:flex;align-items:center;justify-content:center;height:26px;filter:grayscale(15%) opacity(.78)}
+.nb.active .ico{transform:scale(1.2);filter:none}
 .btn-pu{width:calc(100% - 32px);margin:0 16px 12px;background:linear-gradient(135deg,#6c47ff,#8b5cf6);color:#fff;border:none;border-radius:16px;padding:15px;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(108,71,255,.4);transition:.2s;display:flex;align-items:center;justify-content:center;gap:8px}
 .btn-pu:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(108,71,255,.5)}
 .btn-pu:active{transform:scale(.97)}
@@ -287,8 +285,8 @@ button{cursor:pointer}
 .lv-test-btn:hover{background:#ede9ff;border-color:#6c47ff;transform:scale(1.06)}
 .lv-test-btn.active-lv{background:linear-gradient(135deg,#6c47ff,#8b5cf6);color:#fff;border-color:#6c47ff;box-shadow:0 4px 14px rgba(108,71,255,.4)}
 .avatar-pick{font-size:30px;display:flex;align-items:center;justify-content:center;aspect-ratio:1;cursor:pointer;border-radius:14px;background:rgba(255,255,255,.6);transition:all .22s cubic-bezier(0.34,1.56,0.64,1);border:2px solid transparent;line-height:1;overflow:hidden;box-sizing:border-box}
-.avatar-pick:hover{transform:scale(1.12);border-color:#c4b5fd;background:#f5f3ff}
-.avatar-pick.selected{border-color:#6c47ff;background:#ede9ff;transform:scale(1.08);box-shadow:0 4px 14px rgba(108,71,255,.35);animation:correctPop .4s cubic-bezier(0.34,1.56,0.64,1) both}
+.avatar-pick:hover{transform:scale(1.1);border-color:#c4b5fd;filter:brightness(1.05)}
+.avatar-pick.selected{border-color:#6c47ff;transform:scale(1.1);box-shadow:0 4px 18px rgba(108,71,255,.5),0 0 0 3px rgba(108,71,255,.25);animation:correctPop .4s cubic-bezier(0.34,1.56,0.64,1) both}
 .toggle-sw{width:48px;height:27px;border-radius:999px;position:relative;cursor:pointer;transition:.3s;flex-shrink:0}
 .toggle-sw .knob{position:absolute;top:3px;width:21px;height:21px;border-radius:50%;background:#fff;transition:.3s;box-shadow:0 1px 4px rgba(0,0,0,.25)}
 /* ═══ LEVEL TEST MODAL ═══ */
@@ -318,7 +316,7 @@ button{cursor:pointer}
 .sc-card{background:#fff;border-radius:18px;margin:0 16px 10px;box-shadow:0 2px 14px rgba(0,0,0,.07);overflow:hidden;display:flex;cursor:pointer;transition:.2s cubic-bezier(.34,1.56,.64,1);min-height:88px}
 .sc-card:active{transform:scale(.98)}
 .sc-photo{width:92px;min-height:88px;flex-shrink:0;position:relative;display:flex;align-items:center;justify-content:center;font-size:40px}
-.sc-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 55%,rgba(255,255,255,.9))}
+.sc-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 60%,rgba(255,255,255,.95))}
 .sp-airport{background:linear-gradient(140deg,#BAE6FD,#7DD3FC,#60A5FA)}
 .sp-doctor{background:linear-gradient(140deg,#A7F3D0,#6EE7B7,#34D399)}
 .sp-rent{background:linear-gradient(140deg,#FDE68A,#FCD34D,#FBBF24)}
@@ -328,12 +326,11 @@ button{cursor:pointer}
 .phone svg{overflow:visible}
 /* subtle depth on every glyph */
 .phone .ico svg{filter:drop-shadow(0 1.5px 1.5px rgba(0,0,0,.14))}
-/* bottom nav — gradient strokes + volume */
-.nb .ico svg{fill:url(#gIcoGray)!important;stroke:none!important;filter:drop-shadow(0 1.5px 1px rgba(0,0,0,.12));transition:.25s}
-.nb.active .ico svg{fill:url(#gIcoPurple)!important;stroke:none!important;filter:drop-shadow(0 2px 4px rgba(108,71,255,.5))}
+/* bottom nav — emoji icons with animated pill */
 .nb .ico{position:relative;z-index:1}
-.nb .ico::before{content:'';position:absolute;inset:-7px -16px;border-radius:999px;background:linear-gradient(135deg,rgba(167,139,250,.28),rgba(108,71,255,.16));opacity:0;transform:scale(.6);transition:.3s cubic-bezier(.34,1.56,.64,1);z-index:-1}
+.nb .ico::before{content:'';position:absolute;inset:-6px -14px;border-radius:999px;background:linear-gradient(135deg,rgba(167,139,250,.38),rgba(108,71,255,.22));opacity:0;transform:scale(.5);transition:.32s cubic-bezier(.34,1.56,.64,1);z-index:-1}
 .nb.active .ico::before{opacity:1;transform:scale(1)}
+.nb.active .ico{filter:drop-shadow(0 0 8px rgba(108,71,255,.55))}
 .nb.active::after{display:none!important}
 /* richer, saturated scenario gradients */
 .sp-airport{background:linear-gradient(140deg,#7DD3FC,#3B82F6,#2563EB)}
@@ -382,12 +379,12 @@ button{cursor:pointer}
 .cat-bar-icon{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
 /* Profile */
 .profile-hdr-card{background:linear-gradient(155deg,#F5F3FF,#EDE9FE);border-radius:24px;margin:10px 16px 12px;padding:18px 18px 16px;display:flex;gap:14px;align-items:flex-start;position:relative;overflow:hidden;box-shadow:0 4px 24px rgba(124,58,237,.12)}
-.profile-fox-wrap{width:90px;height:90px;border-radius:18px;overflow:hidden;flex-shrink:0;background:linear-gradient(135deg,#ede9ff,#f0eeff);box-shadow:0 4px 16px rgba(124,58,237,.2);display:flex;align-items:center;justify-content:center;font-size:54px;line-height:1}
+.profile-fox-wrap{width:90px;height:90px;border-radius:18px;overflow:hidden;flex-shrink:0;background:#1a1a2e;box-shadow:0 4px 16px rgba(124,58,237,.2);display:flex;align-items:center;justify-content:center;font-size:54px;line-height:1}
 .profile-rank-card{background:linear-gradient(135deg,#4F46E5,#7C3AED);border-radius:20px;margin:0 16px 12px;padding:16px 18px;box-shadow:0 6px 24px rgba(79,70,229,.3)}
 .info-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #F3F4F6;font-size:11px}
 .info-row:last-child{border-bottom:none}
 .ach-card{background:#fff;border-radius:16px;padding:12px 8px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.06)}
-.profile-fox-wrap{box-shadow:0 4px 16px rgba(124,58,237,.2),0 0 0 3px rgba(124,58,237,.18)!important}
+.profile-fox-wrap{box-shadow:0 6px 24px rgba(124,58,237,.3),0 0 0 3px rgba(124,58,237,.3),0 0 20px rgba(124,58,237,.12)!important;background:transparent!important}
 .pstat{position:relative;background:#fff;border-radius:16px;padding:13px 6px 11px;text-align:center;box-shadow:0 3px 14px rgba(108,71,255,.08);border:1px solid #f4f0ff;overflow:hidden}
 .pstat-ic{width:34px;height:34px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:16px;margin:0 auto 7px;box-shadow:0 3px 8px rgba(0,0,0,.13)}
 .pstat-num{font-size:17px;font-weight:900;line-height:1;color:#1F2937}
@@ -694,7 +691,7 @@ button:active{filter:brightness(.97)}
     </div>
 
     <div class="sc-card" onclick="showPage('scenarios');setNav(document.querySelectorAll('.nb')[1])">
-      <div class="sc-photo sp-airport"><div style="position:relative;z-index:1;display:flex;align-items:center;justify-content:center;width:100%;height:100%"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:#1D4ED8"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></div></div>
+      <div class="sc-photo sp-airport"><span style="position:relative;z-index:1;font-size:46px">✈️</span></div>
       <div class="sc-body">
         <div><div class="sc-title">Аэропорт</div><div class="sc-desc">Регистрация на рейс, багаж, паспортный контроль, таможня.</div></div>
         <div class="sc-meta"><span class="sc-badge-easy">Лёгкий</span><span class="sc-xp">XP 250</span><span class="sc-stars">50 pts</span></div>
@@ -703,7 +700,7 @@ button:active{filter:brightness(.97)}
     </div>
 
     <div class="sc-card" onclick="showPage('scenarios');setNav(document.querySelectorAll('.nb')[1])">
-      <div class="sc-photo sp-doctor"><div style="position:relative;z-index:1;display:flex;align-items:center;justify-content:center;width:100%;height:100%"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:#059669"><path d="M4.8 2.3A.3.3 0 1 0 5 2H4"/><path d="M1 4.8a.3.3 0 1 0 2 .1V4"/><path d="M3 11l.2 3.6A2 2 0 0 0 7.1 16h.9a2 2 0 0 1 2 2 2 2 0 0 0 4 0v-6"/><circle cx="18" cy="14" r="3"/><path d="M12 7.5V12"/></svg></div></div>
+      <div class="sc-photo sp-doctor"><span style="position:relative;z-index:1;font-size:44px">🩺</span></div>
       <div class="sc-body">
         <div><div class="sc-title">Врач</div><div class="sc-desc">Запись на приём, симптомы, медицинские термины, рецепты.</div></div>
         <div class="sc-meta"><span class="sc-badge-easy">Лёгкий</span><span class="sc-xp">XP 300</span><span class="sc-stars">60 pts</span></div>
@@ -712,7 +709,7 @@ button:active{filter:brightness(.97)}
     </div>
 
     <div class="sc-card" onclick="showPage('scenarios');setNav(document.querySelectorAll('.nb')[1])">
-      <div class="sc-photo sp-rent"><div style="position:relative;z-index:1;display:flex;align-items:center;justify-content:center;width:100%;height:100%"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:#D97706"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/><polyline points="9,21 9,12 15,12 15,21"/></svg></div></div>
+      <div class="sc-photo sp-rent"><span style="position:relative;z-index:1;font-size:44px">🏠</span></div>
       <div class="sc-body">
         <div><div class="sc-title">Аренда жилья</div><div class="sc-desc">Поиск квартиры, просмотр, договор аренды, депозит.</div></div>
         <div class="sc-meta"><span class="sc-badge-mid">Средний</span><span class="sc-xp">XP 350</span><span class="sc-stars">70 pts</span></div>
@@ -760,7 +757,7 @@ button:active{filter:brightness(.97)}
 
     <div id="scenarios-list">
       <div class="sc-card" data-diff="easy" onclick="showPage('sims');setNav(document.querySelectorAll('.nb')[0])">
-        <div class="sc-photo sp-airport"><div style="position:relative;z-index:1;display:flex;align-items:center;justify-content:center;width:100%;height:100%"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:#1D4ED8"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></div></div>
+        <div class="sc-photo sp-airport"><span style="position:relative;z-index:1;font-size:46px">✈️</span></div>
         <div class="sc-body">
           <div><div class="sc-title">Аэропорт</div><div class="sc-desc">Регистрация на рейс, багаж, паспортный контроль, таможня.</div></div>
           <div class="sc-meta"><span class="sc-badge-easy">Лёгкий</span><span class="sc-xp">XP 250</span><span class="sc-stars">50 pts</span></div>
@@ -768,7 +765,7 @@ button:active{filter:brightness(.97)}
         <div class="sc-arrow">›</div>
       </div>
       <div class="sc-card" data-diff="easy" onclick="showPage('sims');setNav(document.querySelectorAll('.nb')[0])">
-        <div class="sc-photo sp-doctor"><div style="position:relative;z-index:1;display:flex;align-items:center;justify-content:center;width:100%;height:100%"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:#059669"><path d="M4.8 2.3A.3.3 0 1 0 5 2H4"/><path d="M1 4.8a.3.3 0 1 0 2 .1V4"/><path d="M3 11l.2 3.6A2 2 0 0 0 7.1 16h.9a2 2 0 0 1 2 2 2 2 0 0 0 4 0v-6"/><circle cx="18" cy="14" r="3"/><path d="M12 7.5V12"/></svg></div></div>
+        <div class="sc-photo sp-doctor"><span style="position:relative;z-index:1;font-size:44px">🩺</span></div>
         <div class="sc-body">
           <div><div class="sc-title">Врач</div><div class="sc-desc">Запись на приём, симптомы, медицинские термины, рецепты.</div></div>
           <div class="sc-meta"><span class="sc-badge-easy">Лёгкий</span><span class="sc-xp">XP 300</span><span class="sc-stars">60 pts</span></div>
@@ -776,7 +773,7 @@ button:active{filter:brightness(.97)}
         <div class="sc-arrow">›</div>
       </div>
       <div class="sc-card" data-diff="mid" onclick="showPage('sims');setNav(document.querySelectorAll('.nb')[0])">
-        <div class="sc-photo sp-rent"><div style="position:relative;z-index:1;display:flex;align-items:center;justify-content:center;width:100%;height:100%"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:#D97706"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/><polyline points="9,21 9,12 15,12 15,21"/></svg></div></div>
+        <div class="sc-photo sp-rent"><span style="position:relative;z-index:1;font-size:44px">🏠</span></div>
         <div class="sc-body">
           <div><div class="sc-title">Аренда жилья</div><div class="sc-desc">Поиск квартиры, просмотр, договор аренды, депозит.</div></div>
           <div class="sc-meta"><span class="sc-badge-mid">Средний</span><span class="sc-xp">XP 350</span><span class="sc-stars">70 pts</span></div>
@@ -784,7 +781,7 @@ button:active{filter:brightness(.97)}
         <div class="sc-arrow">›</div>
       </div>
       <div class="sc-card" data-diff="mid" onclick="showPage('sims');setNav(document.querySelectorAll('.nb')[0])">
-        <div class="sc-photo sp-bank"><div style="position:relative;z-index:1;display:flex;align-items:center;justify-content:center;width:100%;height:100%"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:#7C3AED"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12,2 20,7 4,7"/></svg></div></div>
+        <div class="sc-photo sp-bank"><span style="position:relative;z-index:1;font-size:44px">🏦</span></div>
         <div class="sc-body">
           <div><div class="sc-title">Банк</div><div class="sc-desc">Открытие счёта, карты, онлайн-банкинг, переводы.</div></div>
           <div class="sc-meta"><span class="sc-badge-mid">Средний</span><span class="sc-xp">XP 400</span><span class="sc-stars">80 pts</span></div>
@@ -792,7 +789,7 @@ button:active{filter:brightness(.97)}
         <div class="sc-arrow">›</div>
       </div>
       <div class="sc-card" data-diff="hard" onclick="showPage('sims');setNav(document.querySelectorAll('.nb')[0])">
-        <div class="sc-photo sp-job"><div style="position:relative;z-index:1;display:flex;align-items:center;justify-content:center;width:100%;height:100%"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:#DC2626"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div></div>
+        <div class="sc-photo sp-job"><span style="position:relative;z-index:1;font-size:44px">💼</span></div>
         <div class="sc-body">
           <div><div class="sc-title">Собеседование</div><div class="sc-desc">Типичные вопросы, ответы о себе, навыки, опыт работы.</div></div>
           <div class="sc-meta"><span class="sc-badge-hard">Сложный</span><span class="sc-xp">XP 500</span><span class="sc-stars">100 pts</span></div>
@@ -2412,8 +2409,8 @@ button:active{filter:brightness(.97)}
 
   <!-- PROFILE CARD -->
   <div class="profile-hdr-card">
-    <div class="profile-fox-wrap" id="profile-avatar-wrap" style="font-size:unset;background:linear-gradient(135deg,#ede9ff,#f0eeff)">
-      <div id="profile-avatar-el" style="display:flex;align-items:center;justify-content:center;width:100%;height:100%"></div>
+    <div class="profile-fox-wrap" id="profile-avatar-wrap" style="font-size:unset;background:linear-gradient(135deg,#ede9ff,#f0eeff);animation:breathe 3s ease-in-out infinite">
+      <div id="profile-avatar-el" style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;overflow:hidden;border-radius:18px"></div>
     </div>
     <div style="flex:1;min-width:0">
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
@@ -2504,7 +2501,7 @@ button:active{filter:brightness(.97)}
       <div style="position:absolute;right:-30px;top:-30px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.1)"></div>
       <div style="position:absolute;left:-20px;bottom:-20px;width:100px;height:100px;border-radius:50%;background:rgba(255,255,255,.06)"></div>
       <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px">
-        <div id="settings-avatar" style="width:72px;height:72px;border-radius:18px;background:rgba(255,255,255,.15);overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:42px;line-height:1;box-shadow:0 4px 16px rgba(0,0,0,.2);animation:breathe 3s ease-in-out infinite">🦊</div>
+        <div id="settings-avatar" style="width:72px;height:72px;border-radius:18px;background:#1a1a2e;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:42px;line-height:1;box-shadow:0 4px 16px rgba(0,0,0,.3),0 0 0 2px rgba(255,255,255,.1);animation:breathe 3s ease-in-out infinite"></div>
         <div>
           <div style="font-size:20px;font-weight:900" id="settings-name-display">Игрок</div>
           <div style="font-size:12px;opacity:.8;margin-top:2px" id="settings-level-desc">Уровень A1 · Начинающий</div>
@@ -2545,19 +2542,19 @@ button:active{filter:brightness(.97)}
   <!-- Avatar -->
   <div style="padding:2px 16px 4px"><div style="font-size:10px;font-weight:800;color:#9ca3af;letter-spacing:.5px;text-transform:uppercase">Аватар</div></div>
   <div class="settings-section">
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px" id="avatar-grid">
-      <div class="avatar-pick" id="av-av1" onclick="setAvatar('av1')" style="padding:4px;display:flex;align-items:center;justify-content:center;height:52px"><svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:34px;height:34px"><circle cx="22" cy="22" r="22" fill="#DBEAFE"/><path d="M6 46C6 34 12 30 22 30C32 30 38 34 38 46" fill="#2563EB"/><circle cx="22" cy="18" r="9" fill="#FBBF72"/><path d="M13 14C13 9 18 7 22 7C26 7 31 9 31 14Z" fill="#1F2937"/></svg></div>
-      <div class="avatar-pick" id="av-av2" onclick="setAvatar('av2')" style="padding:4px;display:flex;align-items:center;justify-content:center;height:52px"><svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:34px;height:34px"><circle cx="22" cy="22" r="22" fill="#FCE7F3"/><path d="M6 46C6 34 12 30 22 30C32 30 38 34 38 46" fill="#9333EA"/><circle cx="22" cy="18" r="9" fill="#F3A46A"/><path d="M13 18C13 9 17 6 22 6C27 6 31 9 31 18C31 15 28 27 22 27C16 27 13 15 13 18Z" fill="#1a1a1a"/></svg></div>
-      <div class="avatar-pick" id="av-av3" onclick="setAvatar('av3')" style="padding:4px;display:flex;align-items:center;justify-content:center;height:52px"><svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:34px;height:34px"><circle cx="22" cy="22" r="22" fill="#ECFDF5"/><path d="M6 46C6 34 12 30 22 30C32 30 38 34 38 46" fill="#059669"/><circle cx="22" cy="18" r="9" fill="#FBBF72"/><path d="M13 14C14 8 18 6 22 6C26 6 30 8 31 14C29 10 25 10 22 10C19 10 15 10 13 14Z" fill="#92400E"/></svg></div>
-      <div class="avatar-pick" id="av-av4" onclick="setAvatar('av4')" style="padding:4px;display:flex;align-items:center;justify-content:center;height:52px"><svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:34px;height:34px"><circle cx="22" cy="22" r="22" fill="#FEF3C7"/><path d="M6 46C6 34 12 30 22 30C32 30 38 34 38 46" fill="#D97706"/><circle cx="22" cy="18" r="9" fill="#F3A46A"/><path d="M14 15C14 9 17 6 22 6C27 6 30 9 30 15H29C29 10 26 8 22 8C18 8 15 10 15 15Z" fill="#C4B5FD"/><rect x="16" y="18" width="5" height="2" rx="1" fill="none" stroke="#64748B" stroke-width="1.2"/><rect x="23" y="18" width="5" height="2" rx="1" fill="none" stroke="#64748B" stroke-width="1.2"/></svg></div>
-      <div class="avatar-pick" id="av-av5" onclick="setAvatar('av5')" style="padding:4px;display:flex;align-items:center;justify-content:center;height:52px"><svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:34px;height:34px"><circle cx="22" cy="22" r="22" fill="#F3E8FF"/><path d="M6 46C6 34 12 30 22 30C32 30 38 34 38 46" fill="#7C3AED"/><circle cx="22" cy="18" r="9" fill="#8B5E3C"/><path d="M13 14C13 9 17 7 22 7C27 7 31 9 31 14Z" fill="#1F2937"/></svg></div>
-      <div class="avatar-pick" id="av-av6" onclick="setAvatar('av6')" style="padding:4px;display:flex;align-items:center;justify-content:center;height:52px"><svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:34px;height:34px"><circle cx="22" cy="22" r="22" fill="#E0F2FE"/><path d="M6 46C6 34 12 30 22 30C32 30 38 34 38 46" fill="#0284C7"/><circle cx="22" cy="18" r="9" fill="#FBBF72"/><path d="M22 7C27 7 31 10 31 14H13C13 10 17 7 22 7ZM14 14C16 11 20 10 22 10H24C21 10 18 10 15 14Z" fill="#1F2937"/></svg></div>
-      <div class="avatar-pick" id="av-av7" onclick="setAvatar('av7')" style="padding:4px;display:flex;align-items:center;justify-content:center;height:52px"><svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:34px;height:34px"><circle cx="22" cy="22" r="22" fill="#F1F5F9"/><path d="M6 46C6 34 12 30 22 30C32 30 38 34 38 46" fill="#475569"/><circle cx="22" cy="18" r="9" fill="#F3C49A"/><path d="M13 14C13 9 17 7 22 7C27 7 31 9 31 14Z" fill="#9CA3AF"/></svg></div>
-      <div class="avatar-pick" id="av-av8" onclick="setAvatar('av8')" style="padding:4px;display:flex;align-items:center;justify-content:center;height:52px"><svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:34px;height:34px"><circle cx="22" cy="22" r="22" fill="#FFF7ED"/><path d="M6 46C6 34 12 30 22 30C32 30 38 34 38 46" fill="#EA580C"/><circle cx="22" cy="18" r="9" fill="#F3A46A"/><path d="M15 18C14 12 17 6 22 6C27 6 30 12 29 18C28 13 26 9 22 9C18 9 16 13 15 18Z" fill="#1F2937"/></svg></div>
-      <div class="avatar-pick" id="av-av9" onclick="setAvatar('av9')" style="padding:4px;display:flex;align-items:center;justify-content:center;height:52px"><svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:34px;height:34px"><circle cx="22" cy="22" r="22" fill="#F0FDF4"/><path d="M6 46C6 34 12 30 22 30C32 30 38 34 38 46" fill="#16A34A"/><circle cx="22" cy="18" r="9" fill="#FBBF72"/><path d="M14 14C14 11 17 8 22 8C27 8 30 11 30 14Z" fill="#D97706"/></svg></div>
-      <div class="avatar-pick" id="av-av10" onclick="setAvatar('av10')" style="padding:4px;display:flex;align-items:center;justify-content:center;height:52px"><svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:34px;height:34px"><circle cx="22" cy="22" r="22" fill="#FFF1F2"/><path d="M6 46C6 34 12 30 22 30C32 30 38 34 38 46" fill="#E11D48"/><circle cx="22" cy="18" r="9" fill="#8B5E3C"/><path d="M13 15C13 9 17 6 22 6C27 6 31 9 31 15C29 11 26 9 22 9C18 9 15 11 13 15Z" fill="#374151"/></svg></div>
-      <div class="avatar-pick" id="av-av11" onclick="setAvatar('av11')" style="padding:4px;display:flex;align-items:center;justify-content:center;height:52px"><svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:34px;height:34px"><circle cx="22" cy="22" r="22" fill="#FFFBEB"/><path d="M6 46C6 34 12 30 22 30C32 30 38 34 38 46" fill="#B45309"/><circle cx="22" cy="18" r="9" fill="#F3C49A"/><path d="M13 14C13 9 17 7 22 7C27 7 31 9 31 14Z" fill="#92400E"/><path d="M15 22C16 25 18 27 22 27C26 27 28 25 29 22C28 24 25 25 22 25C19 25 16 24 15 22Z" fill="#92400E"/></svg></div>
-      <div class="avatar-pick" id="av-av12" onclick="setAvatar('av12')" style="padding:4px;display:flex;align-items:center;justify-content:center;height:52px"><svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:34px;height:34px"><circle cx="22" cy="22" r="22" fill="#F5F3FF"/><path d="M6 46C6 34 12 30 22 30C32 30 38 34 38 46" fill="#6D28D9"/><circle cx="22" cy="18" r="9" fill="#FBBF72"/><path d="M14 16C14 9 17 6 22 6C27 6 30 9 30 16L28 13C26 8 22 8 22 8C22 8 18 8 16 13Z" fill="#374151"/></svg></div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px" id="avatar-grid">
+      <div class="avatar-pick" id="av-av1" onclick="setAvatar('av1')" style="padding:0;height:62px;background:linear-gradient(135deg,#FF8C42,#FF5722);border-radius:14px"><span style="font-size:32px">🦊</span></div>
+      <div class="avatar-pick" id="av-av2" onclick="setAvatar('av2')" style="padding:0;height:62px;background:linear-gradient(135deg,#F472B6,#9333EA);border-radius:14px"><span style="font-size:32px">🌸</span></div>
+      <div class="avatar-pick" id="av-av3" onclick="setAvatar('av3')" style="padding:0;height:62px;background:linear-gradient(135deg,#312E81,#4338CA);border-radius:14px"><span style="font-size:28px">🎮</span></div>
+      <div class="avatar-pick" id="av-av4" onclick="setAvatar('av4')" style="padding:0;height:62px;background:linear-gradient(135deg,#FCD34D,#D97706);border-radius:14px"><span style="font-size:30px">👑</span></div>
+      <div class="avatar-pick" id="av-av5" onclick="setAvatar('av5')" style="padding:0;height:62px;background:linear-gradient(135deg,#60A5FA,#1D4ED8);border-radius:14px"><span style="font-size:30px">🦸</span></div>
+      <div class="avatar-pick" id="av-av6" onclick="setAvatar('av6')" style="padding:0;height:62px;background:linear-gradient(135deg,#A78BFA,#4C1D95);border-radius:14px"><span style="font-size:30px">🧙</span></div>
+      <div class="avatar-pick" id="av-av7" onclick="setAvatar('av7')" style="padding:0;height:62px;background:linear-gradient(135deg,#0EA5E9,#075985);border-radius:14px"><span style="font-size:28px">🚀</span></div>
+      <div class="avatar-pick" id="av-av8" onclick="setAvatar('av8')" style="padding:0;height:62px;background:linear-gradient(135deg,#374151,#111827);border-radius:14px"><span style="font-size:28px">🥷</span></div>
+      <div class="avatar-pick" id="av-av9" onclick="setAvatar('av9')" style="padding:0;height:62px;background:linear-gradient(135deg,#64748B,#1E293B);border-radius:14px"><span style="font-size:28px">🤖</span></div>
+      <div class="avatar-pick" id="av-av10" onclick="setAvatar('av10')" style="padding:0;height:62px;background:linear-gradient(135deg,#F59E0B,#92400E);border-radius:14px"><span style="font-size:30px">🦁</span></div>
+      <div class="avatar-pick" id="av-av11" onclick="setAvatar('av11')" style="padding:0;height:62px;background:linear-gradient(135deg,#A855F7,#EC4899);border-radius:14px"><span style="font-size:30px">🦄</span></div>
+      <div class="avatar-pick" id="av-av12" onclick="setAvatar('av12')" style="padding:0;height:62px;background:linear-gradient(135deg,#EF4444,#7F1D1D);border-radius:14px"><span style="font-size:28px">🐉</span></div>
     </div>
   </div>
 
@@ -2755,11 +2752,11 @@ button:active{filter:brightness(.97)}
 <!-- BOTTOM NAV -->
 <button id="back-fab" class="back-fab" onclick="showPage('quests');setNav(document.querySelectorAll('.nb')[0])" title="На главную">←</button>
 <div class="bnav" id="main-bnav" style="display:none;background:#fff;border-top:1.5px solid #F3F4F6">
-  <button class="nb active" onclick="showPage('quests');setNav(this)"><div class="ico"><svg width="23" height="23" viewBox="0 0 24 24"><path d="M12 2.1 1 12h3v9h6v-6h4v6h6v-9h3L12 2.1z"/></svg></div>Главный</button>
-  <button class="nb" onclick="showPage('scenarios');setNav(this)"><div class="ico"><svg width="23" height="23" viewBox="0 0 24 24"><path d="M5 3h14a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3H11l-5 4v-4H5a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3z"/></svg></div>Сценарии</button>
-  <button class="nb" onclick="showPage('tests');setNav(this)"><div class="ico"><svg width="23" height="23" viewBox="0 0 24 24"><path d="M12 3 1 8l11 5 9-4.1V15h2V8L12 3zM4 13.5V17c0 1.7 3.6 3 8 3s8-1.3 8-3v-3.5l-8 3.6-8-3.6z"/></svg></div>Тесты</button>
-  <button class="nb" onclick="goReloc(this)"><div class="ico"><svg width="23" height="23" viewBox="0 0 24 24"><path d="M6.5 2H18a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6.5A2.5 2.5 0 0 1 4 16.5V4.5A2.5 2.5 0 0 1 6.5 2zm0 16H17v-1H6.5a.5.5 0 0 0 0 1z"/></svg></div>Словарь</button>
-  <button class="nb" onclick="showPage('profile');setNav(this)"><div class="ico"><svg width="23" height="23" viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-5 0-9 2.5-9 6v1h18v-1c0-3.5-4-6-9-6z"/></svg></div>Профиль</button>
+  <button class="nb active" onclick="showPage('quests');setNav(this)"><div class="ico">🏠</div>Главный</button>
+  <button class="nb" onclick="showPage('scenarios');setNav(this)"><div class="ico">💬</div>Сценарии</button>
+  <button class="nb" onclick="showPage('tests');setNav(this)"><div class="ico">🎓</div>Тесты</button>
+  <button class="nb" onclick="goReloc(this)"><div class="ico">📚</div>Словарь</button>
+  <button class="nb" onclick="showPage('profile');setNav(this)"><div class="ico">🙋</div>Профиль</button>
 </div>
 
 <!-- SEASON REWARDS SHEET -->
@@ -18114,7 +18111,20 @@ function updateHomeUserName(){
   const el=document.getElementById('home-username');if(el)el.textContent=userName;
   const sd=document.getElementById('settings-name-display');if(sd)sd.textContent=userName;
 }
-const avatarSVGs={av1:'<svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%"><circle cx="22" cy="22" r="22" fill="#DBEAFE"/><path d="M6 46C6 34 12 30 22 30C32 30 38 34 38 46" fill="#2563EB"/><circle cx="22" cy="18" r="9" fill="#FBBF72"/><path d="M13 14C13 9 18 7 22 7C26 7 31 9 31 14Z" fill="#1F2937"/></svg>',av2:'<svg viewBox="0 0 44 44" fill="none" style="width:100%;height:100%"><circle cx="22" cy="22" r="22" fill="#FCE7F3"/><path d="M6 46C6 34 12 30 22 30C32 30 38 34 38 46" fill="#9333EA"/><circle cx="22" cy="18" r="9" fill="#F3A46A"/><path d="M13 18C13 9 17 6 22 6C27 6 31 9 31 18C31 15 28 27 22 27C16 27 13 15 13 18Z" fill="#1a1a1a"/></svg>',av3:'<svg viewBox="0 0 44 44" fill="none" style="width:100%;height:100%"><circle cx="22" cy="22" r="22" fill="#ECFDF5"/><path d="M6 46C6 34 12 30 22 30C32 30 38 34 38 46" fill="#059669"/><circle cx="22" cy="18" r="9" fill="#FBBF72"/><path d="M13 14C14 8 18 6 22 6C26 6 30 8 31 14C29 10 25 10 22 10C19 10 15 10 13 14Z" fill="#92400E"/></svg>',av4:'<svg viewBox="0 0 44 44" fill="none" style="width:100%;height:100%"><circle cx="22" cy="22" r="22" fill="#FEF3C7"/><path d="M6 46C6 34 12 30 22 30C32 30 38 34 38 46" fill="#D97706"/><circle cx="22" cy="18" r="9" fill="#F3A46A"/><path d="M14 15C14 9 17 6 22 6C27 6 30 9 30 15H29C29 10 26 8 22 8C18 8 15 10 15 15Z" fill="#C4B5FD"/><rect x="16" y="19" width="5" height="1.5" rx="0.75" fill="none" stroke="#64748B" stroke-width="1"/><rect x="23" y="19" width="5" height="1.5" rx="0.75" fill="none" stroke="#64748B" stroke-width="1"/></svg>',av5:'<svg viewBox="0 0 44 44" fill="none" style="width:100%;height:100%"><circle cx="22" cy="22" r="22" fill="#F3E8FF"/><path d="M6 46C6 34 12 30 22 30C32 30 38 34 38 46" fill="#7C3AED"/><circle cx="22" cy="18" r="9" fill="#8B5E3C"/><path d="M13 14C13 9 17 7 22 7C27 7 31 9 31 14Z" fill="#1F2937"/></svg>',av6:'<svg viewBox="0 0 44 44" fill="none" style="width:100%;height:100%"><circle cx="22" cy="22" r="22" fill="#E0F2FE"/><path d="M6 46C6 34 12 30 22 30C32 30 38 34 38 46" fill="#0284C7"/><circle cx="22" cy="18" r="9" fill="#FBBF72"/><path d="M22 7C27 7 31 10 31 14H13C13 10 17 7 22 7Z" fill="#1F2937"/><path d="M22 7C22 7 19 8 19 11H25C25 8 22 7 22 7Z" fill="#374151"/></svg>',av7:'<svg viewBox="0 0 44 44" fill="none" style="width:100%;height:100%"><circle cx="22" cy="22" r="22" fill="#F1F5F9"/><path d="M6 46C6 34 12 30 22 30C32 30 38 34 38 46" fill="#475569"/><circle cx="22" cy="18" r="9" fill="#F3C49A"/><path d="M13 14C13 9 17 7 22 7C27 7 31 9 31 14Z" fill="#9CA3AF"/></svg>',av8:'<svg viewBox="0 0 44 44" fill="none" style="width:100%;height:100%"><circle cx="22" cy="22" r="22" fill="#FFF7ED"/><path d="M6 46C6 34 12 30 22 30C32 30 38 34 38 46" fill="#EA580C"/><circle cx="22" cy="18" r="9" fill="#F3A46A"/><path d="M15 18C14 12 17 6 22 6C27 6 30 12 29 18C28 13 26 9 22 9C18 9 16 13 15 18Z" fill="#1F2937"/></svg>',av9:'<svg viewBox="0 0 44 44" fill="none" style="width:100%;height:100%"><circle cx="22" cy="22" r="22" fill="#F0FDF4"/><path d="M6 46C6 34 12 30 22 30C32 30 38 34 38 46" fill="#16A34A"/><circle cx="22" cy="18" r="9" fill="#FBBF72"/><path d="M14 14C14 11 17 8 22 8C27 8 30 11 30 14Z" fill="#D97706"/></svg>',av10:'<svg viewBox="0 0 44 44" fill="none" style="width:100%;height:100%"><circle cx="22" cy="22" r="22" fill="#FFF1F2"/><path d="M6 46C6 34 12 30 22 30C32 30 38 34 38 46" fill="#E11D48"/><circle cx="22" cy="18" r="9" fill="#8B5E3C"/><path d="M13 15C13 9 17 6 22 6C27 6 31 9 31 15C29 11 26 9 22 9C18 9 15 11 13 15Z" fill="#374151"/></svg>',av11:'<svg viewBox="0 0 44 44" fill="none" style="width:100%;height:100%"><circle cx="22" cy="22" r="22" fill="#FFFBEB"/><path d="M6 46C6 34 12 30 22 30C32 30 38 34 38 46" fill="#B45309"/><circle cx="22" cy="18" r="9" fill="#F3C49A"/><path d="M13 14C13 9 17 7 22 7C27 7 31 9 31 14Z" fill="#92400E"/><path d="M15 23C16 26 18 27 22 27C26 27 28 26 29 23C28 25 25 26 22 26C19 26 16 25 15 23Z" fill="#92400E"/></svg>',av12:'<svg viewBox="0 0 44 44" fill="none" style="width:100%;height:100%"><circle cx="22" cy="22" r="22" fill="#F5F3FF"/><path d="M6 46C6 34 12 30 22 30C32 30 38 34 38 46" fill="#6D28D9"/><circle cx="22" cy="18" r="9" fill="#FBBF72"/><path d="M14 16C14 9 17 6 22 6C27 6 30 9 30 16L28 13C26 8 22 8 22 8C22 8 18 8 16 13Z" fill="#374151"/></svg>'};
+const avatarSVGs={
+  av1:'<div style="width:100%;height:100%;background:linear-gradient(135deg,#FF8C42,#FF5722);display:flex;align-items:center;justify-content:center;font-size:54px;line-height:1">🦊</div>',
+  av2:'<div style="width:100%;height:100%;background:linear-gradient(135deg,#F472B6,#9333EA);display:flex;align-items:center;justify-content:center;font-size:54px;line-height:1">🌸</div>',
+  av3:'<div style="width:100%;height:100%;background:linear-gradient(135deg,#312E81,#4338CA);display:flex;align-items:center;justify-content:center;font-size:48px;line-height:1">🎮</div>',
+  av4:'<div style="width:100%;height:100%;background:linear-gradient(135deg,#FCD34D,#D97706);display:flex;align-items:center;justify-content:center;font-size:52px;line-height:1">👑</div>',
+  av5:'<div style="width:100%;height:100%;background:linear-gradient(135deg,#60A5FA,#1D4ED8);display:flex;align-items:center;justify-content:center;font-size:52px;line-height:1">🦸</div>',
+  av6:'<div style="width:100%;height:100%;background:linear-gradient(135deg,#A78BFA,#4C1D95);display:flex;align-items:center;justify-content:center;font-size:50px;line-height:1">🧙</div>',
+  av7:'<div style="width:100%;height:100%;background:linear-gradient(135deg,#0EA5E9,#075985);display:flex;align-items:center;justify-content:center;font-size:50px;line-height:1">🚀</div>',
+  av8:'<div style="width:100%;height:100%;background:linear-gradient(135deg,#374151,#111827);display:flex;align-items:center;justify-content:center;font-size:50px;line-height:1">🥷</div>',
+  av9:'<div style="width:100%;height:100%;background:linear-gradient(135deg,#64748B,#1E293B);display:flex;align-items:center;justify-content:center;font-size:50px;line-height:1">🤖</div>',
+  av10:'<div style="width:100%;height:100%;background:linear-gradient(135deg,#F59E0B,#92400E);display:flex;align-items:center;justify-content:center;font-size:52px;line-height:1">🦁</div>',
+  av11:'<div style="width:100%;height:100%;background:linear-gradient(135deg,#A855F7,#EC4899);display:flex;align-items:center;justify-content:center;font-size:52px;line-height:1">🦄</div>',
+  av12:'<div style="width:100%;height:100%;background:linear-gradient(135deg,#EF4444,#7F1D1D);display:flex;align-items:center;justify-content:center;font-size:50px;line-height:1">🐉</div>'
+};
 function getAvatarSVG(id){return avatarSVGs[id]||avatarSVGs['av1'];}
 function setAvatar(id){
   userAvatar=id;
@@ -18225,7 +18235,11 @@ function syncSettings(){
 function initSettings(){
   setTheme(currentTheme);
   updateHomeUserName();
-  const ha=document.getElementById('home-avatar');if(ha)ha.textContent=userAvatar;
+  const svg=getAvatarSVG(userAvatar);
+  const sa=document.getElementById('settings-avatar');if(sa)sa.innerHTML=svg;
+  const pa=document.getElementById('profile-avatar-el');if(pa)pa.innerHTML=svg;
+  document.querySelectorAll('.avatar-pick').forEach(a=>a.classList.remove('selected'));
+  const avEl=document.getElementById('av-'+userAvatar);if(avEl)avEl.classList.add('selected');
 }
 function initFoxImages(){
   const master=document.querySelector('#onboarding img[alt="Catch Quest Fox"]');
