@@ -18210,11 +18210,11 @@ function renderWords(){
       <div class="word-front">
         <div style="font-size:16px;font-weight:900;color:#1a1a2e">${w.en}</div>
         <div style="font-size:11px;color:#9ca3af;margin-top:2px">[${w.ph}]</div>
-        <div style="display:flex;align-items:center;gap:6px;margin-top:4px"><div style="font-size:10px;background:#ede9ff;color:#6c47ff;padding:2px 8px;border-radius:999px">${w.lv} · ${w.cat}</div><button onclick="speakBtn(this)" data-speak="${w.en}")}')" style="width:24px;height:24px;border-radius:50%;background:#f0eeff;border:none;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center" title="Прослушать">🔊</button></div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:4px"><div style="font-size:10px;background:#ede9ff;color:#6c47ff;padding:2px 8px;border-radius:999px">${w.lv} · ${w.cat}</div><button onclick="event.stopPropagation();speakBtn(this)" data-speak="${(w.en||'').replace(/"/g,'&quot;')}" style="width:24px;height:24px;border-radius:50%;background:#f0eeff;border:none;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center" title="Прослушать">🔊</button></div>
       </div>
       <div class="word-back" style="display:none">
         <div style="font-size:15px;font-weight:800;color:#6c47ff">${w.ru}</div>
-        <div style="font-size:12px;color:#374151;margin-top:6px;font-style:italic">"${w.ex}" <button onclick="speakBtn(this)" data-speak="${w.ex}")}')" style="background:none;border:none;cursor:pointer;font-size:13px" title="Прослушать">🔊</button></div>
+        <div style="font-size:12px;color:#374151;margin-top:6px;font-style:italic">"${w.ex}" <button onclick="event.stopPropagation();speakBtn(this)" data-speak="${(w.ex||'').replace(/"/g,'&quot;')}" style="background:none;border:none;cursor:pointer;font-size:13px" title="Прослушать">🔊</button></div>
         <button onclick="event.stopPropagation();markLearned()" style="margin-top:8px;background:#6c47ff;color:#fff;border:none;padding:5px 16px;border-radius:999px;font-size:11px;font-weight:700;cursor:pointer">✓ Знаю</button>
       </div>
     </div>`).join('');
@@ -18224,7 +18224,10 @@ function renderWords(){
 }
 function flipCard(card){
   const front=card.querySelector('.word-front'),back=card.querySelector('.word-back');
-  if(back.style.display==='none'){back.style.display='block';front.style.display='none';card.style.background='linear-gradient(135deg,#ede9ff,#fff)';}
+  if(back.style.display==='none'){
+    back.style.display='block';front.style.display='none';card.style.background='linear-gradient(135deg,#ede9ff,#fff)';
+    const enEl=front.querySelector('div');if(enEl)speak(enEl.textContent.trim());
+  }
   else{front.style.display='block';back.style.display='none';card.style.background='';}
 }
 function markLearned(){wordsLearned++;localStorage.setItem('wl',wordsLearned);addXP(5);}
@@ -18249,12 +18252,12 @@ function renderReloc(){
     <div style="background:#fff;border-radius:14px;padding:13px 14px;margin-bottom:8px;box-shadow:0 2px 10px rgba(0,0,0,.05);animation:fadeInUp .3s ${(i%RELOC_PER_PAGE)*.03}s both">
       <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
         <div style="flex:1">
-          <div style="font-size:13px;font-weight:800;color:#1a1a2e;margin-bottom:3px">${p.en}</div>
+          <div style="font-size:13px;font-weight:800;color:#1a1a2e;margin-bottom:3px">${wrapDialogText(p.en)}</div>
           <div style="font-size:11px;color:#7c3aed;font-weight:600;margin-bottom:4px">[${p.ph}]</div>
           <div style="font-size:12px;color:#374151;font-weight:600">${p.ru}</div>
         </div>
         <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0">
-          <button onclick="speak('${p.en.replace(/'/g,"\\'")}')" style="width:28px;height:28px;border-radius:50%;background:#f0eeff;border:none;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center">🔊</button>
+          <button onclick="speakBtn(this)" data-speak="${(p.en||'').replace(/"/g,'&quot;')}" style="width:28px;height:28px;border-radius:50%;background:#f0eeff;border:none;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center">🔊</button>
           <div style="font-size:9px;background:#f3f4f6;color:#6b7280;padding:2px 6px;border-radius:999px;white-space:nowrap">${catIcons[p.cat]||''} ${catNames[p.cat]||p.cat}</div>
         </div>
       </div>
@@ -18287,8 +18290,8 @@ function renderSents(){
   area.innerHTML=slice.map((s,i)=>`
     <div class="sent-card" style="animation-delay:${i*.04}s">
       <div style="display:flex;align-items:flex-start;gap:6px;margin-bottom:4px">
-        <div style="font-size:14px;font-weight:700;color:#1a1a2e;flex:1">${s.en}</div>
-        <button onclick="event.stopPropagation();speak('${s.en.replace(/'/g,"\'")}','en-US')" style="background:none;border:none;cursor:pointer;font-size:15px;flex-shrink:0;padding:0" title="Прослушать">🔊</button>
+        <div style="font-size:14px;font-weight:700;color:#1a1a2e;flex:1">${wrapDialogText(s.en)}</div>
+        <button onclick="event.stopPropagation();speakBtn(this)" data-speak="${(s.en||'').replace(/"/g,'&quot;')}" style="background:none;border:none;cursor:pointer;font-size:15px;flex-shrink:0;padding:0" title="Прослушать">🔊</button>
       </div>
       <div style="font-size:12px;color:#6c47ff">${s.ru}</div>
       <div style="display:flex;gap:6px;margin-top:6px">
@@ -18516,13 +18519,7 @@ function renderListenTest(t){
     </div>`;
   setTimeout(()=>speakWord(t.word,'en-GB'),350);
 }
-function speakWord(word,lang){
-  if(!('speechSynthesis' in window))return;
-  const u=new SpeechSynthesisUtterance(word);
-  u.lang=lang||'en-GB';u.rate=0.82;u.pitch=1.05;u.volume=1;
-  const v=_pickVoice();if(v)u.voice=v;
-  window.speechSynthesis.cancel();window.speechSynthesis.speak(u);
-}
+function speakWord(word,lang){speak(word,lang);}
 function answerListen(chosen,correct,xp,btn){
   const btns=document.querySelectorAll('#listen-opts .q-opt');
   btns.forEach(b=>{b.style.pointerEvents='none';b.style.cursor='default';b.style.transition='all .3s ease';});
@@ -19294,31 +19291,58 @@ function filterScenarios(type,btn){
 }
 
 
-// ── TTS / SPEECH ────────────────────────────────────────────
-let _ttsVoice=null;
+// ── TTS / SPEECH (robust, mobile-friendly) ──────────────────
+let _ttsVoice=null, _ttsWarmed=false;
+function _loadVoices(){return (window.speechSynthesis&&window.speechSynthesis.getVoices())||[];}
 function _pickVoice(){
   if(_ttsVoice)return _ttsVoice;
-  const vs=window.speechSynthesis.getVoices();
-  // Prefer Google UK English Female, then any UK female, then any English female
-  const pref=['Google UK English Female','Microsoft Hazel','Karen','Samantha','Victoria','Alice'];
+  const vs=_loadVoices();
+  if(!vs.length)return null;
+  // Prefer a pleasant English (UK) female voice, then fall back gracefully
+  const pref=['Google UK English Female','Microsoft Libby Online (Natural) - English (United Kingdom)','Microsoft Sonia Online (Natural) - English (United Kingdom)','Microsoft Hazel','Karen','Samantha','Victoria','Alice','Google US English','Daniel'];
   for(const n of pref){const v=vs.find(x=>x.name===n);if(v){_ttsVoice=v;return v;}}
-  const ukF=vs.find(v=>v.lang.startsWith('en-GB')&&v.name.toLowerCase().includes('female'));
+  const ukF=vs.find(v=>v.lang&&v.lang.startsWith('en-GB')&&/female|libby|sonia|hazel|maisie/i.test(v.name));
   if(ukF){_ttsVoice=ukF;return ukF;}
-  const anyF=vs.find(v=>v.lang.startsWith('en')&&v.name.toLowerCase().includes('female'));
+  const anyF=vs.find(v=>v.lang&&v.lang.startsWith('en')&&/female|samantha|karen|victoria|zira|aria/i.test(v.name));
   if(anyF){_ttsVoice=anyF;return anyF;}
-  const uk=vs.find(v=>v.lang.startsWith('en-GB'));
+  const uk=vs.find(v=>v.lang&&v.lang.startsWith('en-GB'));
   if(uk){_ttsVoice=uk;return uk;}
-  return vs.find(v=>v.lang.startsWith('en'))||null;
+  const en=vs.find(v=>v.lang&&v.lang.startsWith('en'));
+  if(en){_ttsVoice=en;return en;}
+  return vs[0]||null;
 }
-if(window.speechSynthesis)window.speechSynthesis.onvoiceschanged=()=>{_ttsVoice=null;};
-function speakBtn(btn){speak(btn.dataset.speak||btn.closest("[data-speak]").dataset.speak);}
+if(window.speechSynthesis){
+  window.speechSynthesis.onvoiceschanged=()=>{_ttsVoice=null;_pickVoice();};
+  _loadVoices();
+}
+// Mobile browsers require the first utterance to come from a user gesture — warm up TTS on first tap
+function _warmTTS(){
+  if(_ttsWarmed||!window.speechSynthesis)return;
+  _ttsWarmed=true;
+  try{const u=new SpeechSynthesisUtterance(' ');u.volume=0;window.speechSynthesis.speak(u);}catch(e){}
+  _pickVoice();
+}
+document.addEventListener('pointerdown',_warmTTS,{once:true,capture:true});
+document.addEventListener('touchstart',_warmTTS,{once:true,capture:true});
+document.addEventListener('click',_warmTTS,{once:true,capture:true});
+
 function speak(text,lang){
-  if(!window.speechSynthesis)return;
-  const u=new SpeechSynthesisUtterance(text);
-  u.lang=lang||'en-GB';u.rate=0.82;u.pitch=1.05;u.volume=1;
-  const v=_pickVoice();if(v)u.voice=v;
-  window.speechSynthesis.cancel();
-  window.speechSynthesis.speak(u);
+  if(!window.speechSynthesis||text==null)return;
+  text=String(text).trim();if(!text)return;
+  try{
+    window.speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(text);
+    u.lang=lang||'en-GB';u.rate=0.9;u.pitch=1.05;u.volume=1;
+    const v=_pickVoice();if(v)u.voice=v;
+    window.speechSynthesis.resume();
+    window.speechSynthesis.speak(u);
+  }catch(e){}
+}
+function speakBtn(btn){
+  if(!btn)return;
+  const host=btn.matches&&btn.matches('[data-speak]')?btn:(btn.closest&&btn.closest('[data-speak]'));
+  const t=host&&host.dataset?host.dataset.speak:null;
+  if(t)speak(t);
 }
 
 // ── SYSTEM SOUNDS (Web Audio API) ───────────────────────────
