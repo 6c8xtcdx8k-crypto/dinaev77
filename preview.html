@@ -18209,7 +18209,7 @@ function renderWords(){
   area.innerHTML=slice.map((w,i)=>`
     <div class="word-card" style="animation-delay:${i*.03}s" onclick="flipCard(this)">
       <div class="word-front">
-        <div style="font-size:16px;font-weight:900;color:#1a1a2e">${w.en}</div>
+        <div style="font-size:16px;font-weight:900;color:#1a1a2e;cursor:pointer" onclick="event.stopPropagation();showDwPopup(event,'${(w.en||'').replace(/'/g,"\\'")}','${(w.ph||'').replace(/'/g,"\\'")}','${(w.ru||'').replace(/'/g,"\\'")}')">${w.en}</div>
         <div style="font-size:11px;color:#9ca3af;margin-top:2px">[${w.ph}]</div>
         <div style="display:flex;align-items:center;gap:6px;margin-top:4px"><div style="font-size:10px;background:#ede9ff;color:#6c47ff;padding:2px 8px;border-radius:999px">${w.lv} · ${w.cat}</div><button onclick="event.stopPropagation();speakBtn(this)" data-speak="${(w.en||'').replace(/"/g,'&quot;')}" style="width:24px;height:24px;border-radius:50%;background:#f0eeff;border:none;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center" title="Прослушать">🔊</button></div>
       </div>
@@ -18592,7 +18592,21 @@ function startSim(id){
 
 
 const miniDict={
-  // Greetings & basics
+  // ── Numbers ──
+  one:{ru:'один',ph:'wʌn'},two:{ru:'два',ph:'tuː'},three:{ru:'три',ph:'θriː'},four:{ru:'четыре',ph:'fɔː'},
+  five:{ru:'пять',ph:'faɪv'},six:{ru:'шесть',ph:'sɪks'},seven:{ru:'семь',ph:'ˈsevən'},eight:{ru:'восемь',ph:'eɪt'},
+  nine:{ru:'девять',ph:'naɪn'},ten:{ru:'десять',ph:'ten'},eleven:{ru:'одиннадцать',ph:'ɪˈlevən'},twelve:{ru:'двенадцать',ph:'twelv'},
+  thirteen:{ru:'тринадцать',ph:'θɜːˈtiːn'},fourteen:{ru:'четырнадцать',ph:'ˌfɔːˈtiːn'},fifteen:{ru:'пятнадцать',ph:'fɪfˈtiːn'},
+  sixteen:{ru:'шестнадцать',ph:'sɪkˈstiːn'},seventeen:{ru:'семнадцать',ph:'ˌsevənˈtiːn'},eighteen:{ru:'восемнадцать',ph:'eɪˈtiːn'},
+  nineteen:{ru:'девятнадцать',ph:'ˌnaɪnˈtiːn'},twenty:{ru:'двадцать',ph:'ˈtwenti'},thirty:{ru:'тридцать',ph:'ˈθɜːti'},
+  forty:{ru:'сорок',ph:'ˈfɔːti'},fifty:{ru:'пятьдесят',ph:'ˈfɪfti'},sixty:{ru:'шестьдесят',ph:'ˈsɪksti'},
+  seventy:{ru:'семьдесят',ph:'ˈsevənti'},eighty:{ru:'восемьдесят',ph:'ˈeɪti'},ninety:{ru:'девяносто',ph:'ˈnaɪnti'},
+  hundred:{ru:'сто',ph:'ˈhʌndrəd'},thousand:{ru:'тысяча',ph:'ˈθaʊzənd'},million:{ru:'миллион',ph:'ˈmɪljən'},
+  first:{ru:'первый',ph:'fɜːst'},second:{ru:'второй/секунда',ph:'ˈsekənd'},third:{ru:'третий',ph:'θɜːd'},
+  // ── Critical function words (were missing!) ──
+  not:{ru:'не/нет',ph:'nɒt'},there:{ru:'там/здесь/вот',ph:'ðeə'},as:{ru:'как/так как',ph:'æz'},
+  than:{ru:'чем',ph:'ðæn'},whether:{ru:'ли/несмотря на',ph:'ˈweðə'},
+  // ── Greetings & basics ──
   good:{ru:'хороший/добрый',ph:'ɡʊd'},morning:{ru:'утро',ph:'ˈmɔːnɪŋ'},evening:{ru:'вечер',ph:'ˈiːvnɪŋ'},
   night:{ru:'ночь',ph:'naɪt'},welcome:{ru:'добро пожаловать',ph:'ˈwelkəm'},please:{ru:'пожалуйста',ph:'pliːz'},
   thank:{ru:'благодарить',ph:'θæŋk'},thanks:{ru:'спасибо',ph:'θæŋks'},sorry:{ru:'извините',ph:'ˈsɒri'},
@@ -18780,7 +18794,241 @@ const miniDict={
   cook:{ru:'готовить',ph:'kʊk'},cooking:{ru:'приготовление',ph:'ˈkʊkɪŋ'},
   wash:{ru:'мыть',ph:'wɒʃ'},washing:{ru:'стирка',ph:'ˈwɒʃɪŋ'},
   iron:{ru:'утюжить',ph:'ˈaɪən'},ironing:{ru:'глажка',ph:'ˈaɪənɪŋ'},
+  // ── Contractions (apostrophe stripped) ──
+  dont:{ru:'не/нет',ph:'dəʊnt'},cant:{ru:'не могу',ph:'kɑːnt'},wont:{ru:'не буду',ph:'wəʊnt'},
+  isnt:{ru:'не является',ph:'ˈɪznt'},arent:{ru:'не являются',ph:'ɑːnt'},
+  wasnt:{ru:'не был',ph:'wɒznt'},werent:{ru:'не были',ph:'wɜːnt'},
+  havent:{ru:'не имею',ph:'hævnt'},hasnt:{ru:'не имеет',ph:'hæznt'},hadnt:{ru:'не имел',ph:'hædnt'},
+  wouldnt:{ru:'не стал бы',ph:'wʊdnt'},shouldnt:{ru:'не должен',ph:'ʃʊdnt'},
+  couldnt:{ru:'не мог бы',ph:'kʊdnt'},mustnt:{ru:'нельзя',ph:'mʌsnt'},
+  didnt:{ru:'не сделал',ph:'dɪdnt'},doesnt:{ru:'не делает',ph:'dʌznt'},
+  im:{ru:'я (есть)',ph:'aɪm'},youre:{ru:'ты/вы (есть)',ph:'jɔː'},
+  hes:{ru:'он (есть)',ph:'hiːz'},shes:{ru:'она (есть)',ph:'ʃiːz'},
+  theyre:{ru:'они (есть)',ph:'ðeər'},ive:{ru:'я (имею)',ph:'aɪv'},
+  youve:{ru:'ты (имеешь)',ph:'juːv'},weve:{ru:'мы (имеем)',ph:'wiːv'},
+  theyve:{ru:'они (имеют)',ph:'ðeɪv'},id:{ru:'я бы',ph:'aɪd'},
+  youd:{ru:'ты бы',ph:'juːd'},hed:{ru:'он бы',ph:'hiːd'},
+  theyd:{ru:'они бы',ph:'ðeɪd'},youll:{ru:'ты будешь',ph:'juːl'},
+  theyll:{ru:'они будут',ph:'ðeɪl'},
+  // ── Important verbs (base forms) ──
+  understand:{ru:'понимать',ph:'ˌʌndəˈstænd'},understood:{ru:'понял',ph:'ˌʌndəˈstʊd'},
+  explain:{ru:'объяснять',ph:'ɪkˈspleɪn'},repeat:{ru:'повторить',ph:'rɪˈpiːt'},
+  speak:{ru:'говорить',ph:'spiːk'},listen:{ru:'слушать',ph:'ˈlɪsən'},
+  exchange:{ru:'обменять',ph:'ɪksˈtʃeɪndʒ'},withdraw:{ru:'снять/вывести',ph:'wɪðˈdrɔː'},
+  deposit:{ru:'внести/депозит',ph:'dɪˈpɒzɪt'},include:{ru:'включать',ph:'ɪnˈkluːd'},
+  require:{ru:'требовать',ph:'rɪˈkwaɪə'},provide:{ru:'предоставить',ph:'prəˈvaɪd'},
+  extend:{ru:'продлить',ph:'ɪkˈstend'},elaborate:{ru:'уточнить',ph:'ɪˈlæbərɪt'},
+  spend:{ru:'тратить',ph:'spend'},spent:{ru:'потратил',ph:'spent'},
+  save:{ru:'сохранять/экономить',ph:'seɪv'},borrow:{ru:'одолжить',ph:'ˈbɒrəʊ'},
+  lend:{ru:'давать взаймы',ph:'lend'},lent:{ru:'дал взаймы',ph:'lent'},
+  earn:{ru:'зарабатывать',ph:'ɜːn'},owe:{ru:'быть должным',ph:'əʊ'},
+  accept:{ru:'принимать',ph:'əkˈsept'},refuse:{ru:'отказывать',ph:'rɪˈfjuːz'},
+  agree:{ru:'соглашаться',ph:'əˈɡriː'},disagree:{ru:'не соглашаться',ph:'ˌdɪsəˈɡriː'},
+  complete:{ru:'завершить',ph:'kəmˈpliːt'},prepare:{ru:'готовиться',ph:'prɪˈpeə'},
+  plan:{ru:'планировать',ph:'plæn'},arrange:{ru:'организовать',ph:'əˈreɪndʒ'},
+  contact:{ru:'связаться',ph:'ˈkɒntækt'},request:{ru:'запросить',ph:'rɪˈkwest'},
+  receive:{ru:'получать',ph:'rɪˈsiːv'},obtain:{ru:'получить',ph:'əbˈteɪn'},
+  submit:{ru:'подать/отправить',ph:'səbˈmɪt'},press:{ru:'нажать',ph:'pres'},
+  select:{ru:'выбрать',ph:'sɪˈlekt'},cover:{ru:'покрывать',ph:'ˈkʌvə'},
+  share:{ru:'делиться',ph:'ʃeə'},decline:{ru:'отклонить',ph:'dɪˈklaɪn'},
+  expire:{ru:'истекать',ph:'ɪkˈspaɪə'},block:{ru:'блокировать',ph:'blɒk'},
+  unblock:{ru:'разблокировать',ph:'ˌʌnˈblɒk'},respond:{ru:'отвечать',ph:'rɪˈspɒnd'},
+  reply:{ru:'отвечать/ответ',ph:'rɪˈplaɪ'},process:{ru:'обработать',ph:'ˈprəʊses'},
+  handle:{ru:'справляться',ph:'ˈhændəl'},manage:{ru:'справляться/управлять',ph:'ˈmænɪdʒ'},
+  solve:{ru:'решить',ph:'sɒlv'},deal:{ru:'сделка/справляться',ph:'diːl'},
+  report:{ru:'сообщить/отчёт',ph:'rɪˈpɔːt'},register:{ru:'зарегистрироваться',ph:'ˈredʒɪstə'},
+  scan:{ru:'сканировать',ph:'skæn'},insert:{ru:'вставить',ph:'ɪnˈsɜːt'},
+  remove:{ru:'удалить',ph:'rɪˈmuːv'},replace:{ru:'заменить',ph:'rɪˈpleɪs'},
+  increase:{ru:'увеличить',ph:'ɪnˈkriːs'},decrease:{ru:'уменьшить',ph:'ˌdiːˈkriːs'},
+  reduce:{ru:'сократить',ph:'rɪˈdjuːs'},raise:{ru:'поднять',ph:'reɪz'},
+  lower:{ru:'опустить',ph:'ˈləʊə'},improve:{ru:'улучшить',ph:'ɪmˈpruːv'},
+  recommend:{ru:'рекомендовать',ph:'ˌrekəˈmend'},suggest:{ru:'предлагать',ph:'səˈdʒest'},
+  mention:{ru:'упомянуть',ph:'ˈmenʃən'},discuss:{ru:'обсуждать',ph:'dɪˈskʌs'},
+  consider:{ru:'рассматривать',ph:'kənˈsɪdə'},decide:{ru:'решать',ph:'dɪˈsaɪd'},
+  expect:{ru:'ожидать',ph:'ɪkˈspekt'},hope:{ru:'надеяться',ph:'həʊp'},
+  prefer:{ru:'предпочитать',ph:'prɪˈfɜː'},mind:{ru:'возражать/ум',ph:'maɪnd'},
+  miss:{ru:'скучать/пропускать',ph:'mɪs'},remember:{ru:'помнить',ph:'rɪˈmembə'},
+  forget:{ru:'забывать',ph:'fəˈɡet'},forgot:{ru:'забыл',ph:'fəˈɡɒt'},
+  lost:{ru:'потерял/заблудился',ph:'lɒst'},lose:{ru:'терять',ph:'luːz'},
+  win:{ru:'выиграть',ph:'wɪn'},won:{ru:'выиграл',ph:'wʌn'},
+  spend:{ru:'тратить',ph:'spend'},spent:{ru:'потратил',ph:'spent'},
+  allow:{ru:'разрешать',ph:'əˈlaʊ'},permit:{ru:'разрешить',ph:'pəˈmɪt'},
+  afford:{ru:'позволить себе',ph:'əˈfɔːd'},deserve:{ru:'заслуживать',ph:'dɪˈzɜːv'},
+  follow:{ru:'следовать',ph:'ˈfɒləʊ'},lead:{ru:'вести/руководить',ph:'liːd'},
+  reach:{ru:'достигать',ph:'riːtʃ'},pass:{ru:'проходить/передавать',ph:'pɑːs'},
+  miss:{ru:'пропустить',ph:'mɪs'},avoid:{ru:'избегать',ph:'əˈvɔɪd'},
+  prevent:{ru:'предотвращать',ph:'prɪˈvent'},cause:{ru:'причинять/причина',ph:'kɔːz'},
+  contain:{ru:'содержать',ph:'kənˈteɪn'},hold:{ru:'держать',ph:'həʊld'},
+  held:{ru:'держал',ph:'held'},touch:{ru:'касаться',ph:'tʌtʃ'},
+  happen:{ru:'происходить',ph:'ˈhæpən'},happen:{ru:'происходить',ph:'ˈhæpən'},
+  happen:{ru:'случиться',ph:'ˈhæpən'},appear:{ru:'появляться',ph:'əˈpɪə'},
+  seem:{ru:'казаться',ph:'siːm'},become:{ru:'становиться',ph:'bɪˈkʌm'},
+  became:{ru:'стал',ph:'bɪˈkeɪm'},grow:{ru:'расти',ph:'ɡrəʊ'},grew:{ru:'вырос',ph:'ɡruː'},
+  fall:{ru:'падать',ph:'fɔːl'},fell:{ru:'упал',ph:'fel'},rise:{ru:'подниматься',ph:'raɪz'},
+  rose:{ru:'поднялся',ph:'rəʊz'},
+  // ── Important nouns ──
+  hour:{ru:'час',ph:'aʊə'},appointment:{ru:'запись/встреча',ph:'əˈpɔɪntmənt'},
+  position:{ru:'должность/положение',ph:'pəˈzɪʃən'},contract:{ru:'контракт',ph:'ˈkɒntrækt'},
+  statement:{ru:'выписка/заявление',ph:'ˈsteɪtmənt'},department:{ru:'отдел',ph:'dɪˈpɑːtmənt'},
+  pound:{ru:'фунт',ph:'paʊnd'},dollar:{ru:'доллар',ph:'ˈdɒlə'},euro:{ru:'евро',ph:'ˈjʊərəʊ'},
+  rate:{ru:'курс/ставка',ph:'reɪt'},fee:{ru:'плата/комиссия',ph:'fiː'},
+  charge:{ru:'плата/заряд',ph:'tʃɑːdʒ'},amount:{ru:'сумма',ph:'əˈmaʊnt'},
+  balance:{ru:'баланс/остаток',ph:'ˈbæləns'},currency:{ru:'валюта',ph:'ˈkʌrənsi'},
+  permit:{ru:'разрешение',ph:'ˈpɜːmɪt'},license:{ru:'лицензия',ph:'ˈlaɪsəns'},
+  insurance:{ru:'страховка',ph:'ɪnˈʃʊərəns'},refund:{ru:'возврат средств',ph:'ˈriːfʌnd'},
+  receipt:{ru:'квитанция/чек',ph:'rɪˈsiːt'},invoice:{ru:'счёт-фактура',ph:'ˈɪnvɔɪs'},
+  prescription:{ru:'рецепт',ph:'prɪˈskrɪpʃən'},treatment:{ru:'лечение',ph:'ˈtriːtmənt'},
+  symptom:{ru:'симптом',ph:'ˈsɪmptəm'},diagnosis:{ru:'диагноз',ph:'ˌdaɪəɡˈnəʊsɪs'},
+  result:{ru:'результат',ph:'rɪˈzʌlt'},application:{ru:'заявка',ph:'ˌæplɪˈkeɪʃən'},
+  deadline:{ru:'срок',ph:'ˈdedlaɪn'},requirement:{ru:'требование',ph:'rɪˈkwaɪəmənt'},
+  reference:{ru:'рекомендация',ph:'ˈrefrəns'},qualification:{ru:'квалификация',ph:'ˌkwɒlɪfɪˈkeɪʃən'},
+  certificate:{ru:'сертификат',ph:'səˈtɪfɪkɪt'},degree:{ru:'степень/градус',ph:'dɪˈɡriː'},
+  experience:{ru:'опыт',ph:'ɪkˈspɪəriəns'},skill:{ru:'навык',ph:'skɪl'},
+  background:{ru:'происхождение/фон',ph:'ˈbækɡraʊnd'},topic:{ru:'тема',ph:'ˈtɒpɪk'},
+  issue:{ru:'проблема/выпуск',ph:'ˈɪʃuː'},term:{ru:'срок/условие',ph:'tɜːm'},
+  terms:{ru:'условия',ph:'tɜːmz'},detail:{ru:'детали',ph:'ˈdiːteɪl'},
+  option:{ru:'вариант',ph:'ˈɒpʃən'},choice:{ru:'выбор',ph:'tʃɔɪs'},
+  reason:{ru:'причина',ph:'ˈriːzən'},purpose:{ru:'цель',ph:'ˈpɜːpəs'},
+  benefit:{ru:'польза/преимущество',ph:'ˈbenɪfɪt'},risk:{ru:'риск',ph:'rɪsk'},
+  step:{ru:'шаг',ph:'step'},stage:{ru:'этап/стадия',ph:'steɪdʒ'},
+  level:{ru:'уровень',ph:'ˈlevəl'},section:{ru:'раздел',ph:'ˈsekʃən'},
+  area:{ru:'область/зона',ph:'ˈeəriə'},region:{ru:'регион',ph:'ˈriːdʒən'},
+  center:{ru:'центр',ph:'ˈsentə'},centre:{ru:'центр',ph:'ˈsentə'},
+  office:{ru:'офис',ph:'ˈɒfɪs'},branch:{ru:'отделение/ветка',ph:'brɑːntʃ'},
+  transaction:{ru:'транзакция',ph:'trænˈzækʃən'},withdrawal:{ru:'снятие денег',ph:'wɪðˈdrɔːəl'},
+  payment:{ru:'оплата',ph:'ˈpeɪmənt'},purchase:{ru:'покупка',ph:'ˈpɜːtʃɪs'},
+  minimum:{ru:'минимум',ph:'ˈmɪnɪməm'},maximum:{ru:'максимум',ph:'ˈmæksɪməm'},
+  session:{ru:'сеанс/сессия',ph:'ˈseʃən'},keypad:{ru:'клавиатура',ph:'ˈkiːpæd'},
+  screen:{ru:'экран',ph:'skriːn'},button:{ru:'кнопка',ph:'ˈbʌtən'},
+  machine:{ru:'машина/аппарат',ph:'məˈʃiːn'},queue:{ru:'очередь',ph:'kjuː'},
+  supermarket:{ru:'супермаркет',ph:'ˈsuːpəˌmɑːkɪt'},pharmacy:{ru:'аптека',ph:'ˈfɑːməsi'},
+  clinic:{ru:'клиника',ph:'ˈklɪnɪk'},emergency:{ru:'экстренный случай',ph:'ɪˈmɜːdʒənsi'},
+  ambulance:{ru:'скорая помощь',ph:'ˈæmbjʊləns'},reception:{ru:'стойка регистрации',ph:'rɪˈsepʃən'},
+  information:{ru:'информация',ph:'ˌɪnfəˈmeɪʃn'},situation:{ru:'ситуация',ph:'ˌsɪtʃuˈeɪʃən'},
+  accommodation:{ru:'жильё/проживание',ph:'əˌkɒməˈdeɪʃən'},neighbourhood:{ru:'район',ph:'ˈneɪbəhʊd'},
+  landlord:{ru:'домовладелец',ph:'ˈlændlɔːd'},tenant:{ru:'арендатор',ph:'ˈtenənt'},
+  utilities:{ru:'коммунальные услуги',ph:'juːˈtɪlɪtɪz'},notice:{ru:'уведомление',ph:'ˈnəʊtɪs'},
+  traffic:{ru:'трафик/движение',ph:'ˈtræfɪk'},platform:{ru:'платформа',ph:'ˈplætfɔːm'},
+  terminal:{ru:'терминал',ph:'ˈtɜːmɪnəl'},departure:{ru:'отправление',ph:'dɪˈpɑːtʃə'},
+  arrival:{ru:'прибытие',ph:'əˈraɪvəl'},destination:{ru:'пункт назначения',ph:'ˌdestɪˈneɪʃən'},
+  connection:{ru:'соединение/пересадка',ph:'kəˈnekʃən'},delay:{ru:'задержка',ph:'dɪˈleɪ'},
+  cancellation:{ru:'отмена',ph:'ˌkænsəˈleɪʃən'},
+  // ── Important adjectives ──
+  allergic:{ru:'аллергичный',ph:'əˈlɜːdʒɪk'},pregnant:{ru:'беременная',ph:'ˈpreɡnənt'},
+  serious:{ru:'серьёзный',ph:'ˈsɪəriəs'},urgent:{ru:'срочный',ph:'ˈɜːdʒənt'},
+  temporary:{ru:'временный',ph:'ˈtempərəri'},permanent:{ru:'постоянный',ph:'ˈpɜːmənənt'},
+  additional:{ru:'дополнительный',ph:'əˈdɪʃənəl'},extra:{ru:'дополнительный',ph:'ˈekstrə'},
+  total:{ru:'общий/итого',ph:'ˈtəʊtəl'},valid:{ru:'действительный',ph:'ˈvælɪd'},
+  invalid:{ru:'недействительный',ph:'ɪnˈvælɪd'},blocked:{ru:'заблокированный',ph:'blɒkt'},
+  expired:{ru:'истёкший',ph:'ɪkˈspaɪəd'},declined:{ru:'отклонённый',ph:'dɪˈklaɪnd'},
+  successful:{ru:'успешный',ph:'səkˈsesfʊl'},unsuccessful:{ru:'неуспешный',ph:'ˌʌnsəkˈsesfʊl'},
+  comfortable:{ru:'удобный',ph:'ˈkʌmftəbəl'},suitable:{ru:'подходящий',ph:'ˈsuːtəbəl'},
+  nearest:{ru:'ближайший',ph:'ˈnɪərɪst'},recent:{ru:'недавний',ph:'ˈriːsənt'},
+  monthly:{ru:'ежемесячный',ph:'ˈmʌnθli'},weekly:{ru:'еженедельный',ph:'ˈwiːkli'},
+  daily:{ru:'ежедневный',ph:'ˈdeɪli'},annual:{ru:'ежегодный',ph:'ˈænjuəl'},
+  opposite:{ru:'противоположный',ph:'ˈɒpəzɪt'},direct:{ru:'прямой',ph:'dɪˈrekt'},
+  available:{ru:'доступный',ph:'əˈveɪləbəl'},busy:{ru:'занятый',ph:'ˈbɪzi'},
+  lost:{ru:'потерявшийся',ph:'lɒst'},refundable:{ru:'возвратный',ph:'rɪˈfʌndəbəl'},
+  included:{ru:'включённый',ph:'ɪnˈkluːdɪd'},nearby:{ru:'рядом',ph:'ˌnɪəˈbaɪ'},
+  foreign:{ru:'иностранный',ph:'ˈfɒrɪn'},international:{ru:'международный',ph:'ˌɪntəˈnæʃənəl'},
+  // ── Important adverbs / conjunctions (missing) ──
+  approximately:{ru:'приблизительно',ph:'əˈprɒksɪmɪtli'},
+  exactly:{ru:'именно/точно',ph:'ɪɡˈzæktli'},generally:{ru:'в общем',ph:'ˈdʒenərəli'},
+  normally:{ru:'обычно',ph:'ˈnɔːməli'},clearly:{ru:'ясно',ph:'ˈklɪəli'},
+  certainly:{ru:'конечно',ph:'ˈsɜːtənli'},definitely:{ru:'определённо',ph:'ˈdefɪnɪtli'},
+  probably:{ru:'вероятно',ph:'ˈprɒbəbli'},possibly:{ru:'возможно',ph:'ˈpɒsɪbli'},
+  fortunately:{ru:'к счастью',ph:'ˈfɔːtʃənɪtli'},directly:{ru:'прямо',ph:'dɪˈrektli'},
+  currently:{ru:'в настоящее время',ph:'ˈkʌrəntli'},previously:{ru:'ранее',ph:'ˈpriːviəsli'},
+  particularly:{ru:'особенно',ph:'pəˈtɪkjʊləli'},mostly:{ru:'в основном',ph:'ˈməʊstli'},
+  simply:{ru:'просто',ph:'ˈsɪmpli'},easily:{ru:'легко',ph:'ˈiːzɪli'},
+  slightly:{ru:'немного',ph:'ˈslaɪtli'},entirely:{ru:'полностью',ph:'ɪnˈtaɪəli'},
+  extremely:{ru:'крайне',ph:'ɪkˈstriːmli'},highly:{ru:'высоко/очень',ph:'ˈhaɪli'},
+  hardly:{ru:'едва',ph:'ˈhɑːdli'},meanwhile:{ru:'тем временем',ph:'ˈmiːnwaɪl'},
+  otherwise:{ru:'иначе',ph:'ˈʌðəwaɪz'},therefore:{ru:'поэтому',ph:'ˈðeəfɔː'},
+  furthermore:{ru:'кроме того',ph:'ˈfɜːðəmɔː'},moreover:{ru:'более того',ph:'mɔːˈrəʊvə'},
+  nevertheless:{ru:'тем не менее',ph:'ˌnevəðəˈles'},instead:{ru:'вместо этого',ph:'ɪnˈsted'},
+  although:{ru:'хотя',ph:'ɔːlˈðəʊ'},provided:{ru:'при условии что',ph:'prəˈvaɪdɪd'},
+  // ── Slang terms (from slang tab) ──
+  sick:{ru:'крутой/огонь (сленг)',ph:'sɪk'},lit:{ru:'зажигательный/огонь',ph:'lɪt'},
+  vibe:{ru:'атмосфера/вайб',ph:'vaɪb'},vibes:{ru:'атмосфера',ph:'vaɪbz'},
+  sus:{ru:'подозрительный',ph:'sʌs'},cap:{ru:'ложь/кепка',ph:'kæp'},
+  bet:{ru:'договорились!',ph:'bet'},ghost:{ru:'игнорировать',ph:'ɡəʊst'},
+  lowkey:{ru:'тихо/честно говоря',ph:'ˈləʊkiː'},rizz:{ru:'харизма',ph:'rɪz'},
+  mid:{ru:'посредственный',ph:'mɪd'},slay:{ru:'блистать',ph:'sleɪ'},
+  flex:{ru:'хвастаться/показывать',ph:'fleks'},shade:{ru:'дерзость/намёк',ph:'ʃeɪd'},
+  bae:{ru:'любимый/близкий',ph:'beɪ'},salty:{ru:'обиженный/раздражённый',ph:'ˈsɔːlti'},
+  clout:{ru:'влияние/авторитет',ph:'klaʊt'},woke:{ru:'осознанный',ph:'wəʊk'},
+  savage:{ru:'жёсткий/жестокий',ph:'ˈsævɪdʒ'},cringe:{ru:'неловко/стыдно',ph:'krɪndʒ'},
+  stan:{ru:'фанат',ph:'stæn'},simp:{ru:'подкаблучник',ph:'sɪmp'},
+  hype:{ru:'ажиотаж',ph:'haɪp'},fam:{ru:'семья/друзья',ph:'fæm'},
+  bro:{ru:'брат/друг',ph:'brəʊ'},dude:{ru:'чувак',ph:'djuːd'},
+  fire:{ru:'огонь/крутой',ph:'faɪə'},goat:{ru:'лучший всех времён',ph:'ɡəʊt'},
+  yolo:{ru:'живёшь только раз',ph:'ˈjəʊləʊ'},fomo:{ru:'страх упустить',ph:'ˈfəʊməʊ'},
+  og:{ru:'оригинальный/легенда',ph:'ˌəʊˈdʒiː'},vlog:{ru:'видеоблог',ph:'vlɒɡ'},
+  collab:{ru:'коллаборация',ph:'kəˈlæb'},basic:{ru:'обычный/скучный',ph:'ˈbeɪsɪk'},
+  thirsty:{ru:'жаждущий внимания',ph:'ˈθɜːsti'},mood:{ru:'настроение',ph:'muːd'},
+  relatable:{ru:'понятный/близкий',ph:'rɪˈleɪtəbəl'},wholesome:{ru:'добрый/милый',ph:'ˈhəʊlsəm'},
+  // ── Common words missing before ──
+  near:{ru:'рядом',ph:'nɪə'},miss:{ru:'пропустить/скучать',ph:'mɪs'},
+  meet:{ru:'встретить',ph:'miːt'},seem:{ru:'казаться',ph:'siːm'},
+  perhaps:{ru:'возможно',ph:'pəˈhæps'},quite:{ru:'довольно',ph:'kwaɪt'},
+  few:{ru:'немного',ph:'fjuː'},several:{ru:'несколько',ph:'ˈsevrəl'},
+  yet:{ru:'ещё/но',ph:'jet'},nor:{ru:'ни',ph:'nɔː'},
+  rather:{ru:'скорее/довольно',ph:'ˈrɑːðə'},instead:{ru:'вместо',ph:'ɪnˈsted'},
+  though:{ru:'хотя/однако',ph:'ðəʊ'},unless:{ru:'если не',ph:'ənˈles'},
+  until:{ru:'до тех пор',ph:'ənˈtɪl'},wherever:{ru:'где бы ни',ph:'weəˈevə'},
+  whoever:{ru:'кто бы ни',ph:'huːˈevə'},whatever:{ru:'что бы ни',ph:'wɒtˈevə'},
+  whenever:{ru:'когда бы ни',ph:'wenˈevə'},however:{ru:'однако',ph:'haʊˈevə'},
+  excuse:{ru:'простите/извинение',ph:'ɪkˈskjuːz'},
+  excuse:{ru:'простите/извинение',ph:'ɪkˈskjuːz'},
+  certainly:{ru:'конечно',ph:'ˈsɜːtənli'},indeed:{ru:'действительно',ph:'ɪnˈdiːd'},
+  pleased:{ru:'доволен',ph:'pliːzd'},pleasure:{ru:'удовольствие',ph:'ˈpleʒə'},
+  afternoon:{ru:'день/послеполудни',ph:'ˌɑːftəˈnuːn'},
+  weekend:{ru:'выходные',ph:'ˈwiːkend'},yesterday:{ru:'вчера',ph:'ˈjestədeɪ'},
+  tomorrow:{ru:'завтра',ph:'təˈmɒrəʊ'},tonight:{ru:'сегодня вечером',ph:'təˈnaɪt'},
+  soon:{ru:'скоро',ph:'suːn'},later:{ru:'позже',ph:'ˈleɪtə'},
+  earlier:{ru:'ранее',ph:'ˈɜːliə'},still:{ru:'всё ещё',ph:'stɪl'},
+  yet:{ru:'ещё/пока',ph:'jet'},ever:{ru:'когда-либо',ph:'ˈevə'},
+  never:{ru:'никогда',ph:'ˈnevə'},always:{ru:'всегда',ph:'ˈɔːlweɪz'},
+  once:{ru:'однажды/один раз',ph:'wʌns'},twice:{ru:'дважды',ph:'twaɪs'},
+  ago:{ru:'назад',ph:'əˈɡəʊ'},
 };
+// Stemmer: returns candidate base forms to try when exact lookup fails
+function _stems(w){
+  const r=new Set();
+  const add=s=>{if(s&&s.length>1&&s!==w)r.add(s);};
+  if(w.endsWith('s')&&w.length>3){
+    add(w.slice(0,-1));
+    if(w.endsWith('es')&&w.length>4){
+      add(w.slice(0,-2));
+      if(w.endsWith('ies')&&w.length>5)add(w.slice(0,-3)+'y');
+      if(w.endsWith('ves')&&w.length>4)add(w.slice(0,-3)+'f');
+    }
+  }
+  if(w.endsWith('ing')&&w.length>5){
+    const b=w.slice(0,-3);add(b);add(b+'e');
+    if(b.length>2&&b[b.length-1]===b[b.length-2])add(b.slice(0,-1));
+  }
+  if(w.endsWith('ed')&&w.length>4){
+    const b=w.slice(0,-2);add(b);add(b+'e');
+    if(b.length>2&&b[b.length-1]===b[b.length-2])add(b.slice(0,-1));
+    if(w.endsWith('ied'))add(w.slice(0,-3)+'y');
+  }
+  if(w.endsWith('ly')&&w.length>4){
+    add(w.slice(0,-2));
+    if(w.endsWith('ily'))add(w.slice(0,-3)+'y');
+    if(w.endsWith('ally'))add(w.slice(0,-4));
+  }
+  if(w.endsWith('er')&&w.length>4){add(w.slice(0,-2));add(w.slice(0,-2)+'e');}
+  if(w.endsWith('est')&&w.length>5){add(w.slice(0,-3));add(w.slice(0,-3)+'e');}
+  if(w.endsWith('ness')&&w.length>6)add(w.slice(0,-4));
+  if(w.endsWith('ment')&&w.length>6)add(w.slice(0,-4));
+  if(w.endsWith('tion')&&w.length>6)add(w.slice(0,-3)+'e');
+  if(w.endsWith('ation')&&w.length>7)add(w.slice(0,-5)+'ate');
+  if(w.endsWith('ful')&&w.length>5)add(w.slice(0,-3));
+  if(w.endsWith('less')&&w.length>6)add(w.slice(0,-4));
+  return [...r];
+}
 let _wordIdx=null,_tokenIdx=null;
 function _buildWordIdx(){
   if(_wordIdx)return;
@@ -18804,6 +19052,11 @@ function lookupWord(w){
   if(_wordIdx[clean])return _wordIdx[clean];
   if(miniDict[clean])return{en:w,ph:miniDict[clean].ph,ru:miniDict[clean].ru};
   if(_tokenIdx[clean])return _tokenIdx[clean];
+  for(const stem of _stems(clean)){
+    if(_wordIdx[stem])return _wordIdx[stem];
+    if(miniDict[stem])return{en:stem,ph:miniDict[stem].ph,ru:miniDict[stem].ru};
+    if(_tokenIdx[stem])return _tokenIdx[stem];
+  }
   return null;
 }
 function wrapDialogText(text){
