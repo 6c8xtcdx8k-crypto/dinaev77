@@ -676,6 +676,36 @@ button:active{filter:brightness(.97)}
       </div>
     </div>
 
+
+    <!-- DAILY GOAL (CQ+) -->
+    <div style="background:#fff;border-radius:22px;margin:0 16px 12px;padding:16px;box-shadow:0 4px 20px rgba(124,58,237,.08);display:flex;align-items:center;gap:16px">
+      <div style="position:relative;width:64px;height:64px;flex-shrink:0">
+        <svg width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="32" r="27" fill="none" stroke="#F1EDFF" stroke-width="8"/><circle id="cq-goal-ring" cx="32" cy="32" r="27" fill="none" stroke="url(#cqgr)" stroke-width="8" stroke-linecap="round" stroke-dasharray="169.6" stroke-dashoffset="169.6" transform="rotate(-90 32 32)" style="transition:stroke-dashoffset .7s ease"/><defs><linearGradient id="cqgr" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop stop-color="#7C3AED"/><stop offset="1" stop-color="#A78BFA"/></linearGradient></defs></svg>
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#7C3AED"><span id="cq-goal-pct">0%</span></div>
+      </div>
+      <div style="flex:1">
+        <div style="font-size:13px;font-weight:900;color:#1F2937">🎯 Цель дня</div>
+        <div style="font-size:11px;color:#6B7280;margin-top:2px"><b id="cq-goal-count" style="color:#7C3AED">0</b> / <span id="cq-goal-target">20</span> слов сегодня</div>
+        <div style="display:flex;gap:6px;margin-top:8px">
+          <button class="cq-goal-btn" onclick="CQ.setGoal(10)">10</button>
+          <button class="cq-goal-btn" onclick="CQ.setGoal(20)">20</button>
+          <button class="cq-goal-btn" onclick="CQ.setGoal(30)">30</button>
+          <button class="cq-goal-btn" onclick="CQ.setGoal(50)">50</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOOLS (CQ+) -->
+    <div style="padding:0 16px 8px">
+      <div style="font-size:12px;font-weight:900;color:#1F2937;letter-spacing:.4px;margin-bottom:10px">ИНСТРУМЕНТЫ</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:9px">
+        <button class="cq-tool" onclick="CQ.openReview()">🔁<span>Повтор</span><i id="cq-due-badge" class="cq-badge" style="display:none">0</i></button>
+        <button class="cq-tool" onclick="CQ.openMistakes()">❗<span>Ошибки</span><i id="cq-mistake-badge" class="cq-badge" style="display:none">0</i></button>
+        <button class="cq-tool" onclick="CQ.openAch()">🏅<span>Награды</span></button>
+        <button class="cq-tool" onclick="CQ.openLeague()">🏆<span>Лига</span></button>
+      </div>
+    </div>
+
     <!-- POPULAR SCENARIOS -->
     <div style="display:flex;align-items:center;justify-content:space-between;padding:4px 16px 10px">
       <div style="font-size:12px;font-weight:900;color:#1F2937;letter-spacing:.4px">ПОПУЛЯРНЫЕ СЦЕНАРИИ</div>
@@ -20555,5 +20585,323 @@ function showBasicsTab(tab,btn){
   </div>
 </div>
 </div>
+
+<style id="cq-style">
+.cq-goal-btn{flex:1;font-size:11px;font-weight:800;color:#7C3AED;background:#F5F1FF;border:none;border-radius:9px;padding:6px 0;cursor:pointer;transition:.15s}
+.cq-goal-btn.on{background:linear-gradient(135deg,#7C3AED,#9333EA);color:#fff}
+.cq-tool{position:relative;background:#fff;border:none;border-radius:16px;padding:12px 4px 10px;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;box-shadow:0 3px 14px rgba(124,58,237,.08);transition:.15s;font-size:22px;line-height:1}
+.cq-tool span{font-size:9.5px;font-weight:800;color:#374151}
+.cq-tool:active{transform:scale(.94)}
+.cq-badge{position:absolute;top:5px;right:8px;background:#EF4444;color:#fff;font-size:9px;font-weight:800;min-width:16px;height:16px;border-radius:8px;display:flex;align-items:center;justify-content:center;padding:0 3px;font-style:normal}
+.cq-back{position:fixed;inset:0;background:rgba(20,12,40,.5);z-index:400;display:flex;align-items:flex-end;justify-content:center;animation:cqFade .2s ease}
+.cq-sheet{background:#faf9ff;width:100%;max-width:430px;border-radius:24px 24px 0 0;max-height:90vh;overflow-y:auto;animation:cqUp .3s cubic-bezier(.34,1.56,.64,1)}
+.cq-sheet-h{position:sticky;top:0;background:#fff;padding:15px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #F1EDFF;z-index:3}
+.cq-prim{background:linear-gradient(135deg,#7C3AED,#9333EA);color:#fff;border:none;border-radius:14px;padding:14px;font-size:14px;font-weight:800;cursor:pointer;width:100%}
+.cq-opt{width:100%;text-align:left;background:#fff;border:2px solid #EFEAFC;border-radius:14px;padding:14px 16px;font-size:14px;font-weight:700;color:#1F2937;cursor:pointer;margin-bottom:9px;transition:.15s}
+.cq-opt:active{transform:scale(.98)}
+@keyframes cqFade{from{opacity:0}to{opacity:1}}
+@keyframes cqUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+</style>
+
+<script>
+(function(){
+  var DAY=86400000;
+  function J(k,d){try{var v=JSON.parse(localStorage.getItem(k));return v==null?d:v;}catch(e){return d;}}
+  function P(k,v){localStorage.setItem(k,JSON.stringify(v));}
+  function today(){return new Date().toDateString();}
+  function now(){return Date.now();}
+  function toast(m){try{showToast(m);}catch(e){}}
+  function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+  function weekId(){var d=new Date();var o=new Date(d.getFullYear(),0,1);return d.getFullYear()+'-'+Math.ceil((((d-o)/DAY)+o.getDay()+1)/7);}
+  function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+  var srs=J('cq_srs',{});
+  var mistakes=J('cq_mistakes',{});
+  var goal=J('cq_goal',{date:today(),count:0,target:J('cq_goalTarget',20)});
+  var freezes=J('cq_freeze',2);
+  var ach=J('cq_ach',[]);
+  var league=J('cq_league',{week:weekId(),pts:0,div:0});
+
+  function ensureGoal(){if(goal.date!==today()){goal.date=today();goal.count=0;P('cq_goal',goal);}}
+  function ensureWeek(){if(league.week!==weekId()){league={week:weekId(),pts:0,div:league.div||0};P('cq_league',league);}}
+  function intervalDays(box){return [0,1,2,4,8,16,30][Math.min(box,6)];}
+  function dueCount(){var n=0,k;for(k in srs){if((srs[k].due||0)<=now())n++;}return n;}
+
+  function bumpGoal(){ensureGoal();goal.count++;P('cq_goal',goal);}
+  function addLeague(p){ensureWeek();league.pts+=p;var d=0;for(var i=0;i<DIVS.length;i++){if(league.pts>=DIVS[i].need)d=i;}if(d>(league.div||0)){league.div=d;setTimeout(function(){toast('🏆 Повышение: '+DIVS[d].n+' лига!');},400);}league.div=Math.max(league.div||0,d);P('cq_league',league);}
+
+  function recordAnswer(en,ru,correct){
+    if(!en)return; en=String(en).toLowerCase().trim(); if(!en)return;
+    var e=srs[en]||{box:0,due:0,ru:ru||''}; if(ru)e.ru=ru;
+    if(correct){e.box=Math.min((e.box||0)+1,6);e.due=now()+intervalDays(e.box)*DAY;if(mistakes[en]){delete mistakes[en];P('cq_mistakes',mistakes);}bumpGoal();addLeague(2);}
+    else{e.box=0;e.due=now();var m=mistakes[en]||{ru:ru||'',count:0,last:0};m.count++;m.last=now();if(ru)m.ru=ru;mistakes[en]=m;P('cq_mistakes',mistakes);}
+    srs[en]=e;P('cq_srs',srs);checkAch();refreshHome();
+  }
+
+  function wordFromItem(it){
+    if(!it)return{};
+    if(it.type==='listen'){var en=it.word;var le=(typeof lookupWord==='function')?lookupWord(en):null;return {en:en,ru:le?le.ru:''};}
+    if(it.type==='input'){var mm=/«(.+?)»/.exec(it.q||'');return {en:(it.a||'').toLowerCase(),ru:mm?mm[1]:''};}
+    var m=/«(.+?)»/.exec(it.q||'');
+    if(m)return {en:m[1],ru:(it.opts&&it.a!=null)?it.opts[it.a]:''};
+    return {};
+  }
+
+  // ---- wrappers ----
+  var _ac=window.answerChoice;
+  window.answerChoice=function(chosen,correct,xp,btn){var it;try{it=currentTestQueue[currentTestIndex];}catch(e){}var r=_ac.apply(this,arguments);try{var w=wordFromItem(it);recordAnswer(w.en,w.ru,chosen===correct);}catch(e){}return r;};
+  var _al=window.answerListen;
+  if(_al)window.answerListen=function(chosen,correct,xp,btn){var r=_al.apply(this,arguments);try{var le=(typeof lookupWord==='function')?lookupWord(correct):null;recordAnswer(correct,le?le.ru:'',chosen===correct);}catch(e){}return r;};
+  var _ci=window.checkInput;
+  window.checkInput=function(answer,xp){var it,val;try{it=currentTestQueue[currentTestIndex];var inp=document.getElementById('input-answer');val=inp?inp.value.trim().toLowerCase():null;}catch(e){}var r=_ci.apply(this,arguments);try{if(val!=null){var w=wordFromItem(it);recordAnswer(w.en,w.ru,val===answer);}}catch(e){}return r;};
+  var _ml=window.markLearned;
+  if(_ml)window.markLearned=function(){var r=_ml.apply(this,arguments);try{bumpGoal();addLeague(1);refreshHome();}catch(e){}return r;};
+  var _sp=window.showPage;
+  window.showPage=function(p){var r=_sp.apply(this,arguments);try{if(p==='quests')refreshHome();setTimeout(ensureDictSearch,30);}catch(e){}return r;};
+  var _rr=window.renderReloc;
+  if(_rr)window.renderReloc=function(){var r=_rr.apply(this,arguments);try{applyDictFilter();}catch(e){}return r;};
+
+  // ---- home refresh ----
+  function refreshHome(){
+    ensureGoal();
+    var frac=goal.target?Math.min(goal.count/goal.target,1):0;var C=169.6;
+    var ring=document.getElementById('cq-goal-ring');if(ring)ring.style.strokeDashoffset=(C*(1-frac)).toFixed(1);
+    var pc=document.getElementById('cq-goal-pct');if(pc)pc.textContent=Math.round(frac*100)+'%';
+    var cnt=document.getElementById('cq-goal-count');if(cnt)cnt.textContent=goal.count;
+    var tg=document.getElementById('cq-goal-target');if(tg)tg.textContent=goal.target;
+    var btns=document.querySelectorAll('.cq-goal-btn');for(var i=0;i<btns.length;i++){btns[i].classList.toggle('on',(+btns[i].textContent)===goal.target);}
+    var d=dueCount();var db=document.getElementById('cq-due-badge');if(db){db.style.display=d>0?'flex':'none';db.textContent=d>99?'99':d;}
+    var mk=Object.keys(mistakes).length;var mb=document.getElementById('cq-mistake-badge');if(mb){mb.style.display=mk>0?'flex':'none';mb.textContent=mk>99?'99':mk;}
+  }
+
+  // ---- modal ----
+  function close(){var m=document.getElementById('cq-modal');if(m)m.remove();}
+  function modal(title,body){close();var host=document.querySelector('.phone')||document.body;var b=document.createElement('div');b.className='cq-back';b.id='cq-modal';b.onclick=function(e){if(e.target===b)close();};b.innerHTML='<div class="cq-sheet"><div class="cq-sheet-h"><div style="font-size:16px;font-weight:900;color:#1F2937">'+title+'</div><button onclick="CQ.close()" style="width:32px;height:32px;border-radius:10px;border:none;background:#F3F4F6;cursor:pointer;font-size:15px">✕</button></div><div id="cq-mbody" style="padding:14px 16px 4px">'+body+'</div></div>';host.appendChild(b);return document.getElementById('cq-mbody');}
+
+  // ---- review / SRS quiz ----
+  var rv={list:[],i:0,ok:0};
+  function startReview(list,title){if(!list.length){toast('Нет слов для повторения 🎉');return;}rv={list:shuffle(list).slice(0,12),i:0,ok:0,title:title||'🔁 Повторение'};modal(rv.title,'<div id="cq-rv"></div>');renderReview();}
+  function openReview(){
+    var due=[],k;for(k in srs){if((srs[k].due||0)<=now())due.push({en:k,ru:srs[k].ru});}
+    if(due.length<8 && typeof wordsData!=='undefined'){var have={};due.forEach(function(d){have[d.en]=1;});var ws=shuffle(wordsData.slice());for(var i=0;i<ws.length&&due.length<12;i++){var w=ws[i];if(!have[w.en.toLowerCase()]){due.push({en:w.en,ru:w.ru});have[w.en.toLowerCase()]=1;}}}
+    startReview(due,'🔁 Повторение');
+  }
+  function renderReview(){
+    var box=document.getElementById('cq-rv');if(!box)return;
+    if(rv.i>=rv.list.length){box.innerHTML='<div style="text-align:center;padding:24px 8px"><div style="font-size:54px">🎉</div><div style="font-size:20px;font-weight:900;color:#1F2937;margin:8px 0">Готово!</div><div style="font-size:14px;color:#6B7280;margin-bottom:18px">Правильно: <b style="color:#7C3AED">'+rv.ok+' из '+rv.list.length+'</b></div><button class="cq-prim" onclick="CQ.close()">Отлично!</button></div>';return;}
+    var cur=rv.list[rv.i];var opts=[cur.ru];
+    if(typeof wordsData!=='undefined'){var pool=shuffle(wordsData.filter(function(w){return w.ru&&w.ru!==cur.ru;}));for(var i=0;i<pool.length&&opts.length<4;i++){if(opts.indexOf(pool[i].ru)<0)opts.push(pool[i].ru);}}
+    opts=shuffle(opts);
+    var bars='';for(var b=0;b<rv.list.length;b++){bars+='<div style="flex:1;height:4px;border-radius:2px;background:'+(b<rv.i?'#7C3AED':(b===rv.i?'#A78BFA':'#E9E3FB'))+'"></div>';}
+    var h='<div style="display:flex;gap:3px;margin-bottom:14px">'+bars+'</div>';
+    h+='<div style="background:#fff;border-radius:18px;padding:20px 16px;box-shadow:0 3px 14px rgba(124,58,237,.08);margin-bottom:14px;text-align:center">';
+    h+='<div style="font-size:11px;font-weight:800;color:#9CA3AF;letter-spacing:.5px;margin-bottom:8px">ЧТО ОЗНАЧАЕТ</div>';
+    h+='<div style="display:flex;align-items:center;justify-content:center;gap:10px"><div style="font-size:24px;font-weight:900;color:#1F2937">'+esc(cur.en)+'</div><button onclick="speak(\''+esc(cur.en).replace(/'/g,"")+'\')" style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#a78bfa);border:none;cursor:pointer;color:#fff;font-size:16px">🔊</button></div></div>';
+    h+='<div id="cq-rv-opts">';
+    opts.forEach(function(o){h+='<button class="cq-opt" onclick="CQ.rvAns(this,'+(o===cur.ru?1:0)+')">'+esc(o)+'</button>';});
+    h+='</div>';
+    box.innerHTML=h;
+  }
+  function rvAns(btn,ok){
+    var cur=rv.list[rv.i];
+    var all=document.querySelectorAll('#cq-rv-opts .cq-opt');all.forEach(function(b){b.style.pointerEvents='none';});
+    if(ok){btn.style.cssText+=';background:#dcfce7;border-color:#22c55e;color:#15803d';rv.ok++;try{soundCorrect();}catch(e){}}
+    else{btn.style.cssText+=';background:#fef2f2;border-color:#ef4444;color:#dc2626';all.forEach(function(b){if(b.textContent===cur.ru)b.style.cssText+=';background:#dcfce7;border-color:#22c55e;color:#15803d';});try{soundWrong();}catch(e){}}
+    recordAnswer(cur.en,cur.ru,!!ok);
+    setTimeout(function(){rv.i++;renderReview();},900);
+  }
+
+  // ---- mistakes ----
+  function openMistakes(){
+    var ks=Object.keys(mistakes);
+    if(!ks.length){modal('❗ Работа над ошибками','<div style="text-align:center;padding:30px 8px"><div style="font-size:54px">✨</div><div style="font-size:16px;font-weight:800;color:#1F2937;margin-top:8px">Ошибок нет!</div><div style="font-size:13px;color:#6B7280;margin-top:4px">Отвечай в тестах — сюда попадут слова, в которых ошибся.</div></div>');return;}
+    ks.sort(function(a,b){return mistakes[b].count-mistakes[a].count;});
+    var h='<button class="cq-prim" style="margin-bottom:14px" onclick="CQ.trainMistakes()">🔁 Тренировать все ('+ks.length+')</button>';
+    ks.forEach(function(k){var m=mistakes[k];h+='<div style="background:#fff;border-radius:14px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 10px rgba(0,0,0,.04)"><div style="flex:1"><div style="font-size:14px;font-weight:800;color:#1F2937">'+esc(k)+'</div><div style="font-size:12px;color:#6B7280">'+esc(m.ru)+'</div></div><span style="font-size:10px;font-weight:800;color:#EF4444;background:#FEF2F2;border-radius:8px;padding:3px 7px">×'+m.count+'</span><button onclick="speak(\''+esc(k).replace(/'/g,"")+'\')" style="width:32px;height:32px;border-radius:50%;background:#f0eeff;border:none;cursor:pointer;font-size:14px">🔊</button><button onclick="CQ.delMistake(\''+esc(k).replace(/'/g,"")+'\',this)" style="width:32px;height:32px;border-radius:50%;background:#F3F4F6;border:none;cursor:pointer;font-size:13px">✓</button></div>';});
+    modal('❗ Работа над ошибками',h);
+  }
+  function trainMistakes(){var list=Object.keys(mistakes).map(function(k){return {en:k,ru:mistakes[k].ru};});startReview(list,'🔁 Тренировка ошибок');}
+  function delMistake(k,btn){delete mistakes[k];P('cq_mistakes',mistakes);var c=btn.closest('div');if(c)c.remove();refreshHome();}
+
+  // ---- achievements ----
+  var ACH=[
+    {id:'first_test',t:'Первый шаг',d:'Пройди 1 тест',ic:'🎓',c:function(){return testsDone>=1;}},
+    {id:'tests50',t:'Знаток',d:'50 тестов',ic:'📚',c:function(){return testsDone>=50;}},
+    {id:'tests200',t:'Эрудит',d:'200 тестов',ic:'🧠',c:function(){return testsDone>=200;}},
+    {id:'words50',t:'Словарь',d:'50 слов выучено',ic:'📖',c:function(){return wordsLearned>=50;}},
+    {id:'streak3',t:'Разогрев',d:'3 дня подряд',ic:'🔥',c:function(){return streak>=3;}},
+    {id:'streak7',t:'Неделя огня',d:'7 дней подряд',ic:'⚡',c:function(){return streak>=7;}},
+    {id:'streak30',t:'Несокрушимый',d:'30 дней подряд',ic:'💎',c:function(){return streak>=30;}},
+    {id:'sim1',t:'Дебют',d:'Пройди 1 сценарий',ic:'🧳',c:function(){return simsDone>=1;}},
+    {id:'sim10',t:'Путешественник',d:'10 сценариев',ic:'🗺️',c:function(){return simsDone>=10;}},
+    {id:'xp1000',t:'Тысячник',d:'1 000 XP',ic:'⭐',c:function(){return xpTotal>=1000;}},
+    {id:'xp5000',t:'Легенда',d:'5 000 XP',ic:'👑',c:function(){return xpTotal>=5000;}},
+    {id:'srs20',t:'Долгая память',d:'20 слов закреплено',ic:'🧩',c:function(){var n=0,k;for(k in srs){if(srs[k].box>=4)n++;}return n>=20;}}
+  ];
+  function checkAch(){var changed=false;ACH.forEach(function(a){if(ach.indexOf(a.id)<0){try{if(a.c()){ach.push(a.id);changed=true;setTimeout(function(){toast('🏅 Достижение: '+a.t);try{spawnParticles();}catch(e){}},400);}}catch(e){}}});if(changed)P('cq_ach',ach);}
+  function openAch(){
+    checkAch();
+    var got=ach.length;
+    var h='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px"><div style="font-size:13px;color:#6B7280;font-weight:700">Открыто <b style="color:#7C3AED">'+got+'</b> из '+ACH.length+'</div><button class="cq-prim" style="width:auto;padding:9px 14px;font-size:12px" onclick="CQ.share()">📸 Поделиться</button></div>';
+    h+='<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">';
+    ACH.forEach(function(a){var on=ach.indexOf(a.id)>=0;h+='<div style="background:#fff;border-radius:16px;padding:14px 6px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.04);opacity:'+(on?1:.45)+'"><div style="font-size:32px;filter:'+(on?'none':'grayscale(1)')+'">'+a.ic+'</div><div style="font-size:10.5px;font-weight:800;color:#1F2937;margin-top:6px">'+a.t+'</div><div style="font-size:9px;color:#9CA3AF;margin-top:2px">'+a.d+'</div>'+(on?'<div style="font-size:9px;color:#22c55e;font-weight:800;margin-top:4px">✓ Открыто</div>':'')+'</div>';});
+    h+='</div>';
+    modal('🏅 Достижения',h);
+  }
+
+  // ---- league ----
+  var DIVS=[{n:'Бронза',ic:'🥉',need:0},{n:'Серебро',ic:'🥈',need:100},{n:'Золото',ic:'🥇',need:250},{n:'Платина',ic:'💠',need:500},{n:'Алмаз',ic:'💎',need:900},{n:'Мастер',ic:'👑',need:1500}];
+  function openLeague(){
+    ensureWeek();
+    var d=league.div||0;var cur=DIVS[d];var nxt=DIVS[d+1];
+    var prog=nxt?Math.min((league.pts-cur.need)/(nxt.need-cur.need)*100,100):100;
+    var h='<div style="background:linear-gradient(135deg,#7C3AED,#4F46E5);border-radius:20px;padding:20px;text-align:center;color:#fff;margin-bottom:16px"><div style="font-size:46px">'+cur.ic+'</div><div style="font-size:20px;font-weight:900;margin-top:4px">'+cur.n+' лига</div><div style="font-size:13px;opacity:.85;margin-top:2px">'+league.pts+' очков на этой неделе</div>';
+    if(nxt){h+='<div style="height:8px;border-radius:999px;background:rgba(255,255,255,.25);overflow:hidden;margin-top:12px"><div style="height:100%;width:'+prog+'%;background:#FCD34D;border-radius:999px"></div></div><div style="font-size:11px;opacity:.85;margin-top:6px">До '+nxt.n+': '+(nxt.need-league.pts)+' очков</div>';}
+    else{h+='<div style="font-size:12px;opacity:.9;margin-top:10px">Высшая лига достигнута! 👑</div>';}
+    h+='</div>';
+    var me={n:'Ты',p:league.pts,me:1};
+    var rivals=[{n:'Алекс',p:league.pts+47},{n:'Мария',p:league.pts+22},{n:'Иван',p:Math.max(0,league.pts-15)},{n:'Sophie',p:Math.max(0,league.pts-40)},{n:'Дмитрий',p:Math.max(0,league.pts-66)}];
+    var board=rivals.concat([me]).sort(function(a,b){return b.p-a.p;});
+    h+='<div style="font-size:12px;font-weight:900;color:#1F2937;letter-spacing:.4px;margin-bottom:8px">РЕЙТИНГ НЕДЕЛИ</div>';
+    board.forEach(function(r,i){h+='<div style="display:flex;align-items:center;gap:10px;background:'+(r.me?'#F5F1FF':'#fff')+';border-radius:12px;padding:10px 12px;margin-bottom:6px;border:'+(r.me?'2px solid #7C3AED':'1px solid #F1EDFF')+'"><div style="width:22px;font-size:13px;font-weight:900;color:'+(i<3?'#7C3AED':'#9CA3AF')+'">'+(i+1)+'</div><div style="flex:1;font-size:13px;font-weight:'+(r.me?'900':'700')+';color:#1F2937">'+r.n+(i===0?' 👑':'')+'</div><div style="font-size:12px;font-weight:800;color:#7C3AED">'+r.p+'</div></div>';});
+    h+='<div style="font-size:11px;color:#9CA3AF;text-align:center;margin-top:8px">Зарабатывай очки, отвечая в тестах и повторении. Рейтинг обнуляется каждую неделю.</div>';
+    modal('🏆 Лига',h);
+  }
+
+  // ---- share card ----
+  function share(){
+    try{
+    var cv=document.createElement('canvas');cv.width=1080;cv.height=1080;var x=cv.getContext('2d');
+    var g=x.createLinearGradient(0,0,1080,1080);g.addColorStop(0,'#7C3AED');g.addColorStop(1,'#4F46E5');x.fillStyle=g;x.fillRect(0,0,1080,1080);
+    x.fillStyle='rgba(255,255,255,.08)';x.beginPath();x.arc(890,190,260,0,7);x.fill();
+    x.fillStyle='#fff';x.font='900 60px sans-serif';x.fillText('CATCH QUEST',80,140);
+    x.font='600 32px sans-serif';x.fillStyle='rgba(255,255,255,.85)';x.fillText('Английский как квест 🦊',80,195);
+    var lvl=Math.floor(xpTotal/500)+1;
+    x.font='900 190px sans-serif';x.fillStyle='#fff';x.fillText(String(lvl),80,470);
+    x.font='600 36px sans-serif';x.fillStyle='rgba(255,255,255,.85)';x.fillText('УРОВЕНЬ',92,525);
+    function stat(xx,val,lab){x.textAlign='center';x.font='900 64px sans-serif';x.fillStyle='#fff';x.fillText(val,xx,720);x.font='600 28px sans-serif';x.fillStyle='rgba(255,255,255,.8)';x.fillText(lab,xx,765);x.textAlign='left';}
+    stat(220,String(xpTotal),'XP'); stat(540,String(streak),'дней'); stat(860,String(testsDone),'тестов');
+    var fox=document.querySelector('.fox-img');
+    function finish(){x.font='700 30px sans-serif';x.fillStyle='rgba(255,255,255,.92)';x.fillText('Присоединяйся к квесту! 🚀',80,1010);
+      cv.toBlob(function(b){var file=new File([b],'catchquest.png',{type:'image/png'});
+        if(navigator.canShare&&navigator.canShare({files:[file]})){navigator.share({files:[file],title:'Catch Quest',text:'Мой прогресс в Catch Quest!'}).catch(function(){});}
+        else{var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='catchquest.png';a.click();toast('📸 Карточка сохранена');}});}
+    function drawFox(){try{if(fox&&fox.complete&&fox.naturalWidth){var hh=560,ww=fox.naturalWidth*hh/fox.naturalHeight;x.drawImage(fox,1080-ww-10,1080-hh+30,ww,hh);}}catch(e){}finish();}
+    if(fox&&!fox.complete){fox.onload=drawFox;setTimeout(drawFox,600);}else drawFox();
+    }catch(e){toast('Не удалось создать карточку');}
+  }
+
+  // ---- dictionary search + filter ----
+  var dictSearch='', dictStatus='all';
+  var known=J('cq_known',{});
+  function ensureDictSearch(){
+    var cont=document.getElementById('reloc-container');if(!cont)return;
+    if(document.getElementById('cq-dict-bar'))return;
+    var bar=document.createElement('div');bar.id='cq-dict-bar';bar.style.cssText='margin-bottom:10px';
+    bar.innerHTML='<div style="position:relative;margin-bottom:8px"><input id="cq-dict-input" oninput="CQ.dictSearch(this.value)" placeholder="🔍 Поиск по словарю…" style="width:100%;box-sizing:border-box;padding:11px 14px;border:2px solid #EFEAFC;border-radius:13px;font-size:13px;outline:none;background:#fff"/></div><div style="display:flex;gap:7px"><button class="cq-df cq-df-on" data-f="all" onclick="CQ.dictFilter(\'all\',this)">Все</button><button class="cq-df" data-f="unknown" onclick="CQ.dictFilter(\'unknown\',this)">Невыученные</button><button class="cq-df" data-f="known" onclick="CQ.dictFilter(\'known\',this)">Выученные ✓</button></div>';
+    cont.parentNode.insertBefore(bar,cont);
+    if(!document.getElementById('cq-df-style')){var st=document.createElement('style');st.id='cq-df-style';st.textContent='.cq-df{font-size:11px;font-weight:800;color:#7C3AED;background:#F5F1FF;border:none;border-radius:9px;padding:7px 12px;cursor:pointer}.cq-df.cq-df-on{background:linear-gradient(135deg,#7C3AED,#9333EA);color:#fff}';document.head.appendChild(st);}
+    applyDictFilter();
+  }
+  function applyDictFilter(){
+    var cont=document.getElementById('reloc-container');if(!cont)return;
+    var cards=cont.children;var q=dictSearch.toLowerCase();
+    for(var i=0;i<cards.length;i++){
+      var card=cards[i];var txt=(card.textContent||'').toLowerCase();
+      var enEl=card.querySelector('[data-speak]');var enKey=enEl?(enEl.getAttribute('data-speak')||'').toLowerCase():txt.slice(0,40);
+      var isKnown=!!known[enKey];
+      if(enEl&&!card.querySelector('.cq-known-btn')){
+        var kb=document.createElement('button');kb.className='cq-known-btn';kb.setAttribute('data-k',enKey);
+        kb.style.cssText='width:28px;height:28px;border-radius:50%;border:none;cursor:pointer;font-size:13px;margin-top:6px;'+(isKnown?'background:#dcfce7;color:#16a34a':'background:#f0eeff;color:#7c3aed');kb.textContent=isKnown?'✓':'+';
+        kb.onclick=(function(key,el){return function(){toggleKnown(key);applyDictFilter();};})(enKey,card);
+        var col=enEl.parentNode;if(col)col.appendChild(kb);
+      }
+      var kb2=card.querySelector('.cq-known-btn');if(kb2){kb2.style.background=isKnown?'#dcfce7':'#f0eeff';kb2.style.color=isKnown?'#16a34a':'#7c3aed';kb2.textContent=isKnown?'✓':'+';}
+      var matchQ=!q||txt.indexOf(q)>=0;
+      var matchS=dictStatus==='all'||(dictStatus==='known'&&isKnown)||(dictStatus==='unknown'&&!isKnown);
+      card.style.display=(matchQ&&matchS)?'':'none';
+    }
+  }
+  function toggleKnown(k){if(known[k])delete known[k];else known[k]=1;P('cq_known',known);}
+  function renderFull(){try{relocOffset=(dictSearch||dictStatus!=='all')?1e9:0;}catch(e){}if(typeof renderReloc==='function')renderReloc();else applyDictFilter();}
+  function doDictSearch(v){dictSearch=v;renderFull();}
+  function doDictFilter(f,btn){dictStatus=f;var bs=document.querySelectorAll('.cq-df');for(var i=0;i<bs.length;i++)bs[i].classList.toggle('cq-df-on',bs[i]===btn);renderFull();}
+
+  // ---- settings: reminders / export / import / freeze ----
+  function injectSettings(){
+    var tg=document.getElementById('theme-grid');if(!tg)return;var sec=tg.closest('.settings-section');if(!sec)return;if(document.getElementById('cq-settings'))return;
+    var remOn=J('cq_reminder',false);
+    var label=document.createElement('div');label.style.cssText='padding:2px 16px 4px';label.innerHTML='<div style="font-size:10px;font-weight:800;color:#9ca3af;letter-spacing:.5px;text-transform:uppercase">🛡️ Прогресс и напоминания</div>';
+    var card=document.createElement('div');card.id='cq-settings';card.className='settings-section';
+    card.innerHTML=''+
+      '<div style="display:flex;align-items:center;justify-content:space-between;padding:6px 2px"><div><div style="font-size:13px;font-weight:800;color:#1F2937">🔔 Напоминания</div><div style="font-size:11px;color:#9CA3AF">Каждый день в 20:00</div></div><button id="cq-rem-toggle" onclick="CQ.toggleReminder()" style="width:50px;height:28px;border-radius:999px;border:none;cursor:pointer;background:'+(remOn?'#7C3AED':'#D1D5DB')+';position:relative;transition:.2s"><span style="position:absolute;top:3px;left:'+(remOn?'25px':'3px')+';width:22px;height:22px;border-radius:50%;background:#fff;transition:.2s"></span></button></div>'+
+      '<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 2px 6px;border-top:1px solid #F1EDFF;margin-top:6px"><div><div style="font-size:13px;font-weight:800;color:#1F2937">🧊 Заморозки серии</div><div style="font-size:11px;color:#9CA3AF">Сохраняют серию при пропуске</div></div><div id="cq-freeze-n" style="font-size:18px;font-weight:900;color:#7C3AED">'+freezes+'</div></div>'+
+      '<div style="display:flex;gap:8px;margin-top:10px"><button onclick="CQ.exportData()" style="flex:1;background:#F5F1FF;color:#7C3AED;border:none;border-radius:12px;padding:11px;font-size:12px;font-weight:800;cursor:pointer">💾 Экспорт</button><label style="flex:1;background:#F5F1FF;color:#7C3AED;border-radius:12px;padding:11px;font-size:12px;font-weight:800;cursor:pointer;text-align:center;display:block">📂 Импорт<input type="file" accept="application/json" onchange="CQ.importData(this.files[0])" style="display:none"></label></div>';
+    sec.parentNode.insertBefore(card,sec);
+    sec.parentNode.insertBefore(label,card);
+  }
+  function toggleReminder(){
+    var on=!J('cq_reminder',false);
+    if(on){
+      if('Notification'in window){Notification.requestPermission().then(function(p){if(p==='granted'){P('cq_reminder',true);updateRemToggle(true);toast('🔔 Напоминания включены');scheduleReminder();try{new Notification('Catch Quest 🦊',{body:'Будем напоминать о занятиях каждый день!'});}catch(e){}}else{toast('Разреши уведомления в настройках браузера');}});}
+      else toast('Уведомления не поддерживаются');
+    } else {P('cq_reminder',false);updateRemToggle(false);clearTimeout(window._cqRem);toast('🔕 Напоминания выключены');}
+  }
+  function updateRemToggle(on){var b=document.getElementById('cq-rem-toggle');if(!b)return;b.style.background=on?'#7C3AED':'#D1D5DB';var s=b.querySelector('span');if(s)s.style.left=on?'25px':'3px';}
+  function scheduleReminder(){if(J('cq_reminder',false)!==true)return;if(!('Notification'in window)||Notification.permission!=='granted')return;var d=new Date();var t=new Date();t.setHours(20,0,0,0);if(t<=d)t.setDate(t.getDate()+1);var ms=t-d;clearTimeout(window._cqRem);window._cqRem=setTimeout(function(){try{new Notification('Catch Quest 🦊',{body:'Не теряй серию! Позанимайся 5 минут 🔥'});}catch(e){}scheduleReminder();},Math.min(ms,2147483647));}
+  function exportData(){var o={};for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);o[k]=localStorage.getItem(k);}var blob=new Blob([JSON.stringify(o,null,2)],{type:'application/json'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='catchquest-progress.json';a.click();toast('💾 Прогресс сохранён в файл');}
+  function importData(file){if(!file)return;var r=new FileReader();r.onload=function(){try{var o=JSON.parse(r.result);Object.keys(o).forEach(function(k){localStorage.setItem(k,o[k]);});toast('✅ Прогресс загружен, перезапуск…');setTimeout(function(){location.reload();},900);}catch(e){toast('Ошибка: неверный файл');}};r.readAsText(file);}
+
+  // ---- streak freeze (auto) ----
+  function applyFreeze(){
+    var la=localStorage.getItem('cq_lastActive');var prev=parseInt(localStorage.getItem('cq_prevStreak')||'0',10);
+    var t=today();
+    if(la&&la!==t){
+      var gap=Math.round((new Date(t)-new Date(la))/DAY);
+      if(gap===2&&freezes>0&&typeof streak!=='undefined'&&streak<=1&&prev>1){
+        streak=prev;localStorage.setItem('streak',streak);freezes--;P('cq_freeze',freezes);
+        var fn=document.getElementById('cq-freeze-n');if(fn)fn.textContent=freezes;
+        setTimeout(function(){toast('🧊 Заморозка использована — серия '+streak+' сохранена!');},700);
+        try{updateXPBar();}catch(e){}
+      }
+    }
+    localStorage.setItem('cq_prevStreak',String(typeof streak!=='undefined'?streak:0));
+    localStorage.setItem('cq_lastActive',t);
+  }
+
+  // ---- onboarding hints ----
+  function maybeHints(){
+    if(J('cq_hints',false))return;
+    setTimeout(function(){
+      var h='<div style="text-align:center;padding:6px 4px 4px">'+
+        '<div style="font-size:50px">🦊</div>'+
+        '<div style="font-size:18px;font-weight:900;color:#1F2937;margin:6px 0 14px">Добро пожаловать в Catch Quest!</div>'+
+        '<div style="text-align:left;font-size:13px;color:#374151;line-height:1.7">'+
+        '🎯 <b>Цель дня</b> — выполняй норму слов и держи кольцо полным.<br>'+
+        '🔁 <b>Повтор</b> — умное повторение возвращает слова, пока не закрепишь.<br>'+
+        '❗ <b>Ошибки</b> — все промахи собираются для отдельной тренировки.<br>'+
+        '🏆 <b>Лига</b> — соревнуйся и поднимайся в рейтинге каждую неделю.<br>'+
+        '🔊 Жми динамик, чтобы слушать произношение.'+
+        '</div><button class="cq-prim" style="margin-top:18px" onclick="CQ.close();">Понятно, начнём! 🚀</button></div>';
+      modal('Привет!',h);P('cq_hints',true);
+    },900);
+  }
+
+  window.CQ={
+    setGoal:function(t){goal.target=t;P('cq_goal',goal);P('cq_goalTarget',t);refreshHome();toast('🎯 Цель: '+t+' слов в день');},
+    openReview:openReview,openMistakes:openMistakes,openAch:openAch,openLeague:openLeague,
+    rvAns:rvAns,trainMistakes:trainMistakes,delMistake:delMistake,share:share,close:close,
+    dictSearch:doDictSearch,dictFilter:doDictFilter,
+    toggleReminder:toggleReminder,exportData:exportData,importData:importData
+  };
+
+  function init(){
+    ensureGoal();ensureWeek();checkAch();refreshHome();injectSettings();applyFreeze();maybeHints();
+    if(J('cq_reminder',false)===true)scheduleReminder();
+  }
+  if(document.readyState==='loading')window.addEventListener('DOMContentLoaded',init);else init();
+})();
+</script>
+
 </body>
 </html>
