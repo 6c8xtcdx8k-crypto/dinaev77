@@ -18114,7 +18114,18 @@ function selectLevel(lv,btn){
 }
 function startAppWithName(){
   const inp=document.getElementById('onb-name-input');
-  if(inp&&inp.value.trim()){userName=inp.value.trim();localStorage.setItem('userName',userName);}
+  if(!inp||!inp.value.trim()){
+    if(inp){
+      inp.style.border='2px solid #ef4444';
+      inp.style.animation='wrongShakeDeep .45s cubic-bezier(0.36,0.07,0.19,0.97) both';
+      inp.placeholder='Сначала введи имя!';
+      setTimeout(function(){inp.style.animation='';},500);
+      inp.focus();
+    }
+    try{showToast('✍️ Пожалуйста, введи своё имя');}catch(e){}
+    return;
+  }
+  userName=inp.value.trim();localStorage.setItem('userName',userName);
   startApp();
 }
 function startApp(){
