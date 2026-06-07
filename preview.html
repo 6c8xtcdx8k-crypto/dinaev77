@@ -21374,26 +21374,29 @@ function showBasicsTab(tab,btn){
 
   // ===== correct-answer cheer =====
   var CHEERS=['Урааа! 🎉','Супер! 🌟','Молодец! 👏','Так держать! 🔥','Вот это да! ⚡','Великолепно! 💜','Ты лучший! 🏆','Правильно! ✅'];
-  var lastCheer=0;
-  function cheer(){
+  var ENCOURAGE=['Не сдавайся! 💪','Почти получилось!','В следующий раз точно! 🦊','Ошибки — часть пути 🌱','Ты справишься! 💜','Давай ещё разок!','Я в тебя верю! ✨','Не переживай, идём дальше!'];
+  var lastPop=0;
+  function fpop(list,accent){
     try{
-      var now=Date.now();if(now-lastCheer<400)return;lastCheer=now;
+      var now=Date.now();if(now-lastPop<400)return;lastPop=now;
       var old=document.getElementById('cq4-cheer');if(old)old.remove();
-      var d=document.createElement('div');d.id='cq4-cheer';
+      var d=document.createElement('div');d.id='cq4-cheer';d.style.borderColor=accent||'#EDE7FF';
       var src=foxSrc();
-      d.innerHTML=(src?'<img src="'+src+'" alt=""/>':'<span style="font-size:28px">🦊</span>')+'<span>'+CHEERS[Math.floor(Math.random()*CHEERS.length)]+'</span>';
+      d.innerHTML=(src?'<img src="'+src+'" alt=""/>':'<span style="font-size:28px">🦊</span>')+'<span>'+list[Math.floor(Math.random()*list.length)]+'</span>';
       d.style.animation='cq4In .42s cubic-bezier(.34,1.56,.64,1) both';
       (document.querySelector('.phone')||document.body).appendChild(d);
-      setTimeout(function(){d.style.animation='cq4Out .35s ease forwards';setTimeout(function(){if(d.parentNode)d.remove();},360);},1150);
+      setTimeout(function(){d.style.animation='cq4Out .35s ease forwards';setTimeout(function(){if(d.parentNode)d.remove();},360);},1250);
     }catch(e){}
   }
+  function cheer(){fpop(CHEERS,'#86EFAC');}
+  function encourage(){fpop(ENCOURAGE,'#A5B4FC');}
 
-  var _ac=window.answerChoice;if(_ac)window.answerChoice=function(chosen,correct,xp,btn){var r=_ac.apply(this,arguments);try{if(chosen===correct)cheer();}catch(e){}return r;};
-  var _al=window.answerListen;if(_al)window.answerListen=function(chosen,correct,xp,btn){var r=_al.apply(this,arguments);try{if(chosen===correct)cheer();}catch(e){}return r;};
-  var _ci=window.checkInput;if(_ci)window.checkInput=function(answer,xp){var ok=false;try{var inp=document.getElementById('input-answer');ok=!!(inp&&inp.value.trim().toLowerCase()===answer);}catch(e){}var r=_ci.apply(this,arguments);try{if(ok)cheer();}catch(e){}return r;};
+  var _ac=window.answerChoice;if(_ac)window.answerChoice=function(chosen,correct,xp,btn){var r=_ac.apply(this,arguments);try{if(chosen===correct)cheer();else encourage();}catch(e){}return r;};
+  var _al=window.answerListen;if(_al)window.answerListen=function(chosen,correct,xp,btn){var r=_al.apply(this,arguments);try{if(chosen===correct)cheer();else encourage();}catch(e){}return r;};
+  var _ci=window.checkInput;if(_ci)window.checkInput=function(answer,xp){var ok=false;try{var inp=document.getElementById('input-answer');ok=!!(inp&&inp.value.trim().toLowerCase()===answer);}catch(e){}var r=_ci.apply(this,arguments);try{if(ok)cheer();else encourage();}catch(e){}return r;};
 
   // cheer in SRS review / situations too (they call recordAnswer paths via their own UI)
-  window.CQ_cheer=cheer;
+  window.CQ_cheer=cheer;window.CQ_encourage=encourage;
 })();
 </script>
 
