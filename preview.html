@@ -18405,8 +18405,8 @@ function updateXPBar(){
   const lft=document.getElementById('home-xp-left');if(lft)lft.textContent='До уровня '+(lvl+1)+': '+(max-(xpTotal%max))+' XP';
   const lvlEl=document.getElementById('home-level-num');if(lvlEl)lvlEl.textContent=lvl;
   const tot=document.getElementById('home-total-xp');if(tot)tot.textContent=xpTotal;
-  const td=document.getElementById('home-tests-done');if(td)td.textContent=testsDone+'/2000';
-  const sd=document.getElementById('home-sims-done');if(sd)sd.textContent=simsDone+'/500';
+  const td=document.getElementById('home-tests-done');if(td)td.textContent=testsDone;
+  const sd=document.getElementById('home-sims-done');if(sd)sd.textContent=simsDone;
   const st=document.getElementById('home-streak');if(st)st.textContent=streak;
   const txc=document.getElementById('test-xp-count');if(txc)txc.textContent=xpTotal;
   const ulb=document.getElementById('user-level-badge');if(ulb)ulb.textContent='Уровень '+currentLevel;
