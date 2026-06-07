@@ -602,13 +602,18 @@ button:active{filter:brightness(.97)}
     </div>
 
     <!-- HERO -->
-    <div style="position:relative;padding:16px 18px 0;min-height:430px;overflow:hidden">
-      <div style="max-width:53%;position:relative;z-index:2">
-        <h1 style="font-size:27px;font-weight:900;color:#1F2937;line-height:1.16;margin:0 0 12px;letter-spacing:-.5px">Английский<br>как <span style="color:#7C3AED">квест</span>,<br>не как урок.</h1>
-        <p style="font-size:11.5px;color:#6B7280;line-height:1.65">Аэропорт, врач, аренда, собеседование, банк — пройди реальные сценарии переезда как игровые миссии.</p>
+    <div style="position:relative;padding:14px 18px 0;min-height:430px;overflow:hidden">
+      <!-- soft glow behind fox -->
+      <div style="position:absolute;right:-40px;bottom:30px;width:320px;height:320px;background:radial-gradient(circle,rgba(167,139,250,.40),rgba(167,139,250,0) 62%);z-index:0;pointer-events:none"></div>
+      <!-- TEXT (clear left column) -->
+      <div style="max-width:50%;position:relative;z-index:3">
+        <h1 style="font-size:26px;font-weight:900;color:#1F2937;line-height:1.15;margin:6px 0 12px;letter-spacing:-.6px;text-shadow:0 2px 14px rgba(255,255,255,.9)">Английский<br>как <span style="color:#7C3AED">квест</span>,<br>не как урок.</h1>
+        <p style="font-size:11.5px;color:#6B7280;line-height:1.65;text-shadow:0 1px 8px rgba(255,255,255,.95)">Аэропорт, врач, аренда, банк — реальные сценарии переезда как игровые миссии.</p>
       </div>
-      <div style="position:absolute;right:-10px;bottom:-4px;height:440px;z-index:1">
-        <img class="fox-img" style="height:440px;width:auto;display:block" alt="fox"/>
+      <!-- FOX (kept to the right, never over the text) -->
+      <div style="position:absolute;right:-18px;bottom:-4px;height:412px;z-index:1">
+        <div style="position:absolute;left:14px;right:18px;bottom:8px;height:20px;background:radial-gradient(ellipse at center,rgba(76,29,149,.25),transparent 70%);filter:blur(3px);z-index:-1"></div>
+        <img class="fox-img" style="height:412px;width:auto;display:block;animation:cqFloat 5s ease-in-out infinite;filter:drop-shadow(0 14px 22px rgba(76,29,149,.18))" alt="fox"/>
       </div>
     </div>
 
@@ -20601,6 +20606,7 @@ function showBasicsTab(tab,btn){
 .cq-opt:active{transform:scale(.98)}
 @keyframes cqFade{from{opacity:0}to{opacity:1}}
 @keyframes cqUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@keyframes cqFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
 </style>
 
 <script>
