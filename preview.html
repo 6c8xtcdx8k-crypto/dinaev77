@@ -709,6 +709,48 @@ button:active{filter:brightness(.97)}
       </div>
     </div>
 
+
+    <!-- SCENARIO OF THE DAY (CQ+) -->
+    <div style="margin:0 16px 12px;border-radius:22px;padding:16px;background:linear-gradient(135deg,#7C3AED,#5B21B6);color:#fff;box-shadow:0 8px 24px rgba(124,58,237,.3);position:relative;overflow:hidden">
+      <div style="position:absolute;right:-24px;top:-24px;width:120px;height:120px;background:rgba(255,255,255,.08);border-radius:50%"></div>
+      <div style="font-size:10px;font-weight:800;letter-spacing:.5px;opacity:.9;position:relative">🔥 СЦЕНАРИЙ ДНЯ</div>
+      <div style="display:flex;align-items:center;gap:12px;margin-top:10px;position:relative">
+        <div id="cq2-daily-icon" style="font-size:40px">🛬</div>
+        <div style="flex:1">
+          <div id="cq2-daily-title" style="font-size:18px;font-weight:900">Аэропорт</div>
+          <div id="cq2-daily-steps" style="font-size:11px;opacity:.85">8 шагов · ~5 мин</div>
+        </div>
+      </div>
+      <button onclick="CQ2.startDaily()" style="margin-top:12px;width:100%;background:#fff;color:#7C3AED;border:none;border-radius:13px;padding:12px;font-size:14px;font-weight:800;cursor:pointer">▶ Пройти сейчас</button>
+    </div>
+
+    <!-- WEEKLY CHALLENGE -->
+    <div style="margin:0 16px 12px;background:#fff;border-radius:22px;padding:16px;box-shadow:0 4px 20px rgba(124,58,237,.08)">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px">
+        <div style="font-size:12px;font-weight:900;color:#1F2937;letter-spacing:.4px">🏁 ЧЕЛЛЕНДЖ НЕДЕЛИ</div>
+        <span id="cq2-ch-theme" style="font-size:10px;font-weight:800;color:#7C3AED;background:#F5F1FF;border-radius:8px;padding:3px 8px">Медицина</span>
+      </div>
+      <div style="height:9px;border-radius:999px;background:#F1EDFF;overflow:hidden"><div id="cq2-ch-fill" style="height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,#7C3AED,#A78BFA);transition:.7s"></div></div>
+      <div id="cq2-ch-text" style="font-size:11px;color:#9CA3AF;margin-top:7px">0 / 30 заданий — награда 🎁 +300 XP</div>
+    </div>
+
+    <!-- GROWTH TOOLS -->
+    <div style="padding:0 16px 8px">
+      <div style="font-size:12px;font-weight:900;color:#1F2937;letter-spacing:.4px;margin-bottom:10px">ВОЗМОЖНОСТИ</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:9px">
+        <button class="cq-tool" onclick="CQ2.levelFinder()">🎯<span>Мой уровень</span></button>
+        <button class="cq-tool" onclick="CQ2.invite()">🎁<span>Пригласить</span></button>
+        <button class="cq-tool" onclick="CQ2.premium()">💎<span>Premium</span></button>
+        <button class="cq-tool" onclick="CQ2.packs()">🌍<span>Пакеты</span></button>
+      </div>
+    </div>
+
+    <!-- TESTIMONIALS -->
+    <div style="padding:0 0 12px">
+      <div style="font-size:12px;font-weight:900;color:#1F2937;letter-spacing:.4px;margin:0 16px 10px">ИСТОРИИ УСПЕХА ⭐</div>
+      <div id="cq2-reviews" style="display:flex;gap:10px;overflow-x:auto;padding:0 16px 4px"></div>
+    </div>
+
     <!-- POPULAR SCENARIOS -->
     <div style="display:flex;align-items:center;justify-content:space-between;padding:4px 16px 10px">
       <div style="font-size:12px;font-weight:900;color:#1F2937;letter-spacing:.4px">ПОПУЛЯРНЫЕ СЦЕНАРИИ</div>
@@ -20903,6 +20945,149 @@ function showBasicsTab(tab,btn){
     ensureGoal();ensureWeek();checkAch();refreshHome();injectSettings();applyFreeze();maybeHints();
     if(J('cq_reminder',false)===true)scheduleReminder();
   }
+  if(document.readyState==='loading')window.addEventListener('DOMContentLoaded',init);else init();
+})();
+</script>
+
+
+<script>
+(function(){
+  var DAY=86400000;
+  function J(k,d){try{var v=JSON.parse(localStorage.getItem(k));return v==null?d:v;}catch(e){return d;}}
+  function P(k,v){localStorage.setItem(k,JSON.stringify(v));}
+  function toast(m){try{showToast(m);}catch(e){alert(m);}}
+  function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+  function weekIdx(){return Math.floor((Date.now()/DAY+4)/7);}
+  function close(){var m=document.getElementById('cq-modal');if(m)m.remove();}
+  function modal(title,body){close();var host=document.querySelector('.phone')||document.body;var b=document.createElement('div');b.className='cq-back';b.id='cq-modal';b.onclick=function(e){if(e.target===b)close();};b.innerHTML='<div class="cq-sheet"><div class="cq-sheet-h"><div style="font-size:16px;font-weight:900;color:#1F2937">'+title+'</div><button onclick="CQ2.close()" style="width:32px;height:32px;border-radius:10px;border:none;background:#F3F4F6;cursor:pointer;font-size:15px">✕</button></div><div id="cq-mbody" style="padding:14px 16px 6px">'+body+'</div></div>';host.appendChild(b);return document.getElementById('cq-mbody');}
+
+  // ---------- DATA ----------
+  var REVIEWS=[
+    {n:'Анна · Берлин 🇩🇪',t:'Через месяц спокойно записалась к врачу на английском. Сценарии — огонь!'},
+    {n:'Игорь · Лондон 🇬🇧',t:'Готовился к собеседованию прямо тут. Получил оффер 🎉'},
+    {n:'Мария · Торонто 🇨🇦',t:'Серии и лига затягивают — занимаюсь каждый день.'},
+    {n:'Дмитрий · Дубай 🇦🇪',t:'Аэропорт и банк прошёл как по нотам после квестов.'},
+    {n:'Sophie · NYC 🇺🇸',t:'Наконец английский для жизни, а не учебник. Рекомендую!'}
+  ];
+  var THEMES=['Медицина','Аэропорт и переезд','Аренда жилья','Работа и собеседование','Банк и финансы','Магазины и быт'];
+  var PLANS=[{n:'Месяц',p:'299 ₽',sub:'каждый месяц',hot:false},{n:'Год',p:'1 990 ₽',sub:'166 ₽/мес · −44% 🔥',hot:true},{n:'Навсегда',p:'4 990 ₽',sub:'один раз и навсегда',hot:false}];
+  var BENEFITS=['Все 30+ реальных сценариев','Безлимит тестов и повторений','Офлайн-озвучка носителями','Подробная статистика прогресса','Пакеты по странам включены','Полностью без рекламы'];
+  var PACKS=[{f:'🇬🇧',n:'Великобритания',d:'NHS, council tax, аренда'},{f:'🇺🇸',n:'США',d:'SSN, страховки, IRS'},{f:'🇨🇦',n:'Канада',d:'SIN, healthcare, банки'},{f:'🇩🇪',n:'Германия',d:'Anmeldung, страховки'},{f:'🇦🇪',n:'ОАЭ',d:'визы, аренда, банки'},{f:'🇦🇺',n:'Австралия',d:'Medicare, TFN'}];
+
+  // ---------- HOME widgets ----------
+  function renderHome(){
+    try{
+      if(typeof simsData!=='undefined'&&simsData.length){
+        var di=Math.floor(Date.now()/DAY)%simsData.length;var s=simsData[di];window._cq2daily=s.id;
+        var ic=document.getElementById('cq2-daily-icon');if(ic)ic.textContent=s.icon;
+        var ti=document.getElementById('cq2-daily-title');if(ti)ti.textContent=s.title;
+        var st=document.getElementById('cq2-daily-steps');if(st)st.textContent=s.steps.length+' шагов · ~5 мин';
+      }
+      var th=THEMES[weekIdx()%THEMES.length];var tEl=document.getElementById('cq2-ch-theme');if(tEl)tEl.textContent=th;
+      var lg=J('cq_league',{pts:0});var done=Math.round((lg.pts||0)/2);var tgt=30;var pct=Math.min(done/tgt*100,100);
+      var f=document.getElementById('cq2-ch-fill');if(f)f.style.width=pct+'%';
+      var txt=document.getElementById('cq2-ch-text');if(txt)txt.textContent=done+' / '+tgt+' заданий — награда 🎁 +300 XP';
+      var rv=document.getElementById('cq2-reviews');
+      if(rv&&!rv.children.length){rv.innerHTML=REVIEWS.map(function(r){return '<div style="flex:0 0 230px;background:#fff;border-radius:16px;padding:14px;box-shadow:0 3px 14px rgba(124,58,237,.08)"><div style="color:#FBBF24;font-size:13px;margin-bottom:6px">★★★★★</div><div style="font-size:12px;color:#374151;line-height:1.5;min-height:54px">'+esc(r.t)+'</div><div style="font-size:11px;font-weight:800;color:#7C3AED;margin-top:8px">'+esc(r.n)+'</div></div>';}).join('');}
+    }catch(e){}
+  }
+  function startDaily(){try{close();startSim(window._cq2daily||0);}catch(e){toast('Сценарий недоступен');}}
+
+  // ---------- LEVEL FINDER ----------
+  var lf={qs:[],i:0,ok:0};
+  function buildLF(){var L=['A1','A2','B1','B2','C1','C2'];var qs=[];var all=(typeof wordsData!=='undefined')?wordsData:[];
+    L.forEach(function(lv){var pool=shuffle(all.filter(function(w){return w.lv===lv;}).slice());for(var k=0;k<2&&k<pool.length;k++){var w=pool[k];var ds=shuffle(all.filter(function(x){return x.ru!==w.ru;}).slice()).slice(0,3).map(function(x){return x.ru;});qs.push({en:w.en,a:w.ru,opts:shuffle([w.ru].concat(ds)),lv:lv});}});
+    return qs;}
+  function levelFinder(){lf={qs:buildLF(),i:0,ok:0};if(lf.qs.length<4){toast('Недостаточно данных');return;}modal('🎯 Определи свой уровень','<div id="cq2-lf"></div>');renderLF();}
+  function renderLF(){var box=document.getElementById('cq2-lf');if(!box)return;
+    if(lf.i>=lf.qs.length){return showLF();}
+    var c=lf.qs[lf.i];
+    var bars='';for(var b=0;b<lf.qs.length;b++){bars+='<div style="flex:1;height:4px;border-radius:2px;background:'+(b<lf.i?'#7C3AED':(b===lf.i?'#A78BFA':'#E9E3FB'))+'"></div>';}
+    var h='<div style="display:flex;gap:3px;margin-bottom:14px">'+bars+'</div>';
+    h+='<div style="text-align:center;background:#fff;border-radius:18px;padding:20px 16px;box-shadow:0 3px 14px rgba(124,58,237,.08);margin-bottom:14px"><div style="font-size:11px;font-weight:800;color:#9CA3AF;letter-spacing:.5px;margin-bottom:8px">ЧТО ОЗНАЧАЕТ</div><div style="font-size:24px;font-weight:900;color:#1F2937">'+esc(c.en)+'</div></div><div id="cq2-lfo">';
+    c.opts.forEach(function(o){h+='<button class="cq-opt" onclick="CQ2.lfAns(this,'+(o===c.a?1:0)+')">'+esc(o)+'</button>';});
+    h+='</div>';box.innerHTML=h;}
+  function lfAns(btn,ok){var c=lf.qs[lf.i];var all=document.querySelectorAll('#cq2-lfo .cq-opt');all.forEach(function(b){b.style.pointerEvents='none';});
+    if(ok){btn.style.cssText+=';background:#dcfce7;border-color:#22c55e;color:#15803d';lf.ok++;try{soundCorrect();}catch(e){}}else{btn.style.cssText+=';background:#fef2f2;border-color:#ef4444;color:#dc2626';all.forEach(function(b){if(b.textContent===c.a)b.style.cssText+=';background:#dcfce7;border-color:#22c55e;color:#15803d';});try{soundWrong();}catch(e){}}
+    setTimeout(function(){lf.i++;renderLF();},800);}
+  function lfLevel(){var c=lf.ok;if(c<=1)return'A1';if(c<=3)return'A2';if(c<=5)return'B1';if(c<=7)return'B2';if(c<=9)return'C1';return'C2';}
+  function showLF(){var lv=lfLevel();var box=document.getElementById('cq2-lf');if(!box)return;
+    var names={A1:'Начинающий',A2:'Базовый',B1:'Средний',B2:'Выше среднего',C1:'Продвинутый',C2:'Мастер'};
+    box.innerHTML='<div style="text-align:center;padding:10px 4px"><div style="font-size:54px">🎉</div><div style="font-size:14px;color:#6B7280;margin-top:6px">Твой уровень английского</div><div style="font-size:46px;font-weight:900;color:#7C3AED;margin:4px 0">'+lv+'</div><div style="font-size:15px;font-weight:800;color:#1F2937">'+names[lv]+'</div><div style="font-size:13px;color:#6B7280;margin:8px 0 18px">Правильно '+lf.ok+' из '+lf.qs.length+'. Подберём задания под твой уровень!</div><button class="cq-prim" onclick="CQ2.applyLevel(\''+lv+'\')">Заниматься на уровне '+lv+'</button><button onclick="CQ2.shareLevel(\''+lv+'\')" style="margin-top:10px;width:100%;background:#F5F1FF;color:#7C3AED;border:none;border-radius:14px;padding:13px;font-size:14px;font-weight:800;cursor:pointer">📸 Поделиться результатом</button></div>';}
+  function applyLevel(lv){try{if(typeof applyNewLevel==='function'){applyNewLevel(lv);}else if(typeof setHomeLevel==='function'){setHomeLevel(lv);}}catch(e){}close();}
+
+  // ---------- SHARE (level / generic) ----------
+  function shareLevel(lv){
+    try{var cv=document.createElement('canvas');cv.width=1080;cv.height=1080;var x=cv.getContext('2d');
+    var g=x.createLinearGradient(0,0,1080,1080);g.addColorStop(0,'#7C3AED');g.addColorStop(1,'#4F46E5');x.fillStyle=g;x.fillRect(0,0,1080,1080);
+    x.fillStyle='rgba(255,255,255,.08)';x.beginPath();x.arc(880,200,260,0,7);x.fill();
+    x.fillStyle='#fff';x.font='900 58px sans-serif';x.fillText('CATCH QUEST',80,140);
+    x.font='600 30px sans-serif';x.fillStyle='rgba(255,255,255,.85)';x.fillText('Английский как квест 🦊',80,190);
+    x.font='600 40px sans-serif';x.fillStyle='rgba(255,255,255,.9)';x.fillText('Мой уровень английского',80,420);
+    x.font='900 260px sans-serif';x.fillStyle='#fff';x.fillText(lv,80,690);
+    x.font='700 32px sans-serif';x.fillStyle='rgba(255,255,255,.92)';x.fillText('Проверь свой → Catch Quest',80,1000);
+    var fox=document.querySelector('.fox-img');
+    function fin(){cv.toBlob(function(b){var file=new File([b],'level.png',{type:'image/png'});if(navigator.canShare&&navigator.canShare({files:[file]})){navigator.share({files:[file],title:'Мой уровень английского',text:'Мой уровень: '+lv+' — а какой у тебя?'}).catch(function(){});}else{var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='catchquest-level.png';a.click();toast('📸 Карточка сохранена');}});}
+    function df(){try{if(fox&&fox.complete&&fox.naturalWidth){var hh=540,ww=fox.naturalWidth*hh/fox.naturalHeight;x.drawImage(fox,1080-ww-10,1080-hh+30,ww,hh);}}catch(e){}fin();}
+    if(fox&&!fox.complete){fox.onload=df;setTimeout(df,500);}else df();
+    }catch(e){toast('Не удалось создать карточку');}
+  }
+
+  // ---------- INVITE / REFERRAL ----------
+  function myCode(){var c=localStorage.getItem('cq_mycode');if(!c){c=Math.random().toString(36).slice(2,8).toUpperCase();localStorage.setItem('cq_mycode',c);}return c;}
+  function inviteLink(){return location.origin+location.pathname+'?ref='+myCode();}
+  function invite(){
+    var link=inviteLink();var inv=parseInt(localStorage.getItem('cq_invited')||'0',10);
+    var h='<div style="text-align:center;padding:4px 4px 0"><div style="font-size:50px">🎁</div><div style="font-size:18px;font-weight:900;color:#1F2937;margin:6px 0">Пригласи друга</div><div style="font-size:13px;color:#6B7280;line-height:1.6;margin-bottom:16px">Вы <b>оба получите +500 XP</b> и доступ к премиум-сценарию, когда друг откроет приложение по твоей ссылке.</div>';
+    h+='<div style="display:flex;gap:8px;margin-bottom:12px"><input id="cq2-link" readonly value="'+esc(link)+'" style="flex:1;min-width:0;padding:12px;border:2px solid #EFEAFC;border-radius:12px;font-size:12px;background:#fff"/><button onclick="CQ2.copyLink()" style="background:#7C3AED;color:#fff;border:none;border-radius:12px;padding:0 16px;font-weight:800;cursor:pointer">Копир.</button></div>';
+    h+='<button class="cq-prim" onclick="CQ2.shareLink()">📤 Поделиться ссылкой</button>';
+    h+='<div style="background:#F5F1FF;border-radius:14px;padding:14px;margin-top:14px;display:flex;align-items:center;justify-content:space-between"><div style="font-size:13px;font-weight:700;color:#1F2937">Приглашено друзей</div><div style="font-size:20px;font-weight:900;color:#7C3AED">'+inv+'</div></div>';
+    h+='<div style="font-size:11px;color:#9CA3AF;margin-top:10px;text-align:center">Твой код: <b>'+myCode()+'</b></div></div>';
+    modal('🎁 Пригласить друга',h);
+  }
+  function copyLink(){var i=document.getElementById('cq2-link');if(i){i.select();try{document.execCommand('copy');}catch(e){}try{navigator.clipboard&&navigator.clipboard.writeText(i.value);}catch(e){}toast('🔗 Ссылка скопирована');}}
+  function shareLink(){var link=inviteLink();if(navigator.share){navigator.share({title:'Catch Quest',text:'Учим английский для переезда — заходи, дам тебе +500 XP 🎁',url:link}).catch(function(){});}else{copyLink();}}
+
+  // ---------- PREMIUM ----------
+  function premium(){
+    var h='<div style="background:linear-gradient(135deg,#7C3AED,#4F46E5);border-radius:20px;padding:20px;color:#fff;text-align:center;margin-bottom:16px"><div style="font-size:44px">💎</div><div style="font-size:20px;font-weight:900;margin-top:4px">Catch Quest Premium</div><div style="font-size:12px;opacity:.9;margin-top:2px">Открой максимум для уверенного переезда</div></div>';
+    h+='<div style="margin-bottom:16px">';BENEFITS.forEach(function(b){h+='<div style="display:flex;align-items:center;gap:10px;padding:7px 2px;font-size:13px;color:#374151;font-weight:600"><span style="color:#22c55e;font-weight:900">✓</span>'+esc(b)+'</div>';});h+='</div>';
+    h+='<div style="display:flex;flex-direction:column;gap:9px">';
+    PLANS.forEach(function(p,i){h+='<button onclick="CQ2.buy(\''+esc(p.n)+'\')" style="display:flex;align-items:center;justify-content:space-between;border:2px solid '+(p.hot?'#7C3AED':'#EFEAFC')+';background:'+(p.hot?'#F5F1FF':'#fff')+';border-radius:14px;padding:14px 16px;cursor:pointer;text-align:left"><div><div style="font-size:14px;font-weight:900;color:#1F2937">'+esc(p.n)+(p.hot?' <span style=\"font-size:9px;background:#7C3AED;color:#fff;border-radius:6px;padding:2px 6px;vertical-align:middle\">ХИТ</span>':'')+'</div><div style="font-size:11px;color:#9CA3AF;margin-top:2px">'+esc(p.sub)+'</div></div><div style="font-size:17px;font-weight:900;color:#7C3AED">'+esc(p.p)+'</div></button>';});
+    h+='</div>';
+    h+='<button onclick="CQ2.installApp()" style="margin-top:14px;width:100%;background:#0F172A;color:#fff;border:none;border-radius:14px;padding:13px;font-size:13px;font-weight:800;cursor:pointer">📲 Установить приложение на телефон</button>';
+    h+='<div style="font-size:10px;color:#9CA3AF;text-align:center;margin-top:10px">Демо-версия: оплата не подключена.</div>';
+    modal('💎 Premium',h);
+  }
+  function buy(n){toast('🚧 Оплата «'+n+'» недоступна в демо');}
+
+  // ---------- COUNTRY PACKS ----------
+  function packs(){
+    var h='<div style="font-size:13px;color:#6B7280;margin-bottom:14px">Готовые наборы фраз и сценариев под конкретную страну переезда — с местными реалиями.</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">';
+    PACKS.forEach(function(p){h+='<div onclick="CQ2.premium()" style="background:#fff;border-radius:16px;padding:14px;box-shadow:0 3px 14px rgba(124,58,237,.08);cursor:pointer"><div style="font-size:34px">'+p.f+'</div><div style="font-size:13px;font-weight:900;color:#1F2937;margin-top:6px">'+esc(p.n)+'</div><div style="font-size:10px;color:#9CA3AF;margin-top:2px;line-height:1.4">'+esc(p.d)+'</div><div style="font-size:10px;font-weight:800;color:#7C3AED;margin-top:8px">💎 Premium</div></div>';});
+    h+='</div>';
+    modal('🌍 Пакеты по странам',h);
+  }
+
+  // ---------- PWA ----------
+  var deferred=null;
+  function makeIcon(sz){try{var c=document.createElement('canvas');c.width=c.height=sz;var x=c.getContext('2d');var g=x.createLinearGradient(0,0,sz,sz);g.addColorStop(0,'#7C3AED');g.addColorStop(1,'#4F46E5');x.fillStyle=g;x.fillRect(0,0,sz,sz);x.font='900 '+Math.round(sz*0.6)+'px sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText('🦊',sz/2,sz*0.56);return c.toDataURL('image/png');}catch(e){return '';}}
+  function addManifest(){try{var icons=[{src:makeIcon(192),sizes:'192x192',type:'image/png'},{src:makeIcon(512),sizes:'512x512',type:'image/png'}];var m={name:'Catch Quest',short_name:'CatchQuest',description:'Английский для переезда — как квест',start_url:'.',display:'standalone',background_color:'#0c0820',theme_color:'#7C3AED',icons:icons};var blob=new Blob([JSON.stringify(m)],{type:'application/json'});var l=document.createElement('link');l.rel='manifest';l.href=URL.createObjectURL(blob);document.head.appendChild(l);var tc=document.createElement('meta');tc.name='theme-color';tc.content='#7C3AED';document.head.appendChild(tc);}catch(e){}}
+  function installBanner(){if(document.getElementById('cq2-install'))return;var pg=document.getElementById('page-quests');if(!pg)return;var sc=pg.querySelector('div[style*="overflow-y:auto"]');if(!sc)return;var d=document.createElement('div');d.id='cq2-install';d.style.cssText='margin:8px 16px 0;background:linear-gradient(135deg,#0F172A,#312E81);color:#fff;border-radius:16px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 4px 16px rgba(0,0,0,.2)';d.innerHTML='<div style="font-size:24px">📲</div><div style="flex:1"><div style="font-size:13px;font-weight:800">Установи Catch Quest</div><div style="font-size:10.5px;opacity:.85">Быстрый доступ и работа офлайн</div></div><button onclick="CQ2.installApp()" style="background:#7C3AED;color:#fff;border:none;border-radius:10px;padding:8px 12px;font-size:12px;font-weight:800;cursor:pointer">Установить</button><button onclick="CQ2.dismissInstall()" style="background:transparent;color:rgba(255,255,255,.6);border:none;font-size:16px;cursor:pointer">✕</button>';sc.insertBefore(d,sc.firstChild);}
+  function dismissInstall(){var d=document.getElementById('cq2-install');if(d)d.remove();localStorage.setItem('cq_install_dismiss','1');}
+  function installApp(){if(deferred){deferred.prompt();deferred.userChoice.then(function(c){deferred=null;dismissInstall();if(c&&c.outcome==='accepted')toast('🎉 Приложение установлено!');});}else{toast('Открой меню браузера → «Установить приложение» / «На главный экран»');}}
+
+  // ---------- referral redeem ----------
+  function redeemRef(){try{var u=new URLSearchParams(location.search);var ref=u.get('ref');if(ref&&ref!==localStorage.getItem('cq_mycode')&&!localStorage.getItem('cq_ref_redeemed')){localStorage.setItem('cq_ref_redeemed',ref);if(typeof addXP==='function')addXP(500);setTimeout(function(){toast('🎁 Бонус по приглашению: +500 XP!');},1400);}}catch(e){}}
+
+  window.CQ2={startDaily:startDaily,levelFinder:levelFinder,lfAns:lfAns,applyLevel:applyLevel,shareLevel:shareLevel,invite:invite,copyLink:copyLink,shareLink:shareLink,premium:premium,buy:buy,packs:packs,installApp:installApp,dismissInstall:dismissInstall,close:close};
+
+  window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferred=e;if(!localStorage.getItem('cq_install_dismiss'))installBanner();});
+
+  var _sp=window.showPage;window.showPage=function(p){var r=_sp.apply(this,arguments);try{if(p==='quests')renderHome();}catch(e){}return r;};
+
+  function init(){addManifest();renderHome();redeemRef();}
   if(document.readyState==='loading')window.addEventListener('DOMContentLoaded',init);else init();
 })();
 </script>
