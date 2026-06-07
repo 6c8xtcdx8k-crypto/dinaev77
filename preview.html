@@ -601,51 +601,49 @@ button:active{filter:brightness(.97)}
       <div class="season-badge"><span class="season-dot"></span> SEASON 1 • LIVE</div>
     </div>
 
-    <!-- HERO CARD -->
-    <div style="margin:8px 16px 0;background:#fff;border-radius:24px;overflow:hidden;position:relative;height:220px;box-shadow:0 4px 24px rgba(124,58,237,.1)">
-      <!-- Dashed circle decoration -->
-      <svg style="position:absolute;right:80px;top:20px;width:160px;height:160px;opacity:.15" viewBox="0 0 160 160"><circle cx="80" cy="80" r="70" stroke="#7C3AED" stroke-width="1.5" stroke-dasharray="8 6" fill="none"/></svg>
-      <!-- Airplane decoration -->
-      <div style="position:absolute;top:14px;right:16px;font-size:18px;opacity:.5;transform:rotate(-15deg);animation:planefloat 4s ease-in-out infinite">✈️</div>
-      <!-- Text -->
-      <div style="padding:22px 18px 18px;max-width:58%;position:relative;z-index:2">
+    <!-- HERO -->
+    <div style="position:relative;padding:20px 18px 0;min-height:320px;overflow:hidden">
+      <svg style="position:absolute;right:70px;top:24px;width:190px;height:190px;opacity:.13" viewBox="0 0 190 190"><circle cx="95" cy="95" r="84" stroke="#7C3AED" stroke-width="1.5" stroke-dasharray="8 6" fill="none"/></svg>
+      <div style="position:absolute;top:16px;right:18px;font-size:18px;opacity:.45;transform:rotate(-15deg);animation:planefloat 4s ease-in-out infinite">✈️</div>
+      <div style="max-width:55%;position:relative;z-index:2">
         <h1 style="font-size:24px;font-weight:900;color:#1F2937;line-height:1.18;margin:0 0 10px">Английский<br>как <span style="color:#7C3AED">квест</span>,<br>не как урок.</h1>
-        <p style="font-size:11px;color:#6B7280;line-height:1.6">Аэропорт, врач, аренда, банк — пройди реальные сценарии переезда.</p>
+        <p style="font-size:11px;color:#6B7280;line-height:1.6">Аэропорт, врач, аренда, собеседование, банк — пройди реальные сценарии переезда как игровые миссии.</p>
       </div>
-      <!-- FOX (head+upper body) -->
-      <div style="position:absolute;right:0;bottom:0;width:175px;height:220px;overflow:hidden;z-index:3">
-        <img class="fox-img" style="width:175px;height:auto;display:block" alt="fox"/>
-      </div>
-    </div>
-
-    <!-- FEATURE GRID -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px 16px 4px;animation:fadeInUp .4s .1s ease both">
-      <div onclick="showPage('scenarios');setNav(document.querySelectorAll('.nb')[1])" style="background:#fff;border-radius:18px;padding:12px;display:flex;align-items:center;gap:10px;box-shadow:0 3px 14px rgba(0,0,0,.06);cursor:pointer;transition:.2s" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
-        <div style="width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#7C3AED,#9333EA);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px rgba(124,58,237,.4)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></div>
-        <div style="font-size:11px;font-weight:800;color:#1F2937;line-height:1.3">Реальные<br>сценарии</div>
-      </div>
-      <div onclick="showPage('tests');setNav(document.querySelectorAll('.nb')[2])" style="background:#fff;border-radius:18px;padding:12px;display:flex;align-items:center;gap:10px;box-shadow:0 3px 14px rgba(0,0,0,.06);cursor:pointer;transition:.2s" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
-        <div style="width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#F59E0B,#FBBF24);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px rgba(245,158,11,.4)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
-        <div style="font-size:11px;font-weight:800;color:#1F2937;line-height:1.3">Прокачивай<br>уровень</div>
-      </div>
-      <div onclick="showPage('rating');setNav(null)" style="background:#fff;border-radius:18px;padding:12px;display:flex;align-items:center;gap:10px;box-shadow:0 3px 14px rgba(0,0,0,.06);cursor:pointer;transition:.2s" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
-        <div style="width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#3B82F6,#60A5FA);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px rgba(59,130,246,.4)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/><path d="M4 6h16"/></svg></div>
-        <div style="font-size:11px;font-weight:800;color:#1F2937;line-height:1.3">Открывай<br>локации</div>
-      </div>
-      <div onclick="showPage('dashboard');setNav(null)" style="background:#fff;border-radius:18px;padding:12px;display:flex;align-items:center;gap:10px;box-shadow:0 3px 14px rgba(0,0,0,.06);cursor:pointer;transition:.2s" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
-        <div style="width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#10B981,#34D399);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px rgba(16,185,129,.4)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M3 12v8a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-8"/><path d="M12 8V21"/><path d="M12 8C12 8 9 4 6 4s-3 4 6 4c9 0 6-4 6-4s-3 4-6 4"/></svg></div>
-        <div style="font-size:11px;font-weight:800;color:#1F2937;line-height:1.3">Получай<br>награды</div>
+      <div style="position:absolute;right:0;bottom:0;width:210px;z-index:3">
+        <img class="fox-img" style="width:210px;height:auto;display:block" alt="fox"/>
       </div>
     </div>
 
-    <!-- PROGRESS + STATS (unified card) -->
-    <div style="background:#fff;border-radius:22px;margin:12px 16px 14px;padding:16px;box-shadow:0 4px 20px rgba(124,58,237,.1);animation:scaleIn .4s .15s cubic-bezier(.34,1.56,.64,1) both">
-      <div style="font-size:11px;font-weight:700;color:#9CA3AF;letter-spacing:.5px;margin-bottom:10px">ТВОЙ ПРОГРЕСС</div>
+    <!-- FEATURE GRID (4-column flat) -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:14px 16px 4px">
+      <div onclick="showPage('scenarios');setNav(document.querySelectorAll('.nb')[1])" style="background:rgba(255,255,255,.82);border-radius:16px;padding:12px 6px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;box-shadow:0 2px 10px rgba(0,0,0,.05);cursor:pointer;transition:.18s" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+        <div style="font-size:9px;font-weight:800;color:#1F2937;text-align:center;line-height:1.3">Сценарии</div>
+      </div>
+      <div onclick="showPage('tests');setNav(document.querySelectorAll('.nb')[2])" style="background:rgba(255,255,255,.82);border-radius:16px;padding:12px 6px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;box-shadow:0 2px 10px rgba(0,0,0,.05);cursor:pointer;transition:.18s" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        <div style="font-size:9px;font-weight:800;color:#1F2937;text-align:center;line-height:1.3">Тесты</div>
+      </div>
+      <div onclick="showPage('rating');setNav(null)" style="background:rgba(255,255,255,.82);border-radius:16px;padding:12px 6px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;box-shadow:0 2px 10px rgba(0,0,0,.05);cursor:pointer;transition:.18s" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/><path d="M4 6h16"/></svg>
+        <div style="font-size:9px;font-weight:800;color:#1F2937;text-align:center;line-height:1.3">Рейтинг</div>
+      </div>
+      <div onclick="showPage('dashboard');setNav(null)" style="background:rgba(255,255,255,.82);border-radius:16px;padding:12px 6px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;box-shadow:0 2px 10px rgba(0,0,0,.05);cursor:pointer;transition:.18s" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M3 12v8a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-8"/><path d="M12 8V21"/><path d="M12 8C12 8 9 4 6 4s-3 4 6 4c9 0 6-4 6-4s-3 4-6 4"/></svg>
+        <div style="font-size:9px;font-weight:800;color:#1F2937;text-align:center;line-height:1.3">Награды</div>
+      </div>
+    </div>
+
+    <!-- PROGRESS CARD (hexagon badge) -->
+    <div style="background:#fff;border-radius:22px;margin:12px 16px 0;padding:16px;box-shadow:0 4px 20px rgba(124,58,237,.1)">
+      <div style="font-size:11px;font-weight:700;color:#9CA3AF;letter-spacing:.5px;margin-bottom:12px">ТВОЙ ПРОГРЕСС</div>
       <div style="display:flex;align-items:center;gap:12px">
-        <!-- Level circle -->
-        <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#7C3AED,#9333EA);display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(124,58,237,.45);flex-shrink:0">
-          <div style="font-size:8px;color:rgba(255,255,255,.8);font-weight:700">УР.</div>
-          <div style="font-size:20px;font-weight:900;color:#fff;line-height:1" id="home-level-num">1</div>
+        <div style="position:relative;width:58px;height:58px;flex-shrink:0;display:flex;align-items:center;justify-content:center">
+          <svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg"><polygon points="29,3 53,16 53,42 29,55 5,42 5,16" fill="url(#hxg)"/><defs><linearGradient id="hxg" x1="5" y1="3" x2="53" y2="55" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#7C3AED"/><stop offset="100%" stop-color="#9333EA"/></linearGradient></defs></svg>
+          <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center">
+            <div style="font-size:7px;color:rgba(255,255,255,.8);font-weight:700;line-height:1">УР.</div>
+            <div style="font-size:19px;font-weight:900;color:#fff;line-height:1.1" id="home-level-num">1</div>
+          </div>
         </div>
         <div style="flex:1">
           <div style="font-size:18px;font-weight:900;color:#1F2937;margin-bottom:6px" id="home-xp-text">0 / 500 XP</div>
@@ -653,29 +651,30 @@ button:active{filter:brightness(.97)}
           <div style="font-size:10px;color:#9CA3AF;margin-top:4px" id="home-xp-left">До следующего уровня: 500 XP</div>
         </div>
       </div>
-      <!-- divider -->
-      <div style="height:1px;background:#F1EDFF;margin:14px -4px 12px"></div>
-      <!-- inline stats -->
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px">
-        <div style="text-align:center">
-          <div style="font-size:15px;margin-bottom:2px">⚡</div>
+    </div>
+
+    <!-- STATS ROW (separate card) -->
+    <div style="background:#fff;border-radius:22px;margin:8px 16px 14px;box-shadow:0 4px 20px rgba(124,58,237,.1);overflow:hidden">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr)">
+        <div style="padding:14px 4px;display:flex;flex-direction:column;align-items:center;gap:4px;border-right:1px solid rgba(124,58,237,.1)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           <div style="font-size:13px;font-weight:900;color:#7C3AED" id="home-total-xp">0</div>
-          <div style="font-size:9px;color:#9CA3AF;font-weight:600;margin-top:1px">XP</div>
+          <div style="font-size:8.5px;color:#9CA3AF;font-weight:600;text-align:center;line-height:1.3">XP<br>Заработано</div>
         </div>
-        <div style="text-align:center;border-left:1px solid #F1EDFF">
-          <div style="font-size:15px;margin-bottom:2px">📝</div>
-          <div style="font-size:13px;font-weight:900;color:#1F2937" id="home-tests-done">0/2000</div>
-          <div style="font-size:9px;color:#9CA3AF;font-weight:600;margin-top:1px">Тестов</div>
+        <div style="padding:14px 4px;display:flex;flex-direction:column;align-items:center;gap:4px;border-right:1px solid rgba(124,58,237,.1)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg>
+          <div style="font-size:13px;font-weight:900;color:#1F2937" id="home-tests-done">0</div>
+          <div style="font-size:8.5px;color:#9CA3AF;font-weight:600;text-align:center;line-height:1.3">Достижений</div>
         </div>
-        <div style="text-align:center;border-left:1px solid #F1EDFF">
-          <div style="font-size:15px;margin-bottom:2px">🧳</div>
-          <div style="font-size:13px;font-weight:900;color:#1F2937" id="home-sims-done">0/500</div>
-          <div style="font-size:9px;color:#9CA3AF;font-weight:600;margin-top:1px">Сценариев</div>
+        <div style="padding:14px 4px;display:flex;flex-direction:column;align-items:center;gap:4px;border-right:1px solid rgba(124,58,237,.1)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <div style="font-size:13px;font-weight:900;color:#1F2937" id="home-sims-done">0</div>
+          <div style="font-size:8.5px;color:#9CA3AF;font-weight:600;text-align:center;line-height:1.3">Локаций</div>
         </div>
-        <div style="text-align:center;border-left:1px solid #F1EDFF">
-          <div style="font-size:15px;margin-bottom:2px">🔥</div>
+        <div style="padding:14px 4px;display:flex;flex-direction:column;align-items:center;gap:4px">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           <div style="font-size:13px;font-weight:900;color:#1F2937" id="home-streak">0</div>
-          <div style="font-size:9px;color:#9CA3AF;font-weight:600;margin-top:1px">Дней</div>
+          <div style="font-size:8.5px;color:#9CA3AF;font-weight:600;text-align:center;line-height:1.3">Дней<br>подряд</div>
         </div>
       </div>
     </div>
