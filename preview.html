@@ -21342,5 +21342,60 @@ function showBasicsTab(tab,btn){
 })();
 </script>
 
+
+<style id="cq4-style">
+@keyframes cqStand{0%{transform:translateY(80px) scale(.9);opacity:.2}55%{transform:translateY(-10px) scale(1.03);opacity:1}75%{transform:translateY(4px) scale(.99)}100%{transform:translateY(0) scale(1);opacity:1}}
+@keyframes cqWave{0%,100%{transform:rotate(0)}25%{transform:rotate(18deg)}75%{transform:rotate(-12deg)}}
+@keyframes cq4In{0%{transform:translateX(-50%) translateY(50px) scale(.7);opacity:0}55%{transform:translateX(-50%) translateY(-8px) scale(1.06);opacity:1}100%{transform:translateX(-50%) translateY(0) scale(1);opacity:1}}
+@keyframes cq4Out{to{opacity:0;transform:translateX(-50%) translateY(24px) scale(.9)}}
+#cq4-cheer{position:fixed;left:50%;bottom:104px;transform:translateX(-50%);z-index:500;background:#fff;border-radius:999px;padding:8px 18px 8px 8px;display:flex;align-items:center;gap:11px;box-shadow:0 12px 34px rgba(76,29,149,.3);font-size:16px;font-weight:900;color:#1F2937;pointer-events:none;border:2px solid #EDE7FF}
+#cq4-cheer img{width:42px;height:42px;border-radius:50%;object-fit:cover;object-position:50% 8%;background:linear-gradient(135deg,#A78BFA,#7C3AED)}
+</style>
+<script>
+(function(){
+  function nm(){return (typeof userName!=='undefined'&&userName)?userName:(localStorage.getItem('userName')||'друг');}
+  function foxSrc(){var f=document.querySelector('.fox-img');return f?f.src:'';}
+
+  // ===== entrance: fox stands up & greets =====
+  var greeted=false;
+  function greet(){
+    try{
+      var pg=document.getElementById('page-quests');if(!pg)return;
+      var img=pg.querySelector('.fox-img');if(!img)return;
+      img.style.animation='none';void img.offsetWidth;
+      img.style.animation='cqStand .9s cubic-bezier(.34,1.56,.64,1), cqFloat 5s ease-in-out infinite .9s';
+      var bub=document.getElementById('cq3-bubble');
+      if(bub){bub.textContent='Привет, '+nm()+'! 👋 Рад тебя видеть!';bub.style.animation='none';void bub.offsetWidth;bub.style.animation='cqUp .4s cubic-bezier(.34,1.56,.64,1)';}
+      try{(window.soundNav||window.soundXP||function(){})();}catch(e){}
+    }catch(e){}
+  }
+  var _sa=window.startApp;if(_sa)window.startApp=function(){var r=_sa.apply(this,arguments);greeted=true;setTimeout(greet,220);return r;};
+  var _sp=window.showPage;window.showPage=function(p){var r=_sp.apply(this,arguments);try{if(p==='quests'&&!greeted){greeted=true;setTimeout(greet,200);}}catch(e){}return r;};
+
+  // ===== correct-answer cheer =====
+  var CHEERS=['Урааа! 🎉','Супер! 🌟','Молодец! 👏','Так держать! 🔥','Вот это да! ⚡','Великолепно! 💜','Ты лучший! 🏆','Правильно! ✅'];
+  var lastCheer=0;
+  function cheer(){
+    try{
+      var now=Date.now();if(now-lastCheer<400)return;lastCheer=now;
+      var old=document.getElementById('cq4-cheer');if(old)old.remove();
+      var d=document.createElement('div');d.id='cq4-cheer';
+      var src=foxSrc();
+      d.innerHTML=(src?'<img src="'+src+'" alt=""/>':'<span style="font-size:28px">🦊</span>')+'<span>'+CHEERS[Math.floor(Math.random()*CHEERS.length)]+'</span>';
+      d.style.animation='cq4In .42s cubic-bezier(.34,1.56,.64,1) both';
+      (document.querySelector('.phone')||document.body).appendChild(d);
+      setTimeout(function(){d.style.animation='cq4Out .35s ease forwards';setTimeout(function(){if(d.parentNode)d.remove();},360);},1150);
+    }catch(e){}
+  }
+
+  var _ac=window.answerChoice;if(_ac)window.answerChoice=function(chosen,correct,xp,btn){var r=_ac.apply(this,arguments);try{if(chosen===correct)cheer();}catch(e){}return r;};
+  var _al=window.answerListen;if(_al)window.answerListen=function(chosen,correct,xp,btn){var r=_al.apply(this,arguments);try{if(chosen===correct)cheer();}catch(e){}return r;};
+  var _ci=window.checkInput;if(_ci)window.checkInput=function(answer,xp){var ok=false;try{var inp=document.getElementById('input-answer');ok=!!(inp&&inp.value.trim().toLowerCase()===answer);}catch(e){}var r=_ci.apply(this,arguments);try{if(ok)cheer();}catch(e){}return r;};
+
+  // cheer in SRS review / situations too (they call recordAnswer paths via their own UI)
+  window.CQ_cheer=cheer;
+})();
+</script>
+
 </body>
 </html>
