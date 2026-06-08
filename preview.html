@@ -706,6 +706,33 @@ button:active{filter:brightness(.97)}
       <button onclick="CQ3.openSituation()" style="margin-top:12px;width:100%;background:linear-gradient(135deg,#7C3AED,#9333EA);color:#fff;border:none;border-radius:13px;padding:12px;font-size:14px;font-weight:800;cursor:pointer">🎬 Играть</button>
     </div>
 
+
+    <!-- MOVE COUNTDOWN / SETUP (CQ5) -->
+    <div id="cq5-move" style="margin:0 16px 12px;cursor:pointer"></div>
+
+    <!-- PLAN OF THE DAY (CQ5) -->
+    <div onclick="CQ5.plan()" style="margin:0 16px 12px;background:#fff;border-radius:22px;padding:16px;box-shadow:0 4px 20px rgba(124,58,237,.08);cursor:pointer">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="font-size:30px">🧠</div>
+        <div style="flex:1">
+          <div style="font-size:13px;font-weight:900;color:#1F2937">План на сегодня</div>
+          <div id="cq5-plan-sub" style="font-size:11px;color:#9CA3AF;margin-top:2px">Персональные задания от лиса →</div>
+        </div>
+        <div style="font-size:18px;color:#D1D5DB">›</div>
+      </div>
+    </div>
+
+    <!-- EXTRA TOOLS (CQ5) -->
+    <div style="padding:0 16px 8px">
+      <div style="font-size:12px;font-weight:900;color:#1F2937;letter-spacing:.4px;margin-bottom:10px">ЕЩЁ ВОЗМОЖНОСТИ</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:9px">
+        <button class="cq-tool" onclick="CQ5.speaking()">🎙️<span>Говорение</span></button>
+        <button class="cq-tool" onclick="CQ5.games()">🎮<span>Игры</span></button>
+        <button class="cq-tool" onclick="CQ5.insights()">📊<span>Прогресс</span></button>
+        <button class="cq-tool" onclick="CQ5.fox()">🎨<span>Лис</span></button>
+      </div>
+    </div>
+
     <!-- DAILY GOAL (CQ+) -->
     <div style="background:#fff;border-radius:22px;margin:0 16px 12px;padding:16px;box-shadow:0 4px 20px rgba(124,58,237,.08);display:flex;align-items:center;gap:16px">
       <div style="position:relative;width:64px;height:64px;flex-shrink:0">
@@ -21397,6 +21424,279 @@ function showBasicsTab(tab,btn){
 
   // cheer in SRS review / situations too (they call recordAnswer paths via their own UI)
   window.CQ_cheer=cheer;window.CQ_encourage=encourage;
+})();
+</script>
+
+
+<style id="cq5-style">
+#cq5-combo{position:fixed;top:70px;left:50%;transform:translateX(-50%);z-index:480;background:linear-gradient(135deg,#F59E0B,#EF4444);color:#fff;font-weight:900;font-size:15px;padding:7px 16px;border-radius:999px;box-shadow:0 8px 22px rgba(239,68,68,.35);pointer-events:none;display:none}
+.cq5-mm{aspect-ratio:1;border-radius:14px;border:none;cursor:pointer;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;padding:4px;text-align:center;line-height:1.2;transition:.2s}
+.cq5-key{width:30px;height:36px;border:none;border-radius:8px;background:#F5F1FF;color:#7C3AED;font-weight:800;font-size:14px;cursor:pointer;margin:2px}
+.cq5-key:disabled{opacity:.35;cursor:default}
+.cq5-bars{display:flex;align-items:flex-end;gap:6px;height:90px}
+.cq5-bars>div{flex:1;background:linear-gradient(180deg,#A78BFA,#7C3AED);border-radius:6px 6px 0 0;min-height:4px;transition:.5s;position:relative}
+</style>
+
+<script>
+(function(){
+  var DAY=86400000;
+  function J(k,d){try{var v=JSON.parse(localStorage.getItem(k));return v==null?d:v;}catch(e){return d;}}
+  function P(k,v){localStorage.setItem(k,JSON.stringify(v));}
+  function today(){return new Date().toDateString();}
+  function toast(m){try{showToast(m);}catch(e){}}
+  function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+  function WD(){return (typeof wordsData!=='undefined')?wordsData:[];}
+  function lvl(){return Math.floor((parseInt(localStorage.getItem('xp')||'0',10))/500)+1;}
+  function close(){var m=document.getElementById('cq-modal');if(m)m.remove();}
+  function modal(title,body){close();var host=document.querySelector('.phone')||document.body;var b=document.createElement('div');b.className='cq-back';b.id='cq-modal';b.onclick=function(e){if(e.target===b)close();};b.innerHTML='<div class="cq-sheet"><div class="cq-sheet-h"><div style="font-size:16px;font-weight:900;color:#1F2937">'+title+'</div><button onclick="CQ5.close()" style="width:32px;height:32px;border-radius:10px;border:none;background:#F3F4F6;cursor:pointer;font-size:15px">✕</button></div><div id="cq-mbody" style="padding:14px 16px 10px">'+body+'</div></div>';host.appendChild(b);return document.getElementById('cq-mbody');}
+  function pick(a){return a[Math.floor(Math.random()*a.length)];}
+
+  // ============ 5) COMBO + INSIGHTS tracking ============
+  var combo=0;
+  function comboHud(){var h=document.getElementById('cq5-combo');if(!h){h=document.createElement('div');h.id='cq5-combo';(document.querySelector('.phone')||document.body).appendChild(h);}if(combo>=2){h.style.display='block';h.textContent='🔥 Комбо ×'+combo;h.style.animation='none';void h.offsetWidth;h.style.animation='cq4In .35s cubic-bezier(.34,1.56,.64,1) both';clearTimeout(window._cq5ch);window._cq5ch=setTimeout(function(){h.style.display='none';},1600);}else{h.style.display='none';}}
+  function track(correct){
+    var st=J('cq_stats',{correct:0,total:0});st.total++;if(correct)st.correct++;P('cq_stats',st);
+    if(correct){var act=J('cq_activity',{});act[today()]=(act[today()]||0)+1;P('cq_activity',act);combo++;if(combo>=3){try{if(typeof addXP==='function')addXP(2);}catch(e){}}comboHud();}
+    else{combo=0;var hh=document.getElementById('cq5-combo');if(hh)hh.style.display='none';}
+  }
+  function correctness(fn,args){return null;}
+  var _ac=window.answerChoice;if(_ac)window.answerChoice=function(chosen,correct,xp,btn){var ok=chosen===correct;var r=_ac.apply(this,arguments);try{track(ok);}catch(e){}return r;};
+  var _al=window.answerListen;if(_al)window.answerListen=function(chosen,correct,xp,btn){var ok=chosen===correct;var r=_al.apply(this,arguments);try{track(ok);}catch(e){}return r;};
+  var _ci=window.checkInput;if(_ci)window.checkInput=function(answer,xp){var ok=false;try{var inp=document.getElementById('input-answer');ok=!!(inp&&inp.value.trim().toLowerCase()===answer);}catch(e){}var r=_ci.apply(this,arguments);try{track(ok);}catch(e){}return r;};
+  var _iq=window.initTestQueue;if(_iq)window.initTestQueue=function(){combo=0;var hh=document.getElementById('cq5-combo');if(hh)hh.style.display='none';return _iq.apply(this,arguments);};
+
+  // ============ 6) INSIGHTS ============
+  function insights(){
+    var st=J('cq_stats',{correct:0,total:0});var act=J('cq_activity',{});
+    var acc=st.total?Math.round(st.correct/st.total*100):0;
+    var days=[];var max=1;
+    for(var i=6;i>=0;i--){var d=new Date(Date.now()-i*DAY);var k=d.toDateString();var v=act[k]||0;if(v>max)max=v;days.push({l:['Вс','Пн','Вт','Ср','Чт','Пт','Сб'][d.getDay()],v:v});}
+    var bars='<div class="cq5-bars">'+days.map(function(d){return '<div style="height:'+(d.v/max*100)+'%"><span style="position:absolute;top:-16px;left:0;right:0;text-align:center;font-size:9px;font-weight:800;color:#7C3AED">'+(d.v||'')+'</span></div>';}).join('')+'</div>';
+    var lbls='<div style="display:flex;gap:6px;margin-top:6px">'+days.map(function(d){return '<div style="flex:1;text-align:center;font-size:9px;color:#9CA3AF;font-weight:700">'+d.l+'</div>';}).join('')+'</div>';
+    var wl=localStorage.getItem('wl')||'0';var streak=localStorage.getItem('streak')||'0';var xp=localStorage.getItem('xp')||'0';
+    var srs=J('cq_srs',{});var mem=0;for(var kk in srs){if(srs[kk].box>=4)mem++;}
+    function stat(v,l,c){return '<div style="flex:1;text-align:center;background:#fff;border-radius:14px;padding:12px 4px;box-shadow:0 2px 10px rgba(0,0,0,.04)"><div style="font-size:18px;font-weight:900;color:'+(c||'#1F2937')+'">'+v+'</div><div style="font-size:9px;color:#9CA3AF;font-weight:700;margin-top:2px">'+l+'</div></div>';}
+    var h='<div style="font-size:12px;font-weight:900;color:#1F2937;margin-bottom:10px">📅 Активность за неделю</div>';
+    h+='<div style="background:#F8F6FF;border-radius:16px;padding:18px 14px 10px">'+bars+lbls+'</div>';
+    h+='<div style="display:flex;gap:8px;margin-top:14px">'+stat(acc+'%','Точность','#7C3AED')+stat(wl,'Слов выучено')+stat(streak,'Серия 🔥')+'</div>';
+    h+='<div style="display:flex;gap:8px;margin-top:8px">'+stat(xp,'Всего XP','#7C3AED')+stat(mem,'В долгой памяти')+stat(st.total,'Ответов всего')+'</div>';
+    h+='<div style="font-size:11px;color:#9CA3AF;text-align:center;margin-top:14px">Занимайся каждый день — график будет расти 🌱</div>';
+    modal('📊 Твой прогресс',h);
+  }
+
+  // ============ 2) PLAN ============
+  function dueWords(){var s=J('cq_srs',{});var a=[];for(var k in s){if((s[k].due||0)<=Date.now())a.push({en:k,ru:s[k].ru});}return a;}
+  function planSub(){var d=dueWords().length;var m=Object.keys(J('cq_mistakes',{})).length;var g=J('cq_goal',{count:0,target:20});var left=Math.max(0,g.target-g.count);return [d?('🔁 '+d+' на повторение'):'', m?('❗ '+m+' ошибок'):'', left?('🎯 '+left+' слов до цели'):''].filter(Boolean).join(' · ')||'Всё выполнено — ты молодец! 🎉';}
+  function renderPlanCard(){try{var s=document.getElementById('cq5-plan-sub');if(s)s.textContent=planSub();}catch(e){}}
+  function plan(){
+    var d=dueWords().length;var m=Object.keys(J('cq_mistakes',{})).length;var g=J('cq_goal',{count:0,target:20});var left=Math.max(0,g.target-g.count);
+    var name=(typeof userName!=='undefined'&&userName)?userName:'друг';
+    var h='<div style="display:flex;gap:12px;align-items:center;background:#F5F1FF;border-radius:16px;padding:14px;margin-bottom:14px"><div style="font-size:34px">🦊</div><div style="font-size:13px;color:#374151;line-height:1.5;font-weight:600">'+esc(name)+', вот что предлагаю на сегодня:</div></div>';
+    function row(ic,t,sub,btn,fn){return '<div style="display:flex;align-items:center;gap:11px;background:#fff;border-radius:14px;padding:12px 14px;margin-bottom:9px;box-shadow:0 2px 10px rgba(0,0,0,.04)"><div style="font-size:24px">'+ic+'</div><div style="flex:1"><div style="font-size:13px;font-weight:800;color:#1F2937">'+t+'</div><div style="font-size:11px;color:#9CA3AF">'+sub+'</div></div><button onclick="'+fn+'" style="background:#7C3AED;color:#fff;border:none;border-radius:10px;padding:8px 13px;font-size:12px;font-weight:800;cursor:pointer">'+btn+'</button></div>';}
+    h+=row('🔁','Повторение слов',(d?d+' слов ждут':'Закрепи знания'),'Старт','CQ5.close();try{CQ.openReview()}catch(e){}');
+    if(m)h+=row('❗','Работа над ошибками',m+' слов','Старт','CQ5.close();try{CQ.trainMistakes()}catch(e){}');
+    h+=row('🎯','Новые слова',(left?left+' до цели дня':'Цель выполнена!'),'К словам','CQ5.close();try{showPage(\'study\')}catch(e){}');
+    h+=row('🎙️','Произношение','5 фраз вслух','Говорить','CQ5.close();CQ5.speaking()');
+    h+=row('🎲','Ситуация дня','Живая развилка','Играть','CQ5.close();try{CQ3.openSituation()}catch(e){}');
+    modal('🧠 План на сегодня',h);
+  }
+
+  // ============ 1) SPEAKING ============
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  var sp={list:[],i:0,ok:0};
+  function speaking(){
+    var due=dueWords();var base=due.length>=6?due:shuffle(WD().slice()).slice(0,8).map(function(w){return {en:w.en,ru:w.ru};});
+    sp={list:shuffle(base).slice(0,8),i:0,ok:0};
+    if(!sp.list.length){toast('Нет слов');return;}
+    modal('🎙️ Произношение','<div id="cq5-sp"></div>');renderSp();
+  }
+  function lev(a,b){a=a||'';b=b||'';var m=a.length,n=b.length,d=[];for(var i=0;i<=m;i++)d[i]=[i];for(var j=0;j<=n;j++)d[0][j]=j;for(i=1;i<=m;i++)for(j=1;j<=n;j++)d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));return d[m][n];}
+  function renderSp(){
+    var box=document.getElementById('cq5-sp');if(!box)return;
+    if(sp.i>=sp.list.length){box.innerHTML='<div style="text-align:center;padding:22px 6px"><div style="font-size:54px">🎉</div><div style="font-size:19px;font-weight:900;color:#1F2937;margin:8px 0">Отличная практика!</div><div style="font-size:13px;color:#6B7280;margin-bottom:16px">Хорошо произнёс: <b style="color:#7C3AED">'+sp.ok+' из '+sp.list.length+'</b></div><button class="cq-prim" onclick="CQ5.close()">Готово</button></div>';return;}
+    var c=sp.list[sp.i];
+    var bars='';for(var b=0;b<sp.list.length;b++){bars+='<div style="flex:1;height:4px;border-radius:2px;background:'+(b<sp.i?'#7C3AED':(b===sp.i?'#A78BFA':'#E9E3FB'))+'"></div>';}
+    var h='<div style="display:flex;gap:3px;margin-bottom:14px">'+bars+'</div>';
+    h+='<div style="background:#fff;border-radius:18px;padding:22px 16px;box-shadow:0 3px 14px rgba(124,58,237,.08);text-align:center;margin-bottom:14px"><div style="font-size:11px;font-weight:800;color:#9CA3AF;letter-spacing:.5px;margin-bottom:8px">ПРОИЗНЕСИ ВСЛУХ</div><div style="font-size:26px;font-weight:900;color:#1F2937">'+esc(c.en)+'</div><div style="font-size:12px;color:#7C3AED;margin-top:4px">'+esc(c.ru)+'</div><button onclick="speak(\''+esc(c.en).replace(/\x27/g,"")+'\')" style="margin-top:12px;width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#a78bfa);border:none;cursor:pointer;color:#fff;font-size:18px">🔊</button></div>';
+    h+='<div id="cq5-sp-res" style="text-align:center;font-size:14px;font-weight:800;min-height:24px;margin-bottom:10px"></div>';
+    if(SR){h+='<button id="cq5-mic" class="cq-prim" onclick="CQ5.listen()">🎤 Говорить</button>';}
+    else{h+='<div style="font-size:12px;color:#9CA3AF;text-align:center;margin-bottom:10px">🎙️ Микрофон недоступен в этом браузере (попробуй Chrome). Можешь отметить вручную.</div><button class="cq-prim" onclick="CQ5.spNext(1)">✅ Я произнёс(ла)</button>';}
+    h+='<button onclick="CQ5.spNext(0)" style="margin-top:9px;width:100%;background:#F3F4F6;color:#6B7280;border:none;border-radius:14px;padding:12px;font-size:13px;font-weight:700;cursor:pointer">Пропустить →</button>';
+    box.innerHTML=h;
+  }
+  function listen(){
+    if(!SR)return;var c=sp.list[sp.i];var res=document.getElementById('cq5-sp-res');var mic=document.getElementById('cq5-mic');
+    var rec=new SR();rec.lang='en-US';rec.interimResults=false;rec.maxAlternatives=3;
+    if(mic){mic.textContent='🎙️ Слушаю…';mic.style.opacity='.7';}
+    if(res){res.textContent='';res.style.color='#9CA3AF';}
+    rec.onresult=function(e){
+      var said='';for(var i=0;i<e.results[0].length;i++){said+=' '+e.results[0][i].transcript;}
+      said=said.toLowerCase().replace(/[^a-z ]/g,'').trim();var tgt=c.en.toLowerCase().replace(/[^a-z ]/g,'').trim();
+      var d=lev(said,tgt);var ratio=1-d/Math.max(tgt.length,1);var good=said.indexOf(tgt)>=0||tgt.indexOf(said)>=0||ratio>=0.75;var ok=good||ratio>=0.55;
+      if(res){res.style.color=good?'#16a34a':(ok?'#d97706':'#dc2626');res.textContent=good?('🌟 Отлично! «'+said+'»'):(ok?('👍 Почти! Услышал: «'+said+'»'):('🔁 Попробуй ещё: «'+(said||'…')+'»'));}
+      if(good){sp.ok++;try{soundCorrect();}catch(e){}if(typeof addXP==='function')addXP(5);setTimeout(function(){spNext(0);},1400);}
+      else{try{soundWrong&&soundWrong();}catch(e){}if(mic){mic.textContent='🎤 Ещё раз';mic.style.opacity='1';}}
+    };
+    rec.onerror=function(){if(res){res.style.color='#dc2626';res.textContent='Не расслышал, попробуй ещё 🎤';}if(mic){mic.textContent='🎤 Говорить';mic.style.opacity='1';}};
+    rec.onend=function(){if(mic&&mic.textContent==='🎙️ Слушаю…'){mic.textContent='🎤 Говорить';mic.style.opacity='1';}};
+    try{rec.start();}catch(e){}
+  }
+  function spNext(good){if(good)sp.ok++;sp.i++;renderSp();}
+
+  // ============ 3) MINI-GAMES ============
+  function games(){
+    var g=[['⚡','Speed Round','60 секунд на максимум','CQ5.speed()'],['🃏','Найди пару','Соедини слово и перевод','CQ5.match()'],['🔤','Собери фразу','Расставь слова по порядку','CQ5.order()'],['🎯','Виселица','Угадай слово по буквам','CQ5.hang()']];
+    var h='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">';
+    g.forEach(function(x){h+='<div onclick="'+x[3]+'" style="background:#fff;border-radius:18px;padding:16px 12px;box-shadow:0 3px 14px rgba(124,58,237,.08);cursor:pointer;text-align:center"><div style="font-size:36px">'+x[0]+'</div><div style="font-size:13px;font-weight:900;color:#1F2937;margin-top:8px">'+x[1]+'</div><div style="font-size:10px;color:#9CA3AF;margin-top:3px;line-height:1.3">'+x[2]+'</div></div>';});
+    h+='</div>';modal('🎮 Мини-игры',h);
+  }
+  // Speed Round
+  var spd={};
+  function speed(){spd={score:0,t:60,q:null};modal('⚡ Speed Round','<div id="cq5-spd"></div>');spd.timer=setInterval(function(){spd.t--;var tEl=document.getElementById('cq5-spd-time');if(tEl)tEl.textContent=spd.t;if(spd.t<=0)endSpeed();},1000);nextSpeed();}
+  function nextSpeed(){
+    var box=document.getElementById('cq5-spd');if(!box)return;var all=WD();if(!all.length)return;
+    var w=pick(all);var ds=shuffle(all.filter(function(x){return x.ru!==w.ru;})).slice(0,3).map(function(x){return x.ru;});var opts=shuffle([w.ru].concat(ds));
+    spd.q=w;
+    var h='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><div style="font-size:13px;font-weight:800;color:#7C3AED">⏱️ <span id="cq5-spd-time">'+spd.t+'</span>с</div><div style="font-size:13px;font-weight:900;color:#1F2937">Очки: '+spd.score+'</div></div>';
+    h+='<div style="background:#fff;border-radius:18px;padding:22px 16px;text-align:center;box-shadow:0 3px 14px rgba(124,58,237,.08);margin-bottom:14px"><div style="font-size:24px;font-weight:900;color:#1F2937">'+esc(w.en)+'</div></div><div>';
+    opts.forEach(function(o){h+='<button class="cq-opt" onclick="CQ5.spdAns('+(o===w.ru?1:0)+')">'+esc(o)+'</button>';});
+    h+='</div>';box.innerHTML=h;
+  }
+  function spdAns(ok){if(ok){spd.score++;try{soundCorrect();}catch(e){}}else{try{soundWrong&&soundWrong();}catch(e){}}nextSpeed();}
+  function endSpeed(){clearInterval(spd.timer);var box=document.getElementById('cq5-spd');if(!box)return;var xp=spd.score*3;try{if(typeof addXP==='function')addXP(xp);}catch(e){}var act=J('cq_activity',{});act[today()]=(act[today()]||0)+spd.score;P('cq_activity',act);box.innerHTML='<div style="text-align:center;padding:20px 6px"><div style="font-size:54px">⚡</div><div style="font-size:20px;font-weight:900;color:#1F2937;margin:8px 0 4px">Время вышло!</div><div style="font-size:15px;color:#6B7280">Очки: <b style="color:#7C3AED">'+spd.score+'</b> · +'+xp+' XP</div><div style="margin-top:16px"><button class="cq-prim" onclick="CQ5.speed()">🔁 Ещё раз</button><button onclick="CQ5.games()" style="margin-top:9px;width:100%;background:#F3F4F6;color:#6B7280;border:none;border-radius:14px;padding:12px;font-weight:700;cursor:pointer">К играм</button></div></div>';try{spawnParticles&&spawnParticles();}catch(e){}}
+  // Memory match
+  var mm={};
+  function match(){
+    var ws=shuffle(WD().slice()).slice(0,6);var cards=[];ws.forEach(function(w,i){cards.push({id:i,t:w.en,en:1});cards.push({id:i,t:w.ru,en:0});});
+    mm={cards:shuffle(cards),open:[],done:[],moves:0};
+    modal('🃏 Найди пару','<div id="cq5-mm"></div>');renderMatch();
+  }
+  function renderMatch(){
+    var box=document.getElementById('cq5-mm');if(!box)return;
+    var h='<div style="font-size:12px;color:#9CA3AF;font-weight:700;text-align:center;margin-bottom:10px">Ходы: '+mm.moves+' · Найдено: '+mm.done.length/2+'/6</div>';
+    h+='<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">';
+    mm.cards.forEach(function(c,idx){
+      var shown=mm.open.indexOf(idx)>=0||mm.done.indexOf(idx)>=0;var matched=mm.done.indexOf(idx)>=0;
+      var bg=matched?'#dcfce7':(shown?'#fff':'linear-gradient(135deg,#7C3AED,#9333EA)');
+      var col=matched?'#16a34a':(shown?'#1F2937':'#fff');
+      h+='<button class="cq5-mm" style="background:'+bg+';color:'+col+';box-shadow:0 2px 8px rgba(0,0,0,.06)" onclick="CQ5.mmFlip('+idx+')">'+(shown?esc(c.t):'?')+'</button>';
+    });
+    h+='</div>';box.innerHTML=h;
+  }
+  function mmFlip(idx){
+    if(mm.open.indexOf(idx)>=0||mm.done.indexOf(idx)>=0)return;if(mm.open.length>=2)return;
+    mm.open.push(idx);try{soundClick&&soundClick();}catch(e){}renderMatch();
+    if(mm.open.length===2){mm.moves++;var a=mm.cards[mm.open[0]],b=mm.cards[mm.open[1]];
+      if(a.id===b.id&&a.en!==b.en){mm.done.push(mm.open[0],mm.open[1]);mm.open=[];try{soundCorrect();}catch(e){}setTimeout(renderMatch,250);
+        if(mm.done.length===mm.cards.length){var xp=Math.max(20,80-mm.moves*4);try{if(typeof addXP==='function')addXP(xp);}catch(e){}setTimeout(function(){var box=document.getElementById('cq5-mm');if(box)box.innerHTML='<div style="text-align:center;padding:20px"><div style="font-size:54px">🎉</div><div style="font-size:19px;font-weight:900;margin:8px 0">Все пары найдены!</div><div style="font-size:14px;color:#6B7280">За '+mm.moves+' ходов · +'+xp+' XP</div><button class="cq-prim" style="margin-top:16px" onclick="CQ5.match()">🔁 Ещё раз</button></div>';try{spawnParticles&&spawnParticles();}catch(e){}},400);}
+      } else {setTimeout(function(){mm.open=[];renderMatch();},800);}
+    }
+  }
+  // Word order
+  var wo={};
+  function order(){
+    var src=(typeof sentencesData!=='undefined'&&sentencesData.length)?sentencesData:[{en:'I would like to open a bank account',ru:'Я хочу открыть счёт'}];
+    var s=pick(src.filter(function(x){return x.en.split(' ').length>=3&&x.en.split(' ').length<=7;})||src);
+    if(!s)s=src[0];
+    wo={s:s,words:shuffle(s.en.replace(/[.,!?]/g,'').split(' ')),built:[]};
+    modal('🔤 Собери фразу','<div id="cq5-wo"></div>');renderOrder();
+  }
+  function renderOrder(){
+    var box=document.getElementById('cq5-wo');if(!box)return;
+    var h='<div style="background:#F5F1FF;border-radius:14px;padding:12px;text-align:center;font-size:13px;color:#7C3AED;font-weight:700;margin-bottom:12px">🇷🇺 '+esc(wo.s.ru)+'</div>';
+    h+='<div style="min-height:54px;border:2px dashed #DDD6FE;border-radius:14px;padding:10px;margin-bottom:12px;display:flex;flex-wrap:wrap;gap:6px;align-content:flex-start">';
+    wo.built.forEach(function(w,i){h+='<button onclick="CQ5.woUn('+i+')" style="background:#7C3AED;color:#fff;border:none;border-radius:9px;padding:7px 11px;font-size:13px;font-weight:700;cursor:pointer">'+esc(w)+'</button>';});
+    h+='</div><div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:14px">';
+    wo.words.forEach(function(w,i){if(w===null){h+='';return;}h+='<button onclick="CQ5.woAdd('+i+')" style="background:#fff;color:#1F2937;border:2px solid #EFEAFC;border-radius:9px;padding:7px 11px;font-size:13px;font-weight:700;cursor:pointer">'+esc(w)+'</button>';});
+    h+='</div><div id="cq5-wo-res" style="text-align:center;font-weight:800;font-size:14px;min-height:22px;margin-bottom:10px"></div>';
+    h+='<button class="cq-prim" onclick="CQ5.woCheck()">Проверить</button>';
+    box.innerHTML=h;
+  }
+  function woAdd(i){if(wo.words[i]===null)return;wo.built.push(wo.words[i]);wo.words[i]=null;try{soundClick&&soundClick();}catch(e){}renderOrder();}
+  function woUn(i){var w=wo.built.splice(i,1)[0];for(var k=0;k<wo.words.length;k++){if(wo.words[k]===null){wo.words[k]=w;break;}}renderOrder();}
+  function woCheck(){
+    var res=document.getElementById('cq5-wo-res');var built=wo.built.join(' ').toLowerCase();var tgt=wo.s.en.replace(/[.,!?]/g,'').toLowerCase();
+    if(built===tgt){if(res){res.style.color='#16a34a';res.textContent='🌟 Верно!';}try{soundCorrect();}catch(e){}if(typeof addXP==='function')addXP(15);setTimeout(function(){order();},1300);}
+    else{if(res){res.style.color='#dc2626';res.textContent='Не совсем — попробуй переставить';}try{soundWrong&&soundWrong();}catch(e){}}
+  }
+  // Hangman
+  var hg={};
+  function hang(){
+    var pool=WD().filter(function(w){return /^[a-zA-Z]{4,8}$/.test(w.en);});var w=pick(pool.length?pool:[{en:'house',ru:'дом'}]);
+    hg={w:w.en.toLowerCase(),ru:w.ru,guessed:[],lives:6};
+    modal('🎯 Виселица','<div id="cq5-hg"></div>');renderHang();
+  }
+  function renderHang(){
+    var box=document.getElementById('cq5-hg');if(!box)return;
+    var masked=hg.w.split('').map(function(c){return hg.guessed.indexOf(c)>=0?c:'_';}).join(' ');
+    var won=hg.w.split('').every(function(c){return hg.guessed.indexOf(c)>=0;});
+    var lost=hg.lives<=0;
+    var hearts='';for(var i=0;i<6;i++)hearts+=i<hg.lives?'❤️':'🤍';
+    var h='<div style="text-align:center;margin-bottom:10px;font-size:16px">'+hearts+'</div>';
+    h+='<div style="background:#F5F1FF;border-radius:14px;padding:10px;text-align:center;font-size:12px;color:#7C3AED;font-weight:700;margin-bottom:10px">Подсказка: '+esc(hg.ru)+'</div>';
+    h+='<div style="text-align:center;font-size:30px;font-weight:900;letter-spacing:4px;color:#1F2937;margin:14px 0;font-family:monospace">'+masked.toUpperCase()+'</div>';
+    if(won){h+='<div style="text-align:center;font-size:18px;font-weight:900;color:#16a34a;margin:10px 0">🎉 Угадал!</div>';if(!hg.done){hg.done=1;try{if(typeof addXP==='function')addXP(20);soundCorrect();spawnParticles&&spawnParticles();}catch(e){}}h+='<button class="cq-prim" onclick="CQ5.hang()">🔁 Ещё слово</button>';}
+    else if(lost){h+='<div style="text-align:center;font-size:16px;font-weight:900;color:#dc2626;margin:10px 0">Слово: '+esc(hg.w)+'</div>';try{soundWrong&&soundWrong();}catch(e){}h+='<button class="cq-prim" onclick="CQ5.hang()">🔁 Ещё слово</button>';}
+    else{var rows='qwertyuiop|asdfghjkl|zxcvbnm'.split('|');h+='<div style="text-align:center">';rows.forEach(function(r){h+='<div>';r.split('').forEach(function(c){var used=hg.guessed.indexOf(c)>=0;h+='<button class="cq5-key" '+(used?'disabled':'')+' onclick="CQ5.hgGuess(\''+c+'\')">'+c.toUpperCase()+'</button>';});h+='</div>';});h+='</div>';}
+    box.innerHTML=h;
+  }
+  function hgGuess(c){if(hg.guessed.indexOf(c)>=0)return;hg.guessed.push(c);if(hg.w.indexOf(c)<0){hg.lives--;try{soundWrong&&soundWrong();}catch(e){}}else{try{soundClick&&soundClick();}catch(e){}}renderHang();}
+
+  // ============ 4) MOVE PERSONALIZATION ============
+  var COUNTRIES=[['🇬🇧','Великобритания'],['🇺🇸','США'],['🇨🇦','Канада'],['🇩🇪','Германия'],['🇦🇪','ОАЭ'],['🇦🇺','Австралия'],['🇮🇪','Ирландия'],['🇳🇱','Нидерланды'],['🌍','Другая']];
+  function renderMove(){
+    var el=document.getElementById('cq5-move');if(!el)return;
+    var c=localStorage.getItem('cq_country');var d=localStorage.getItem('cq_movedate');
+    if(c&&d){
+      var days=Math.ceil((new Date(d)-Date.now())/DAY);
+      var flag=(c.split('|')[0])||'🌍';var name=(c.split('|')[1])||'';
+      el.innerHTML='<div onclick="CQ5.moveSetup()" style="border-radius:22px;padding:16px;background:linear-gradient(135deg,#0EA5E9,#6366F1);color:#fff;box-shadow:0 8px 24px rgba(99,102,241,.28);position:relative;overflow:hidden"><div style="position:absolute;right:-10px;bottom:-20px;font-size:80px;opacity:.25">'+flag+'</div><div style="font-size:10px;font-weight:800;letter-spacing:.5px;opacity:.9;position:relative">'+flag+' ПЕРЕЕЗД В '+esc(name.toUpperCase())+'</div><div style="font-size:26px;font-weight:900;margin-top:6px;position:relative">'+(days>0?('Осталось '+days+' дн.'):(days===0?'Сегодня! 🎉':'В пути! 🚀'))+'</div><div style="font-size:11px;opacity:.9;margin-top:4px;position:relative">Готовься с лисом каждый день →</div></div>';
+    } else {
+      el.innerHTML='<div onclick="CQ5.moveSetup()" style="border-radius:18px;padding:14px;background:#fff;box-shadow:0 4px 20px rgba(124,58,237,.08);display:flex;align-items:center;gap:12px;cursor:pointer"><div style="font-size:28px">🎯</div><div style="flex:1"><div style="font-size:13px;font-weight:900;color:#1F2937">Куда и когда переезжаешь?</div><div style="font-size:11px;color:#9CA3AF;margin-top:2px">Настрой таймер и путь под свою страну</div></div><div style="font-size:18px;color:#D1D5DB">›</div></div>';
+    }
+  }
+  function moveSetup(){
+    var cur=localStorage.getItem('cq_country')||'';var curd=localStorage.getItem('cq_movedate')||'';
+    var h='<div style="font-size:13px;color:#6B7280;margin-bottom:12px">Выбери страну переезда:</div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px">';
+    COUNTRIES.forEach(function(c){var val=c[0]+'|'+c[1];var on=cur===val;h+='<button onclick="CQ5.pickCountry(this,\''+c[0]+'|'+c[1]+'\')" class="cq5-cbtn" data-v="'+val+'" style="background:'+(on?'#7C3AED':'#fff')+';color:'+(on?'#fff':'#1F2937')+';border:2px solid '+(on?'#7C3AED':'#EFEAFC')+';border-radius:14px;padding:12px 4px;cursor:pointer;text-align:center"><div style="font-size:26px">'+c[0]+'</div><div style="font-size:9.5px;font-weight:800;margin-top:4px">'+c[1]+'</div></button>';});
+    h+='</div><div style="font-size:13px;color:#6B7280;margin-bottom:8px">Планируемая дата переезда:</div><input type="date" id="cq5-date" value="'+curd+'" style="width:100%;box-sizing:border-box;padding:13px;border:2px solid #EFEAFC;border-radius:13px;font-size:14px;margin-bottom:16px"/>';
+    h+='<button class="cq-prim" onclick="CQ5.saveMove()">Сохранить</button>';
+    modal('🎯 Цель переезда',h);
+    window._cq5pick=cur;
+  }
+  function pickCountry(btn,v){window._cq5pick=v;var bs=document.querySelectorAll('.cq5-cbtn');for(var i=0;i<bs.length;i++){var on=bs[i].getAttribute('data-v')===v;bs[i].style.background=on?'#7C3AED':'#fff';bs[i].style.color=on?'#fff':'#1F2937';bs[i].style.borderColor=on?'#7C3AED':'#EFEAFC';}}
+  function saveMove(){var c=window._cq5pick;var d=document.getElementById('cq5-date');if(!c){toast('Выбери страну');return;}if(!d||!d.value){toast('Укажи дату');return;}localStorage.setItem('cq_country',c);localStorage.setItem('cq_movedate',d.value);close();renderMove();toast('🎯 Цель установлена! Удачи с переездом 🦊');}
+
+  // ============ 7) FOX CUSTOMIZATION ============
+  var HATS=[['none','Без шапки',0],['🎓','Выпускник',1],['🧢','Кепка',2],['🎩','Цилиндр',4],['👑','Корона',8],['🪄','Маг',6],['🎅','Праздник',10],['⛑️','Каска',5]];
+  function fox(){
+    var name=localStorage.getItem('cq_foxname')||'Рыжик';var L=lvl();var owned=localStorage.getItem('cq_hat')||'none';
+    var h='<div style="text-align:center;margin-bottom:14px"><div style="font-size:60px;position:relative;display:inline-block">🦊'+(owned!=='none'?'<span style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);font-size:30px">'+owned+'</span>':'')+'</div></div>';
+    h+='<div style="font-size:12px;font-weight:800;color:#6B7280;margin-bottom:6px">Имя твоего лиса</div>';
+    h+='<div style="display:flex;gap:8px;margin-bottom:18px"><input id="cq5-foxname" value="'+esc(name)+'" maxlength="14" style="flex:1;padding:12px;border:2px solid #EFEAFC;border-radius:12px;font-size:14px"/><button onclick="CQ5.saveFoxName()" style="background:#7C3AED;color:#fff;border:none;border-radius:12px;padding:0 16px;font-weight:800;cursor:pointer">OK</button></div>';
+    h+='<div style="font-size:12px;font-weight:800;color:#6B7280;margin-bottom:10px">Головные уборы (открываются по уровню)</div>';
+    h+='<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:9px">';
+    HATS.forEach(function(ht){var id=ht[0],nm=ht[1],need=ht[2];var unlocked=L>=need;var on=owned===id;
+      h+='<button onclick="'+(unlocked?'CQ5.equipHat(\''+id+'\')':'')+'" style="background:'+(on?'#F5F1FF':'#fff')+';border:2px solid '+(on?'#7C3AED':'#EFEAFC')+';border-radius:14px;padding:12px 4px;cursor:'+(unlocked?'pointer':'default')+';text-align:center;opacity:'+(unlocked?1:.5)+'"><div style="font-size:26px">'+(id==='none'?'🚫':id)+'</div><div style="font-size:9px;font-weight:700;color:#374151;margin-top:4px">'+nm+'</div><div style="font-size:8.5px;color:'+(unlocked?'#22c55e':'#9CA3AF')+';font-weight:800;margin-top:2px">'+(unlocked?(on?'надето':'открыто'):'ур. '+need)+'</div></button>';});
+    h+='</div>';
+    modal('🎨 Мой лис',h);
+  }
+  function saveFoxName(){var i=document.getElementById('cq5-foxname');if(i&&i.value.trim()){localStorage.setItem('cq_foxname',i.value.trim());toast('🦊 Теперь его зовут '+i.value.trim()+'!');}}
+  function equipHat(id){localStorage.setItem('cq_hat',id);try{if(typeof CQ3hat==='function')CQ3hat();}catch(e){}applyHat();fox();toast(id==='none'?'Шапка снята':'Готово! 🎩');}
+  function applyHat(){
+    try{var pg=document.getElementById('page-quests');if(!pg)return;var img=pg.querySelector('.fox-img');if(!img)return;var box=img.parentNode;
+      var ex=box.querySelector('.cq5-hat');if(ex)ex.remove();
+      var id=localStorage.getItem('cq_hat')||'none';if(id==='none')return;
+      var hat=document.createElement('div');hat.className='cq5-hat';hat.textContent=id;hat.style.cssText='position:absolute;z-index:7;top:-10px;left:50%;transform:translateX(-50%);font-size:34px;pointer-events:none;filter:drop-shadow(0 3px 5px rgba(0,0,0,.2))';box.appendChild(hat);
+    }catch(e){}
+  }
+
+  function renderAll(){renderMove();renderPlanCard();applyHat();}
+  window.CQ5={speaking:speaking,listen:listen,spNext:spNext,games:games,speed:speed,spdAns:spdAns,match:match,mmFlip:mmFlip,order:order,woAdd:woAdd,woUn:woUn,woCheck:woCheck,hang:hang,hgGuess:hgGuess,insights:insights,plan:plan,moveSetup:moveSetup,pickCountry:pickCountry,saveMove:saveMove,fox:fox,saveFoxName:saveFoxName,equipHat:equipHat,close:close};
+  var _sp2=window.showPage;window.showPage=function(p){var r=_sp2.apply(this,arguments);try{if(p==='quests')setTimeout(renderAll,50);}catch(e){}return r;};
+  function init(){setTimeout(renderAll,80);}
+  if(document.readyState==='loading')window.addEventListener('DOMContentLoaded',init);else init();
 })();
 </script>
 
