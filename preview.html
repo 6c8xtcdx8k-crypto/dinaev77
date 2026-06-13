@@ -733,6 +733,27 @@ button:active{filter:brightness(.97)}
       </div>
     </div>
 
+
+    <!-- SEASONAL EVENT (CQ6) -->
+    <div id="cq6-event" style="margin:0 16px 12px;cursor:pointer"></div>
+
+    <!-- LUCKY CHEST (CQ6) -->
+    <div id="cq6-chest" style="margin:0 16px 12px;cursor:pointer"></div>
+
+    <!-- WORD OF THE MOVE (CQ6) -->
+    <div id="cq6-wom" onclick="CQ6.wom()" style="margin:0 16px 12px;cursor:pointer"></div>
+
+    <!-- MORE TOOLS (CQ6) -->
+    <div style="padding:0 16px 8px">
+      <div style="font-size:12px;font-weight:900;color:#1F2937;letter-spacing:.4px;margin-bottom:10px">ИГРАЙ И РАЗВИВАЙСЯ</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:9px">
+        <button class="cq-tool" onclick="CQ6.evolution()">🦊<span>Эволюция</span></button>
+        <button class="cq-tool" onclick="CQ6.duel()">⚔️<span>Дуэль</span></button>
+        <button class="cq-tool" onclick="CQ6.trophies()">🏆<span>Трофеи</span></button>
+        <button class="cq-tool" onclick="CQ6.wom()">📖<span>Слово дня</span></button>
+      </div>
+    </div>
+
     <!-- DAILY GOAL (CQ+) -->
     <div style="background:#fff;border-radius:22px;margin:0 16px 12px;padding:16px;box-shadow:0 4px 20px rgba(124,58,237,.08);display:flex;align-items:center;gap:16px">
       <div style="position:relative;width:64px;height:64px;flex-shrink:0">
@@ -21696,6 +21717,270 @@ function showBasicsTab(tab,btn){
   window.CQ5={speaking:speaking,listen:listen,spNext:spNext,games:games,speed:speed,spdAns:spdAns,match:match,mmFlip:mmFlip,order:order,woAdd:woAdd,woUn:woUn,woCheck:woCheck,hang:hang,hgGuess:hgGuess,insights:insights,plan:plan,moveSetup:moveSetup,pickCountry:pickCountry,saveMove:saveMove,fox:fox,saveFoxName:saveFoxName,equipHat:equipHat,close:close};
   var _sp2=window.showPage;window.showPage=function(p){var r=_sp2.apply(this,arguments);try{if(p==='quests')setTimeout(renderAll,50);}catch(e){}return r;};
   function init(){setTimeout(renderAll,80);}
+  if(document.readyState==='loading')window.addEventListener('DOMContentLoaded',init);else init();
+})();
+</script>
+
+
+<style id="cq6-style">
+@keyframes cq6Shake{0%,100%{transform:rotate(0)}20%{transform:rotate(-7deg) scale(1.04)}40%{transform:rotate(6deg) scale(1.04)}60%{transform:rotate(-5deg)}80%{transform:rotate(4deg)}}
+@keyframes cq6Burst{0%{transform:scale(.3);opacity:0}50%{opacity:1}100%{transform:scale(1.15);opacity:1}}
+@keyframes cq6Glow{0%,100%{box-shadow:0 8px 26px rgba(245,158,11,.35)}50%{box-shadow:0 8px 38px rgba(245,158,11,.7)}}
+@keyframes cq6Pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+@keyframes cq6AuraPulse{0%,100%{opacity:.55;transform:translate(-50%,-50%) scale(1)}50%{opacity:.85;transform:translate(-50%,-50%) scale(1.08)}}
+.cq6-chest-live{animation:cq6Glow 1.8s ease-in-out infinite}
+.cq6-evo-aura{position:absolute;left:50%;top:46%;width:300px;height:300px;border-radius:50%;transform:translate(-50%,-50%);z-index:0;pointer-events:none;animation:cq6AuraPulse 4s ease-in-out infinite}
+.cq6-evo-badge{position:absolute;z-index:8;left:8px;top:8px;background:rgba(255,255,255,.92);backdrop-filter:blur(4px);border-radius:999px;padding:4px 10px 4px 6px;font-size:11px;font-weight:900;color:#7C3AED;box-shadow:0 4px 12px rgba(76,29,149,.18);display:flex;align-items:center;gap:4px;pointer-events:none}
+.cq6-stage{display:flex;align-items:center;gap:12px;padding:12px;border-radius:16px;margin-bottom:8px;transition:.2s}
+.cq6-opt{width:100%;text-align:left;background:#fff;border:2px solid #EFEAFC;border-radius:14px;padding:13px 15px;font-size:14px;font-weight:700;color:#1F2937;cursor:pointer;margin-bottom:9px}
+.cq6-opt:active{transform:scale(.98)}
+.cq6-troph{aspect-ratio:1;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+</style>
+
+<script>
+(function(){
+  var DAY=86400000;
+  function J(k,d){try{var v=JSON.parse(localStorage.getItem(k));return v==null?d:v;}catch(e){return d;}}
+  function P(k,v){localStorage.setItem(k,JSON.stringify(v));}
+  function today(){return new Date().toDateString();}
+  function toast(m){try{showToast(m);}catch(e){}}
+  function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+  function pick(a){return a[Math.floor(Math.random()*a.length)];}
+  function WD(){return (typeof wordsData!=='undefined')?wordsData:[];}
+  function xpv(){return parseInt(localStorage.getItem('xp')||'0',10);}
+  function lvl(){return Math.floor(xpv()/500)+1;}
+  function gx(n){try{if(typeof addXP==='function')addXP(n);}catch(e){}}
+  function spark(){try{spawnParticles&&spawnParticles();}catch(e){}}
+  function snd(){try{soundCorrect&&soundCorrect();}catch(e){}}
+  function close(){var m=document.getElementById('cq6-modal');if(m)m.remove();}
+  function modal(title,body){close();var host=document.querySelector('.phone')||document.body;var b=document.createElement('div');b.className='cq-back';b.id='cq6-modal';b.onclick=function(e){if(e.target===b)close();};b.innerHTML='<div class="cq-sheet"><div class="cq-sheet-h"><div style="font-size:16px;font-weight:900;color:#1F2937">'+title+'</div><button onclick="CQ6.close()" style="width:32px;height:32px;border-radius:10px;border:none;background:#F3F4F6;cursor:pointer;font-size:15px">✕</button></div><div id="cq6-mbody" style="padding:14px 16px 16px">'+body+'</div></div>';host.appendChild(b);return document.getElementById('cq6-mbody');}
+  function foxBub(txt){try{var bub=document.getElementById('cq3-bubble');if(bub){bub.textContent=txt;bub.style.animation='none';void bub.offsetWidth;bub.style.animation='cqUp .4s cubic-bezier(.34,1.56,.64,1)';}}catch(e){}}
+
+  // ============ 1) FOX EVOLUTION ============
+  var EVO=[
+    {min:1,name:'Любопытный лисёнок',emoji:'🐣',c1:'#A78BFA',c2:'#C4B5FD',aura:'rgba(167,139,250,.35)',desc:'Только ступил на путь английского. Всё впереди!'},
+    {min:5,name:'Юный путешественник',emoji:'🎒',c1:'#60A5FA',c2:'#93C5FD',aura:'rgba(96,165,250,.40)',desc:'Собрал чемодан и уже не боится первых фраз.'},
+    {min:10,name:'Уверенный студент',emoji:'📚',c1:'#34D399',c2:'#6EE7B7',aura:'rgba(52,211,153,.40)',desc:'Базу освоил, держит диалог без паники.'},
+    {min:20,name:'Знаток языка',emoji:'🎓',c1:'#FBBF24',c2:'#FCD34D',aura:'rgba(251,191,36,.45)',desc:'Понимает сложные ситуации легко и быстро.'},
+    {min:35,name:'Магистр английского',emoji:'👑',c1:'#F472B6',c2:'#F9A8D4',aura:'rgba(244,114,182,.50)',desc:'Свободно общается где угодно. Настоящий профи!'}
+  ];
+  function evoIdx(){var L=lvl();var idx=0;for(var i=0;i<EVO.length;i++){if(L>=EVO[i].min)idx=i;}return idx;}
+  function applyAura(){
+    try{var pg=document.getElementById('page-quests');if(!pg)return;var img=pg.querySelector('.fox-img');if(!img)return;var box=img.parentNode;
+      var ex=box.querySelector('.cq6-evo-aura');if(ex)ex.remove();
+      var exb=box.querySelector('.cq6-evo-badge');if(exb)exb.remove();
+      var st=EVO[evoIdx()];var gold=localStorage.getItem('cq6_gold')==='1';
+      var au=document.createElement('div');au.className='cq6-evo-aura';
+      au.style.background='radial-gradient(circle,'+(gold?'rgba(251,191,36,.55)':st.aura)+',rgba(255,255,255,0) 64%)';
+      box.insertBefore(au,box.firstChild);
+      var bd=document.createElement('div');bd.className='cq6-evo-badge';bd.innerHTML='<span style="font-size:14px">'+st.emoji+'</span> '+esc(st.name.split(' ')[0]);
+      box.appendChild(bd);
+    }catch(e){}
+  }
+  function checkEvo(){var cur=evoIdx();var seen=parseInt(localStorage.getItem('cq6_evo')||'0',10);if(cur>seen){localStorage.setItem('cq6_evo',cur);setTimeout(function(){var st=EVO[cur];toast('🎉 Лис эволюционировал: '+st.name+'!');spark();foxBub('Я стал сильнее! '+st.emoji);},900);}else if(seen>cur){localStorage.setItem('cq6_evo',cur);}}
+  function evolution(){
+    var cur=evoIdx();var L=lvl();var xp=xpv();
+    var st=EVO[cur];
+    var h='<div style="text-align:center;margin-bottom:6px"><div style="font-size:66px;line-height:1;position:relative;display:inline-block">🦊<span style="position:absolute;right:-10px;top:-6px;font-size:30px">'+st.emoji+'</span></div>';
+    h+='<div style="font-size:19px;font-weight:900;color:'+st.c1+';margin-top:6px">'+esc(st.name)+'</div>';
+    h+='<div style="font-size:12px;color:#6B7280;margin-top:4px;max-width:260px;margin-left:auto;margin-right:auto">'+esc(st.desc)+'</div></div>';
+    // progress to next
+    if(cur<EVO.length-1){var nx=EVO[cur+1];var needXp=(nx.min-1)*500;var prevXp=(st.min-1)*500;var pct=Math.max(0,Math.min(100,Math.round((xp-prevXp)/(needXp-prevXp)*100)));
+      h+='<div style="background:#F8F6FF;border-radius:16px;padding:14px;margin:14px 0 16px"><div style="display:flex;justify-content:space-between;font-size:11px;font-weight:800;color:#6B7280;margin-bottom:7px"><span>До «'+esc(nx.name)+'»</span><span style="color:'+nx.c1+'">'+pct+'%</span></div><div style="height:10px;border-radius:999px;background:#EDE7FF;overflow:hidden"><div style="height:100%;width:'+pct+'%;border-radius:999px;background:linear-gradient(90deg,'+nx.c1+','+nx.c2+');transition:.6s"></div></div><div style="font-size:10px;color:#9CA3AF;margin-top:6px;text-align:center">Нужен '+(nx.min)+'-й уровень · сейчас '+L+'-й</div></div>';
+    }else{h+='<div style="background:linear-gradient(135deg,#FEF3C7,#FDE68A);border-radius:16px;padding:14px;margin:14px 0 16px;text-align:center;font-size:12px;font-weight:800;color:#92400E">🏆 Максимальная форма достигнута!</div>';}
+    h+='<div style="font-size:12px;font-weight:900;color:#1F2937;margin-bottom:10px">Путь эволюции</div>';
+    EVO.forEach(function(e,i){var unlocked=L>=e.min;var isc=i===cur;
+      h+='<div class="cq6-stage" style="background:'+(isc?'linear-gradient(135deg,'+e.c1+'22,'+e.c2+'22)':'#fff')+';border:2px solid '+(isc?e.c1:'#F1EDFF')+';opacity:'+(unlocked?1:.55)+'"><div style="font-size:30px;filter:'+(unlocked?'none':'grayscale(1)')+'">'+(unlocked?'🦊':'🔒')+'</div><div style="flex:1"><div style="font-size:13px;font-weight:900;color:#1F2937">'+e.emoji+' '+esc(e.name)+'</div><div style="font-size:10px;color:#9CA3AF;font-weight:700">'+(unlocked?(isc?'Текущая форма':'Открыто'):'С '+e.min+'-го уровня')+'</div></div></div>';
+    });
+    modal('🦊 Эволюция лиса',h);
+  }
+
+  // ============ 2) LUCKY CHEST ============
+  function chestDone(){return localStorage.getItem('cq6_chest')===today();}
+  function renderChest(){
+    var el=document.getElementById('cq6-chest');if(!el)return;
+    if(chestDone()){
+      el.innerHTML='<div style="border-radius:22px;padding:14px 16px;background:#fff;box-shadow:0 4px 20px rgba(124,58,237,.06);display:flex;align-items:center;gap:12px;opacity:.8"><div style="font-size:26px;filter:grayscale(.3)">📦</div><div style="flex:1"><div style="font-size:13px;font-weight:900;color:#9CA3AF">Сундук удачи открыт ✓</div><div style="font-size:11px;color:#C4B5FD;margin-top:2px">Возвращайся завтра за новой наградой</div></div></div>';
+    }else{
+      el.innerHTML='<div onclick="CQ6.openChest()" class="cq6-chest-live" style="border-radius:22px;padding:16px;background:linear-gradient(135deg,#F59E0B,#EF4444);color:#fff;position:relative;overflow:hidden;cursor:pointer"><div style="position:absolute;right:-6px;bottom:-14px;font-size:78px;opacity:.22">🎁</div><div style="font-size:10px;font-weight:800;letter-spacing:.5px;opacity:.95;position:relative">🎁 ЕЖЕДНЕВНЫЙ СУНДУК</div><div style="font-size:20px;font-weight:900;margin-top:5px;position:relative">Забери награду!</div><div style="font-size:11px;opacity:.95;margin-top:3px;position:relative">XP, заморозка серии или редкий приз — жми, чтобы открыть →</div></div>';
+    }
+  }
+  function rollChest(){var r=Math.random();
+    if(r<0.55)return {type:'xp',amount:50+Math.floor(Math.random()*8)*25,icon:'⭐',title:'опыта'};
+    if(r<0.82)return {type:'xp',amount:250+Math.floor(Math.random()*11)*25,icon:'💎',title:'опыта',big:true};
+    if(r<0.94)return {type:'freeze',icon:'🧊',title:'Заморозка серии'};
+    return {type:'gold',icon:'✨',title:'Золотая аура лиса'};
+  }
+  function openChest(){
+    if(chestDone()){toast('Сундук уже открыт сегодня!');return;}
+    localStorage.setItem('cq6_chest',today());
+    var body=modal('🎁 Сундук удачи','<div id="cq6-chestbox" style="text-align:center;padding:18px 6px"><div style="font-size:88px;animation:cq6Shake .5s ease-in-out 3">🎁</div><div style="font-size:14px;font-weight:800;color:#9CA3AF;margin-top:8px">Открываем...</div></div>');
+    setTimeout(function(){
+      var rw=rollChest();var box=document.getElementById('cq6-chestbox');if(!box)return;
+      var msg='';
+      if(rw.type==='xp'){gx(rw.amount);msg='<div style="font-size:30px;font-weight:900;color:#7C3AED">+'+rw.amount+' XP</div><div style="font-size:13px;color:#6B7280;margin-top:4px">'+(rw.big?'Крупный выигрыш! 💎':'Отличный старт дня!')+'</div>';}
+      else if(rw.type==='freeze'){var f=parseInt(localStorage.getItem('cq_freeze')||'0',10)+1;localStorage.setItem('cq_freeze',f);msg='<div style="font-size:22px;font-weight:900;color:#0EA5E9">Заморозка серии 🧊</div><div style="font-size:13px;color:#6B7280;margin-top:4px">Защитит твой стрик в пропущенный день. Всего: '+f+'</div>';}
+      else{localStorage.setItem('cq6_gold','1');gx(100);applyAura();msg='<div style="font-size:22px;font-weight:900;color:#F59E0B">Золотая аура ✨</div><div style="font-size:13px;color:#6B7280;margin-top:4px">Редкий приз! Твой лис светится золотом + 100 XP</div>';}
+      box.innerHTML='<div style="text-align:center;padding:14px 6px"><div style="font-size:84px;animation:cq6Burst .5s ease-out">'+rw.icon+'</div>'+msg+'<button class="cq-prim" style="margin-top:18px" onclick="CQ6.close();CQ6.render()">Забрать 🎉</button></div>';
+      snd();spark();
+    },1700);
+  }
+
+  // ============ 3) WORD OF THE MOVE ============
+  var WOM=[
+    {w:'lease',ru:'договор аренды',s:['You found a flat and the landlord hands you a lease.','It lists the rent, deposit and how long you can stay.','Read every line before you sign — it protects you.']},
+    {w:'deposit',ru:'залог',s:['Before moving in, you pay a deposit to the landlord.','It is money held in case something gets damaged.','If you keep the flat clean, you get it back when you leave.']},
+    {w:'commute',ru:'дорога на работу',s:['Your new job is across the city.','The daily commute takes forty minutes by train.','Buy a monthly pass — it is cheaper than single tickets.']},
+    {w:'GP',ru:'семейный врач',s:['In the UK you register with a GP near your home.','The GP is the first doctor you see when you feel ill.','For anything serious, they refer you to a specialist.']},
+    {w:'invoice',ru:'счёт на оплату',s:['The internet company sends you an invoice each month.','It shows what you owe and the due date.','Pay it on time so your connection is not cut off.']},
+    {w:'tenant',ru:'квартиросъёмщик',s:['As a tenant, you rent the home but do not own it.','You have the right to a safe, working flat.','Always report problems to the landlord in writing.']},
+    {w:'overdraft',ru:'овердрафт',s:['Your bank may offer an overdraft on your account.','It lets you spend a little more than you have.','But the bank charges interest, so use it carefully.']},
+    {w:'CV',ru:'резюме',s:['To apply for a job you send your CV.','It lists your experience, skills and education.','Keep it to two pages and tailor it to each job.']},
+    {w:'utilities',ru:'коммунальные услуги',s:['Rent often does not include utilities.','These are gas, electricity and water bills.','Ask the landlord which ones you must pay yourself.']},
+    {w:'appointment',ru:'запись на приём',s:['You cannot just walk into most clinics.','You book an appointment by phone or online.','Arrive ten minutes early with your documents.']},
+    {w:'receipt',ru:'чек',s:['After you pay in a shop, keep the receipt.','It proves you bought the item and what you paid.','You will need it if you want to return something.']},
+    {w:'visa',ru:'виза',s:['Your visa lets you live and work in the country.','Check its expiry date long before it ends.','Renewing late can cause serious legal problems.']},
+    {w:'fare',ru:'плата за проезд',s:['On the bus you tap your card to pay the fare.','Children and students often pay a reduced fare.','Always have a valid ticket to avoid a fine.']},
+    {w:'queue',ru:'очередь',s:['At the bank you take a number and join the queue.','People wait calmly until their number appears.','Pushing in front is considered very rude.']},
+    {w:'pharmacy',ru:'аптека',s:['For minor problems, ask at the pharmacy first.','The pharmacist can suggest medicine without a doctor.','For stronger drugs you need a prescription.']},
+    {w:'contract',ru:'контракт',s:['Your new employer gives you a work contract.','It states your salary, hours and holidays.','Sign it only when every detail is clear to you.']},
+    {w:'refund',ru:'возврат денег',s:['The jacket did not fit, so you want a refund.','Bring the item and receipt back to the shop.','By law you can usually return it within 14 days.']},
+    {w:'landlord',ru:'арендодатель',s:['The landlord owns the flat you are renting.','They must fix the heating and keep it safe.','Keep their phone number for emergencies.']},
+    {w:'enrol',ru:'записаться (на учёбу)',s:['You want your child to start school here.','First you enrol them at the local council office.','Bring proof of address and their birth records.']},
+    {w:'allowance',ru:'пособие, надбавка',s:['Some families qualify for a child allowance.','It is regular money from the government to help.','Apply online and check if you are eligible.']},
+    {w:'mortgage',ru:'ипотека',s:['One day you may buy a home with a mortgage.','The bank lends most of the price over many years.','You repay it monthly, plus interest.']},
+    {w:'shift',ru:'смена (рабочая)',s:['Your café job runs in shifts.','This week you work the early morning shift.','Check the rota so you never miss your start time.']},
+    {w:'deductible',ru:'франшиза (страховая)',s:['Your insurance has a deductible.','That is the part you pay before cover begins.','A higher deductible means a cheaper monthly price.']},
+    {w:'tenancy',ru:'аренда (срок проживания)',s:['Your tenancy is for twelve months.','After that you can renew or move out.','Give notice in writing before the date ends.']}
+  ];
+  function womToday(){var idx=Math.floor(Date.now()/DAY)%WOM.length;return WOM[idx];}
+  function womRead(){return localStorage.getItem('cq6_wom')===today();}
+  function renderWom(){
+    var el=document.getElementById('cq6-wom');if(!el)return;var w=womToday();var read=womRead();
+    el.innerHTML='<div style="background:#fff;border-radius:22px;padding:16px;box-shadow:0 4px 20px rgba(124,58,237,.08)"><div style="display:flex;align-items:center;gap:12px"><div style="width:46px;height:46px;border-radius:14px;background:linear-gradient(135deg,#7C3AED,#A78BFA);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0">📖</div><div style="flex:1;min-width:0"><div style="font-size:10px;font-weight:800;color:#A78BFA;letter-spacing:.4px">СЛОВО ПЕРЕЕЗДА · СЕГОДНЯ</div><div style="font-size:16px;font-weight:900;color:#1F2937;margin-top:1px">'+esc(w.w)+' <span style="font-size:12px;font-weight:700;color:#9CA3AF">— '+esc(w.ru)+'</span></div></div>'+(read?'<div style="font-size:10px;font-weight:800;color:#22c55e;background:#dcfce7;border-radius:8px;padding:3px 8px">✓ Прочитано</div>':'<div style="font-size:18px;color:#D1D5DB">›</div>')+'</div></div>';
+  }
+  function wom(){
+    var w=womToday();var first=!womRead();
+    var h='<div style="text-align:center;margin-bottom:12px"><div style="font-size:13px;font-weight:800;color:#A78BFA;letter-spacing:.4px">СЛОВО ДНЯ</div><div style="font-size:30px;font-weight:900;color:#7C3AED;margin:4px 0 2px">'+esc(w.w)+'</div><div style="font-size:14px;font-weight:700;color:#6B7280">'+esc(w.ru)+'</div><button onclick="CQ6.say(\''+esc(w.w).replace(/'/g,"")+'\')" style="margin-top:10px;background:#F5F1FF;color:#7C3AED;border:none;border-radius:999px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer">🔊 Послушать</button></div>';
+    h+='<div style="background:#F8F6FF;border-radius:18px;padding:16px">';
+    w.s.forEach(function(line,i){h+='<div style="display:flex;gap:10px;margin-bottom:'+(i<w.s.length-1?'12px':'0')+'"><div style="width:22px;height:22px;border-radius:50%;background:#7C3AED;color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0">'+(i+1)+'</div><div style="flex:1;font-size:14px;line-height:1.5;color:#1F2937">'+esc(line)+'</div></div>';});
+    h+='</div>';
+    h+='<div style="display:flex;gap:9px;margin-top:16px"><button class="cq-prim" style="flex:1" onclick="CQ6.womDone()">'+(first?'✅ Прочитал (+10 XP)':'Готово')+'</button><button onclick="CQ6.shareWom()" style="background:#F5F1FF;color:#7C3AED;border:none;border-radius:14px;padding:0 18px;font-size:18px;font-weight:800;cursor:pointer">🔗</button></div>';
+    modal('📖 Слово переезда',h);
+  }
+  function womDone(){if(!womRead()){localStorage.setItem('cq6_wom',today());gx(10);snd();toast('📖 +10 XP за чтение!');}close();renderWom();}
+  function say(t){try{if(typeof speak==='function')speak(t);else if(window.speechSynthesis){var u=new SpeechSynthesisUtterance(t);u.lang='en-US';speechSynthesis.speak(u);}}catch(e){}}
+  function shareWom(){var w=womToday();var txt='Слово дня в Catch Quest: «'+w.w+'» — '+w.ru+'. '+w.s[0]+' Учим английский для переезда 🦊';try{if(navigator.share){navigator.share({title:'Catch Quest',text:txt});}else if(navigator.clipboard){navigator.clipboard.writeText(txt);toast('🔗 Скопировано');}else toast(txt);}catch(e){toast('🔗 '+txt);}}
+
+  // ============ 4) FRIEND DUEL ============
+  var duelState=null;
+  function bestScore(){return parseInt(localStorage.getItem('cq6_duelbest')||'0',10);}
+  function myCode(){var c=localStorage.getItem('cq_mycode');if(!c){c=Math.random().toString(36).slice(2,8).toUpperCase();localStorage.setItem('cq_mycode',c);}return c;}
+  function duelName(){return (typeof userName!=='undefined'&&userName)?userName:'Игрок';}
+  function incomingDuel(){try{var u=new URLSearchParams(location.search);var s=u.get('duel');if(s!=null){return {score:parseInt(s,10)||0,name:u.get('dn')?decodeURIComponent(u.get('dn')):'Друг'};}}catch(e){}return null;}
+  function duel(){
+    var inc=incomingDuel();var best=bestScore();
+    var h='';
+    if(inc){h+='<div style="background:linear-gradient(135deg,#7C3AED,#9333EA);color:#fff;border-radius:18px;padding:16px;margin-bottom:14px;text-align:center"><div style="font-size:13px;font-weight:700;opacity:.92">'+esc(inc.name)+' бросает тебе вызов!</div><div style="font-size:30px;font-weight:900;margin:4px 0">'+inc.score+' очков</div><div style="font-size:12px;opacity:.92">Побей этот результат в блице 🔥</div></div>';}
+    else{h+='<div style="text-align:center;margin-bottom:14px"><div style="font-size:54px">⚔️</div><div style="font-size:18px;font-weight:900;color:#1F2937;margin-top:6px">Дуэль с другом</div><div style="font-size:12px;color:#6B7280;margin-top:4px;max-width:260px;margin-left:auto;margin-right:auto">30-секундный блиц: отвечай на максимум слов, потом брось вызов другу по ссылке.</div></div>';}
+    if(best>0)h+='<div style="background:#F8F6FF;border-radius:14px;padding:12px;text-align:center;margin-bottom:14px;font-size:13px;font-weight:800;color:#7C3AED">🏆 Твой рекорд: '+best+' очков</div>';
+    h+='<button class="cq-prim" onclick="CQ6.duelStart('+(inc?inc.score:-1)+',\''+(inc?esc(inc.name).replace(/'/g,"")+'':'')+'\')">▶️ Начать блиц</button>';
+    if(best>0&&!inc)h+='<button onclick="CQ6.duelShare()" style="margin-top:9px;width:100%;background:#F5F1FF;color:#7C3AED;border:none;border-radius:14px;padding:13px;font-size:13px;font-weight:800;cursor:pointer">🔗 Бросить вызов другу</button>';
+    modal('⚔️ Дуэль',h);
+  }
+  function duelStart(target,oppName){
+    var easyLv={'A1':1,'A2':1,'B1':1,'B2':1};
+    var words=WD().filter(function(w){return w&&w.en&&w.ru&&easyLv[w.lv];});
+    if(words.length<8)words=WD().filter(function(w){return w&&w.en&&w.ru;});
+    if(words.length<8){toast('Недостаточно слов');return;}
+    duelState={score:0,target:target,oppName:oppName,timer:null,left:30,words:shuffle(words.slice())};
+    var body=modal('⚔️ Блиц','<div id="cq6-duelbox"></div>');
+    duelTick();duelNext();
+    duelState.timer=setInterval(function(){duelState.left--;var t=document.getElementById('cq6-dtime');if(t)t.textContent=duelState.left+'с';if(duelState.left<=0)duelEnd();},1000);
+  }
+  function duelTick(){}
+  function duelNext(){
+    var box=document.getElementById('cq6-duelbox');if(!box||!duelState)return;
+    var w=duelState.words[Math.floor(Math.random()*duelState.words.length)];
+    var opts=[w.ru];var guard=0;while(opts.length<4&&guard<40){guard++;var r=duelState.words[Math.floor(Math.random()*duelState.words.length)].ru;if(opts.indexOf(r)<0)opts.push(r);}shuffle(opts);
+    var h='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><div style="font-size:13px;font-weight:900;color:#EF4444"><span id="cq6-dtime">'+duelState.left+'с</span> ⏱️</div><div style="font-size:13px;font-weight:900;color:#7C3AED">Очки: '+duelState.score+'</div></div>';
+    h+='<div style="background:#fff;border-radius:18px;padding:24px 14px;text-align:center;box-shadow:0 3px 14px rgba(124,58,237,.08);margin-bottom:14px"><div style="font-size:24px;font-weight:900;color:#1F2937">'+esc(w.en)+'</div>'+(w.ph?'<div style="font-size:12px;color:#9CA3AF;margin-top:3px">/'+esc(w.ph)+'/</div>':'')+'</div>';
+    opts.forEach(function(o){h+='<button class="cq6-opt" onclick="CQ6.duelAns('+(o===w.ru?1:0)+')">'+esc(o)+'</button>';});
+    box.innerHTML=h;
+  }
+  function duelAns(ok){if(!duelState)return;if(ok){duelState.score++;snd();}else{try{soundWrong&&soundWrong();}catch(e){}}duelNext();}
+  function duelEnd(){
+    if(!duelState)return;clearInterval(duelState.timer);var sc=duelState.score;var tgt=duelState.target;var opp=duelState.oppName;
+    if(sc>bestScore())localStorage.setItem('cq6_duelbest',sc);
+    gx(sc*2);
+    var box=document.getElementById('cq6-duelbox');if(!box){duelState=null;return;}
+    var verdict='';
+    if(tgt>=0){if(sc>tgt)verdict='<div style="font-size:20px;font-weight:900;color:#16a34a;margin:6px 0">🏆 Ты победил '+esc(opp)+'!</div>';else if(sc===tgt)verdict='<div style="font-size:18px;font-weight:900;color:#F59E0B;margin:6px 0">🤝 Ничья!</div>';else verdict='<div style="font-size:18px;font-weight:900;color:#EF4444;margin:6px 0">'+esc(opp)+' пока впереди. Реванш?</div>';}
+    box.innerHTML='<div style="text-align:center;padding:14px 6px"><div style="font-size:60px">⚔️</div><div style="font-size:22px;font-weight:900;color:#1F2937;margin:8px 0 2px">'+sc+' очков</div><div style="font-size:13px;color:#6B7280">+'+(sc*2)+' XP</div>'+verdict+'<button class="cq-prim" style="margin-top:14px" onclick="CQ6.duelShare()">🔗 Бросить вызов другу</button><button onclick="CQ6.close()" style="margin-top:9px;width:100%;background:#F3F4F6;color:#6B7280;border:none;border-radius:14px;padding:12px;font-weight:700;cursor:pointer">Закрыть</button></div>';
+    spark();duelState=null;
+  }
+  function duelShare(){var sc=bestScore();var link=location.origin+location.pathname+'?duel='+sc+'&dn='+encodeURIComponent(duelName());var txt=duelName()+' набрал '+sc+' очков в дуэли Catch Quest! Сможешь побить? '+link;try{if(navigator.share){navigator.share({title:'Дуэль Catch Quest',text:txt,url:link});}else if(navigator.clipboard){navigator.clipboard.writeText(link);toast('🔗 Ссылка-вызов скопирована');}else toast(link);}catch(e){toast(link);}}
+
+  // ============ 5) SEASONAL EVENTS ============
+  var EVENTS=[
+    {n:'Новогодний разговорник',e:'🎄',color:'#0EA5E9',trophy:'❄️',goal:80,tip:'Учи слова для зимних праздников за границей.'},
+    {n:'Месяц уверенной речи',e:'💬',color:'#EC4899',trophy:'💝',goal:80,tip:'Тренируй живые диалоги и произношение.'},
+    {n:'Весенний марафон',e:'🌷',color:'#22C55E',trophy:'🌸',goal:90,tip:'Набери форму перед новым сезоном переездов.'},
+    {n:'Неделя аэропорта',e:'✈️',color:'#6366F1',trophy:'🛫',goal:90,tip:'Готовься к перелёту и паспортному контролю.'},
+    {n:'Месяц новосёла',e:'🏡',color:'#F59E0B',trophy:'🔑',goal:90,tip:'Аренда, договоры, коммуналка — всё для жизни.'},
+    {n:'Летний интенсив',e:'☀️',color:'#FB923C',trophy:'🏖️',goal:100,tip:'Максимум практики в тёплые дни.'},
+    {n:'Карьерный июль',e:'💼',color:'#7C3AED',trophy:'📈',goal:100,tip:'Резюме, собеседования и рабочая лексика.'},
+    {n:'Месяц путешествий',e:'🧳',color:'#0EA5E9',trophy:'🗺️',goal:100,tip:'Транспорт, отели и общение в дороге.'},
+    {n:'Снова в учёбу',e:'📚',color:'#3B82F6',trophy:'🎓',goal:90,tip:'Запись в школу, университет, курсы.'},
+    {n:'Осенний челлендж',e:'🍂',color:'#D97706',trophy:'🏅',goal:90,tip:'Держи серию, пока не похолодало.'},
+    {n:'Месяц здоровья',e:'🩺',color:'#EF4444',trophy:'❤️',goal:90,tip:'Врач, аптека, страховка — без паники.'},
+    {n:'Зимний финал года',e:'🎁',color:'#8B5CF6',trophy:'🏆',goal:100,tip:'Заверши год на максимуме!'}
+  ];
+  function evKey(){var d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1);}
+  function curEvent(){return EVENTS[new Date().getMonth()];}
+  function evState(){var s=J('cq6_event',{key:'',prog:0});if(s.key!==evKey()){s={key:evKey(),prog:0};P('cq6_event',s);}return s;}
+  function daysLeft(){var d=new Date();var end=new Date(d.getFullYear(),d.getMonth()+1,0);return Math.max(0,Math.ceil((end-d)/DAY));}
+  function evBump(){var ev=curEvent();var s=evState();s.prog++;P('cq6_event',s);if(s.prog>=ev.goal){awardTrophy(ev);}renderEvent();}
+  function awardTrophy(ev){var t=J('cq6_trophies',[]);var k=evKey();if(t.some(function(x){return x.key===k;}))return;t.push({key:k,n:ev.n,e:ev.e,trophy:ev.trophy,date:today()});P('cq6_trophies',t);setTimeout(function(){toast('🏆 Трофей получен: '+ev.n+'!');spark();foxBub('Мы взяли трофей! '+ev.trophy);},700);}
+  function hasTrophy(){return J('cq6_trophies',[]).some(function(x){return x.key===evKey();});}
+  function renderEvent(){
+    var el=document.getElementById('cq6-event');if(!el)return;var ev=curEvent();var s=evState();var pct=Math.min(100,Math.round(s.prog/ev.goal*100));var done=hasTrophy();
+    el.innerHTML='<div onclick="CQ6.event()" style="border-radius:22px;padding:16px;background:linear-gradient(135deg,'+ev.color+','+ev.color+'cc);color:#fff;position:relative;overflow:hidden;cursor:pointer;box-shadow:0 8px 24px '+ev.color+'44"><div style="position:absolute;right:-8px;bottom:-18px;font-size:84px;opacity:.22">'+ev.e+'</div><div style="position:relative"><div style="display:flex;justify-content:space-between;align-items:center"><div style="font-size:10px;font-weight:800;letter-spacing:.5px;opacity:.95">'+ev.e+' СОБЫТИЕ МЕСЯЦА</div><div style="font-size:10px;font-weight:800;background:rgba(255,255,255,.22);border-radius:999px;padding:3px 9px">⏳ '+daysLeft()+' дн.</div></div><div style="font-size:19px;font-weight:900;margin-top:5px">'+esc(ev.n)+'</div><div style="height:8px;border-radius:999px;background:rgba(255,255,255,.28);overflow:hidden;margin-top:10px"><div style="height:100%;width:'+pct+'%;border-radius:999px;background:#fff;transition:.6s"></div></div><div style="font-size:11px;opacity:.95;margin-top:6px">'+(done?'🏆 Трофей '+ev.trophy+' получен!':s.prog+' / '+ev.goal+' правильных ответов до трофея '+ev.trophy)+'</div></div></div>';
+  }
+  function event(){
+    var ev=curEvent();var s=evState();var pct=Math.min(100,Math.round(s.prog/ev.goal*100));var done=hasTrophy();
+    var h='<div style="text-align:center;margin-bottom:14px"><div style="font-size:60px">'+ev.e+'</div><div style="font-size:20px;font-weight:900;color:#1F2937;margin-top:4px">'+esc(ev.n)+'</div><div style="font-size:12px;color:#6B7280;margin-top:4px;max-width:270px;margin-left:auto;margin-right:auto">'+esc(ev.tip)+'</div></div>';
+    h+='<div style="background:#F8F6FF;border-radius:18px;padding:16px"><div style="display:flex;justify-content:space-between;font-size:12px;font-weight:800;color:#6B7280;margin-bottom:8px"><span>Прогресс события</span><span style="color:'+ev.color+'">'+s.prog+' / '+ev.goal+'</span></div><div style="height:12px;border-radius:999px;background:#EDE7FF;overflow:hidden"><div style="height:100%;width:'+pct+'%;border-radius:999px;background:linear-gradient(90deg,'+ev.color+','+ev.color+'aa);transition:.6s"></div></div><div style="display:flex;justify-content:space-between;font-size:11px;color:#9CA3AF;margin-top:8px"><span>⏳ Осталось '+daysLeft()+' дн.</span><span>Награда: '+ev.trophy+'</span></div></div>';
+    if(done)h+='<div style="background:linear-gradient(135deg,#FEF3C7,#FDE68A);border-radius:16px;padding:14px;margin-top:14px;text-align:center;font-size:13px;font-weight:800;color:#92400E">🏆 Трофей '+ev.trophy+' уже в твоей коллекции!</div>';
+    else h+='<div style="font-size:12px;color:#6B7280;text-align:center;margin-top:14px;line-height:1.5">Каждый правильный ответ в любом режиме приближает тебя к трофею <b>'+ev.trophy+'</b>. Успей до конца месяца!</div>';
+    h+='<button class="cq-prim" style="margin-top:16px" onclick="CQ6.close();try{showPage(\'study\')}catch(e){}">📚 Заниматься</button>';
+    h+='<button onclick="CQ6.trophies()" style="margin-top:9px;width:100%;background:#F5F1FF;color:#7C3AED;border:none;border-radius:14px;padding:13px;font-size:13px;font-weight:800;cursor:pointer">🏆 Моя коллекция трофеев</button>';
+    modal(ev.e+' Событие месяца',h);
+  }
+  function trophies(){
+    var t=J('cq6_trophies',[]);
+    var h='';
+    if(!t.length){h='<div style="text-align:center;padding:30px 10px"><div style="font-size:60px;opacity:.5">🏆</div><div style="font-size:15px;font-weight:900;color:#1F2937;margin-top:10px">Пока нет трофеев</div><div style="font-size:12px;color:#9CA3AF;margin-top:6px;max-width:240px;margin-left:auto;margin-right:auto">Выполняй цель события месяца, чтобы получить эксклюзивный трофей. Их нельзя получить позже!</div></div>';}
+    else{h='<div style="font-size:12px;color:#6B7280;margin-bottom:12px">Ты собрал <b style="color:#7C3AED">'+t.length+'</b> '+(t.length===1?'трофей':'трофея(ев)')+'. Эти награды доступны только в свой месяц 🔒</div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">';
+      t.slice().reverse().forEach(function(x){h+='<div class="cq6-troph"><div style="font-size:34px">'+x.trophy+'</div><div style="font-size:9px;font-weight:800;color:#374151;text-align:center;line-height:1.2;padding:0 4px">'+esc(x.n)+'</div></div>';});
+      h+='</div>';}
+    var ev=curEvent();if(!hasTrophy())h+='<div style="background:#F8F6FF;border-radius:14px;padding:12px;margin-top:16px;display:flex;align-items:center;gap:10px"><div style="font-size:26px;opacity:.6">'+ev.trophy+'</div><div style="flex:1"><div style="font-size:12px;font-weight:900;color:#1F2937">Доступен сейчас: '+esc(ev.n)+'</div><div style="font-size:10px;color:#9CA3AF;margin-top:1px">Осталось '+daysLeft()+' дн. в этом месяце</div></div></div>';
+    modal('🏆 Трофеи',h);
+  }
+
+  // ============ correct-answer tracking for events ============
+  function hookCorrect(ok){if(ok){try{checkEvo();}catch(e){}try{evBump();}catch(e){}}}
+  var _ac=window.answerChoice;if(_ac)window.answerChoice=function(chosen,correct){var ok=chosen===correct;var r=_ac.apply(this,arguments);try{hookCorrect(ok);}catch(e){}return r;};
+  var _al=window.answerListen;if(_al)window.answerListen=function(chosen,correct){var ok=chosen===correct;var r=_al.apply(this,arguments);try{hookCorrect(ok);}catch(e){}return r;};
+  var _ci=window.checkInput;if(_ci)window.checkInput=function(answer){var ok=false;try{var inp=document.getElementById('input-answer');ok=!!(inp&&inp.value.trim().toLowerCase()===answer);}catch(e){}var r=_ci.apply(this,arguments);try{hookCorrect(ok);}catch(e){}return r;};
+
+  function render(){try{renderChest();renderWom();renderEvent();applyAura();checkEvo();}catch(e){}}
+  function incomingBanner(){var inc=incomingDuel();if(inc){setTimeout(function(){toast('⚔️ '+inc.name+' вызывает тебя на дуэль!');},1800);}}
+
+  window.CQ6={evolution:evolution,openChest:openChest,wom:wom,womDone:womDone,say:say,shareWom:shareWom,duel:duel,duelStart:duelStart,duelAns:duelAns,duelShare:duelShare,event:event,trophies:trophies,render:render,close:close};
+  var _sp=window.showPage;window.showPage=function(p){var r=_sp.apply(this,arguments);try{if(p==='quests')setTimeout(render,60);}catch(e){}return r;};
+  function init(){setTimeout(function(){render();incomingBanner();},120);}
   if(document.readyState==='loading')window.addEventListener('DOMContentLoaded',init);else init();
 })();
 </script>
