@@ -22138,8 +22138,8 @@ function showBasicsTab(tab,btn){
     if(t.dark){
       var dBg=t.bgDark||'#0E1320', dPage=t.bgDark2||'#121829', dChrome=t.bgDark3||'#1A2236',
           dCard=t.bgCard||'#1E2840', dChip='#28344F', lightTxt='#E8EEFF', muteTxt='#9FAACB';
-      var joinBg=function(list){return list.map(function(c){return s+' [style*="background:'+c+'"]';}).join(',');};
-      var joinTx=function(list){return list.map(function(c){return s+' [style*="color:'+c+'"]';}).join(',');};
+      var joinBg=function(list){return list.map(function(c){return s+' [style*="background:'+c+'" i]';}).join(',');};
+      var joinTx=function(list){return list.map(function(c){return s+' [style*="color:'+c+'" i]';}).join(',');};
       // frame + pages
       css+=s+'.phone{background:'+dBg+'!important}';
       css+=s+' #onboarding{background:'+dPage+'!important}';
@@ -22162,6 +22162,18 @@ function showBasicsTab(tab,btn){
           +','+s+' .sc-name,'+s+' .w-en,'+s+' .q-text,'+s+' .sub-title{color:'+lightTxt+'!important}';
       css+=joinTx(['#374151','#6B7280','#6b7280','#4B5563','#4b5563','#9CA3AF','#9ca3af','#D1D5DB'])
           +','+s+' .sc-desc,'+s+' .w-ph{color:'+muteTxt+'!important}';
+      // class-based light surfaces → dark card
+      var cardCls=['.ach-card','.dash-stat-card','.goal-item','.ielts-card','.lv-card','.lv-test-btn','.lvt-panel','.notif-item','.notif-panel','.pic-cat','.pic-item','.pstat','.rating-row','.rights-card','.sal-table','.settings-section','.sim-card','.slang-card','.sr-tier','.test-card','.visa-card','.word-card','.dw-popup','.subpage-hdr','.tab-bar','.cq6-troph','.cq3-bubble','.filter-tabs','.profile-hdr-card','.profile-rank-card','.cat-bar-row','.dr-card','.podium'];
+      css+=cardCls.map(function(c){return s+' '+c;}).join(',')+'{background:'+dCard+'!important;box-shadow:0 2px 10px rgba(0,0,0,.4)!important;border-color:#2A3550!important}';
+      // class-based chips/pills → lighter dark
+      var chipCls=['.filter-tab','.sc-arrow','.q-letter','.q-timer','.xp-tag','.cq-goal-btn','.site-ico','.tab','.hdr-btn','.cq5-key','.rights-ico','.sr-tier-icon','.toggle-sw','.lb-rank','.wc-cat','.tc-tag','.notif-ico'];
+      css+=chipCls.map(function(c){return s+' '+c;}).join(',')+'{background:'+dChip+'!important;color:'+lightTxt+'!important;border-color:#3A466A!important}';
+      // class-based dark text → light
+      var txtCls=['.sc-title','.wc-en','.wc-ex','.rr-name','.pstat-num','.settings-label','.stitle-t','.subpage-hdr','.word-en','.test-title','.lv-name','.notif-title','.sim-title','.ielts-title'];
+      css+=txtCls.map(function(c){return s+' '+c;}).join(',')+'{color:'+lightTxt+'!important}';
+      // light-purple gradient banners (match bare hex anywhere in style) → dark
+      var joinHex=function(list){return list.map(function(c){return s+' [style*="'+c+'" i]';}).join(',');};
+      css+=joinHex(['#f0eeff','#e8e2f8','#f5f4ff','#f5f3ff','#ede9ff','#efe9ff','#e7dafb','#e9e4fb','#dccbfa','#f5f1ff','#f8f6ff','#ede9fe'])+'{background:'+dCard+'!important}';
     } else {
       // light tinted gradient unique to each hue
       css+=s+'.phone{background:linear-gradient(160deg,#ffffff 0%,'+hexRGBA(t.c1,.05)+' 42%,'+hexRGBA(t.c2,.15)+' 100%)!important}';
@@ -22225,6 +22237,15 @@ function showBasicsTab(tab,btn){
   function pick(id){apply(id);try{showToast&&showToast('🎨 Тема обновлена');}catch(e){}setTimeout(open,120);}
 
   window.CQ10={open:open,close:close,pick:pick,apply:apply};
+
+  // ── Take over the legacy setTheme() so the profile's old picker and its
+  //    automatic setTheme(currentTheme) calls don't wipe the active theme ──
+  var LEGACY={'dark':'night','ocean':'ocean','forest':'forest','sunset':'sunset'};
+  window.setTheme=function(t){
+    if(t==='default'||t===''||t==null){ apply(G('cq10_theme')||'amethyst'); return; }
+    if(LEGACY[t]){ apply(LEGACY[t]); return; }
+    apply(t);
+  };
 
   function init(){apply(G('cq10_theme')||'amethyst');}
   if(document.readyState==='loading')window.addEventListener('DOMContentLoaded',init);else init();
