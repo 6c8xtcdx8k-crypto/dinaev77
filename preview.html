@@ -21985,5 +21985,320 @@ function showBasicsTab(tab,btn){
 })();
 </script>
 
+
+<!-- CQ7: ANIMATION LAYER -->
+<style id="cq7-style">
+/* ── KEYFRAMES ─────────────────────────────────────────────────────── */
+@keyframes cq7ParticleRise{0%{transform:translateY(0) translateX(0) scale(1);opacity:.7}100%{transform:translateY(-240px) translateX(var(--dx,0px)) scale(.3);opacity:0}}
+@keyframes cq7Ripple{0%{transform:translate(-50%,-50%) scale(0);opacity:.55}100%{transform:translate(-50%,-50%) scale(4);opacity:0}}
+@keyframes cq7Shimmer{0%{left:-120%}100%{left:180%}}
+@keyframes cq7BarShimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes cq7FlameFlicker{0%,100%{transform:scale(1) rotate(-3deg);filter:hue-rotate(0deg)}25%{transform:scale(1.13) rotate(3deg);filter:hue-rotate(15deg)}50%{transform:scale(.95) rotate(-2deg);filter:hue-rotate(-10deg)}75%{transform:scale(1.08) rotate(2deg)}}
+@keyframes cq7NavBounce{0%{transform:translateY(0) scale(1)}25%{transform:translateY(-6px) scale(1.15)}50%{transform:translateY(1px) scale(.95)}75%{transform:translateY(-3px) scale(1.07)}100%{transform:translateY(0) scale(1)}}
+@keyframes cq7ScrollIn{from{opacity:0;transform:translateY(28px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes cq7CounterPop{0%{transform:scale(1)}35%{transform:scale(1.22)}70%{transform:scale(.94)}100%{transform:scale(1)}}
+@keyframes cq7GlowPing{0%{transform:translate(-50%,-50%) scale(1);opacity:.7}100%{transform:translate(-50%,-50%) scale(2.2);opacity:0}}
+@keyframes cq7TypeBlink{0%,100%{opacity:1}50%{opacity:0}}
+@keyframes cq7LevelFlash{0%{opacity:0;transform:scale(.4)}20%{opacity:1;transform:scale(1.2)}70%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.1)}}
+@keyframes cq7XPTrail{0%{opacity:1;transform:translateY(0) rotate(var(--r,0deg))}100%{opacity:0;transform:translateY(-60px) rotate(var(--r,0deg))}}
+@keyframes cq7SeasonPing{0%{transform:translate(-50%,-50%) scale(1);opacity:.6}100%{transform:translate(-50%,-50%) scale(2.6);opacity:0}}
+@keyframes cq7BgShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@keyframes cq7StreakPop{0%{transform:scale(1)}30%{transform:scale(1.3) rotate(-5deg)}60%{transform:scale(.9) rotate(3deg)}100%{transform:scale(1) rotate(0)}}
+@keyframes cq7HeroGlow{0%,100%{opacity:.38}50%{opacity:.62}}
+@keyframes cq7FoxWag{0%,100%{transform-origin:bottom center;transform:rotate(0)}20%{transform:rotate(1.5deg)}40%{transform:rotate(-1.5deg)}60%{transform:rotate(1deg)}80%{transform:rotate(-0.5deg)}}
+@keyframes cq7FeatPop{from{opacity:0;transform:translateY(18px) scale(.9)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes cq7ChestRumble{0%,100%{transform:rotate(0) scale(1)}15%{transform:rotate(-9deg) scale(1.07)}30%{transform:rotate(8deg) scale(1.08)}45%{transform:rotate(-7deg) scale(1.06)}60%{transform:rotate(6deg) scale(1.05)}75%{transform:rotate(-4deg) scale(1.03)}}
+/* ── UTILITY CLASSES ─────────────────────────────────────────────── */
+.cq7-reveal{opacity:0}
+.cq7-revealed{animation:cq7ScrollIn .5s cubic-bezier(.34,1.56,.64,1) both}
+.cq7-btn-wrap{position:relative;overflow:hidden}
+.cq7-ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.45);width:60px;height:60px;pointer-events:none;animation:cq7Ripple .55s ease-out forwards;transform-origin:center;z-index:10}
+#home-pbar{background:linear-gradient(90deg,#7C3AED 0%,#A78BFA 40%,#E9D5FF 55%,#A78BFA 70%,#7C3AED 100%);background-size:200% 100%;animation:cq7BarShimmer 2.2s linear infinite}
+.cq7-ping{position:absolute;border-radius:50%;background:currentColor;pointer-events:none;animation:cq7GlowPing 1.4s ease-out infinite}
+.cq7-flame{display:inline-block;animation:cq7FlameFlicker .7s ease-in-out infinite}
+.cq7-season-wrap{position:relative;display:inline-flex}
+</style>
+
+<script>
+(function(){
+  function q(s){return document.querySelector(s);}
+  function qa(s){return document.querySelectorAll(s);}
+  function raf(fn){requestAnimationFrame(fn);}
+  function after(n,fn){setTimeout(fn,n);}
+  var phone=q('.phone')||document.body;
+
+  /* ── 1. AMBIENT HERO PARTICLES ────────────────────────────────── */
+  function spawnHeroParticles(){
+    var hero=q('#page-quests .fox-img');if(!hero)return;
+    var box=hero.parentNode.parentNode;if(!box)return;
+    var colors=['#C4B5FD','#A78BFA','#7C3AED','#DDD6FE','#E9D5FF','#F5F3FF'];
+    for(var i=0;i<18;i++){(function(i){
+      after(i*320,function(){
+        var p=document.createElement('div');
+        var sz=3+Math.random()*5;var dx=(Math.random()-0.5)*80;
+        p.style.cssText='position:absolute;width:'+sz+'px;height:'+sz+'px;border-radius:50%;background:'+colors[Math.floor(Math.random()*colors.length)]+';opacity:0;left:'+(10+Math.random()*80)+'%;bottom:'+(5+Math.random()*30)+'%;pointer-events:none;z-index:4;animation:cq7ParticleRise '+(2.5+Math.random()*2)+'s ease-out forwards;--dx:'+dx+'px';
+        box.appendChild(p);after(5000,function(){if(p.parentNode)p.remove();});
+      });
+    })(i);}
+  }
+  function scheduleParticles(){spawnHeroParticles();setInterval(spawnHeroParticles,5000);}
+
+  /* ── 2. HERO GLOW PULSE ────────────────────────────────────────── */
+  function heroGlowAnim(){var g=q('#page-quests [style*="radial-gradient(circle,rgba(167"]');if(g)g.style.animation='cq7HeroGlow 3s ease-in-out infinite';}
+
+  /* ── 3. FOX SUBTLE WAG ─────────────────────────────────────────── */
+  function foxWag(){
+    setInterval(function(){
+      var f=q('#page-quests .fox-img');if(!f)return;
+      f.style.animation='cqFloat 5s ease-in-out infinite, cq7FoxWag 2.8s ease-in-out';
+      after(3200,function(){if(f)f.style.animation='cqFloat 5s ease-in-out infinite';});
+    },12000);
+  }
+
+  /* ── 4. BUTTON RIPPLE ──────────────────────────────────────────── */
+  function addRipple(e){
+    var btn=e.currentTarget;var r=document.createElement('span');r.className='cq7-ripple';
+    var rect=btn.getBoundingClientRect();
+    r.style.left=(e.clientX-rect.left)+'px';r.style.top=(e.clientY-rect.top)+'px';
+    btn.appendChild(r);after(600,function(){if(r.parentNode)r.remove();});
+  }
+  function wrapButtons(){
+    var sels=['.cq-prim','.cq-tool','.nb','.q-opt','.cq-opt','.cq6-opt'];
+    sels.forEach(function(sel){qa(sel).forEach(function(b){
+      if(b._cq7)return;b._cq7=1;
+      if(!b.style.position||b.style.position==='static')b.style.position='relative';
+      b.style.overflow='hidden';
+      b.addEventListener('click',addRipple,{passive:true});
+    });});
+  }
+  var _wrapButtons=wrapButtons;
+  // hook dynamically created buttons too
+  var _oc=document.createElement;
+
+  /* ── 5. NAV SPRING BOUNCE ──────────────────────────────────────── */
+  function hookNav(){qa('.nb').forEach(function(b){
+    if(b._cq7n)return;b._cq7n=1;
+    b.addEventListener('click',function(){
+      b.style.animation='cq7NavBounce .45s cubic-bezier(.34,1.56,.64,1) both';
+      after(460,function(){b.style.animation='';});
+    },{passive:true});
+  });}
+
+  /* ── 6. SCROLL REVEAL ──────────────────────────────────────────── */
+  var observed=new Set();
+  function revealOnScroll(){
+    if(window.IntersectionObserver){
+      var obs=new IntersectionObserver(function(entries){
+        entries.forEach(function(en){if(en.isIntersecting&&!observed.has(en.target)){observed.add(en.target);en.target.classList.add('cq7-revealed');}});
+      },{threshold:.12,rootMargin:'0px 0px -20px 0px'});
+      function observe(){
+        var targets=['.cq7-reveal,.wcard,.q-card,.sc-card,[id^="cq"]:not(script):not(style)'].join(',');
+        try{qa(targets).forEach(function(el){if(!observed.has(el)){el.classList.add('cq7-reveal');obs.observe(el);}});}catch(e){}
+      }
+      after(800,observe);
+      setInterval(observe,3000);
+    }
+  }
+
+  /* ── 7. HOME STATS COUNTER ANIMATION ──────────────────────────── */
+  function animCounter(el,target,dur){
+    if(!el||el._cq7c)return;el._cq7c=1;
+    var start=0;var s=performance.now();
+    function tick(){var t=performance.now()-s;var p=Math.min(1,t/dur);var v=Math.round(start+(target-start)*p*p*(3-2*p));
+      el.textContent=v;if(p<1){raf(tick);}else{el.style.animation='cq7CounterPop .3s ease';after(320,function(){el.style.animation='';});}}
+    raf(tick);
+  }
+  function animateStats(){
+    var map=[[q('#home-total-xp'),parseInt(localStorage.getItem('xp')||'0')],
+              [q('#home-tests-done'),parseInt(localStorage.getItem('td')||'0')],
+              [q('#home-sims-done'),parseInt(localStorage.getItem('sd')||'0')]];
+    map.forEach(function(pair){if(pair[0]&&pair[1]>0)animCounter(pair[0],pair[1],900);});
+    var stk=parseInt(localStorage.getItem('streak')||'0');
+    qa('[id$="streak"],[id*="streak"]').forEach(function(el){if(stk>0)animCounter(el,stk,700);});
+  }
+
+  /* ── 8. XP BAR FILL ANIMATION + SHIMMER ───────────────────────── */
+  function animXPBar(){
+    var bar=q('#home-pbar');if(!bar)return;
+    var curW=parseFloat(bar.style.width)||0;if(curW<1)return;
+    bar.style.transition='width 1.1s cubic-bezier(.34,1.1,.64,1)';
+    var target=bar.style.width;bar.style.width='0%';
+    after(80,function(){bar.style.width=target;});
+  }
+
+  /* ── 9. FEATURE GRID STAGGER ───────────────────────────────────── */
+  function animFeatureGrid(){
+    var grid=q('#page-quests [style*="grid-template-columns:repeat(4,1fr)"]');
+    if(!grid)return;var cells=grid.querySelectorAll('div,button');
+    cells.forEach(function(c,i){c.style.opacity='0';c.style.animation='cq7FeatPop .4s cubic-bezier(.34,1.56,.64,1) '+(i*70)+'ms both';});
+  }
+
+  /* ── 10. SEASON BADGE PING RING ────────────────────────────────── */
+  function seasonPing(){
+    var badge=q('.season-badge,.season');if(!badge)return;
+    if(badge._cq7p)return;badge._cq7p=1;
+    var wrap=document.createElement('span');wrap.className='cq7-season-wrap';
+    badge.parentNode.insertBefore(wrap,badge);wrap.appendChild(badge);
+    var ping=document.createElement('span');
+    ping.style.cssText='position:absolute;left:50%;top:50%;width:100%;height:100%;border-radius:999px;border:2px solid #A78BFA;pointer-events:none;animation:cq7SeasonPing 2.2s ease-out infinite';
+    wrap.appendChild(ping);
+  }
+
+  /* ── 11. STREAK FIRE ANIMATION ─────────────────────────────────── */
+  function streakFlame(){
+    var stk=parseInt(localStorage.getItem('streak')||'0');if(stk<2)return;
+    qa('[id*="streak"],[class*="streak"]').forEach(function(el){
+      el.querySelectorAll('.cq7-flame').forEach(function(f){f.remove();});
+      var f=document.createElement('span');f.className='cq7-flame';f.textContent='🔥';
+      f.style.cssText='font-size:16px;margin-right:3px;display:inline-block';
+      el.insertBefore(f,el.firstChild);
+    });
+  }
+
+  /* ── 12. XP GAIN STAR TRAIL ────────────────────────────────────── */
+  function xpTrail(x,y){
+    var emojis=['⭐','✨','💫','🌟'];
+    for(var i=0;i<5;i++){(function(i){
+      after(i*70,function(){
+        var s=document.createElement('div');
+        s.textContent=emojis[Math.floor(Math.random()*emojis.length)];
+        var angle=Math.random()*360;
+        s.style.cssText='position:fixed;left:'+x+'px;top:'+y+'px;font-size:16px;pointer-events:none;z-index:9999;--r:'+angle+'deg;animation:cq7XPTrail .8s ease-out forwards';
+        s.style.setProperty('--r',angle+'deg');
+        phone.appendChild(s);after(900,function(){if(s.parentNode)s.remove();});
+      });
+    })(i);}
+  }
+  function hookXP(){
+    var _addXP=window.addXP;if(!_addXP)return;
+    window.addXP=function(n){
+      var r=_addXP.apply(this,arguments);
+      try{var bar=q('#home-pbar');if(bar){var rect=bar.getBoundingClientRect();xpTrail(rect.right,rect.top);}}catch(e){}
+      return r;
+    };
+  }
+
+  /* ── 13. LEVEL-UP FLASH ────────────────────────────────────────── */
+  function levelFlash(){
+    var fl=document.createElement('div');
+    fl.style.cssText='position:fixed;inset:0;background:radial-gradient(circle at 50% 40%,rgba(167,139,250,.5),transparent 70%);pointer-events:none;z-index:9998;animation:cq7LevelFlash 1.1s ease forwards';
+    phone.appendChild(fl);after(1150,function(){fl.remove();});
+    var burst=document.createElement('div');burst.textContent='⬆️ УРОВЕНЬ!';
+    burst.style.cssText='position:fixed;left:50%;top:35%;transform:translateX(-50%);font-size:26px;font-weight:900;color:#fff;text-shadow:0 2px 16px rgba(124,58,237,.9);pointer-events:none;z-index:9999;animation:cq7LevelFlash 1.3s ease forwards';
+    phone.appendChild(burst);after(1350,function(){burst.remove();});
+  }
+  function hookLevelUp(){
+    var _sp=window.showPage;window.showPage=function(p){
+      var oldLvl=Math.floor((parseInt(localStorage.getItem('xp')||'0',10))/500)+1;
+      var r=_sp.apply(this,arguments);
+      after(200,function(){var newLvl=Math.floor((parseInt(localStorage.getItem('xp')||'0',10))/500)+1;if(newLvl>oldLvl){try{levelFlash();}catch(e){};}});
+      return r;
+    };
+  }
+
+  /* ── 14. CHEST RUMBLE OVERRIDE ─────────────────────────────────── */
+  function hookChest(){
+    var _oc6=CQ6&&CQ6.openChest;if(!_oc6)return;
+    CQ6.openChest=function(){
+      // animate chest emoji before modal
+      _oc6.apply(this,arguments);
+      after(60,function(){
+        var em=q('#cq6-chestbox > div');
+        if(em)em.style.animation='cq7ChestRumble .9s cubic-bezier(.34,1.4,.64,1) both, cq6Shake .5s ease-in-out 3 .9s';
+      });
+    };
+  }
+
+  /* ── 15. WOM TYPEWRITER WORD ───────────────────────────────────── */
+  function hookWom(){
+    var _wom=CQ6&&CQ6.wom;if(!_wom)return;
+    CQ6.wom=function(){
+      _wom.apply(this,arguments);
+      after(120,function(){
+        var wEl=q('#cq6-modal .cq-sheet [style*="font-size:30px"]');
+        if(!wEl||wEl._cq7t)return;wEl._cq7t=1;
+        var full=wEl.textContent;wEl.textContent='';var i=0;
+        var iv=setInterval(function(){wEl.textContent=full.slice(0,++i);if(i>=full.length)clearInterval(iv);},60);
+      });
+    };
+  }
+
+  /* ── 16. CONTINUOUS RIPPLE ON CTA BUTTONS ──────────────────────── */
+  function addIdleRipple(btn){
+    if(btn._cq7ir)return;btn._cq7ir=1;
+    function pulse(){if(!document.body.contains(btn))return;
+      var r=document.createElement('span');r.className='cq7-ripple';
+      r.style.left='50%';r.style.top='50%';r.style.background='rgba(255,255,255,.25)';r.style.width='20px';r.style.height='20px';
+      btn.appendChild(r);after(600,function(){if(r.parentNode)r.remove();});
+      after(3000,pulse);}
+    after(1500+Math.random()*2000,pulse);
+  }
+
+  /* ── 17. DYNAMIC BUTTON WATCHER ─────────────────────────────────── */
+  function refreshAnimations(){
+    wrapButtons();hookNav();
+    qa('.cq-prim').forEach(addIdleRipple);
+  }
+  var _showPage2=window.showPage;window.showPage=function(p){
+    var r=_showPage2&&_showPage2.apply(this,arguments);
+    if(p==='quests'){
+      after(100,animFeatureGrid);
+      after(300,animateStats);
+      after(400,animXPBar);
+      after(500,scheduleParticles);
+      after(600,heroGlowAnim);
+      after(700,foxWag);
+      after(800,seasonPing);
+      after(900,streakFlame);
+      after(1000,refreshAnimations);
+    }
+    after(200,refreshAnimations);
+    return r;
+  };
+
+  /* ── 18. ANIMATED BACKGROUND GRADIENT ──────────────────────────── */
+  function animBg(){
+    var pg=q('#page-quests');if(!pg)return;
+    pg.style.background='linear-gradient(135deg,#ffffff 0%,#f5f1ff 30%,#ede9ff 60%,#f8f6ff 100%)';
+    pg.style.backgroundSize='300% 300%';
+    pg.style.animation='cq7BgShift 12s ease infinite';
+  }
+
+  /* ── 19. STICKER / ACHIEVEMENT BADGE BOUNCE ─────────────────────── */
+  function hookAchievements(){
+    var _ta=window.showToast;window.showToast=function(msg,dur){
+      var r=_ta&&_ta.apply(this,arguments);
+      if(msg&&(msg.indexOf('🏅')>=0||msg.indexOf('🏆')>=0||msg.indexOf('⬆️')>=0)){
+        var toasts=qa('[id*="toast"],[class*="toast"]');
+        toasts.forEach(function(t){t.style.animation+=' ,cq6Burst .4s ease';});
+      }
+      return r;
+    };
+  }
+
+  /* ── INIT ──────────────────────────────────────────────────────── */
+  function init(){
+    after(150,refreshAnimations);
+    after(400,revealOnScroll);
+    after(600,hookXP);
+    after(700,hookLevelUp);
+    after(1200,hookChest);
+    after(1400,hookWom);
+    after(1500,hookAchievements);
+    animBg();
+    // if already on quests page
+    if(q('#page-quests:not([style*="display:none"]),[id="page-quests"]')){
+      after(500,animFeatureGrid);after(700,animateStats);after(800,animXPBar);
+      after(900,scheduleParticles);after(1000,heroGlowAnim);
+      after(1100,foxWag);after(1200,seasonPing);after(1300,streakFlame);
+    }
+    // re-wrap after any DOM mutation
+    var mo=new MutationObserver(function(){refreshAnimations();});
+    mo.observe(document.body,{childList:true,subtree:true,attributes:false});
+  }
+  if(document.readyState==='loading')window.addEventListener('DOMContentLoaded',init);else init();
+})();
+</script>
+
 </body>
 </html>
