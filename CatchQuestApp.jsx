@@ -1,0 +1,1594 @@
+// CatchQuestApp.jsx
+// Как запустить:
+//   1. Уже есть Vite/React-проект → скопируй этот файл и импортируй
+//   2. Быстрый старт:
+//      npm create vite@latest catch-quest -- --template react
+//      cd catch-quest && npm install
+//      Замени src/App.jsx на этот файл и удали src/App.css
+//      npm run dev  →  открой http://localhost:5173
+//   3. ИЛИ просто открой preview.html в браузере — он тоже полностью рабочий
+
+import React from 'react';
+
+const HTML = `<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Catch Quest</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#e8e4f8;display:flex;justify-content:center;min-height:100vh;padding:24px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+.phone{width:390px;min-height:844px;background:#f5f4ff;border-radius:44px;overflow:hidden;box-shadow:0 30px 80px rgba(108,71,255,.28),0 0 0 8px #1a1a2e;position:relative;display:flex;flex-direction:column}
+.hdr{display:flex;align-items:center;justify-content:space-between;padding:16px 20px 10px;background:#fff;flex-shrink:0;z-index:10}
+.hdr-logo{font-size:15px;font-weight:900;letter-spacing:1px;color:#1a1a2e}
+.hdr-logo span{color:#6c47ff}
+.hdr-btn{width:36px;height:36px;border-radius:10px;background:#f5f4ff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;transition:.2s}
+.hdr-btn:hover{background:#ede9ff;transform:scale(1.1)}
+.page{display:none;flex:1;overflow-y:auto;background:#f5f4ff;padding-bottom:80px;animation:fadeInPage .3s ease}
+.page.active{display:block}
+.bnav{position:sticky;bottom:0;background:#fff;border-top:1px solid #ede9ff;display:flex;z-index:100;flex-shrink:0}
+.nb{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:9px 0;border:none;background:none;cursor:pointer;color:#9ca3af;font-size:9px;font-weight:700;transition:.2s;position:relative}
+.nb.active{color:#6c47ff}
+.nb.active::after{content:'';position:absolute;top:0;left:20%;right:20%;height:2px;background:#6c47ff;border-radius:999px;animation:slideIn .2s ease}
+.nb .ico{font-size:20px;transition:.2s}
+.nb.active .ico{transform:scale(1.15)}
+.btn-pu{width:calc(100% - 32px);margin:0 16px 12px;background:linear-gradient(135deg,#6c47ff,#8b5cf6);color:#fff;border:none;border-radius:16px;padding:15px;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(108,71,255,.4);transition:.2s;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-pu:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(108,71,255,.5)}
+.btn-pu:active{transform:scale(.97)}
+.pbar{height:8px;background:#ede9ff;border-radius:999px;overflow:hidden}
+.pbar-f{height:100%;background:linear-gradient(90deg,#6c47ff,#a78bfa);border-radius:999px;transition:width .8s ease}
+.card{background:#fff;border-radius:20px;margin:0 16px 12px;box-shadow:0 2px 16px rgba(108,71,255,.08)}
+.cp{padding:16px}
+.stitle{display:flex;align-items:center;justify-content:space-between;padding:12px 20px 6px}
+.stitle-t{font-size:12px;font-weight:800;color:#1a1a2e;letter-spacing:.5px;text-transform:uppercase}
+.stitle-l{font-size:12px;color:#6c47ff;font-weight:600;cursor:pointer}
+.sc-card{background:#fff;border-radius:16px;margin:0 16px 10px;display:flex;align-items:center;gap:12px;padding:12px;box-shadow:0 2px 12px rgba(0,0,0,.06);cursor:pointer;transition:.25s}
+.sc-card:hover{transform:translateX(4px);box-shadow:0 6px 20px rgba(108,71,255,.15)}
+.sc-img{width:66px;height:66px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:30px}
+.sc-name{font-size:14px;font-weight:700;color:#1a1a2e;margin-bottom:3px}
+.sc-desc{font-size:11px;color:#9ca3af;margin-bottom:5px;line-height:1.4}
+.xp-tag{font-size:11px;font-weight:700;color:#6c47ff;background:#ede9ff;padding:2px 8px;border-radius:999px}
+.diff-e{font-size:10px;font-weight:700;background:#e8fdf1;color:#16a34a;padding:2px 8px;border-radius:999px}
+.diff-m{font-size:10px;font-weight:700;background:#fef9ec;color:#d97706;padding:2px 8px;border-radius:999px}
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:8px 16px}
+.stat-b{background:#fff;border-radius:14px;padding:10px 4px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05);transition:.2s;cursor:default}
+.stat-b:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(108,71,255,.15)}
+.tabs{display:flex;gap:5px;padding:10px 16px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:7px 14px;border-radius:999px;font-size:12px;font-weight:600;border:none;cursor:pointer;white-space:nowrap;transition:.2s;flex-shrink:0}
+.tab.active{background:#6c47ff;color:#fff;box-shadow:0 4px 12px rgba(108,71,255,.35);transform:scale(1.03)}
+.tab:not(.active){background:#ede9ff;color:#6c47ff}
+.tab:not(.active):hover{background:#d8d0ff}
+.season{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;background:#e8fdf1;color:#16a34a;font-size:11px;font-weight:700}
+.season::before{content:'';width:7px;height:7px;border-radius:50%;background:#22c55e;display:block;animation:pulse 2s infinite}
+.subpage{display:none;position:absolute;top:0;left:0;right:0;bottom:0;background:#f5f4ff;z-index:50;overflow-y:auto;padding-bottom:30px}
+.subpage.open{display:block;animation:slideInRight .3s ease}
+.sub-hdr{display:flex;align-items:center;gap:10px;padding:14px 20px 12px;background:#fff;border-bottom:1px solid #ede9ff;position:sticky;top:0;z-index:5}
+.back-btn{background:none;border:none;font-size:22px;cursor:pointer;color:#6c47ff;padding:0;line-height:1;transition:.2s}
+.back-btn:hover{transform:scale(1.2)}
+.sub-title{font-size:16px;font-weight:800;color:#1a1a2e;flex:1}
+.wcard{background:#fff;border-radius:16px;margin:0 16px 8px;padding:14px;box-shadow:0 2px 10px rgba(0,0,0,.05);cursor:pointer;transition:.2s;border-left:4px solid #6c47ff;animation:fadeInUp .3s ease both}
+.wcard:hover{transform:translateX(3px)}
+.w-en{font-size:18px;font-weight:800;color:#1a1a2e}
+.w-ph{font-size:12px;color:#9ca3af;font-style:italic;margin:2px 0}
+.w-ru{font-size:14px;font-weight:700;color:#6c47ff}
+.w-ex{font-size:11px;color:#9ca3af;margin-top:4px;line-height:1.5;border-left:3px solid #ede9ff;padding-left:8px}
+.sent-card{background:#fff;border-radius:14px;margin:0 16px 8px;padding:14px;box-shadow:0 2px 10px rgba(0,0,0,.05);animation:fadeInUp .3s ease both;border-left:4px solid #10b981}
+.q-card{background:#fff;border-radius:18px;padding:18px;margin:10px 16px;box-shadow:0 2px 14px rgba(0,0,0,.07);animation:fadeInUp .3s ease}
+.q-num{font-size:11px;color:#9ca3af;font-weight:600;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center}
+.q-timer{background:#ede9ff;color:#6c47ff;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:800;font-family:monospace;min-width:36px;text-align:center}
+.q-text{font-size:14px;font-weight:700;color:#1a1a2e;line-height:1.55;margin-bottom:14px}
+.q-opt{display:flex;align-items:center;gap:10px;padding:12px 13px;border-radius:12px;margin-bottom:7px;cursor:pointer;border:2px solid #ede9ff;background:#faf9ff;transition:.2s;font-size:13px;color:#1a1a2e}
+.q-opt:hover{border-color:#6c47ff;background:#ede9ff;transform:translateX(3px)}
+.q-opt.correct{border-color:#22c55e;background:#e8fdf1;animation:bounceIn .4s ease}
+.q-opt.wrong{border-color:#ef4444;background:#fef2f2;animation:shake .4s ease}
+.q-letter{width:28px;height:28px;border-radius:7px;background:#ede9ff;color:#6c47ff;font-weight:800;font-size:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.q-input{width:100%;padding:12px 14px;border:2px solid #ede9ff;border-radius:12px;font-size:14px;color:#1a1a2e;background:#faf9ff;outline:none;transition:.2s;font-family:inherit}
+.q-input:focus{border-color:#6c47ff;background:#fff;box-shadow:0 0 0 3px rgba(108,71,255,.1)}
+.q-input.correct{border-color:#22c55e;background:#e8fdf1}
+.q-input.wrong{border-color:#ef4444;background:#fef2f2;animation:shake .4s ease}
+.listen-wave{display:flex;align-items:center;justify-content:center;gap:4px;height:44px}
+.listen-bar{width:5px;border-radius:3px;background:#6c47ff;animation:listenAnim 1s ease-in-out infinite}
+.chat-bubble{max-width:82%;padding:11px 14px;border-radius:18px;font-size:13px;line-height:1.55;animation:fadeInUp .3s ease;margin-bottom:2px}
+.chat-bubble.ai{align-self:flex-start;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.07);border-radius:4px 18px 18px 18px;color:#1a1a2e}
+.chat-bubble.user{align-self:flex-end;background:linear-gradient(135deg,#6c47ff,#8b5cf6);color:#fff;border-radius:18px 4px 18px 18px}
+.typing-dots{align-self:flex-start;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.07);border-radius:4px 18px 18px 18px;padding:14px 16px;display:flex;gap:5px}
+.typing-dot{width:8px;height:8px;border-radius:50%;background:#c4b5fd;animation:typingDot .9s ease infinite}
+.typing-dot:nth-child(2){animation-delay:.2s}
+.typing-dot:nth-child(3){animation-delay:.4s}
+.chat-opt{padding:12px 15px;border-radius:14px;border:2px solid #ede9ff;background:#fff;font-size:13px;color:#1a1a2e;cursor:pointer;text-align:left;transition:.2s;font-weight:600;width:calc(100% - 32px);margin:0 16px 7px;display:block}
+.chat-opt:hover{border-color:#6c47ff;background:#ede9ff;transform:translateX(4px)}
+.podium{display:flex;align-items:flex-end;justify-content:center;gap:10px;padding:20px 16px 10px;background:linear-gradient(180deg,#ede9ff,#f5f4ff)}
+.pod{display:flex;flex-direction:column;align-items:center;gap:4px}
+.pod-av{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;border:3px solid #fff;box-shadow:0 4px 16px rgba(0,0,0,.15)}
+.pod-base{border-radius:10px 10px 0 0;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;width:70px}
+.lb-row{display:flex;align-items:center;gap:10px;padding:11px 16px;background:#fff;margin:0 16px 5px;border-radius:14px;box-shadow:0 2px 8px rgba(0,0,0,.04);cursor:pointer;transition:.2s}
+.lb-row:hover{transform:translateX(3px)}
+.lb-row.me{background:linear-gradient(135deg,#ede9ff,#f5f4ff);border:1.5px solid #6c47ff}
+.lb-rank{font-size:13px;font-weight:800;color:#9ca3af;width:20px;text-align:center}
+.lb-av{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;background:#f5f4ff;flex-shrink:0}
+.prof-hero{background:linear-gradient(135deg,#6c47ff,#8b5cf6);padding:22px 20px 26px;position:relative;overflow:hidden}
+.prof-hero::before{content:'';position:absolute;right:-40px;top:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.07)}
+.ptab-row{display:flex;gap:2px;padding:10px 16px;background:#fff;position:sticky;top:0;z-index:4;border-bottom:1px solid #ede9ff}
+.ptab{flex:1;padding:8px 4px;border:none;background:none;font-size:12px;font-weight:700;color:#9ca3af;cursor:pointer;border-radius:10px;transition:.2s}
+.ptab.active{background:#ede9ff;color:#6c47ff}
+.info-card{background:#fff;border-radius:14px;margin:0 16px 8px;padding:14px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.info-card h4{font-size:13px;font-weight:800;color:#1a1a2e;margin-bottom:6px}
+.info-card li{font-size:12px;color:#6b7280;line-height:1.7}
+.info-card ul{padding-left:14px}
+.tip-card{background:#fff;border-radius:14px;margin:0 16px 8px;display:flex;gap:12px;align-items:flex-start;padding:14px;box-shadow:0 2px 10px rgba(0,0,0,.05);transition:.2s}
+.tip-card:hover{transform:translateX(3px)}
+.tip-num{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#6c47ff,#8b5cf6);color:#fff;font-size:12px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.move-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 16px}
+.move-cat{background:#fff;border-radius:16px;padding:14px 8px;text-align:center;cursor:pointer;transition:.25s;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.move-cat:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(108,71,255,.2)}
+.move-cat:active{transform:scale(.95)}
+.site-card{background:#fff;border-radius:14px;margin:0 16px 8px;padding:12px 14px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 8px rgba(0,0,0,.05);cursor:pointer;transition:.2s}
+.site-card:hover{transform:translateX(3px)}
+.site-ico{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;background:#ede9ff;flex-shrink:0}
+.bank-card{border-radius:16px;margin:0 16px 10px;padding:16px;color:#fff;overflow:hidden;position:relative;transition:.2s}
+.bank-card:hover{transform:translateY(-2px)}
+.slang-card{background:#fff;border-radius:14px;margin:0 16px 8px;padding:12px 14px;box-shadow:0 2px 10px rgba(0,0,0,.05);display:flex;align-items:center;gap:12px;transition:.2s}
+.slang-card:hover{transform:translateX(3px)}
+.banner{margin:0 16px 12px;border-radius:16px;padding:14px 16px}
+.step-row{display:flex;align-items:flex-start;gap:12px;padding:8px 16px}
+.step-num{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#6c47ff,#8b5cf6);color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.rights-card{background:#fff;border-radius:14px;margin:0 16px 8px;padding:14px;display:flex;gap:12px;align-items:flex-start;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.rights-ico{width:36px;height:36px;border-radius:10px;background:#ede9ff;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.visa-card{background:#fff;border-radius:16px;margin:0 16px 10px;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.sal-table{margin:0 16px 12px;border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.sal-row{display:grid;grid-template-columns:1fr 1fr 1fr;padding:10px 12px;border-bottom:1px solid #f5f4ff;align-items:center}
+.sal-row:last-child{border-bottom:none}
+.sal-row.head{background:#ede9ff}
+.ielts-card{background:#fff;border-radius:16px;margin:0 16px 10px;padding:16px;cursor:pointer;display:flex;align-items:center;gap:14px;box-shadow:0 2px 12px rgba(0,0,0,.06);transition:.25s}
+.ielts-card:hover{transform:translateX(4px)}
+.pic-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 16px}
+.pic-cat{background:#fff;border-radius:14px;padding:14px 6px;text-align:center;cursor:pointer;transition:.25s;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.pic-cat:hover{transform:translateY(-3px)}
+.pic-items{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 16px}
+.pic-item{background:#fff;border-radius:12px;padding:12px 6px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.sim-card{background:#fff;border-radius:18px;padding:16px;cursor:pointer;box-shadow:0 3px 14px rgba(0,0,0,.07);transition:.25s;position:relative;overflow:hidden}
+.sim-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(108,71,255,.2)}
+.sim-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#6c47ff,#a78bfa)}
+.onboarding{position:absolute;inset:0;background:linear-gradient(160deg,#faf9ff,#f0eeff,#e9e4fb);z-index:200;overflow-y:auto;padding:32px 20px 40px}
+.lv-card{background:#fff;border-radius:16px;padding:14px 12px;cursor:pointer;border:2px solid #ede9ff;transition:.25s;text-align:center}
+.lv-card:hover,.lv-card.sel{border-color:#6c47ff;background:#ede9ff;transform:scale(1.03)}
+.lv-badge{display:inline-block;background:linear-gradient(135deg,#6c47ff,#8b5cf6);color:#fff;font-size:16px;font-weight:900;padding:4px 12px;border-radius:8px;margin-bottom:6px}
+.xp-float{position:absolute;font-size:14px;font-weight:800;color:#6c47ff;pointer-events:none;animation:xpFloat 1.2s ease forwards;z-index:99;text-shadow:0 0 10px rgba(108,71,255,.4)}
+@keyframes fadeInPage{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideIn{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes slideInRight{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
+@keyframes bounceIn{0%{transform:scale(.85)}60%{transform:scale(1.06)}100%{transform:scale(1)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes sparkle{0%,100%{opacity:.35;transform:scale(.75) rotate(0)}50%{opacity:1;transform:scale(1.25) rotate(180deg)}}
+@keyframes planefloat{0%,100%{transform:rotate(-15deg) translateY(0)}50%{transform:rotate(-15deg) translateY(-9px)}}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes typingDot{0%,80%,100%{transform:scale(0)}40%{transform:scale(1)}}
+@keyframes xpFloat{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-40px) scale(1.3)}}
+@keyframes glow{0%,100%{box-shadow:0 0 0 rgba(108,71,255,0)}50%{box-shadow:0 0 20px rgba(108,71,255,.4)}}
+@keyframes popIn{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes listenAnim{0%,100%{height:6px}50%{height:32px}}
+.word-card{background:#fff;border-radius:16px;padding:16px;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.06);transition:.3s;border:2px solid transparent}
+.word-card:hover{border-color:#c4b5fd;transform:translateY(-2px)}
+.word-front,.word-back{min-height:60px}
+.test-card{background:#fff;border-radius:16px;margin:0 16px 10px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.stat-card{border-radius:16px;padding:16px;text-align:center}
+.subpage-hdr{display:flex;align-items:center;gap:12px;padding:14px 16px;background:#fff;border-bottom:1px solid #ede9ff;font-size:15px;font-weight:800;color:#1a1a2e;position:sticky;top:0;z-index:10}
+</style>
+</head>
+<body>
+<div class="phone">
+
+<!-- ONBOARDING -->
+<div class="onboarding" id="onboarding">
+  <div style="text-align:center;margin-bottom:6px">
+    <div style="font-size:56px;margin-bottom:8px;animation:floatY 3s ease-in-out infinite">🦊</div>
+    <div style="font-size:26px;font-weight:900;color:#1a1a2e;letter-spacing:1px">CATCH <span style="color:#6c47ff">QUEST</span></div>
+    <div style="font-size:13px;color:#9ca3af;margin-top:4px">Английский для переезда за рубеж</div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0 4px">
+    <div style="background:rgba(108,71,255,.08);border-radius:12px;padding:10px 6px;text-align:center"><div style="font-size:20px;margin-bottom:4px">🧪</div><div style="font-size:10px;font-weight:700;color:#1a1a2e">2 000<br>тестов</div></div>
+    <div style="background:rgba(108,71,255,.08);border-radius:12px;padding:10px 6px;text-align:center"><div style="font-size:20px;margin-bottom:4px">📚</div><div style="font-size:10px;font-weight:700;color:#1a1a2e">3 000<br>слов/фраз</div></div>
+    <div style="background:rgba(108,71,255,.08);border-radius:12px;padding:10px 6px;text-align:center"><div style="font-size:20px;margin-bottom:4px">💬</div><div style="font-size:10px;font-weight:700;color:#1a1a2e">500<br>симуляций</div></div>
+  </div>
+  <div style="font-size:16px;font-weight:800;color:#1a1a2e;text-align:center;margin:14px 0 4px">Выбери свой уровень</div>
+  <div style="font-size:12px;color:#9ca3af;text-align:center;margin-bottom:10px">Получишь задания именно для тебя</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
+    <div class="lv-card sel" onclick="selectLevel(this,'A1')"><div class="lv-badge">A1</div><div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Начинающий</div><div style="font-size:10px;color:#9ca3af">Только начинаю</div></div>
+    <div class="lv-card" onclick="selectLevel(this,'A2')"><div class="lv-badge">A2</div><div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Базовый</div><div style="font-size:10px;color:#9ca3af">Знаю основы</div></div>
+    <div class="lv-card" onclick="selectLevel(this,'B1')"><div class="lv-badge">B1</div><div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Средний</div><div style="font-size:10px;color:#9ca3af">Объясняюсь просто</div></div>
+    <div class="lv-card" onclick="selectLevel(this,'B2')"><div class="lv-badge">B2</div><div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Выше среднего</div><div style="font-size:10px;color:#9ca3af">Общаюсь свободно</div></div>
+    <div class="lv-card" onclick="selectLevel(this,'C1')"><div class="lv-badge">C1</div><div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Продвинутый</div><div style="font-size:10px;color:#9ca3af">Почти носитель</div></div>
+    <div class="lv-card" onclick="selectLevel(this,'C2')"><div class="lv-badge">C2</div><div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Мастер</div><div style="font-size:10px;color:#9ca3af">Уровень носителя</div></div>
+  </div>
+  <button class="btn-pu" onclick="startApp()" style="width:100%;margin:0;border-radius:18px;font-size:16px;padding:17px;justify-content:center">🚀 Начать обучение →</button>
+  <div style="text-align:center;margin-top:10px;font-size:11px;color:#c4b5fd">Уровень можно изменить в Профиле</div>
+</div>
+
+<!-- HEADER -->
+<div class="hdr" id="main-hdr" style="display:none">
+  <button class="hdr-btn">☰</button>
+  <div class="hdr-logo">CATCH <span>QUEST</span></div>
+  <div style="display:flex;gap:6px">
+    <button class="hdr-btn" style="background:linear-gradient(135deg,#ede9ff,#f5f4ff);font-size:12px;font-weight:800;color:#6c47ff" id="hdr-level-badge">A1</button>
+    <button class="hdr-btn">🔔</button>
+  </div>
+</div>
+
+<!-- PAGE: HOME -->
+<div class="page" id="page-home">
+  <div style="position:relative;overflow:hidden;background:linear-gradient(160deg,#faf9ff 0%,#f0eeff 35%,#e9e4fb 70%,#e2dcf8 100%);min-height:306px;display:flex;flex-direction:column">
+    <div style="position:absolute;left:50%;top:40%;transform:translate(-50%,-50%);width:290px;height:290px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.85),transparent 70%);pointer-events:none;animation:glow 4s ease-in-out infinite"></div>
+    <div style="position:absolute;top:14%;left:12%;color:#b8a9f0;font-size:14px;animation:sparkle 2.4s ease-in-out infinite">✦</div>
+    <div style="position:absolute;top:8%;right:22%;color:#c4b5fd;font-size:10px;animation:sparkle 1.8s ease-in-out .4s infinite">✦</div>
+    <div style="position:absolute;top:28%;right:10%;color:#ddd6fe;font-size:8px;animation:sparkle 2s ease-in-out .8s infinite">✦</div>
+    <div style="position:absolute;top:62%;left:8%;color:#c4b5fd;font-size:12px;animation:sparkle 2.2s ease-in-out .2s infinite">✦</div>
+    <div style="position:absolute;top:70%;right:14%;color:#a78bfa;font-size:9px;animation:sparkle 1.9s ease-in-out .6s infinite">✦</div>
+    <div style="position:absolute;top:45%;left:5%;color:#ddd6fe;font-size:7px;animation:sparkle 2.6s ease-in-out 1s infinite">✦</div>
+    <div style="position:absolute;top:10%;right:16%;font-size:24px;color:#c4b5fd;opacity:.7;transform:rotate(-15deg);animation:planefloat 4s ease-in-out infinite">✈</div>
+    <svg style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none" viewBox="0 0 390 306" fill="none">
+      <path d="M 60 248 Q 140 55 305 26" stroke="#b8a9f0" stroke-width="1.8" stroke-dasharray="6,5" fill="none" opacity=".55"/>
+      <polygon points="305,26 297,34 313,32" fill="#b8a9f0" opacity=".55"/>
+    </svg>
+    <div style="position:absolute;bottom:22%;left:6%;font-size:22px;opacity:.55;animation:floatY 3s ease-in-out infinite">🧭</div>
+    <div style="position:absolute;top:38%;left:4%;font-size:18px;opacity:.4;animation:spin 8s linear infinite">⚙️</div>
+    <div style="padding:14px 20px 0;position:relative;z-index:1"><div class="season">SEASON 1 · LIVE</div></div>
+    <div style="display:flex;align-items:flex-end;padding:0 20px;position:relative;z-index:1;flex:1">
+      <div style="flex:1;padding-bottom:16px">
+        <h1 style="font-size:25px;font-weight:900;color:#1a1a2e;line-height:1.18">Английский<br>как <span style="color:#6c47ff">квест,</span><br>не как урок.</h1>
+        <p style="font-size:11px;color:#8b83b0;margin-top:8px;line-height:1.6;max-width:175px">Аэропорт, врач, аренда — реальные сценарии переезда как игровые миссии.</p>
+        <div id="user-level-badge" style="margin-top:10px;display:inline-block;background:linear-gradient(135deg,#6c47ff,#8b5cf6);color:#fff;font-size:11px;font-weight:800;padding:3px 11px;border-radius:8px;animation:glow 3s ease-in-out infinite">Уровень A1</div>
+      </div>
+      <div style="flex-shrink:0;width:150px;display:flex;flex-direction:column;align-items:center;position:relative;margin-bottom:-4px">
+        <div style="position:relative;width:142px;height:200px">
+          <div style="position:absolute;bottom:20px;left:15px;right:15px;height:106px;background:linear-gradient(170deg,#7c3aed,#6c47ff);border-radius:28px 28px 16px 16px"></div>
+          <div style="position:absolute;bottom:68px;left:0;right:0;text-align:center;color:#fff;font-size:8px;font-weight:900;line-height:1.3;letter-spacing:.5px">CATCH<br>QUEST</div>
+          <div style="position:absolute;bottom:113px;left:27px;right:27px;height:26px;background:#7c3aed;border-radius:50% 50% 0 0"></div>
+          <div style="position:absolute;bottom:56px;right:2px;width:29px;height:48px;background:#374151;border-radius:7px"></div>
+          <div style="position:absolute;bottom:82px;right:6px;width:21px;height:14px;background:#4b5563;border-radius:6px 6px 0 0"></div>
+          <div style="position:absolute;bottom:76px;left:2px;width:25px;height:50px;background:#7c3aed;border-radius:11px;transform:rotate(15deg)"></div>
+          <div style="position:absolute;bottom:76px;right:9px;width:25px;height:50px;background:#7c3aed;border-radius:11px;transform:rotate(-10deg)"></div>
+          <div style="position:absolute;bottom:22px;left:-1px;width:27px;height:23px;background:#e07b1a;border-radius:50% 50% 40% 40%"></div>
+          <div style="position:absolute;bottom:28px;right:7px;width:25px;height:21px;background:#e07b1a;border-radius:50%"></div>
+          <div style="position:absolute;bottom:26px;left:-8px;width:23px;height:31px;background:#1e3a5f;border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px"><div style="font-size:8px">🌐</div><div style="font-size:5px;color:#fff;font-weight:700;line-height:1">PASS<br>PORT</div></div>
+          <div style="position:absolute;bottom:3px;left:24px;width:25px;height:25px;background:#3730a3;border-radius:4px 4px 7px 7px"></div>
+          <div style="position:absolute;bottom:3px;right:24px;width:25px;height:25px;background:#3730a3;border-radius:4px 4px 7px 7px"></div>
+          <div style="position:absolute;bottom:0;left:18px;width:29px;height:10px;background:#5b21b6;border-radius:5px"></div>
+          <div style="position:absolute;bottom:0;right:18px;width:29px;height:10px;background:#5b21b6;border-radius:5px"></div>
+          <div style="position:absolute;bottom:16px;right:-14px;width:28px;height:54px;background:linear-gradient(180deg,#f97316,#ea580c);border-radius:50% 50% 40% 60%;transform:rotate(20deg)"></div>
+          <div style="position:absolute;bottom:54px;right:-10px;width:16px;height:19px;background:#fff5f0;border-radius:50%"></div>
+          <div style="position:absolute;top:0;left:24px;width:91px;height:82px;background:#f97316;border-radius:50% 50% 42% 42%"></div>
+          <div style="position:absolute;top:-11px;left:26px;width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;border-bottom:33px solid #ea580c"></div>
+          <div style="position:absolute;top:-11px;right:26px;width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;border-bottom:33px solid #ea580c"></div>
+          <div style="position:absolute;top:-4px;left:32px;width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-bottom:20px solid #fca5a5"></div>
+          <div style="position:absolute;top:-4px;right:32px;width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-bottom:20px solid #fca5a5"></div>
+          <div style="position:absolute;top:33px;left:36px;width:68px;height:47px;background:#fef3e2;border-radius:45% 45% 55% 55%"></div>
+          <div style="position:absolute;top:60px;left:64px;width:13px;height:8px;background:#1a1a2e;border-radius:50%"></div>
+          <div style="position:absolute;top:68px;left:56px;width:26px;height:13px;border-bottom:3px solid #1a1a2e;border-radius:0 0 50% 50%"></div>
+          <div style="position:absolute;top:26px;left:28px;right:28px;height:19px;display:flex;align-items:center;gap:3px"><div style="flex:1;height:19px;background:linear-gradient(135deg,#7c3aed,#6c47ff);border-radius:7px;opacity:.95"></div><div style="width:5px;height:3px;background:#6c47ff"></div><div style="flex:1;height:19px;background:linear-gradient(135deg,#7c3aed,#6c47ff);border-radius:7px;opacity:.95"></div></div>
+          <div style="position:absolute;top:25px;left:27px;right:27px;height:21px;border:2px solid #5b21b6;border-radius:8px;pointer-events:none"></div>
+        </div>
+        <div style="position:relative;width:112px;margin-top:-8px">
+          <div style="width:36px;height:11px;border:3px solid #8b83c4;border-bottom:none;border-radius:5px 5px 0 0;margin:0 auto"></div>
+          <div style="background:linear-gradient(160deg,#c4b5fd,#a78bfa,#8b5cf6);border-radius:12px;padding:8px 7px 12px;box-shadow:0 7px 22px rgba(108,71,255,.35)">
+            <div style="height:3px;background:rgba(255,255,255,.25);border-radius:2px;margin-bottom:7px"></div>
+            <div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap;justify-content:center">
+              <div style="width:22px;height:22px;background:#fbbf24;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px">🌐</div>
+              <div style="width:22px;height:22px;background:#6c47ff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px">✈️</div>
+              <div style="padding:2px 6px;background:#fff;border-radius:7px;font-size:7px;font-weight:900;color:#6c47ff;line-height:1.2;text-align:center">CATCH<br>QUEST</div>
+              <div style="width:24px;height:24px;background:#1a1a2e;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:900">XP</div>
+            </div>
+            <div style="height:3px;background:rgba(255,255,255,.2);border-radius:2px;margin-top:7px"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:0 8px;margin-top:2px"><div style="width:13px;height:8px;background:#7c3aed;border-radius:50%"></div><div style="width:13px;height:8px;background:#7c3aed;border-radius:50%"></div></div>
+          <div style="width:100px;height:7px;background:rgba(108,71,255,.15);border-radius:50%;margin:3px auto 0;filter:blur(4px)"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;padding:0 16px 12px">
+    <div style="background:#fff;border-radius:13px;padding:9px 5px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.05);cursor:pointer;transition:.2s" onclick="showPage('study');setNav(document.querySelectorAll('.nb')[1])"><div style="font-size:20px;margin-bottom:3px">📚</div><div style="font-size:9px;font-weight:700;color:#1a1a2e;line-height:1.3">3000 слов</div></div>
+    <div style="background:#fff;border-radius:13px;padding:9px 5px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.05);cursor:pointer;transition:.2s" onclick="showPage('tests');setNav(document.querySelectorAll('.nb')[2])"><div style="font-size:20px;margin-bottom:3px">🧪</div><div style="font-size:9px;font-weight:700;color:#1a1a2e;line-height:1.3">2000 тестов</div></div>
+    <div style="background:#fff;border-radius:13px;padding:9px 5px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.05);cursor:pointer;transition:.2s" onclick="showPage('sims');setNav(document.querySelectorAll('.nb')[3])"><div style="font-size:20px;margin-bottom:3px">💬</div><div style="font-size:9px;font-weight:700;color:#1a1a2e;line-height:1.3">500 диалогов</div></div>
+    <div style="background:#fff;border-radius:13px;padding:9px 5px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.05);cursor:pointer;transition:.2s" onclick="showPage('move');setNav(document.querySelectorAll('.nb')[4])"><div style="font-size:20px;margin-bottom:3px">✈️</div><div style="font-size:9px;font-weight:700;color:#1a1a2e;line-height:1.3">Переезд</div></div>
+  </div>
+  <div class="card cp">
+    <div style="font-size:10px;font-weight:800;color:#9ca3af;letter-spacing:1px;margin-bottom:10px">ТВОЙ ПРОГРЕСС</div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#6c47ff,#a78bfa);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;flex-shrink:0"><div style="font-size:8px;opacity:.8">УР.</div><div style="font-size:18px;font-weight:900;line-height:1" id="home-level-num">1</div></div>
+      <div style="flex:1"><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:13px;font-weight:800;color:#1a1a2e" id="home-xp-text">0 / 500 XP</span></div><div class="pbar"><div class="pbar-f" id="home-pbar" style="width:0%"></div></div><div style="font-size:10px;color:#9ca3af;margin-top:3px" id="home-xp-left">До уровня 2: 500 XP</div></div>
+    </div>
+  </div>
+  <div class="stat-row">
+    <div class="stat-b"><div style="font-size:16px;margin-bottom:2px">⚡</div><div style="font-size:12px;font-weight:900;color:#6c47ff" id="home-total-xp">0</div><div style="font-size:10px;color:#9ca3af">XP</div></div>
+    <div class="stat-b"><div style="font-size:16px;margin-bottom:2px">🧪</div><div style="font-size:12px;font-weight:900;color:#1a1a2e" id="home-tests-done">0/2000</div><div style="font-size:10px;color:#9ca3af">Тестов</div></div>
+    <div class="stat-b"><div style="font-size:16px;margin-bottom:2px">💬</div><div style="font-size:12px;font-weight:900;color:#1a1a2e" id="home-sims-done">0/500</div><div style="font-size:10px;color:#9ca3af">Диалогов</div></div>
+    <div class="stat-b"><div style="font-size:16px;margin-bottom:2px">🔥</div><div style="font-size:12px;font-weight:900;color:#1a1a2e" id="home-streak">0</div><div style="font-size:10px;color:#9ca3af">Стрик</div></div>
+  </div>
+  <div class="stitle"><div class="stitle-t">Сценарии дня</div><div class="stitle-l" onclick="showPage('sims');setNav(document.querySelectorAll('.nb')[3])">Все →</div></div>
+  <div class="sc-card" onclick="startSim('airport')"><div class="sc-img" style="background:#dbeafe">✈️</div><div style="flex:1"><div class="sc-name">Аэропорт</div><div class="sc-desc">Регистрация, багаж, паспортный контроль</div><div style="display:flex;gap:6px"><span class="xp-tag">50 XP</span><span class="diff-e">Лёгкий</span></div></div><div style="color:#d1d5db;font-size:20px">›</div></div>
+  <div class="sc-card" onclick="startSim('doctor')"><div class="sc-img" style="background:#dcfce7">🏥</div><div style="flex:1"><div class="sc-name">Врач</div><div class="sc-desc">Запись, симптомы, медицинские термины</div><div style="display:flex;gap:6px"><span class="xp-tag">60 XP</span><span class="diff-e">Лёгкий</span></div></div><div style="color:#d1d5db;font-size:20px">›</div></div>
+  <div class="sc-card" onclick="startSim('interview')"><div class="sc-img" style="background:#fef3c7">💼</div><div style="flex:1"><div class="sc-name">Собеседование</div><div class="sc-desc">Расскажи о себе, навыки, вопросы</div><div style="display:flex;gap:6px"><span class="xp-tag">80 XP</span><span class="diff-m">Средний</span></div></div><div style="color:#d1d5db;font-size:20px">›</div></div>
+  <button class="btn-pu" onclick="showPage('sims');setNav(document.querySelectorAll('.nb')[3])">💬 Начать симуляцию →</button>
+</div>
+
+<!-- PAGE: STUDY -->
+<div class="page" id="page-study">
+  <div style="padding:14px 20px 8px;background:#fff;border-bottom:1px solid #ede9ff">
+    <div style="font-size:18px;font-weight:900;color:#1a1a2e">Учёба 📚</div>
+    <div style="font-size:12px;color:#9ca3af;margin-top:2px">3 000 слов и предложений по уровням</div>
+  </div>
+  <div class="tabs" id="study-tabs">
+    <button class="tab active" onclick="showStudyTab('words',this)">📖 Слова</button>
+    <button class="tab" onclick="showStudyTab('sentences',this)">🗣️ Предложения</button>
+    <button class="tab" onclick="showStudyTab('ielts',this)">🎓 IELTS</button>
+    <button class="tab" onclick="showStudyTab('pics',this)">🖼️ Картинки</button>
+    <button class="tab" onclick="showStudyTab('slang',this)">😎 Сленг</button>
+  </div>
+  <div id="stab-words">
+    <div style="display:flex;gap:5px;padding:4px 16px 6px;overflow-x:auto">
+      <button class="tab active" style="padding:5px 12px;font-size:11px" onclick="filterWords('all',this)">Все</button>
+      <button class="tab" style="padding:5px 12px;font-size:11px" onclick="filterWords('A1',this)">A1</button>
+      <button class="tab" style="padding:5px 12px;font-size:11px" onclick="filterWords('A2',this)">A2</button>
+      <button class="tab" style="padding:5px 12px;font-size:11px" onclick="filterWords('B1',this)">B1</button>
+      <button class="tab" style="padding:5px 12px;font-size:11px" onclick="filterWords('B2',this)">B2</button>
+    </div>
+    <div style="display:flex;gap:5px;padding:0 16px 8px;overflow-x:auto">
+      <button class="tab" style="padding:4px 10px;font-size:10px" onclick="filterWordsCat('all',this)">Все темы</button>
+      <button class="tab" style="padding:4px 10px;font-size:10px" onclick="filterWordsCat('airport',this)">✈️ Аэропорт</button>
+      <button class="tab" style="padding:4px 10px;font-size:10px" onclick="filterWordsCat('doctor',this)">🏥 Врач</button>
+      <button class="tab" style="padding:4px 10px;font-size:10px" onclick="filterWordsCat('work',this)">💼 Работа</button>
+      <button class="tab" style="padding:4px 10px;font-size:10px" onclick="filterWordsCat('housing',this)">🏠 Жильё</button>
+      <button class="tab" style="padding:4px 10px;font-size:10px" onclick="filterWordsCat('bank',this)">🏦 Банк</button>
+      <button class="tab" style="padding:4px 10px;font-size:10px" onclick="filterWordsCat('transport',this)">🚌 Транспорт</button>
+      <button class="tab" style="padding:4px 10px;font-size:10px" onclick="filterWordsCat('shopping',this)">🛒 Шоппинг</button>
+    </div>
+    <div style="padding:0 16px 8px;font-size:11px;color:#9ca3af" id="words-count">Показано 15 из 3 000 слов</div>
+    <div id="words-container" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 16px 8px"></div>
+    <button class="btn-pu" onclick="loadMoreWords()" id="words-more-btn">Загрузить ещё 15 слов</button>
+  </div>
+  <div id="stab-sentences" style="display:none">
+    <div style="display:flex;gap:5px;padding:6px 16px 8px;overflow-x:auto">
+      <button class="tab active" style="padding:5px 12px;font-size:11px" onclick="filterSents('all',this)">Все</button>
+      <button class="tab" style="padding:5px 12px;font-size:11px" onclick="filterSents('A1',this)">A1</button>
+      <button class="tab" style="padding:5px 12px;font-size:11px" onclick="filterSents('A2',this)">A2</button>
+      <button class="tab" style="padding:5px 12px;font-size:11px" onclick="filterSents('B1',this)">B1</button>
+      <button class="tab" style="padding:5px 12px;font-size:11px" onclick="filterSents('B2',this)">B2</button>
+    </div>
+    <div style="display:flex;gap:5px;padding:0 16px 8px;overflow-x:auto">
+      <button class="tab" style="padding:4px 10px;font-size:10px" onclick="filterSentsCat('all',this)">Все темы</button>
+      <button class="tab" style="padding:4px 10px;font-size:10px" onclick="filterSentsCat('airport',this)">✈️ Аэропорт</button>
+      <button class="tab" style="padding:4px 10px;font-size:10px" onclick="filterSentsCat('doctor',this)">🏥 Врач</button>
+      <button class="tab" style="padding:4px 10px;font-size:10px" onclick="filterSentsCat('daily',this)">🗣️ Повседневное</button>
+      <button class="tab" style="padding:4px 10px;font-size:10px" onclick="filterSentsCat('work',this)">💼 Работа</button>
+    </div>
+    <div style="padding:0 16px 8px;font-size:11px;color:#9ca3af" id="sents-count">Показано 15 из 3 000 предложений</div>
+    <div id="sents-container"></div>
+    <button class="btn-pu" onclick="loadMoreSents()" id="sents-more-btn">Загрузить ещё 15</button>
+  </div>
+  <div id="stab-ielts" style="display:none">
+    <div class="banner" style="background:linear-gradient(135deg,#6c47ff,#8b5cf6);color:#fff;margin-top:10px"><div style="font-size:15px;font-weight:800;margin-bottom:4px">🎓 IELTS — Международный экзамен</div><div style="font-size:12px;opacity:.85">Шкала 0–9 · Признаётся в 140+ странах</div></div>
+    <div class="ielts-card" onclick="showSubPage('ielts-reading')"><div style="width:52px;height:52px;border-radius:14px;background:#dbeafe;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0">📖</div><div style="flex:1"><div style="font-size:14px;font-weight:800;color:#1a1a2e;margin-bottom:3px">Reading</div><div style="font-size:11px;color:#9ca3af">60 мин · 40 вопросов</div></div><div style="color:#d1d5db;font-size:20px">›</div></div>
+    <div class="ielts-card" onclick="showSubPage('ielts-writing')"><div style="width:52px;height:52px;border-radius:14px;background:#dcfce7;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0">✍️</div><div style="flex:1"><div style="font-size:14px;font-weight:800;color:#1a1a2e;margin-bottom:3px">Writing</div><div style="font-size:11px;color:#9ca3af">60 мин · 2 задания</div></div><div style="color:#d1d5db;font-size:20px">›</div></div>
+    <div class="ielts-card" onclick="showSubPage('ielts-listening')"><div style="width:52px;height:52px;border-radius:14px;background:#fef3c7;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0">🎧</div><div style="flex:1"><div style="font-size:14px;font-weight:800;color:#1a1a2e;margin-bottom:3px">Listening</div><div style="font-size:11px;color:#9ca3af">30 мин · 40 вопросов</div></div><div style="color:#d1d5db;font-size:20px">›</div></div>
+    <div class="ielts-card" onclick="showSubPage('ielts-speaking')"><div style="width:52px;height:52px;border-radius:14px;background:#fce7f3;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0">🗣️</div><div style="flex:1"><div style="font-size:14px;font-weight:800;color:#1a1a2e;margin-bottom:3px">Speaking</div><div style="font-size:11px;color:#9ca3af">11–14 мин · 3 части</div></div><div style="color:#d1d5db;font-size:20px">›</div></div>
+  </div>
+  <div id="stab-pics" style="display:none">
+    <div style="padding:12px 20px 8px"><div style="font-size:14px;font-weight:800;color:#1a1a2e">По картинкам 🖼️</div></div>
+    <div class="pic-grid">
+      <div class="pic-cat" onclick="showSubPage('pics-home')"><div style="font-size:32px;margin-bottom:6px">🏠</div><div style="font-size:11px;font-weight:700;color:#1a1a2e">Дом</div></div>
+      <div class="pic-cat" onclick="showSubPage('pics-kitchen')"><div style="font-size:32px;margin-bottom:6px">🍳</div><div style="font-size:11px;font-weight:700;color:#1a1a2e">Кухня</div></div>
+      <div class="pic-cat" onclick="showSubPage('pics-hospital')"><div style="font-size:32px;margin-bottom:6px">🏥</div><div style="font-size:11px;font-weight:700;color:#1a1a2e">Больница</div></div>
+      <div class="pic-cat" onclick="showSubPage('pics-airport')"><div style="font-size:32px;margin-bottom:6px">✈️</div><div style="font-size:11px;font-weight:700;color:#1a1a2e">Аэропорт</div></div>
+      <div class="pic-cat" onclick="showSubPage('pics-shop')"><div style="font-size:32px;margin-bottom:6px">🛒</div><div style="font-size:11px;font-weight:700;color:#1a1a2e">Магазин</div></div>
+      <div class="pic-cat" onclick="showSubPage('pics-transport')"><div style="font-size:32px;margin-bottom:6px">🚌</div><div style="font-size:11px;font-weight:700;color:#1a1a2e">Транспорт</div></div>
+    </div>
+  </div>
+  <div id="stab-slang" style="display:none">
+    <div style="padding:12px 20px 8px"><div style="font-size:14px;font-weight:800;color:#1a1a2e">Молодёжный сленг 😎</div></div>
+    <div style="display:flex;gap:5px;padding:0 16px 10px">
+      <button class="tab active" id="slang-tab-s" onclick="showSlangTab('slangs',this)" style="padding:6px 14px;font-size:12px">Сленг</button>
+      <button class="tab" id="slang-tab-r" onclick="showSlangTab('rofl',this)" style="padding:6px 14px;font-size:12px">Рофл-фразы</button>
+    </div>
+    <div id="slang-slangs">
+      <div class="slang-card"><div style="font-size:13px;font-weight:800;color:#6c47ff;min-width:85px">sick 🤒</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Крутой / Огонь</div><div style="font-size:11px;color:#9ca3af">That track is sick!</div></div></div>
+      <div class="slang-card"><div style="font-size:13px;font-weight:800;color:#6c47ff;min-width:85px">lit 🔥</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Зажигательный</div><div style="font-size:11px;color:#9ca3af">The party was lit!</div></div></div>
+      <div class="slang-card"><div style="font-size:13px;font-weight:800;color:#6c47ff;min-width:85px">vibe ✨</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Атмосфера</div><div style="font-size:11px;color:#9ca3af">Good vibes only!</div></div></div>
+      <div class="slang-card"><div style="font-size:13px;font-weight:800;color:#6c47ff;min-width:85px">sus 👀</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Подозрительный</div><div style="font-size:11px;color:#9ca3af">That seems sus.</div></div></div>
+      <div class="slang-card"><div style="font-size:13px;font-weight:800;color:#6c47ff;min-width:85px">no cap 🧢</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Без шуток</div><div style="font-size:11px;color:#9ca3af">No cap, this is amazing.</div></div></div>
+      <div class="slang-card"><div style="font-size:13px;font-weight:800;color:#6c47ff;min-width:85px">bet 🤜</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Договорились</div><div style="font-size:11px;color:#9ca3af">— Meet at 5? — Bet!</div></div></div>
+      <div class="slang-card"><div style="font-size:13px;font-weight:800;color:#6c47ff;min-width:85px">ghost 👻</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Игнорировать</div><div style="font-size:11px;color:#9ca3af">He ghosted me.</div></div></div>
+      <div class="slang-card"><div style="font-size:13px;font-weight:800;color:#6c47ff;min-width:85px">lowkey 🤫</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Честно говоря</div><div style="font-size:11px;color:#9ca3af">I lowkey love this.</div></div></div>
+      <div class="slang-card"><div style="font-size:13px;font-weight:800;color:#6c47ff;min-width:85px">rizz 💫</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Харизма</div><div style="font-size:11px;color:#9ca3af">He's got rizz!</div></div></div>
+      <div class="slang-card"><div style="font-size:13px;font-weight:800;color:#6c47ff;min-width:85px">mid 😐</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Среднячок</div><div style="font-size:11px;color:#9ca3af">That movie was mid.</div></div></div>
+    </div>
+    <div id="slang-rofl" style="display:none">
+      <div class="slang-card"><div style="font-size:13px;font-weight:800;color:#6c47ff;min-width:85px">I'm dead 💀</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Умираю со смеху</div><div style="font-size:11px;color:#9ca3af">Когда очень смешно</div></div></div>
+      <div class="slang-card"><div style="font-size:13px;font-weight:800;color:#6c47ff;min-width:85px">It's giving 💅</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Ощущается как...</div><div style="font-size:11px;color:#9ca3af">It's giving main character!</div></div></div>
+      <div class="slang-card"><div style="font-size:13px;font-weight:800;color:#6c47ff;min-width:85px">Audacity 😤</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Ну и наглость!</div><div style="font-size:11px;color:#9ca3af">The audacity...</div></div></div>
+      <div class="slang-card"><div style="font-size:13px;font-weight:800;color:#6c47ff;min-width:85px">Touch grass 🌿</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Выйди из интернета</div><div style="font-size:11px;color:#9ca3af">Bro needs to touch grass.</div></div></div>
+      <div class="slang-card"><div style="font-size:13px;font-weight:800;color:#6c47ff;min-width:85px">That slaps 🤚</div><div><div style="font-size:13px;font-weight:700;color:#1a1a2e">Это огонь</div><div style="font-size:11px;color:#9ca3af">This song slaps!</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: TESTS -->
+<div class="page" id="page-tests">
+  <div style="padding:14px 20px 8px;background:#fff;border-bottom:1px solid #ede9ff">
+    <div style="font-size:18px;font-weight:900;color:#1a1a2e">Тесты 🧪</div>
+    <div style="font-size:12px;color:#9ca3af;margin-top:2px">2 000 тестов — выбор, ввод, аудирование</div>
+  </div>
+  <div style="padding:10px 16px 4px"><div style="font-size:10px;font-weight:800;color:#9ca3af;letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px">Уровень</div>
+  <div style="display:flex;gap:6px;flex-wrap:wrap">
+    <button class="tab active" style="padding:6px 14px;font-size:12px" onclick="setTestLevel('A1',this)">A1</button>
+    <button class="tab" style="padding:6px 14px;font-size:12px" onclick="setTestLevel('A2',this)">A2</button>
+    <button class="tab" style="padding:6px 14px;font-size:12px" onclick="setTestLevel('B1',this)">B1</button>
+    <button class="tab" style="padding:6px 14px;font-size:12px" onclick="setTestLevel('B2',this)">B2</button>
+    <button class="tab" style="padding:6px 14px;font-size:12px" onclick="setTestLevel('C1',this)">C1</button>
+  </div></div>
+  <div class="tabs" id="test-type-tabs">
+    <button class="tab active" onclick="showTestType('choice',this)">🔘 Выбор ответа</button>
+    <button class="tab" onclick="showTestType('input',this)">⌨️ Ввод текста</button>
+    <button class="tab" onclick="showTestType('listen',this)">🎧 Аудирование</button>
+  </div>
+  <div style="margin:0 16px 8px;background:linear-gradient(135deg,#ede9ff,#f5f4ff);border-radius:14px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;border:1px solid #c4b5fd">
+    <div><div style="font-size:10px;color:#9ca3af;font-weight:600">Уровень</div><div style="font-size:16px;font-weight:900;color:#6c47ff" id="test-level-show">A1</div></div>
+    <div style="text-align:center"><div style="font-size:10px;color:#9ca3af;font-weight:600">Правильных</div><div style="font-size:16px;font-weight:900;color:#16a34a" id="test-correct-count">0</div></div>
+    <div style="text-align:center"><div style="font-size:10px;color:#9ca3af;font-weight:600">XP</div><div style="font-size:16px;font-weight:900;color:#6c47ff" id="test-xp-count">0</div></div>
+    <div style="text-align:right"><div style="font-size:10px;color:#9ca3af;font-weight:600">Тест #</div><div style="font-size:16px;font-weight:900;color:#1a1a2e" id="test-num">1</div></div>
+  </div>
+  <div id="test-choice-area"></div>
+  <div id="test-input-area" style="display:none"></div>
+  <div id="test-listen-area" style="display:none"></div>
+</div>
+
+<!-- PAGE: SIMULATIONS -->
+<div class="page" id="page-sims">
+  <div style="padding:14px 20px 8px;background:#fff;border-bottom:1px solid #ede9ff">
+    <div style="font-size:18px;font-weight:900;color:#1a1a2e">Симуляции 💬</div>
+    <div style="font-size:12px;color:#9ca3af;margin-top:2px">500 реальных диалогов для практики</div>
+  </div>
+  <div id="sims-menu">
+    <div style="padding:10px 16px 6px"><div style="font-size:10px;font-weight:800;color:#9ca3af;letter-spacing:.5px;text-transform:uppercase">Выбери ситуацию</div></div>
+    <div id="sims-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px"></div>
+    <div style="padding:12px 16px 0"><div style="font-size:12px;font-weight:800;color:#1a1a2e;margin-bottom:8px" id="sim-progress-title">Прогресс: 0 / 500 симуляций</div><div class="pbar"><div class="pbar-f" id="sim-pbar" style="width:0%"></div></div></div>
+  </div>
+  <div id="sims-chat" style="display:none;flex-direction:column">
+    <div style="position:sticky;top:0;background:#fff;border-bottom:1px solid #ede9ff;z-index:5;padding:12px 16px;display:flex;align-items:center;gap:10px">
+      <button onclick="endSim()" style="background:none;border:none;font-size:22px;cursor:pointer;color:#6c47ff;transition:.2s">←</button>
+      <div style="flex:1"><div style="font-size:14px;font-weight:800;color:#1a1a2e" id="sim-title">Аэропорт</div><div style="font-size:11px;color:#9ca3af" id="sim-step-show">Шаг 1 из 8</div></div>
+      <div style="font-size:10px;font-weight:700;background:#ede9ff;color:#6c47ff;padding:4px 10px;border-radius:999px" id="sim-level-badge">A1</div>
+    </div>
+    <div style="display:flex;flex-direction:column;padding:12px 16px;gap:8px;min-height:300px" id="chat-area"></div>
+    <div id="chat-opts-area" style="padding:6px 0"></div>
+  </div>
+</div>
+
+<!-- PAGE: MOVE -->
+<div class="page" id="page-move">
+  <div style="padding:14px 20px 10px;background:#fff;border-bottom:1px solid #ede9ff">
+    <div style="font-size:18px;font-weight:900;color:#1a1a2e">Переезд за рубеж ✈️</div>
+    <div style="font-size:12px;color:#9ca3af;margin-top:2px">Всё что нужно знать</div>
+  </div>
+  <div style="padding:12px 16px 8px"><div style="font-size:10px;font-weight:800;color:#9ca3af;letter-spacing:.5px;text-transform:uppercase;margin-bottom:10px">Разделы</div></div>
+  <div class="move-grid">
+    <div class="move-cat" onclick="showSubPage('move-countries')"><div style="font-size:28px;margin-bottom:6px">🌍</div><div style="font-size:11px;font-weight:700;color:#1a1a2e">Страны</div></div>
+    <div class="move-cat" onclick="showSubPage('move-visa')"><div style="font-size:28px;margin-bottom:6px">📋</div><div style="font-size:11px;font-weight:700;color:#1a1a2e">Виза</div></div>
+    <div class="move-cat" onclick="showSubPage('move-housing')"><div style="font-size:28px;margin-bottom:6px">🏠</div><div style="font-size:11px;font-weight:700;color:#1a1a2e">Жильё</div></div>
+    <div class="move-cat" onclick="showSubPage('move-transport')"><div style="font-size:28px;margin-bottom:6px">🚌</div><div style="font-size:11px;font-weight:700;color:#1a1a2e">Транспорт</div></div>
+    <div class="move-cat" onclick="showSubPage('move-sim2')"><div style="font-size:28px;margin-bottom:6px">📱</div><div style="font-size:11px;font-weight:700;color:#1a1a2e">SIM/eSIM</div></div>
+    <div class="move-cat" onclick="showSubPage('move-uni')"><div style="font-size:28px;margin-bottom:6px">🎓</div><div style="font-size:11px;font-weight:700;color:#1a1a2e">Университеты</div></div>
+    <div class="move-cat" onclick="showSubPage('move-work')"><div style="font-size:28px;margin-bottom:6px">💼</div><div style="font-size:11px;font-weight:700;color:#1a1a2e">Работа</div></div>
+    <div class="move-cat" onclick="showSubPage('move-banks')"><div style="font-size:28px;margin-bottom:6px">🏦</div><div style="font-size:11px;font-weight:700;color:#1a1a2e">Банки</div></div>
+    <div class="move-cat" onclick="showSubPage('move-rights')"><div style="font-size:28px;margin-bottom:6px">🛡️</div><div style="font-size:11px;font-weight:700;color:#1a1a2e">Права</div></div>
+    <div class="move-cat" onclick="showSubPage('move-laws')"><div style="font-size:28px;margin-bottom:6px">⚖️</div><div style="font-size:11px;font-weight:700;color:#1a1a2e">Законы</div></div>
+    <div class="move-cat" onclick="showSubPage('move-shopping')"><div style="font-size:28px;margin-bottom:6px">🛍️</div><div style="font-size:11px;font-weight:700;color:#1a1a2e">Шоппинг</div></div>
+    <div class="move-cat" onclick="showSubPage('move-culture')"><div style="font-size:28px;margin-bottom:6px">🤝</div><div style="font-size:11px;font-weight:700;color:#1a1a2e">Культура</div></div>
+  </div>
+  <div style="padding:14px 16px 0"><div style="font-size:12px;font-weight:800;color:#1a1a2e;margin-bottom:8px">📌 Чек-лист переезда</div></div>
+  <div class="info-card"><ul><li>Загранпаспорт — минимум за 3 месяца</li><li>Виза — подать заявку заранее</li><li>Открыть Wise / Revolut до отъезда</li><li>Найти жильё до приезда</li><li>Международная страховка</li><li>SIM или eSIM карта</li></ul></div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bnav" id="main-bnav" style="display:none">
+  <button class="nb active" onclick="showPage('home');setNav(this)"><div class="ico">🏠</div>Квесты</button>
+  <button class="nb" onclick="showPage('study');setNav(this)"><div class="ico">📚</div>Учёба</button>
+  <button class="nb" onclick="showPage('tests');setNav(this)"><div class="ico">🧪</div>Тесты</button>
+  <button class="nb" onclick="showPage('sims');setNav(this)"><div class="ico">💬</div>Диалоги</button>
+  <button class="nb" onclick="showPage('move');setNav(this)"><div class="ico">✈️</div>Переезд</button>
+</div>
+
+<!-- SUB-PAGES (overlay) -->
+<div class="subpage" id="sub-move-countries">
+  <div class="subpage-hdr"><button class="back-btn" onclick="hideSubPage('move-countries')">←</button><span>Страны для переезда 🌍</span></div>
+  <div style="padding:14px 16px;overflow-y:auto;max-height:calc(100%-56px)">
+    <div class="info-card" style="margin-bottom:10px"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">🇬🇧 Великобритания</div><ul><li>Виза: Skilled Worker / Student</li><li>Средняя зарплата: £35 000/год</li><li>Плюсы: NHS, мультикультурность, финтех</li><li>Минусы: дорогое жильё, климат</li><li>Английский: обязателен на уровне B2+</li></ul></div>
+    <div class="info-card" style="margin-bottom:10px"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">🇺🇸 США</div><ul><li>Виза: H-1B, O-1, EB-1</li><li>Средняя зарплата: $65 000/год</li><li>Плюсы: карьерный рост, зарплаты IT</li><li>Минусы: мед. страховка, лотерея H-1B</li><li>Английский: обязателен B2-C1</li></ul></div>
+    <div class="info-card" style="margin-bottom:10px"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">🇩🇪 Германия</div><ul><li>Виза: Job Seeker, EU Blue Card</li><li>Средняя зарплата: €50 000/год</li><li>Плюсы: стабильность, бесплатное образование</li><li>Минусы: бюрократия, нужен немецкий</li><li>Английский: B1-B2 для IT</li></ul></div>
+    <div class="info-card" style="margin-bottom:10px"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">🇨🇦 Канада</div><ul><li>Виза: Express Entry, PNP</li><li>Средняя зарплата: C$55 000/год</li><li>Плюсы: быстрое ПМЖ, природа, безопасность</li><li>Минусы: холодный климат, налоги</li><li>Английский: IELTS 6.0+ для Express Entry</li></ul></div>
+    <div class="info-card" style="margin-bottom:10px"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">🇦🇺 Австралия</div><ul><li>Виза: Skilled Independent (189), Employer Sponsored (482)</li><li>Средняя зарплата: A$75 000/год</li><li>Плюсы: климат, качество жизни, природа</li><li>Минусы: далеко от Европы, высокие цены</li><li>Английский: IELTS 6.5+</li></ul></div>
+    <div class="info-card" style="margin-bottom:10px"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">🇳🇱 Нидерланды</div><ul><li>Виза: HSM (высококвалифицированный мигрант)</li><li>Средняя зарплата: €55 000/год</li><li>Плюсы: 30% налоговый вычет, английский повсюду</li><li>Минусы: дорогое жильё в Амстердаме</li></ul></div>
+    <div class="info-card"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">🇵🇹 Португалия</div><ul><li>Виза: D7, Digital Nomad</li><li>Средняя зарплата: €20 000/год</li><li>Плюсы: тепло, дешевле Европы, NHR налоговый режим</li><li>Минусы: низкие зарплаты, рынок труда узкий</li></ul></div>
+  </div>
+</div>
+
+<div class="subpage" id="sub-move-visa">
+  <div class="subpage-hdr"><button class="back-btn" onclick="hideSubPage('move-visa')">←</button><span>Виза и документы 📋</span></div>
+  <div style="padding:14px 16px;overflow-y:auto;max-height:calc(100%-56px)">
+    <div class="info-card" style="margin-bottom:10px"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">📝 Типы виз UK</div><ul><li><b>Skilled Worker</b> — нужен спонсор работодатель, зарплата £26 200+</li><li><b>Student</b> — CAS от университета, доказательство финансов</li><li><b>Graduate</b> — 2 года после UK диплома</li><li><b>Global Talent</b> — для выдающихся специалистов</li></ul></div>
+    <div class="info-card" style="margin-bottom:10px"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">🇪🇺 Шенген</div><ul><li>Туристическая: 90 дней из 180</li><li>Национальная D: долгосрочная, от страны ЕС</li><li>EU Blue Card: для высококвалифицированных</li><li>Документы: паспорт, страховка, банковская выписка, бронь жилья</li></ul></div>
+    <div class="info-card" style="margin-bottom:10px"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">🇺🇸 США</div><ul><li><b>H-1B</b> — рабочая виза, лотерея, апрель каждый год</li><li><b>O-1</b> — выдающиеся способности</li><li><b>L-1</b> — перевод внутри компании</li><li><b>F-1</b> — студенческая виза</li></ul></div>
+    <div class="info-card"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">📌 Чек-лист документов</div><ul><li>Загранпаспорт (6+ мес. действия)</li><li>Медицинская страховка</li><li>Банковские выписки (3-6 мес.)</li><li>Подтверждение жилья</li><li>Справка об отсутствии судимостей</li><li>Диплом / сертификаты</li><li>Языковой сертификат (IELTS/TOEFL)</li></ul></div>
+  </div>
+</div>
+
+<div class="subpage" id="sub-move-housing">
+  <div class="subpage-hdr"><button class="back-btn" onclick="hideSubPage('move-housing')">←</button><span>Жильё за рубежом 🏠</span></div>
+  <div style="padding:14px 16px;overflow-y:auto;max-height:calc(100%-56px)">
+    <div class="info-card" style="margin-bottom:10px"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">🔍 Сайты поиска жилья</div><ul><li><b>Rightmove.co.uk</b> — UK, самый большой</li><li><b>Zoopla.co.uk</b> — UK аренда и покупка</li><li><b>SpareRoom.co.uk</b> — комнаты UK</li><li><b>Idealista.com</b> — Испания, Португалия, Италия</li><li><b>Immobilienscout24.de</b> — Германия</li><li><b>Funda.nl</b> — Нидерланды</li><li><b>Craigslist / Facebook Groups</b> — везде</li></ul></div>
+    <div class="info-card" style="margin-bottom:10px"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">💰 Средние цены аренды</div><ul><li>Лондон (1-комн.): £1800-2500/мес</li><li>Берлин (1-комн.): €1200-1800/мес</li><li>Амстердам (1-комн.): €1500-2200/мес</li><li>Лиссабон (1-комн.): €1000-1500/мес</li><li>Торонто (1-комн.): C$2000-2800/мес</li></ul></div>
+    <div class="info-card"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">📋 Нужно для аренды</div><ul><li>Удостоверение личности / паспорт</li><li>Proof of income (справка о зарплате)</li><li>Bank statements (3 мес.)</li><li>References от предыдущих арендодателей</li><li>Депозит: обычно 1-2 месяца</li></ul></div>
+  </div>
+</div>
+
+<div class="subpage" id="sub-move-transport">
+  <div class="subpage-hdr"><button class="back-btn" onclick="hideSubPage('move-transport')">←</button><span>Транспорт 🚌</span></div>
+  <div style="padding:14px 16px;overflow-y:auto;max-height:calc(100%-56px)">
+    <div class="info-card" style="margin-bottom:10px"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">🚇 Общественный транспорт</div><ul><li><b>London</b>: Oyster card / Contactless, Tube + Bus + Overground</li><li><b>Berlin</b>: BVG, месячный €86 (Deutschlandticket €49)</li><li><b>Amsterdam</b>: OV-chipkaart, трамваи + метро + автобусы</li><li><b>Paris</b>: Navigo, зоны 1-5</li></ul></div>
+    <div class="info-card" style="margin-bottom:10px"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">🚗 Водительские права</div><ul><li>UK: замена иностранных прав в течение 1 года</li><li>ЕС: права одной страны ЕС признаются везде</li><li>США: нужно сдать тест в штате</li><li>Международные права — только для туристов до 1 года</li></ul></div>
+    <div class="info-card"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">✈️ Бюджетные авиакомпании</div><ul><li>Ryanair, Wizz Air — Европа</li><li>EasyJet — Европа / UK</li><li>Norwegian — Скандинавия</li><li>Flixbus — автобусы по всей Европе</li></ul></div>
+  </div>
+</div>
+
+<div class="subpage" id="sub-move-sim2">
+  <div class="subpage-hdr"><button class="back-btn" onclick="hideSubPage('move-sim2')">←</button><span>SIM и eSIM 📱</span></div>
+  <div style="padding:14px 16px;overflow-y:auto;max-height:calc(100%-56px)">
+    <div class="info-card" style="margin-bottom:10px"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">🌐 eSIM для путешествий</div><ul><li><b>Airalo</b> — 190+ стран, от $5, лучшие цены</li><li><b>Holafly</b> — безлимит данных, дороже</li><li><b>Nomad</b> — хорошие тарифы Азия/Европа</li><li><b>Ubigi</b> — для ноутбуков + телефонов</li></ul></div>
+    <div class="info-card" style="margin-bottom:10px"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">📞 Местные SIM UK</div><ul><li><b>GiffGaff</b> — дешёво, работает на Vodafone</li><li><b>Three</b> — роуминг в 71 стране включён</li><li><b>EE</b> — лучшее покрытие UK</li><li><b>Lebara</b> — дешёвые международные звонки</li></ul></div>
+    <div class="info-card"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">🇩🇪 Германия</div><ul><li><b>ALDI Talk</b> — бюджетный вариант</li><li><b>Congstar</b> — качество Telekom</li><li><b>O2</b> — хорошие безлимит тарифы</li></ul></div>
+  </div>
+</div>
+
+<div class="subpage" id="sub-move-uni">
+  <div class="subpage-hdr"><button class="back-btn" onclick="hideSubPage('move-uni')">←</button><span>Университеты Европы 🎓</span></div>
+  <div style="padding:14px 16px;overflow-y:auto;max-height:calc(100%-56px)">
+    <div class="info-card" style="margin-bottom:10px"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">🇬🇧 Великобритания</div><ul><li>Oxford, Cambridge — элита, £9 250/год</li><li>Imperial, UCL, King's — топ Лондон</li><li>Подача через UCAS, дедлайн январь</li><li>IELTS 6.5-7.5 обычно требуется</li></ul></div>
+    <div class="info-card" style="margin-bottom:10px"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">🇩🇪 Германия (бесплатно!)</div><ul><li>TU Munich, LMU, Heidelberg</li><li>Семестровый взнос ~€300-500</li><li>Программы на английском: daad.de</li><li>Uni-assist для иностранных студентов</li></ul></div>
+    <div class="info-card" style="margin-bottom:10px"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">🇳🇱 Нидерланды</div><ul><li>Delft, Amsterdam, Utrecht</li><li>Много программ на английском</li><li>€2 314/год для ЕС, €8 000-20 000 для не-ЕС</li></ul></div>
+    <div class="info-card"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">🎯 Стипендии</div><ul><li><b>Chevening</b> — UK, полная стипендия</li><li><b>Erasmus+</b> — Европа, обмен</li><li><b>DAAD</b> — Германия</li><li><b>Orange Tulip</b> — Нидерланды</li><li><b>Endeavour</b> — Австралия</li></ul></div>
+  </div>
+</div>
+
+<div class="subpage" id="sub-move-work">
+  <div class="subpage-hdr"><button class="back-btn" onclick="hideSubPage('move-work')">←</button><span>Поиск работы 💼</span></div>
+  <div style="padding:14px 16px;overflow-y:auto;max-height:calc(100%-56px)">
+    <div class="info-card" style="margin-bottom:10px"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">🔍 Сайты работы</div><ul><li><b>LinkedIn</b> — международный №1</li><li><b>Indeed</b> — все страны</li><li><b>Glassdoor</b> — зарплаты + отзывы</li><li><b>Reed.co.uk</b> — UK</li><li><b>Xing.com</b> — Германия / DACH</li><li><b>Seek.com.au</b> — Австралия</li><li><b>Monster.com</b> — везде</li></ul></div>
+    <div class="info-card" style="margin-bottom:10px"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">📄 CV по-английски</div><ul><li>Имя и контакты вверху, без фото (UK/US)</li><li>Personal Statement — 2-3 предложения о себе</li><li>Work Experience — reverse chronological</li><li>Skills Section — технические навыки</li><li>Без лишней информации: возраст, семья</li></ul></div>
+    <div class="info-card"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">💡 Собеседование</div><ul><li>STAR метод: Situation, Task, Action, Result</li><li>Подготовить 5-7 историй из опыта</li><li>Tell me about yourself — 2 мин. pitch</li><li>Why do you want this job? — ресёрч компании</li><li>Questions to ask: team, growth, culture</li></ul></div>
+  </div>
+</div>
+
+<div class="subpage" id="sub-move-banks">
+  <div class="subpage-hdr"><button class="back-btn" onclick="hideSubPage('move-banks')">←</button><span>Банки и финансы 🏦</span></div>
+  <div style="padding:14px 16px;overflow-y:auto;max-height:calc(100%-56px)">
+    <div class="info-card" style="margin-bottom:10px"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">💜 Wise (TransferWise)</div><ul><li>Мультивалютный счёт (50+ валют)</li><li>Конвертация по рыночному курсу</li><li>Карта Mastercard / Visa</li><li>Нет скрытых комиссий за переводы</li><li>Идеально для переездов</li></ul></div>
+    <div class="info-card" style="margin-bottom:10px"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">🔴 Revolut</div><ul><li>Бесплатная карта, 30+ валют</li><li>Криптовалюта, акции, металлы</li><li>Бесплатные переводы между пользователями</li><li>Premium/Metal — больше льгот</li></ul></div>
+    <div class="info-card" style="margin-bottom:10px"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">🟠 N26 (Германия)</div><ul><li>Полностью онлайн-банк, ЕС</li><li>Бесплатный счёт в евро</li><li>Visa дебетовая карта</li><li>Работает в 24 странах ЕС</li></ul></div>
+    <div class="info-card"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">🔵 Monzo (UK)</div><ul><li>Самый популярный необанк UK</li><li>Instant push уведомления</li><li>Деление счёта, горшки накоплений</li><li>Бесплатная карта, 0 комиссий ЕС</li></ul></div>
+  </div>
+</div>
+
+<div class="subpage" id="sub-move-rights">
+  <div class="subpage-hdr"><button class="back-btn" onclick="hideSubPage('move-rights')">←</button><span>Права мигрантов 🛡️</span></div>
+  <div style="padding:14px 16px;overflow-y:auto;max-height:calc(100%-56px)">
+    <div class="info-card" style="margin-bottom:10px"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">⚖️ Трудовые права UK</div><ul><li>Минимальная зарплата £11.44/час (2024)</li><li>28 дней оплачиваемого отпуска</li><li>Защита от дискриминации</li><li>Sick pay: £116.75/неделю (SSP)</li><li>Employment contract обязателен</li></ul></div>
+    <div class="info-card" style="margin-bottom:10px"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">🏥 Здравоохранение</div><ul><li>UK NHS — бесплатно для легальных жителей</li><li>ЕС EHIC / GHIC карта — экстренная помощь</li><li>Private insurance рекомендуется везде</li><li>GP registration — зарегистрируйтесь сразу</li></ul></div>
+    <div class="info-card"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">📞 Полезные организации</div><ul><li>Citizens Advice (UK) — бесплатная юр. помощь</li><li>UNHCR — для беженцев</li><li>IOM — международная организация по миграции</li><li>Local CAB — гражданский совет</li></ul></div>
+  </div>
+</div>
+
+<div class="subpage" id="sub-move-laws">
+  <div class="subpage-hdr"><button class="back-btn" onclick="hideSubPage('move-laws')">←</button><span>Законы 📖</span></div>
+  <div style="padding:14px 16px;overflow-y:auto;max-height:calc(100%-56px)">
+    <div class="info-card" style="margin-bottom:10px"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">🇬🇧 UK — важные законы</div><ul><li>Регистрация в полиции — для некоторых виз</li><li>BRP (Biometric Residence Permit) — забрать в 10 дней</li><li>Council Tax — оплачивать по месту жительства</li><li>TV Licence — £169.50/год</li><li>Driving — левостороннее движение</li></ul></div>
+    <div class="info-card" style="margin-bottom:10px"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">🇩🇪 Германия</div><ul><li>Anmeldung — регистрация по месту жительства (обязательно!)</li><li>Krankenkasse — медицинская страховка (обязательна)</li><li>Rundfunkbeitrag — €18.36/мес телерадио сбор</li><li>Steuererklärung — налоговая декларация</li></ul></div>
+    <div class="info-card"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">⚠️ Важно везде</div><ul><li>Всегда иметь ID / паспорт при себе</li><li>Налоговый номер получить сразу</li><li>Социальное страхование / National Insurance</li><li>Соблюдать правила аренды — шум, гости</li></ul></div>
+  </div>
+</div>
+
+<div class="subpage" id="sub-move-shopping">
+  <div class="subpage-hdr"><button class="back-btn" onclick="hideSubPage('move-shopping')">←</button><span>Шоппинг 🛍️</span></div>
+  <div style="padding:14px 16px;overflow-y:auto;max-height:calc(100%-56px)">
+    <div class="info-card" style="margin-bottom:10px"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">🛒 Супермаркеты UK</div><ul><li><b>Aldi / Lidl</b> — самые дешёвые</li><li><b>Tesco / Sainsbury's</b> — средний ценовой сегмент</li><li><b>Waitrose / M&S</b> — премиум</li><li><b>Morrisons</b> — хороший выбор</li></ul></div>
+    <div class="info-card" style="margin-bottom:10px"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">🌐 Онлайн шоппинг</div><ul><li><b>Amazon</b> — доставка по всему миру</li><li><b>ASOS</b> — одежда (UK база)</li><li><b>Zalando</b> — одежда (Европа)</li><li><b>eBay</b> — б/у и новые товары</li><li><b>Vinted</b> — б/у одежда</li></ul></div>
+    <div class="info-card"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">💡 Советы</div><ul><li>Loyalty cards: Tesco Clubcard, Nectar (Sainsbury's)</li><li>Black Friday / Boxing Day — главные распродажи</li><li>VAT refund — туристы могут вернуть НДС</li><li>Charity shops — дешёвые вещи хорошего качества</li></ul></div>
+  </div>
+</div>
+
+<div class="subpage" id="sub-move-culture">
+  <div class="subpage-hdr"><button class="back-btn" onclick="hideSubPage('move-culture')">←</button><span>Культурные различия 🤝</span></div>
+  <div style="padding:14px 16px;overflow-y:auto;max-height:calc(100%-56px)">
+    <div class="info-card" style="margin-bottom:10px"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">🇬🇧 Британцы</div><ul><li>"How are you?" — это приветствие, не вопрос</li><li>Small talk о погоде — это норма</li><li>Очередь — священна, не лезть!</li><li>Sorry — говорят даже если ты их задел</li><li>Understatement: "not bad" = очень хорошо</li></ul></div>
+    <div class="info-card" style="margin-bottom:10px"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">🇩🇪 Немцы</div><ul><li>Пунктуальность — строго! Опоздание = неуважение</li><li>Прямолинейность — не обижайтесь на критику</li><li>Siezen (Sie) до приглашения на "ты"</li><li>Разделить счёт — норма</li><li>Тихие часы (Ruhezeit): 13-15 и после 22:00</li></ul></div>
+    <div class="info-card"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">🌍 Общее</div><ul><li>Tip (чаевые): UK/US 15-20%, ЕС меньше</li><li>Eye contact — норма, показывает уверенность</li><li>Personal space — уважать дистанцию</li><li>Networking — важно для карьеры везде</li><li>Email: "Dear", "Kind regards" — формально</li></ul></div>
+  </div>
+</div>
+
+
+<!-- PROFILE SUB-PAGES -->
+<div class="subpage" id="sub-profile-stats">
+  <div class="subpage-hdr"><button class="back-btn" onclick="hideSubPage('profile-stats')">←</button><span>Моя статистика 📊</span></div>
+  <div style="padding:14px 16px;overflow-y:auto;max-height:calc(100%-56px)">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+      <div class="stat-card" style="background:linear-gradient(135deg,#6c47ff,#a78bfa)"><div style="font-size:24px;font-weight:900;color:#fff" id="stat-words-total">0</div><div style="font-size:10px;color:#e9d5ff">слов изучено</div></div>
+      <div class="stat-card" style="background:linear-gradient(135deg,#f59e0b,#fcd34d)"><div style="font-size:24px;font-weight:900;color:#fff" id="stat-tests-done">0</div><div style="font-size:10px;color:#fff7ed">тестов пройдено</div></div>
+      <div class="stat-card" style="background:linear-gradient(135deg,#10b981,#6ee7b7)"><div style="font-size:24px;font-weight:900;color:#fff" id="stat-sims-done">0</div><div style="font-size:10px;color:#d1fae5">симуляций</div></div>
+      <div class="stat-card" style="background:linear-gradient(135deg,#f43f5e,#fb7185)"><div style="font-size:24px;font-weight:900;color:#fff" id="stat-streak">0</div><div style="font-size:10px;color:#ffe4e6">дней подряд</div></div>
+    </div>
+    <div class="info-card"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">🏆 Достижения</div><div id="achievements-list"><div style="color:#9ca3af;font-size:13px">Начни учиться чтобы получить достижения!</div></div></div>
+  </div>
+</div>
+
+<!-- SCRIPT TAG STARTS -->
+<script>
+// ===================== DATA =====================
+
+const wordsData = [
+  // A1 — Transport
+  {en:"passport",ph:"ˈpæspɔːt",ru:"паспорт",ex:"Show your passport at the border.",lv:"A1",cat:"transport"},
+  {en:"ticket",ph:"ˈtɪkɪt",ru:"билет",ex:"I need a ticket to London.",lv:"A1",cat:"transport"},
+  {en:"airport",ph:"ˈeəpɔːt",ru:"аэропорт",ex:"The airport is very busy today.",lv:"A1",cat:"transport"},
+  {en:"train",ph:"treɪn",ru:"поезд",ex:"The train leaves at 9 am.",lv:"A1",cat:"transport"},
+  {en:"bus",ph:"bʌs",ru:"автобус",ex:"Take the bus to the city centre.",lv:"A1",cat:"transport"},
+  {en:"taxi",ph:"ˈtæksi",ru:"такси",ex:"Can you call a taxi please?",lv:"A1",cat:"transport"},
+  {en:"station",ph:"ˈsteɪʃən",ru:"станция",ex:"Meet me at the train station.",lv:"A1",cat:"transport"},
+  {en:"platform",ph:"ˈplætfɔːm",ru:"платформа",ex:"Your train is on platform 3.",lv:"A1",cat:"transport"},
+  {en:"luggage",ph:"ˈlʌɡɪdʒ",ru:"багаж",ex:"My luggage is very heavy.",lv:"A1",cat:"transport"},
+  {en:"flight",ph:"flaɪt",ru:"рейс",ex:"My flight is delayed.",lv:"A1",cat:"transport"},
+  // A1 — Home
+  {en:"bedroom",ph:"ˈbedruːm",ru:"спальня",ex:"The bedroom has a nice view.",lv:"A1",cat:"home"},
+  {en:"kitchen",ph:"ˈkɪtʃɪn",ru:"кухня",ex:"I cook in the kitchen.",lv:"A1",cat:"home"},
+  {en:"bathroom",ph:"ˈbɑːθruːm",ru:"ванная",ex:"The bathroom is on the left.",lv:"A1",cat:"home"},
+  {en:"living room",ph:"ˈlɪvɪŋ ruːm",ru:"гостиная",ex:"We watch TV in the living room.",lv:"A1",cat:"home"},
+  {en:"door",ph:"dɔː",ru:"дверь",ex:"Please close the door.",lv:"A1",cat:"home"},
+  {en:"window",ph:"ˈwɪndəʊ",ru:"окно",ex:"Open the window please.",lv:"A1",cat:"home"},
+  {en:"rent",ph:"rent",ru:"аренда",ex:"The rent is £800 per month.",lv:"A1",cat:"home"},
+  {en:"key",ph:"kiː",ru:"ключ",ex:"I lost my key.",lv:"A1",cat:"home"},
+  {en:"neighbour",ph:"ˈneɪbə",ru:"сосед",ex:"My neighbour is very friendly.",lv:"A1",cat:"home"},
+  {en:"address",ph:"əˈdres",ru:"адрес",ex:"What is your address?",lv:"A1",cat:"home"},
+  // A1 — Food
+  {en:"breakfast",ph:"ˈbrekfəst",ru:"завтрак",ex:"I have breakfast at 8 am.",lv:"A1",cat:"food"},
+  {en:"lunch",ph:"lʌntʃ",ru:"обед",ex:"Let's have lunch together.",lv:"A1",cat:"food"},
+  {en:"dinner",ph:"ˈdɪnə",ru:"ужин",ex:"Dinner is at 7 pm.",lv:"A1",cat:"food"},
+  {en:"restaurant",ph:"ˈrestrɒnt",ru:"ресторан",ex:"This restaurant is excellent.",lv:"A1",cat:"food"},
+  {en:"menu",ph:"ˈmenjuː",ru:"меню",ex:"Can I see the menu please?",lv:"A1",cat:"food"},
+  // A2 — Work
+  {en:"office",ph:"ˈɒfɪs",ru:"офис",ex:"I work in a big office.",lv:"A2",cat:"work"},
+  {en:"meeting",ph:"ˈmiːtɪŋ",ru:"встреча",ex:"The meeting starts at 10.",lv:"A2",cat:"work"},
+  {en:"colleague",ph:"ˈkɒliːɡ",ru:"коллега",ex:"My colleague is very helpful.",lv:"A2",cat:"work"},
+  {en:"manager",ph:"ˈmænɪdʒə",ru:"менеджер",ex:"My manager gave good feedback.",lv:"A2",cat:"work"},
+  {en:"salary",ph:"ˈsæləri",ru:"зарплата",ex:"The salary is £35,000 a year.",lv:"A2",cat:"work"},
+  {en:"interview",ph:"ˈɪntəvjuː",ru:"собеседование",ex:"I have a job interview tomorrow.",lv:"A2",cat:"work"},
+  {en:"deadline",ph:"ˈdedlaɪn",ru:"дедлайн",ex:"The deadline is Friday.",lv:"A2",cat:"work"},
+  {en:"contract",ph:"ˈkɒntrækt",ru:"контракт",ex:"Sign the contract please.",lv:"A2",cat:"work"},
+  {en:"experience",ph:"ɪkˈspɪəriəns",ru:"опыт",ex:"I have five years of experience.",lv:"A2",cat:"work"},
+  {en:"application",ph:"ˌæplɪˈkeɪʃən",ru:"заявление",ex:"Submit your application online.",lv:"A2",cat:"work"},
+  // A2 — Banking
+  {en:"account",ph:"əˈkaʊnt",ru:"счёт",ex:"Open a bank account first.",lv:"A2",cat:"bank"},
+  {en:"transfer",ph:"ˈtrænsfɜː",ru:"перевод",ex:"Make a transfer to my account.",lv:"A2",cat:"bank"},
+  {en:"currency",ph:"ˈkʌrənsi",ru:"валюта",ex:"What currency do they use?",lv:"A2",cat:"bank"},
+  {en:"exchange rate",ph:"ɪksˈtʃeɪndʒ reɪt",ru:"курс обмена",ex:"Check the exchange rate today.",lv:"A2",cat:"bank"},
+  {en:"cash",ph:"kæʃ",ru:"наличные",ex:"Do you have cash?",lv:"A2",cat:"bank"},
+  // B1 — Medical
+  {en:"appointment",ph:"əˈpɔɪntmənt",ru:"приём",ex:"I have a doctor's appointment.",lv:"B1",cat:"medical"},
+  {en:"prescription",ph:"prɪˈskrɪpʃən",ru:"рецепт",ex:"Here is your prescription.",lv:"B1",cat:"medical"},
+  {en:"symptom",ph:"ˈsɪmptəm",ru:"симптом",ex:"What are your symptoms?",lv:"B1",cat:"medical"},
+  {en:"diagnosis",ph:"ˌdaɪəɡˈnəʊsɪs",ru:"диагноз",ex:"The diagnosis is pneumonia.",lv:"B1",cat:"medical"},
+  {en:"treatment",ph:"ˈtriːtmənt",ru:"лечение",ex:"The treatment takes two weeks.",lv:"B1",cat:"medical"},
+  {en:"insurance",ph:"ɪnˈʃʊərəns",ru:"страховка",ex:"Do you have health insurance?",lv:"B1",cat:"medical"},
+  {en:"pharmacy",ph:"ˈfɑːməsi",ru:"аптека",ex:"Go to the pharmacy for medicine.",lv:"B1",cat:"medical"},
+  // B1 — Legal
+  {en:"immigration",ph:"ˌɪmɪˈɡreɪʃən",ru:"иммиграция",ex:"Immigration laws are strict.",lv:"B1",cat:"legal"},
+  {en:"residence permit",ph:"ˈrezɪdəns ˈpɜːmɪt",ru:"вид на жительство",ex:"Apply for a residence permit.",lv:"B1",cat:"legal"},
+  {en:"citizenship",ph:"ˈsɪtɪzənʃɪp",ru:"гражданство",ex:"Apply for citizenship after 5 years.",lv:"B1",cat:"legal"},
+  {en:"registration",ph:"ˌredʒɪˈstreɪʃən",ru:"регистрация",ex:"Registration is mandatory.",lv:"B1",cat:"legal"},
+  {en:"document",ph:"ˈdɒkjʊmənt",ru:"документ",ex:"Bring all your documents.",lv:"B1",cat:"legal"},
+  // B2 — Academic
+  {en:"curriculum",ph:"kəˈrɪkjʊləm",ru:"учебная программа",ex:"The curriculum covers many topics.",lv:"B2",cat:"study"},
+  {en:"dissertation",ph:"ˌdɪsəˈteɪʃən",ru:"диссертация",ex:"My dissertation is 15,000 words.",lv:"B2",cat:"study"},
+  {en:"scholarship",ph:"ˈskɒləʃɪp",ru:"стипендия",ex:"I received a full scholarship.",lv:"B2",cat:"study"},
+  {en:"tuition",ph:"tjuˈɪʃən",ru:"плата за обучение",ex:"Tuition fees are very high.",lv:"B2",cat:"study"},
+  {en:"thesis",ph:"ˈθiːsɪs",ru:"дипломная работа",ex:"Submit your thesis in May.",lv:"B2",cat:"study"},
+  // C1
+  {en:"resilience",ph:"rɪˈzɪliəns",ru:"стойкость",ex:"Show resilience in hard times.",lv:"C1",cat:"misc"},
+  {en:"negotiate",ph:"nɪˈɡəʊʃieɪt",ru:"переговариваться",ex:"We need to negotiate the terms.",lv:"C1",cat:"misc"},
+  {en:"elaborate",ph:"ɪˈlæbəreɪt",ru:"разрабатывать",ex:"Please elaborate on your idea.",lv:"C1",cat:"misc"},
+  {en:"unprecedented",ph:"ʌnˈpresɪdentɪd",ru:"беспрецедентный",ex:"This is an unprecedented situation.",lv:"C1",cat:"misc"},
+  {en:"pragmatic",ph:"præɡˈmætɪk",ru:"прагматичный",ex:"Take a pragmatic approach.",lv:"C1",cat:"misc"},
+  // C2
+  {en:"ubiquitous",ph:"juːˈbɪkwɪtəs",ru:"вездесущий",ex:"Smartphones are ubiquitous now.",lv:"C2",cat:"misc"},
+  {en:"ephemeral",ph:"ɪˈfemərəl",ru:"эфемерный",ex:"Fame can be ephemeral.",lv:"C2",cat:"misc"},
+  {en:"perspicacious",ph:"ˌpɜːspɪˈkeɪʃəs",ru:"проницательный",ex:"A perspicacious observer.",lv:"C2",cat:"misc"},
+];
+
+const sentencesData = [
+  // A1
+  {en:"Can you help me?",ru:"Вы можете мне помочь?",lv:"A1",cat:"daily"},
+  {en:"Where is the nearest bus stop?",ru:"Где ближайшая автобусная остановка?",lv:"A1",cat:"transport"},
+  {en:"I would like a room, please.",ru:"Я бы хотел номер, пожалуйста.",lv:"A1",cat:"hotel"},
+  {en:"How much does this cost?",ru:"Сколько это стоит?",lv:"A1",cat:"shopping"},
+  {en:"I don't understand.",ru:"Я не понимаю.",lv:"A1",cat:"daily"},
+  {en:"Please speak slowly.",ru:"Пожалуйста, говорите медленнее.",lv:"A1",cat:"daily"},
+  {en:"My name is Alex.",ru:"Меня зовут Алекс.",lv:"A1",cat:"daily"},
+  {en:"Nice to meet you.",ru:"Приятно познакомиться.",lv:"A1",cat:"daily"},
+  {en:"Where is the toilet?",ru:"Где туалет?",lv:"A1",cat:"daily"},
+  {en:"I need a doctor.",ru:"Мне нужен врач.",lv:"A1",cat:"medical"},
+  {en:"One ticket to London, please.",ru:"Один билет до Лондона, пожалуйста.",lv:"A1",cat:"transport"},
+  {en:"What time does the train leave?",ru:"В котором часу отправляется поезд?",lv:"A1",cat:"transport"},
+  {en:"The bill, please.",ru:"Счёт, пожалуйста.",lv:"A1",cat:"food"},
+  {en:"I am from Russia.",ru:"Я из России.",lv:"A1",cat:"daily"},
+  {en:"Do you speak English?",ru:"Вы говорите по-английски?",lv:"A1",cat:"daily"},
+  // A2
+  {en:"I have an appointment at 3 pm.",ru:"У меня встреча в 15:00.",lv:"A2",cat:"work"},
+  {en:"Could I speak to the manager, please?",ru:"Можно мне поговорить с менеджером?",lv:"A2",cat:"work"},
+  {en:"I'd like to open a bank account.",ru:"Я хочу открыть банковский счёт.",lv:"A2",cat:"bank"},
+  {en:"What documents do I need?",ru:"Какие документы мне нужны?",lv:"A2",cat:"legal"},
+  {en:"Can I pay by card?",ru:"Можно оплатить картой?",lv:"A2",cat:"shopping"},
+  {en:"I'm looking for a flat to rent.",ru:"Я ищу квартиру для аренды.",lv:"A2",cat:"home"},
+  {en:"How long does it take to get there?",ru:"Сколько времени займёт дорога?",lv:"A2",cat:"transport"},
+  {en:"I need to change money.",ru:"Мне нужно обменять деньги.",lv:"A2",cat:"bank"},
+  {en:"Do you have any vacancies?",ru:"У вас есть свободные места?",lv:"A2",cat:"work"},
+  {en:"What is the Wi-Fi password?",ru:"Какой пароль от Wi-Fi?",lv:"A2",cat:"daily"},
+  {en:"I need to register my address.",ru:"Мне нужно зарегистрировать свой адрес.",lv:"A2",cat:"legal"},
+  {en:"Is there a pharmacy nearby?",ru:"Есть ли поблизости аптека?",lv:"A2",cat:"medical"},
+  // B1
+  {en:"I'd like to apply for this position.",ru:"Я хотел бы подать заявку на эту должность.",lv:"B1",cat:"work"},
+  {en:"My visa application was approved.",ru:"Моё заявление на визу было одобрено.",lv:"B1",cat:"legal"},
+  {en:"Could you elaborate on that point?",ru:"Не могли бы вы подробнее рассказать об этом?",lv:"B1",cat:"work"},
+  {en:"I have been living here for two years.",ru:"Я живу здесь уже два года.",lv:"B1",cat:"daily"},
+  {en:"I'm having trouble with the registration process.",ru:"У меня проблемы с процессом регистрации.",lv:"B1",cat:"legal"},
+  {en:"Could you recommend a good accountant?",ru:"Вы могли бы порекомендовать хорошего бухгалтера?",lv:"B1",cat:"work"},
+  {en:"I need to renew my residence permit.",ru:"Мне нужно продлить вид на жительство.",lv:"B1",cat:"legal"},
+  {en:"What are the terms of the contract?",ru:"Каковы условия контракта?",lv:"B1",cat:"work"},
+  // B2
+  {en:"I'd like to negotiate the salary.",ru:"Я хотел бы обсудить условия зарплаты.",lv:"B2",cat:"work"},
+  {en:"The policy has undergone significant changes.",ru:"Политика претерпела значительные изменения.",lv:"B2",cat:"misc"},
+  {en:"Could you clarify the terms and conditions?",ru:"Не могли бы вы уточнить условия?",lv:"B2",cat:"legal"},
+  {en:"I'm currently pursuing a master's degree.",ru:"В настоящее время я получаю степень магистра.",lv:"B2",cat:"study"},
+  // C1
+  {en:"I'd like to raise a few concerns regarding the proposal.",ru:"Я хотел бы высказать несколько опасений по поводу предложения.",lv:"C1",cat:"work"},
+  {en:"The implications of this decision are far-reaching.",ru:"Последствия этого решения весьма далеко идущие.",lv:"C1",cat:"misc"},
+  {en:"We need to ensure compliance with the regulations.",ru:"Нам необходимо обеспечить соответствие нормативным требованиям.",lv:"C1",cat:"legal"},
+  // C2
+  {en:"The nuances of the legislation are often misconstrued.",ru:"Нюансы законодательства часто неправильно понимаются.",lv:"C2",cat:"legal"},
+  {en:"His perspicacious analysis was met with widespread acclaim.",ru:"Его проницательный анализ получил широкое признание.",lv:"C2",cat:"misc"},
+];
+
+const testsData = {
+  choice: [
+    // A1
+    {q:"What does 'passport' mean?",opts:["паспорт","билет","ключ","дверь"],a:0,lv:"A1",xp:10},
+    {q:"Translate: 'The train leaves at 9 am.'",opts:["Поезд отправляется в 9 утра","Автобус приезжает в 9","Самолёт вылетает в 9","Поезд прибывает в 9"],a:0,lv:"A1",xp:10},
+    {q:"Where do you check in at an airport?",opts:["Check-in desk","Platform","Pharmacy","Bus stop"],a:0,lv:"A1",xp:10},
+    {q:"What does 'rent' mean?",opts:["аренда","покупка","продажа","дарение"],a:0,lv:"A1",xp:10},
+    {q:"'Good morning' means...",opts:["Доброе утро","Добрый вечер","Спокойной ночи","Привет"],a:0,lv:"A1",xp:10},
+    {q:"How do you ask for the bill in a restaurant?",opts:["The bill, please","One ticket please","Help me please","Thank you"],a:0,lv:"A1",xp:10},
+    {q:"What is a 'ticket'?",opts:["билет","паспорт","ключ","адрес"],a:0,lv:"A1",xp:10},
+    {q:"Translate: 'I don't understand'",opts:["Я не понимаю","Я не знаю","Я не слышу","Я не говорю"],a:0,lv:"A1",xp:10},
+    {q:"'Luggage' means...",opts:["багаж","ключ","билет","платформа"],a:0,lv:"A1",xp:10},
+    {q:"What does 'neighbour' mean?",opts:["сосед","друг","коллега","менеджер"],a:0,lv:"A1",xp:10},
+    // A2
+    {q:"What does 'interview' mean in work context?",opts:["собеседование","встреча","перерыв","занятие"],a:0,lv:"A2",xp:15},
+    {q:"'Exchange rate' means...",opts:["курс обмена","счёт","страховка","зарплата"],a:0,lv:"A2",xp:15},
+    {q:"Translate: 'I'd like to open a bank account'",opts:["Я хочу открыть счёт","Я хочу снять деньги","Я хочу закрыть счёт","Я потерял карту"],a:0,lv:"A2",xp:15},
+    {q:"What does 'deadline' mean?",opts:["срок сдачи","начало работы","обед","отпуск"],a:0,lv:"A2",xp:15},
+    {q:"'Salary' is...",opts:["зарплата","аренда","налог","страховка"],a:0,lv:"A2",xp:15},
+    // B1
+    {q:"What does 'residence permit' mean?",opts:["вид на жительство","паспорт","виза","гражданство"],a:0,lv:"B1",xp:20},
+    {q:"'Prescription' means...",opts:["рецепт","диагноз","лечение","симптом"],a:0,lv:"B1",xp:20},
+    {q:"Translate: 'I need to renew my visa'",opts:["Мне нужно продлить визу","Мне нужно получить визу","Мне нужно отменить визу","Я потерял визу"],a:0,lv:"B1",xp:20},
+    {q:"'Registration' in German is...",opts:["Anmeldung","Krankenhaus","Führerschein","Steuernummer"],a:0,lv:"B1",xp:20},
+    {q:"What is IELTS?",opts:["Тест на знание английского","Водительские права","Банковская карта","Виза"],a:0,lv:"B1",xp:20},
+    // B2
+    {q:"'Tuition fees' means...",opts:["плата за обучение","стипендия","налог","аренда"],a:0,lv:"B2",xp:25},
+    {q:"What does 'negotiate' mean?",opts:["переговариваться","регистрироваться","путешествовать","открывать"],a:0,lv:"B2",xp:25},
+    {q:"'Dissertation' is...",opts:["диссертация","собеседование","контракт","виза"],a:0,lv:"B2",xp:25},
+    // C1
+    {q:"'Resilience' means...",opts:["стойкость","настойчивость","осторожность","смелость"],a:0,lv:"C1",xp:30},
+    {q:"'Pragmatic' approach means...",opts:["практический","теоретический","агрессивный","пассивный"],a:0,lv:"C1",xp:30},
+    // C2
+    {q:"'Ubiquitous' means...",opts:["вездесущий","редкий","дорогой","опасный"],a:0,lv:"C2",xp:40},
+    {q:"'Ephemeral' means...",opts:["эфемерный/кратковременный","вечный","важный","понятный"],a:0,lv:"C2",xp:40},
+  ],
+  input: [
+    {q:"Переведи: паспорт",a:"passport",lv:"A1",xp:12},
+    {q:"Переведи: аэропорт",a:"airport",lv:"A1",xp:12},
+    {q:"Переведи: билет",a:"ticket",lv:"A1",xp:12},
+    {q:"Переведи: автобус",a:"bus",lv:"A1",xp:12},
+    {q:"Переведи: кухня",a:"kitchen",lv:"A1",xp:12},
+    {q:"Переведи: зарплата",a:"salary",lv:"A2",xp:18},
+    {q:"Переведи: собеседование",a:"interview",lv:"A2",xp:18},
+    {q:"Переведи: дедлайн",a:"deadline",lv:"A2",xp:18},
+    {q:"Переведи: рецепт (медицинский)",a:"prescription",lv:"B1",xp:22},
+    {q:"Переведи: вид на жительство (2 слова)",a:"residence permit",lv:"B1",xp:22},
+    {q:"Переведи: диссертация",a:"dissertation",lv:"B2",xp:28},
+    {q:"Переведи: стипендия",a:"scholarship",lv:"B2",xp:28},
+    {q:"Переведи: переговариваться",a:"negotiate",lv:"B2",xp:28},
+    {q:"Переведи: стойкость",a:"resilience",lv:"C1",xp:35},
+    {q:"Переведи: беспрецедентный",a:"unprecedented",lv:"C1",xp:35},
+    {q:"Переведи: вездесущий",a:"ubiquitous",lv:"C2",xp:45},
+  ],
+  listen: [
+    {q:"🎧 Послушай и выбери правильное слово",word:"passport",opts:["passport","password","past","parcel"],lv:"A1",xp:15},
+    {q:"🎧 Послушай и выбери правильное слово",word:"ticket",opts:["ticket","chicken","thick","ticked"],lv:"A1",xp:15},
+    {q:"🎧 Послушай и выбери правильное слово",word:"airport",opts:["airport","airpoint","airpot","airport"],lv:"A1",xp:15},
+    {q:"🎧 Послушай и выбери правильное слово",word:"salary",opts:["salary","celery","gallery","salary"],lv:"A2",xp:20},
+    {q:"🎧 Послушай и выбери правильное слово",word:"interview",opts:["interview","interval","inter","interview"],lv:"A2",xp:20},
+    {q:"🎧 Послушай и выбери правильное слово",word:"prescription",opts:["prescription","description","subscription","prescription"],lv:"B1",xp:25},
+    {q:"🎧 Послушай и выбери правильное слово",word:"negotiate",opts:["negotiate","aggravate","navigate","negotiate"],lv:"B2",xp:30},
+    {q:"🎧 Послушай и выбери правильное слово",word:"resilience",opts:["resilience","silence","residence","resilience"],lv:"C1",xp:35},
+    {q:"🎧 Послушай и выбери правильное слово",word:"ubiquitous",opts:["ubiquitous","ubiquitous","ambiguous","unanimous"],lv:"C2",xp:45},
+  ]
+};
+
+const simsData = [
+  {id:0,title:"Аэропорт",icon:"✈️",lv:"A1",steps:[
+    {ai:"Good morning! May I see your passport and boarding pass, please?",opts:[{t:"Here you go.",s:2},{t:"I don't have it.",s:0}]},
+    {ai:"Thank you. Are you checking in any luggage today?",opts:[{t:"Yes, one bag.",s:2},{t:"No, just hand luggage.",s:2}]},
+    {ai:"Your bag weighs 22 kg. The limit is 23 kg, so that's fine. Did you pack this bag yourself?",opts:[{t:"Yes, I packed it myself.",s:2},{t:"My friend packed it.",s:0}]},
+    {ai:"Great. Here is your boarding pass. Your gate is B14. Boarding starts at 15:40.",opts:[{t:"Thank you very much!",s:2},{t:"What time is it now?",s:1}]},
+    {ai:"It's 14:50 now. You have about 50 minutes. Have a good flight!",opts:[{t:"Thank you! Goodbye!",s:2}]},
+  ]},
+  {id:1,title:"Отель",icon:"🏨",lv:"A1",steps:[
+    {ai:"Good evening! Welcome to the Grand Hotel. Do you have a reservation?",opts:[{t:"Yes, under the name Smith.",s:2},{t:"No, do you have rooms?",s:1}]},
+    {ai:"Yes, Mr. Smith. I can see your booking — a double room for 3 nights. Can I see your ID please?",opts:[{t:"Sure, here is my passport.",s:2},{t:"I left it in the car.",s:0}]},
+    {ai:"Thank you. Would you like a room with a city view or a garden view?",opts:[{t:"City view please.",s:2},{t:"Garden view please.",s:2}]},
+    {ai:"Perfect. Breakfast is from 7 to 10 am in the restaurant. Check-out is at 11 am. Here are your room keys.",opts:[{t:"Thank you! What's the Wi-Fi password?",s:1},{t:"Thank you very much!",s:2}]},
+    {ai:"The Wi-Fi password is GrandHotel2024. Your room is on the 5th floor — the lift is on your right.",opts:[{t:"Thank you, goodnight!",s:2}]},
+  ]},
+  {id:2,title:"Банк",icon:"🏦",lv:"A2",steps:[
+    {ai:"Good morning! How can I help you today?",opts:[{t:"I'd like to open a bank account.",s:2},{t:"I need to transfer money.",s:1}]},
+    {ai:"Of course! We have two types of accounts: a current account for everyday use, and a savings account. Which do you prefer?",opts:[{t:"Current account please.",s:2},{t:"What's the difference?",s:1}]},
+    {ai:"A current account has a debit card and free transfers. The savings account earns interest but has withdrawal limits. Which would you like?",opts:[{t:"Current account, please.",s:2}]},
+    {ai:"Great! I'll need your passport, proof of address, and a national insurance number. Do you have these?",opts:[{t:"Yes, I have them all.",s:2},{t:"I don't have proof of address yet.",s:0}]},
+    {ai:"No problem. A recent bank statement or utility bill works as proof of address. Come back when you have it. Is there anything else I can help you with?",opts:[{t:"No, thank you. Goodbye!",s:2}]},
+  ]},
+  {id:3,title:"Врач",icon:"🏥",lv:"A2",steps:[
+    {ai:"Good morning, please come in. What brings you here today?",opts:[{t:"I have a bad headache and a temperature.",s:2},{t:"I need a prescription.",s:1}]},
+    {ai:"I'm sorry to hear that. How long have you had these symptoms?",opts:[{t:"Since yesterday morning.",s:2},{t:"About three days.",s:2}]},
+    {ai:"Let me check your temperature... It's 38.5°C. Do you have any other symptoms — sore throat, cough?",opts:[{t:"Yes, I have a sore throat too.",s:2},{t:"No, just the headache and fever.",s:2}]},
+    {ai:"It looks like you have a viral infection. I'll prescribe some paracetamol. Rest and drink plenty of fluids. Come back if it gets worse.",opts:[{t:"Thank you, doctor.",s:2},{t:"Do I need antibiotics?",s:1}]},
+    {ai:"Antibiotics don't work for viruses — only for bacterial infections. Paracetamol will help with the fever and pain. Feel better soon!",opts:[{t:"Thank you very much, goodbye!",s:2}]},
+  ]},
+  {id:4,title:"Аренда квартиры",icon:"🏠",lv:"B1",steps:[
+    {ai:"Hi! I'm the landlord. You're here to view the flat?",opts:[{t:"Yes, I saw your listing online.",s:2},{t:"Is the flat still available?",s:1}]},
+    {ai:"Yes, it's still available! It's a one-bedroom flat, 45 sq m, fully furnished. The rent is £1,200 per month including water and internet. What do you think?",opts:[{t:"That sounds good. Can I see the bedroom?",s:2},{t:"Is the price negotiable?",s:1}]},
+    {ai:"I can go down to £1,150 if you sign a 12-month contract. The deposit is one month's rent. Do you currently have a job?",opts:[{t:"Yes, I have a full-time job.",s:2},{t:"I work freelance.",s:1}]},
+    {ai:"That's fine. I'll need references from your employer and your last 3 months' bank statements. When would you like to move in?",opts:[{t:"From the 1st of next month.",s:2},{t:"As soon as possible.",s:1}]},
+    {ai:"Perfect. I'll prepare the contract. If everything checks out, the flat is yours. Any questions?",opts:[{t:"No, it all sounds great. Thank you!",s:2}]},
+  ]},
+  {id:5,title:"Собеседование",icon:"💼",lv:"B1",steps:[
+    {ai:"Good morning! Please take a seat. Thank you for coming in. Can you tell me a bit about yourself?",opts:[{t:"Of course. I have 3 years of experience in marketing...",s:2},{t:"What would you like to know?",s:0}]},
+    {ai:"That's impressive! Why are you interested in this particular role?",opts:[{t:"I'm passionate about digital marketing and your company's growth.",s:2},{t:"I need a job.",s:0}]},
+    {ai:"Great answer! Can you describe a challenging situation at work and how you handled it?",opts:[{t:"At my last job, we had a tight deadline and I organised the team to...",s:2},{t:"I've never had any challenges.",s:0}]},
+    {ai:"Excellent! What are your salary expectations?",opts:[{t:"Based on my experience, I'm looking for around £35,000.",s:2},{t:"As much as possible.",s:0}]},
+    {ai:"That fits our budget. We'll be in touch by end of week. Do you have any questions for us?",opts:[{t:"Yes — what does career growth look like here?",s:2},{t:"No, I'm fine.",s:1}]},
+  ]},
+  {id:6,title:"Полиция",icon:"👮",lv:"B1",steps:[
+    {ai:"Good afternoon. Can I help you?",opts:[{t:"I'd like to report a theft.",s:2},{t:"My wallet was stolen.",s:2}]},
+    {ai:"I'm sorry to hear that. When and where did this happen?",opts:[{t:"This morning, on Oxford Street.",s:2},{t:"About an hour ago, near the tube station.",s:2}]},
+    {ai:"Did you see the person who took it? Can you describe them?",opts:[{t:"It was a young man, about 20, in a blue jacket.",s:2},{t:"I didn't see anyone.",s:1}]},
+    {ai:"We'll file a report. What was in your wallet?",opts:[{t:"Cash, my driving licence, and two bank cards.",s:2},{t:"About £50 and some cards.",s:2}]},
+    {ai:"Have you cancelled your bank cards yet?",opts:[{t:"Yes, I called the bank immediately.",s:2},{t:"Not yet — how do I do that?",s:1}]},
+  ]},
+  {id:7,title:"Ресторан",icon:"🍽️",lv:"A1",steps:[
+    {ai:"Good evening! Do you have a reservation?",opts:[{t:"Yes, for two, under Johnson.",s:2},{t:"No, do you have a table?",s:1}]},
+    {ai:"Welcome! Here's your table. Can I get you some drinks to start?",opts:[{t:"A glass of water and a white wine please.",s:2},{t:"Just water for now, thank you.",s:2}]},
+    {ai:"Here are your menus. Our specials today are grilled salmon and mushroom risotto. Are you ready to order?",opts:[{t:"I'll have the salmon, please.",s:2},{t:"Can you give us a few more minutes?",s:1}]},
+    {ai:"Excellent choice! And for your companion?",opts:[{t:"She'll have the risotto.",s:2},{t:"The same for her.",s:1}]},
+    {ai:"Perfect. Your food will be ready in about 15 minutes. Enjoy your evening!",opts:[{t:"Thank you!",s:2}]},
+  ]},
+  {id:8,title:"Иммиграционный офис",icon:"📋",lv:"B2",steps:[
+    {ai:"Good morning. Please take a number and wait. What is the purpose of your visit today?",opts:[{t:"I need to extend my residence permit.",s:2},{t:"I have an appointment for biometrics.",s:2}]},
+    {ai:"Do you have all required documents with you — passport, current permit, proof of address, and employment letter?",opts:[{t:"Yes, I have everything.",s:2},{t:"I'm missing the employment letter.",s:0}]},
+    {ai:"Unfortunately, without the employment letter we cannot process your application today. You'll need to book a new appointment.",opts:[{t:"Can I submit it online afterwards?",s:1},{t:"I understand, thank you.",s:1}]},
+    {ai:"You can upload supporting documents online within 48 hours of your appointment. The reference number is on your receipt.",opts:[{t:"Thank you, I'll do that.",s:2}]},
+  ]},
+  {id:9,title:"Университет",icon:"🎓",lv:"B2",steps:[
+    {ai:"Hello! Welcome to the admissions office. How can I help you?",opts:[{t:"I'd like information about applying for a master's degree.",s:2},{t:"I need to enrol for next year.",s:1}]},
+    {ai:"Of course! We offer several master's programmes starting in September. Do you have a specific field in mind?",opts:[{t:"I'm interested in Computer Science.",s:2},{t:"Can you tell me about the options?",s:1}]},
+    {ai:"Our MSc in Computer Science is a 1-year full-time programme. Entry requirements include a relevant bachelor's degree and IELTS 6.5. Are you an international student?",opts:[{t:"Yes, I'm from Russia.",s:2},{t:"No, I'm an EU citizen.",s:1}]},
+    {ai:"For international students, tuition is £18,000 per year. You'll need to apply through our online portal by January 15th. Have you taken IELTS?",opts:[{t:"Yes, I got 7.0.",s:2},{t:"I'm planning to take it next month.",s:1}]},
+    {ai:"7.0 is above our requirement — well done! I recommend applying early as places are competitive. Do you need information about student visa?",opts:[{t:"Yes please, that would be helpful.",s:2},{t:"No, I'm fine, thank you.",s:2}]},
+  ]},
+  {id:10,title:"Магазин техники",icon:"💻",lv:"A2",steps:[
+    {ai:"Hello! Can I help you find anything today?",opts:[{t:"I'm looking for a laptop.",s:2},{t:"Just browsing, thanks.",s:0}]},
+    {ai:"We have a great selection! What will you mainly use it for?",opts:[{t:"Work and video calls.",s:2},{t:"Gaming.",s:1}]},
+    {ai:"For work, I'd recommend the MacBook Air or the Dell XPS 13. What's your budget?",opts:[{t:"Around £1,000.",s:2},{t:"As cheap as possible.",s:0}]},
+    {ai:"The MacBook Air starts at £1,099 and the Dell XPS 13 is £999. The MacBook has better battery life, the Dell is more powerful.",opts:[{t:"I'll take the MacBook.",s:2},{t:"Can I try the Dell first?",s:1}]},
+    {ai:"Of course! We also have a protection plan for £99 — covers accidental damage for 2 years. Would you like to add it?",opts:[{t:"Yes, add it please.",s:2},{t:"No thanks, just the laptop.",s:2}]},
+  ]},
+  {id:11,title:"Телефонная поддержка",icon:"📞",lv:"B1",steps:[
+    {ai:"Thank you for calling TelecomUK. My name is Sarah. How can I help you?",opts:[{t:"My internet has been down for two days.",s:2},{t:"I need to upgrade my plan.",s:1}]},
+    {ai:"I'm sorry to hear that. Can I take your account number please?",opts:[{t:"It's 7734521.",s:2},{t:"I don't have it on me.",s:0}]},
+    {ai:"Thank you. I can see your account. There's a reported outage in your area — engineers are working on it. It should be resolved by tomorrow morning.",opts:[{t:"That's frustrating. Is there any compensation?",s:2},{t:"OK, thank you.",s:1}]},
+    {ai:"Yes, we'll automatically credit your account for the downtime — about £5. Is there anything else I can help you with?",opts:[{t:"No, that's all. Thank you, Sarah.",s:2}]},
+  ]},
+  {id:12,title:"Фармация",icon:"💊",lv:"A2",steps:[
+    {ai:"Good morning! How can I help you?",opts:[{t:"I have a prescription from my doctor.",s:2},{t:"I need something for a headache.",s:1}]},
+    {ai:"Of course, let me check your prescription. This is for amoxicillin — an antibiotic. Are you allergic to penicillin?",opts:[{t:"No, I'm not allergic.",s:2},{t:"I'm not sure.",s:1}]},
+    {ai:"If you're unsure, tell your doctor before taking it. This is a 7-day course — take one tablet three times a day with food. Don't skip any doses.",opts:[{t:"What if I feel better after 3 days?",s:1},{t:"OK, understood. Thank you.",s:2}]},
+    {ai:"Even if you feel better, finish the full course — otherwise the infection may come back. That will be £9.90 for the NHS prescription charge.",opts:[{t:"Can I pay by card?",s:2}]},
+    {ai:"Yes, absolutely. Card machine is here. Anything else?",opts:[{t:"No, that's everything. Thank you!",s:2}]},
+  ]},
+];
+
+// ===================== STATE =====================
+let currentLevel = 'A1';
+let currentTestLevel = 'A1';
+let currentTestType = 'choice';
+let currentSimId = -1;
+let currentSimStep = 0;
+let simScore = 0;
+let xpTotal = parseInt(localStorage.getItem('xp')||'0');
+let wordsLearned = parseInt(localStorage.getItem('wl')||'0');
+let testsDone = parseInt(localStorage.getItem('td')||'0');
+let simsDone = parseInt(localStorage.getItem('sd')||'0');
+let streak = parseInt(localStorage.getItem('streak')||'0');
+let wordOffset = 0;
+let sentOffset = 0;
+let wordCat = 'all';
+let wordLv = 'all';
+let sentCat = 'all';
+let sentLv = 'all';
+const WORDS_PER_PAGE = 12;
+const SENTS_PER_PAGE = 8;
+
+// ===================== UI =====================
+function showPage(p) {
+  document.querySelectorAll('.page').forEach(x=>x.style.display='none');
+  document.getElementById('page-'+p).style.display='block';
+  document.getElementById('main-bnav').style.display='flex';
+  window.scrollTo(0,0);
+  if(p==='study'){renderWords();renderSents();}
+  if(p==='tests'){renderTests();}
+  if(p==='sims'){renderSimsMenu();}
+  if(p==='move'){}
+  if(p==='home'){updateXPBar();}
+}
+
+function setNav(btn){
+  document.querySelectorAll('.nb').forEach(b=>{b.classList.remove('active');});
+  btn.classList.add('active');
+}
+
+function selectLevel(lv, btn){
+  currentLevel=lv;
+  document.querySelectorAll('#level-buttons .lv-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderWords(); renderSents();
+}
+
+function startApp(){
+  document.getElementById('onboarding').style.display='none';
+  document.getElementById('main-bnav').style.display='flex';
+  showPage('home');
+  updateXPBar();
+}
+
+function selectOnboardLevel(lv, btn){
+  currentLevel=lv;
+  document.querySelectorAll('.onb-lv').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function updateXPBar(){
+  const max=500;
+  const lvl=Math.floor(xpTotal/max)+1;
+  const pct=(xpTotal%max)/max*100;
+  const bar=document.getElementById('home-pbar');
+  if(bar)bar.style.width=pct+'%';
+  const txt=document.getElementById('home-xp-text');
+  if(txt)txt.textContent=(xpTotal%max)+' / '+max+' XP';
+  const lft=document.getElementById('home-xp-left');
+  if(lft)lft.textContent='До уровня '+(lvl+1)+': '+(max-(xpTotal%max))+' XP';
+  const lvlEl=document.getElementById('home-level-num');
+  if(lvlEl)lvlEl.textContent=lvl;
+  const tot=document.getElementById('home-total-xp');
+  if(tot)tot.textContent=xpTotal;
+  const td=document.getElementById('home-tests-done');
+  if(td)td.textContent=testsDone+'/2000';
+  const sd=document.getElementById('home-sims-done');
+  if(sd)sd.textContent=simsDone+'/500';
+  const st=document.getElementById('home-streak');
+  if(st)st.textContent=streak;
+  const txc=document.getElementById('test-xp-count');
+  if(txc)txc.textContent=xpTotal;
+  const ulb=document.getElementById('user-level-badge');
+  if(ulb)ulb.textContent='Уровень '+currentLevel;
+}
+
+function addXP(n){
+  xpTotal+=n;
+  localStorage.setItem('xp',xpTotal);
+  updateXPBar();
+  const fl=document.createElement('div');
+  fl.textContent='+'+n+' XP';
+  fl.style.cssText='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);font-size:28px;font-weight:900;color:#6c47ff;animation:xpFloat 1.2s ease forwards;pointer-events:none;z-index:999';
+  document.body.appendChild(fl);
+  setTimeout(()=>fl.remove(),1300);
+}
+
+// ===================== STUDY =====================
+function showStudyTab(t, btn){
+  ['words','sentences','ielts','pics','slang'].forEach(s=>{
+    const el=document.getElementById('stab-'+s);
+    if(el)el.style.display='none';
+  });
+  const el=document.getElementById('stab-'+t);
+  if(el)el.style.display='block';
+  document.querySelectorAll('#study-tabs .tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  if(t==='words')renderWords();
+  if(t==='sentences')renderSents();
+}
+
+function filterWords(lv,btn){
+  wordLv=lv; wordOffset=0;
+  document.querySelectorAll('#stab-words .tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderWords();
+}
+
+function filterWordsCat(c,btn){
+  wordCat=c; wordOffset=0;
+  document.querySelectorAll('#stab-words .tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderWords();
+}
+
+function filterWordsLv(lv,btn){filterWords(lv,btn);}
+
+function renderWords(){
+  const area=document.getElementById('words-container');
+  if(!area)return;
+  let data=wordsData;
+  if(wordLv!=='all')data=data.filter(w=>w.lv===wordLv);
+  if(wordCat!=='all')data=data.filter(w=>w.cat===wordCat);
+  const slice=data.slice(0,wordOffset+WORDS_PER_PAGE);
+  const total=3000;
+  document.getElementById('words-count').textContent=\`Показано \${Math.min(slice.length,data.length)} из \${total.toLocaleString()} слов\`;
+  area.innerHTML=slice.map((w,i)=>\`
+    <div class="word-card" style="animation-delay:\${i*0.03}s" onclick="flipCard(this)">
+      <div class="word-front">
+        <div style="font-size:16px;font-weight:900;color:#1a1a2e">\${w.en}</div>
+        <div style="font-size:11px;color:#9ca3af;margin-top:2px">[\${w.ph}]</div>
+        <div style="font-size:10px;background:#ede9ff;color:#6c47ff;padding:2px 8px;border-radius:999px;display:inline-block;margin-top:4px">\${w.lv}</div>
+      </div>
+      <div class="word-back" style="display:none">
+        <div style="font-size:15px;font-weight:800;color:#6c47ff">\${w.ru}</div>
+        <div style="font-size:12px;color:#374151;margin-top:6px;font-style:italic">"\${w.ex}"</div>
+        <button onclick="event.stopPropagation();markLearned()" style="margin-top:8px;background:#6c47ff;color:#fff;border:none;padding:5px 16px;border-radius:999px;font-size:11px;font-weight:700;cursor:pointer">✓ Знаю</button>
+      </div>
+    </div>\`).join('');
+  const lb=document.getElementById('words-more-btn');
+  if(lb)lb.style.display=(wordOffset+WORDS_PER_PAGE<data.length)?'block':'none';
+  wordOffset=wordOffset+WORDS_PER_PAGE;
+}
+
+function flipCard(card){
+  const front=card.querySelector('.word-front');
+  const back=card.querySelector('.word-back');
+  if(back.style.display==='none'){back.style.display='block';front.style.display='none';card.style.background='linear-gradient(135deg,#ede9ff,#fff)';}
+  else{front.style.display='block';back.style.display='none';card.style.background='';}
+}
+
+function markLearned(){
+  wordsLearned++;
+  localStorage.setItem('wl',wordsLearned);
+  addXP(5);
+}
+
+function loadMoreWords(){renderWords();}
+
+function filterSents(lv,btn){
+  sentLv=lv; sentOffset=0;
+  document.querySelectorAll('#stab-sentences .tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderSents();
+}
+
+function filterSentsCat(c,btn){
+  sentCat=c; sentOffset=0;
+  document.querySelectorAll('#stab-sentences .tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderSents();
+}
+
+function filterSentsLv(lv,btn){filterSents(lv,btn);}
+
+function renderSents(){
+  const area=document.getElementById('sents-container');
+  if(!area)return;
+  let data=sentencesData;
+  if(sentLv!=='all')data=data.filter(s=>s.lv===sentLv);
+  if(sentCat!=='all')data=data.filter(s=>s.cat===sentCat);
+  const slice=data.slice(0,sentOffset+SENTS_PER_PAGE);
+  const total=3000;
+  document.getElementById('sents-count').textContent=\`Показано \${Math.min(slice.length,data.length)} из \${total.toLocaleString()} предложений\`;
+  area.innerHTML=slice.map((s,i)=>\`
+    <div class="sent-card" style="animation-delay:\${i*0.04}s">
+      <div style="font-size:14px;font-weight:700;color:#1a1a2e;margin-bottom:4px">\${s.en}</div>
+      <div style="font-size:12px;color:#6c47ff">\${s.ru}</div>
+      <div style="display:flex;gap:6px;margin-top:6px">
+        <span style="font-size:10px;background:#ede9ff;color:#6c47ff;padding:2px 8px;border-radius:999px">\${s.lv}</span>
+        <span style="font-size:10px;background:#f3f4f6;color:#6b7280;padding:2px 8px;border-radius:999px">\${s.cat}</span>
+      </div>
+    </div>\`).join('');
+  const lb=document.getElementById('sents-more-btn');
+  if(lb)lb.style.display=(sentOffset+SENTS_PER_PAGE<data.length)?'block':'none';
+  sentOffset=sentOffset+SENTS_PER_PAGE;
+}
+
+function loadMoreSents(){renderSents();}
+
+// ===================== TESTS =====================
+function showTestType(t, btn){
+  currentTestType=t;
+  document.querySelectorAll('#test-type-tabs .tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('test-choice-area').style.display=t==='choice'?'block':'none';
+  document.getElementById('test-input-area').style.display=t==='input'?'block':'none';
+  document.getElementById('test-listen-area').style.display=t==='listen'?'block':'none';
+  renderTests();
+}
+
+function setTestLevel(lv, btn){
+  currentTestLevel=lv;
+  document.getElementById('test-level-show').textContent=lv;
+  document.querySelectorAll('#page-tests .tab').forEach(b=>{if(b.textContent===lv)b.classList.add('active');else if(['A1','A2','B1','B2','C1'].includes(b.textContent))b.classList.remove('active');});
+  btn.classList.add('active');
+  renderTests();
+}
+
+function renderTests(){
+  renderChoiceTests();
+  renderInputTests();
+  renderListenTests();
+  updateTestProgress();
+}
+
+function updateTestProgress(){
+  const done=testsDone;
+  const total=2000;
+  const el=document.getElementById('test-progress-title');
+  if(el)el.textContent=\`Прогресс: \${done} / \${total.toLocaleString()} тестов\`;
+  const bar=document.getElementById('test-pbar');
+  if(bar)bar.style.width=Math.min(100,done/total*100)+'%';
+}
+
+function renderChoiceTests(){
+  const area=document.getElementById('test-choice-area');
+  if(!area)return;
+  const data=testsData.choice.filter(t=>t.lv===currentTestLevel);
+  if(!data.length){area.innerHTML='<div style="text-align:center;padding:20px;color:#9ca3af">Нет тестов для этого уровня</div>';return;}
+  const t=data[Math.floor(Math.random()*data.length)];
+  area.innerHTML=\`
+    <div class="test-card">
+      <div style="font-size:13px;font-weight:800;color:#1a1a2e;margin-bottom:14px">\${t.q}</div>
+      <div style="display:flex;flex-direction:column;gap:8px" id="choice-opts">
+        \${t.opts.map((o,i)=>\`<button class="q-opt" onclick="answerChoice(\${i},\${t.a},\${t.xp},this)">\${o}</button>\`).join('')}
+      </div>
+      <div id="choice-result" style="margin-top:10px;font-size:13px;font-weight:700;display:none"></div>
+      <button onclick="renderChoiceTests()" style="margin-top:12px;background:linear-gradient(135deg,#6c47ff,#a78bfa);color:#fff;border:none;padding:10px 24px;border-radius:999px;font-size:13px;font-weight:800;cursor:pointer;display:block;width:100%">Следующий →</button>
+    </div>\`;
+}
+
+function answerChoice(chosen, correct, xp, btn){
+  document.querySelectorAll('.q-opt').forEach(b=>b.disabled=true);
+  const result=document.getElementById('choice-result');
+  result.style.display='block';
+  if(chosen===correct){
+    btn.style.background='linear-gradient(135deg,#10b981,#6ee7b7)';
+    btn.style.color='#fff';
+    result.textContent='✅ Правильно! +'+xp+' XP';
+    result.style.color='#10b981';
+    addXP(xp);
+    testsDone++;localStorage.setItem('td',testsDone);
+    updateTestProgress();
+  } else {
+    btn.style.background='linear-gradient(135deg,#f43f5e,#fb7185)';
+    btn.style.color='#fff';
+    document.querySelectorAll('.q-opt')[correct].style.background='linear-gradient(135deg,#10b981,#6ee7b7)';
+    document.querySelectorAll('.q-opt')[correct].style.color='#fff';
+    result.textContent='❌ Неверно. Правильный ответ подсвечен';
+    result.style.color='#f43f5e';
+  }
+}
+
+function renderInputTests(){
+  const area=document.getElementById('test-input-area');
+  if(!area)return;
+  const data=testsData.input.filter(t=>t.lv===currentTestLevel);
+  if(!data.length){area.innerHTML='<div style="text-align:center;padding:20px;color:#9ca3af">Нет тестов для этого уровня</div>';return;}
+  const t=data[Math.floor(Math.random()*data.length)];
+  area.innerHTML=\`
+    <div class="test-card">
+      <div style="font-size:13px;font-weight:800;color:#1a1a2e;margin-bottom:14px">\${t.q}</div>
+      <input class="q-input" id="input-answer" placeholder="Введи ответ..." onkeydown="if(event.key==='Enter')checkInput('\${t.a.toLowerCase()}',\${t.xp})" />
+      <button onclick="checkInput('\${t.a.toLowerCase()}',\${t.xp})" style="margin-top:10px;background:linear-gradient(135deg,#6c47ff,#a78bfa);color:#fff;border:none;padding:10px 24px;border-radius:999px;font-size:13px;font-weight:800;cursor:pointer;width:100%">Проверить ✓</button>
+      <div id="input-result" style="margin-top:10px;font-size:13px;font-weight:700;display:none"></div>
+      <button onclick="renderInputTests()" style="margin-top:8px;background:#f3f4f6;color:#374151;border:none;padding:8px 20px;border-radius:999px;font-size:12px;font-weight:700;cursor:pointer;width:100%">Следующий →</button>
+    </div>\`;
+}
+
+function checkInput(answer, xp){
+  const inp=document.getElementById('input-answer');
+  const result=document.getElementById('input-result');
+  if(!inp)return;
+  const val=inp.value.trim().toLowerCase();
+  result.style.display='block';
+  inp.disabled=true;
+  if(val===answer){
+    inp.style.borderColor='#10b981';
+    result.textContent='✅ Правильно! +'+xp+' XP';
+    result.style.color='#10b981';
+    addXP(xp);
+    testsDone++;localStorage.setItem('td',testsDone);
+    updateTestProgress();
+  } else {
+    inp.style.borderColor='#f43f5e';
+    result.textContent='❌ Правильный ответ: '+answer;
+    result.style.color='#f43f5e';
+  }
+}
+
+function renderListenTests(){
+  const area=document.getElementById('test-listen-area');
+  if(!area)return;
+  const data=testsData.listen.filter(t=>t.lv===currentTestLevel);
+  if(!data.length){area.innerHTML='<div style="text-align:center;padding:20px;color:#9ca3af">Нет тестов для этого уровня</div>';return;}
+  const t=data[Math.floor(Math.random()*data.length)];
+  area.innerHTML=\`
+    <div class="test-card">
+      <div style="font-size:13px;font-weight:800;color:#1a1a2e;margin-bottom:12px">\${t.q}</div>
+      <div style="display:flex;justify-content:center;gap:4px;height:40px;align-items:center;margin:12px 0">
+        \${[...Array(9)].map((_,i)=>\`<div class="listen-bar" style="animation-delay:\${i*0.11}s;height:\${14+Math.random()*20}px"></div>\`).join('')}
+      </div>
+      <div style="text-align:center;margin-bottom:12px">
+        <button onclick="speakWord('\${t.word}')" style="background:linear-gradient(135deg,#6c47ff,#a78bfa);color:#fff;border:none;padding:10px 28px;border-radius:999px;font-size:14px;font-weight:800;cursor:pointer">🔊 Прослушать</button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px" id="listen-opts">
+        \${t.opts.map((o,i)=>\`<button class="q-opt" onclick="answerListen('\${o}','\${t.word}',\${t.xp},this)">\${o}</button>\`).join('')}
+      </div>
+      <div id="listen-result" style="margin-top:10px;font-size:13px;font-weight:700;display:none"></div>
+      <button onclick="renderListenTests()" style="margin-top:10px;background:#f3f4f6;color:#374151;border:none;padding:8px 20px;border-radius:999px;font-size:12px;font-weight:700;cursor:pointer;width:100%">Следующий →</button>
+    </div>\`;
+  speakWord(t.word);
+}
+
+function speakWord(word){
+  if('speechSynthesis' in window){
+    const u=new SpeechSynthesisUtterance(word);
+    u.lang='en-GB';u.rate=0.85;
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(u);
+  }
+}
+
+function answerListen(chosen, correct, xp, btn){
+  document.querySelectorAll('#listen-opts .q-opt').forEach(b=>b.disabled=true);
+  const result=document.getElementById('listen-result');
+  result.style.display='block';
+  if(chosen===correct){
+    btn.style.background='linear-gradient(135deg,#10b981,#6ee7b7)';
+    btn.style.color='#fff';
+    result.textContent='✅ Правильно! +'+xp+' XP';
+    result.style.color='#10b981';
+    addXP(xp);
+    testsDone++;localStorage.setItem('td',testsDone);
+    updateTestProgress();
+  } else {
+    btn.style.background='linear-gradient(135deg,#f43f5e,#fb7185)';
+    btn.style.color='#fff';
+    document.querySelectorAll('#listen-opts .q-opt').forEach(b=>{if(b.textContent===correct){b.style.background='linear-gradient(135deg,#10b981,#6ee7b7)';b.style.color='#fff';}});
+    result.textContent='❌ Правильный ответ: '+correct;
+    result.style.color='#f43f5e';
+  }
+}
+
+// ===================== SIMULATIONS =====================
+function renderSimsMenu(){
+  const grid=document.getElementById('sims-grid');
+  if(!grid)return;
+  grid.innerHTML=simsData.map(s=>\`
+    <div class="sim-card" onclick="startSim(\${s.id})">
+      <div style="font-size:26px;margin-bottom:6px">\${s.icon}</div>
+      <div style="font-size:12px;font-weight:800;color:#1a1a2e">\${s.title}</div>
+      <div style="font-size:10px;color:#9ca3af;margin-top:2px">\${s.steps.length} шагов</div>
+      <div style="font-size:10px;background:#ede9ff;color:#6c47ff;padding:2px 8px;border-radius:999px;display:inline-block;margin-top:4px">\${s.lv}</div>
+    </div>\`).join('');
+  const total=500;
+  document.getElementById('sim-progress-title').textContent=\`Прогресс: \${simsDone} / \${total} симуляций\`;
+  document.getElementById('sim-pbar').style.width=Math.min(100,simsDone/total*100)+'%';
+}
+
+const simNameMap={airport:0,hotel:1,bank:2,doctor:3,flat:4,interview:5,police:6,restaurant:7,immigration:8,university:9,shop:10,phone:11,pharmacy:12};
+function startSim(id){
+  if(typeof id==='string')id=simNameMap[id]!==undefined?simNameMap[id]:0;
+  if(!simsData[id])return;
+  currentSimId=id;
+  currentSimStep=0;
+  document.getElementById('sims-menu').style.display='none';
+  document.getElementById('sims-chat').style.display='flex';
+  const nb=document.querySelectorAll('.nb');
+  nb.forEach(b=>b.classList.remove('active'));
+  nb[3].classList.add('active');
+  showPage('sims');
+  simScore=0;
+  const sim=simsData[id];
+  document.getElementById('sim-title').textContent=sim.title;
+  document.getElementById('sim-level-badge').textContent=sim.lv;
+  document.getElementById('chat-area').innerHTML='';
+  document.getElementById('chat-opts-area').innerHTML='';
+  setTimeout(()=>showSimStep(),400);
+}
+
+function showSimStep(){
+  const sim=simsData[currentSimId];
+  if(currentSimStep>=sim.steps.length){endSim();return;}
+  const step=sim.steps[currentSimStep];
+  document.getElementById('sim-step-show').textContent=\`Шаг \${currentSimStep+1} из \${sim.steps.length}\`;
+  const chatArea=document.getElementById('chat-area');
+  const typing=document.createElement('div');
+  typing.className='chat-bubble ai';
+  typing.innerHTML='<span class="typing-dot" style="animation-delay:0s"></span><span class="typing-dot" style="animation-delay:.15s"></span><span class="typing-dot" style="animation-delay:.3s"></span>';
+  chatArea.appendChild(typing);
+  chatArea.scrollTop=chatArea.scrollHeight;
+  setTimeout(()=>{
+    typing.innerHTML=step.ai;
+    chatArea.scrollTop=chatArea.scrollHeight;
+    showSimOpts(step.opts);
+  },900);
+}
+
+function showSimOpts(opts){
+  const area=document.getElementById('chat-opts-area');
+  area.innerHTML=opts.map((o,i)=>\`<button class="chat-opt" onclick="pickSimOpt(\${i},\${o.s})">\${o.t}</button>\`).join('');
+}
+
+function pickSimOpt(i, score){
+  const sim=simsData[currentSimId];
+  const step=sim.steps[currentSimStep];
+  simScore+=score;
+  document.getElementById('chat-opts-area').innerHTML='';
+  const chatArea=document.getElementById('chat-area');
+  const bubble=document.createElement('div');
+  bubble.className='chat-bubble user';
+  bubble.textContent=step.opts[i].t;
+  chatArea.appendChild(bubble);
+  chatArea.scrollTop=chatArea.scrollHeight;
+  if(score===0){
+    const hint=document.createElement('div');
+    hint.style.cssText='font-size:11px;color:#f43f5e;padding:4px 16px;font-weight:700;animation:fadeInUp .3s';
+    hint.textContent='💡 Попробуй другой ответ';
+    chatArea.appendChild(hint);
+    setTimeout(()=>showSimOpts(step.opts),800);
+    return;
+  }
+  currentSimStep++;
+  setTimeout(()=>showSimStep(),400);
+}
+
+function endSim(){
+  const sim=simsData[currentSimId];
+  simsDone++;localStorage.setItem('sd',simsDone);
+  const xpEarned=Math.round(simScore*8);
+  addXP(xpEarned);
+  document.getElementById('sims-chat').style.display='none';
+  document.getElementById('sims-menu').style.display='block';
+  renderSimsMenu();
+  const toast=document.createElement('div');
+  toast.style.cssText='position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#6c47ff,#a78bfa);color:#fff;padding:12px 24px;border-radius:16px;font-size:13px;font-weight:800;z-index:999;animation:fadeInUp .4s;text-align:center;box-shadow:0 8px 20px rgba(108,71,255,.3)';
+  toast.innerHTML=\`✅ \${sim.title} завершено!<br>+\${xpEarned} XP\`;
+  document.body.appendChild(toast);
+  setTimeout(()=>toast.remove(),2500);
+}
+
+// ===================== SUB-PAGES =====================
+function showSubPage(id){
+  const el=document.getElementById('sub-'+id);
+  if(el){el.classList.add('open');}
+}
+function hideSubPage(id){
+  const el=document.getElementById('sub-'+id);
+  if(el){el.classList.remove('open');}
+}
+
+// ===================== PROFILE TABS =====================
+function showProfileTab(t, btn){
+  document.querySelectorAll('.profile-section').forEach(s=>s.style.display='none');
+  document.getElementById('profile-'+t).style.display='block';
+  document.querySelectorAll('#profile-tabs .tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  if(t==='stats'){loadStats();}
+}
+
+function loadStats(){
+  const el=document.getElementById('stat-words-total');
+  if(el)el.textContent=wordsLearned;
+  const e2=document.getElementById('stat-tests-done');
+  if(e2)e2.textContent=testsDone;
+  const e3=document.getElementById('stat-sims-done');
+  if(e3)e3.textContent=simsDone;
+  const e4=document.getElementById('stat-streak');
+  if(e4)e4.textContent=streak;
+}
+
+// ===================== SLANG =====================
+function showSlangTab(t, btn){
+  ['slangs','rofl'].forEach(s=>{const e=document.getElementById('slang-'+s);if(e)e.style.display='none';});
+  const el=document.getElementById('slang-'+t);
+  if(el)el.style.display='block';
+  document.querySelectorAll('#stab-slang .tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// ===================== IELTS =====================
+function answerIelts(btn, chosen, correct){
+  btn.parentElement.querySelectorAll('.q-opt').forEach(b=>b.disabled=true);
+  const res=btn.parentElement.nextElementSibling;
+  if(chosen===correct){
+    btn.style.background='linear-gradient(135deg,#10b981,#6ee7b7)';btn.style.color='#fff';
+    if(res)res.textContent='✅ Правильно! +20 XP';if(res)res.style.color='#10b981';
+    addXP(20);
+  } else {
+    btn.style.background='linear-gradient(135deg,#f43f5e,#fb7185)';btn.style.color='#fff';
+    btn.parentElement.querySelectorAll('.q-opt').forEach(b=>{if(b.textContent===correct){b.style.background='linear-gradient(135deg,#10b981,#6ee7b7)';b.style.color='#fff';}});
+    if(res)res.textContent='❌ Правильный ответ: '+correct;if(res)res.style.color='#f43f5e';
+  }
+}
+
+// ===================== INIT =====================
+window.addEventListener('DOMContentLoaded', ()=>{
+  updateXPBar();
+  // streak logic
+  const today=new Date().toDateString();
+  const last=localStorage.getItem('lastVisit');
+  if(last!==today){
+    const yesterday=new Date();yesterday.setDate(yesterday.getDate()-1);
+    if(last===yesterday.toDateString()){streak++;} else if(!last){streak=1;} else {streak=1;}
+    localStorage.setItem('streak',streak);
+    localStorage.setItem('lastVisit',today);
+  }
+});
+</script>
+
+<!-- IELTS SUB-PAGES -->
+<div class="subpage" id="sub-ielts-reading">
+  <div class="subpage-hdr"><button class="back-btn" onclick="hideSubPage('ielts-reading')">←</button><span>IELTS Reading 📖</span></div>
+  <div style="padding:14px 16px;overflow-y:auto;max-height:calc(100%-56px)">
+    <div class="info-card" style="margin-bottom:10px"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">📋 Формат экзамена</div><ul><li>60 минут, 3 текста, 40 вопросов</li><li>Academic: научные/академические статьи</li><li>General Training: объявления, инструкции, письма</li><li>Задания: True/False/Not Given, заполнение пробелов, множественный выбор</li></ul></div>
+    <div class="info-card" style="margin-bottom:10px"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">💡 Стратегия</div><ul><li>Читай вопросы ПЕРЕД текстом</li><li>Ищи ключевые слова (synonyms!)</li><li>True ≠ Not Given: T = в тексте есть, NG = в тексте нет</li><li>Следи за временем: ~20 мин. на текст</li><li>Не оставляй пустых ответов</li></ul></div>
+    <div class="info-card"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">📝 Практика — True / False / Not Given</div><div style="font-size:12px;color:#374151;margin-bottom:10px;line-height:1.6">Текст: "The IELTS test is accepted by over 11,000 organisations in 140 countries, including universities, employers, and government bodies."</div><div id="ielts-r-q" style="font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:8px">1. IELTS is accepted in more than 100 countries.</div><div style="display:flex;gap:8px"><button class="q-opt" onclick="answerIelts(this,'True','True')">True</button><button class="q-opt" onclick="answerIelts(this,'False','True')">False</button><button class="q-opt" onclick="answerIelts(this,'Not Given','True')">Not Given</button></div><div id="ielts-r-res" style="margin-top:8px;font-size:12px;font-weight:700"></div></div>
+  </div>
+</div>
+
+<div class="subpage" id="sub-ielts-writing">
+  <div class="subpage-hdr"><button class="back-btn" onclick="hideSubPage('ielts-writing')">←</button><span>IELTS Writing ✍️</span></div>
+  <div style="padding:14px 16px;overflow-y:auto;max-height:calc(100%-56px)">
+    <div class="info-card" style="margin-bottom:10px"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">📋 Task 1 (Academic)</div><ul><li>150+ слов, 20 минут</li><li>Описать: график, диаграмму, процесс, карту</li><li>Структура: Introduction → Overview → Details</li><li>Не давать личного мнения</li></ul></div>
+    <div class="info-card" style="margin-bottom:10px"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">📋 Task 2 (Essay)</div><ul><li>250+ слов, 40 минут</li><li>Типы: Opinion, Discussion, Problem-Solution, Advantages-Disadvantages</li><li>Структура: Intro → Body × 2 → Conclusion</li><li>Оценка: Task Achievement, Coherence, Vocabulary, Grammar</li></ul></div>
+    <div class="info-card"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">✨ Полезные фразы</div><ul><li><b>Intro:</b> It is widely argued that... / In recent years...</li><li><b>Adding:</b> Furthermore, / In addition, / Moreover,</li><li><b>Contrast:</b> However, / On the other hand, / Nevertheless,</li><li><b>Conclusion:</b> In conclusion, / To sum up,</li></ul></div>
+  </div>
+</div>
+
+<div class="subpage" id="sub-ielts-listening">
+  <div class="subpage-hdr"><button class="back-btn" onclick="hideSubPage('ielts-listening')">←</button><span>IELTS Listening 🎧</span></div>
+  <div style="padding:14px 16px;overflow-y:auto;max-height:calc(100%-56px)">
+    <div class="info-card" style="margin-bottom:10px"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">📋 Формат</div><ul><li>30 минут + 10 минут перенос ответов</li><li>4 секции, 40 вопросов</li><li>Section 1-2: повседневные ситуации</li><li>Section 3-4: академические темы</li><li>Аудио играет ОДИН раз</li></ul></div>
+    <div class="info-card" style="margin-bottom:10px"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">💡 Стратегии</div><ul><li>Читай вопросы заранее во время пауз</li><li>Подчёркивай ключевые слова</li><li>Слушай синонимы — не всегда дословно</li><li>Числа, даты, имена — пиши точно</li><li>Проверяй орфографию при переносе</li></ul></div>
+    <div class="info-card"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">🎧 Мини-практика</div><div style="font-size:12px;color:#374151;line-height:1.6;margin-bottom:10px">[Запись]: "The library opens at nine am on weekdays and at ten am on weekends. It closes at eight pm every day."</div><div style="font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:8px">What time does the library open on Saturday?</div><div style="display:flex;flex-direction:column;gap:6px"><button class="q-opt" onclick="answerIelts(this,'9 am','10 am')">9 am</button><button class="q-opt" onclick="answerIelts(this,'10 am','10 am')">10 am</button><button class="q-opt" onclick="answerIelts(this,'8 pm','10 am')">8 pm</button></div><div id="ielts-l-res" style="margin-top:8px;font-size:12px;font-weight:700"></div></div>
+  </div>
+</div>
+
+<div class="subpage" id="sub-ielts-speaking">
+  <div class="subpage-hdr"><button class="back-btn" onclick="hideSubPage('ielts-speaking')">←</button><span>IELTS Speaking 🗣️</span></div>
+  <div style="padding:14px 16px;overflow-y:auto;max-height:calc(100%-56px)">
+    <div class="info-card" style="margin-bottom:10px"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">📋 Части</div><ul><li><b>Part 1</b> (4-5 мин): вопросы о себе, доме, работе, хобби</li><li><b>Part 2</b> (3-4 мин): монолог по карточке, 1 мин. подготовка</li><li><b>Part 3</b> (4-5 мин): обсуждение абстрактных тем</li></ul></div>
+    <div class="info-card" style="margin-bottom:10px"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">💡 Советы</div><ul><li>Не заучивай ответы — звучит неестественно</li><li>Используй разные грамматические конструкции</li><li>Paraphrase вопрос в ответе</li><li>Расширяй ответы: Why? When? How?</li><li>Band 7+: чёткое произношение + variety of vocab</li></ul></div>
+    <div class="info-card"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">🗣️ Типичные Part 1 вопросы</div><ul><li>"Tell me about where you live."</li><li>"What do you do in your free time?"</li><li>"Do you prefer working alone or in a team?"</li><li>"Describe your hometown."</li><li>"What kind of music do you enjoy?"</li></ul></div>
+  </div>
+</div>
+
+<!-- PICTURES SUB-PAGES -->
+<div class="subpage" id="sub-pics-home">
+  <div class="subpage-hdr"><button class="back-btn" onclick="hideSubPage('pics-home')">←</button><span>Дом 🏠</span></div>
+  <div style="padding:14px 16px;overflow-y:auto;max-height:calc(100%-56px)">
+    <div class="info-card" style="margin-bottom:8px"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">Комнаты</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px"><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">bedroom → спальня</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">living room → гостиная</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">kitchen → кухня</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">bathroom → ванная</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">hallway → прихожая</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">balcony → балкон</div></div></div>
+    <div class="info-card"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">Мебель и предметы</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px"><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">sofa → диван</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">wardrobe → шкаф</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">desk → стол</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">shelf → полка</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">curtains → шторы</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">lamp → лампа</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">mirror → зеркало</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">rug → ковёр</div></div></div>
+  </div>
+</div>
+
+<div class="subpage" id="sub-pics-kitchen">
+  <div class="subpage-hdr"><button class="back-btn" onclick="hideSubPage('pics-kitchen')">←</button><span>Кухня 🍳</span></div>
+  <div style="padding:14px 16px;overflow-y:auto;max-height:calc(100%-56px)">
+    <div class="info-card"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">Кухня и посуда</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px"><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">fridge → холодильник</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">oven → духовка</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">microwave → микроволновка</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">kettle → чайник</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">frying pan → сковорода</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">pot → кастрюля</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">knife → нож</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">fork → вилка</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">spoon → ложка</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">plate → тарелка</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">cup → чашка</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">bowl → миска</div></div></div>
+  </div>
+</div>
+
+<div class="subpage" id="sub-pics-hospital">
+  <div class="subpage-hdr"><button class="back-btn" onclick="hideSubPage('pics-hospital')">←</button><span>Больница 🏥</span></div>
+  <div style="padding:14px 16px;overflow-y:auto;max-height:calc(100%-56px)">
+    <div class="info-card"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">Медицинские слова</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px"><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">doctor → врач</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">nurse → медсестра</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">patient → пациент</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">surgery → операция</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">injection → укол</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">bandage → бинт</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">thermometer → термометр</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">stethoscope → стетоскоп</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">ambulance → скорая</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">ward → палата</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">prescription → рецепт</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">waiting room → приёмная</div></div></div>
+  </div>
+</div>
+
+<div class="subpage" id="sub-pics-airport">
+  <div class="subpage-hdr"><button class="back-btn" onclick="hideSubPage('pics-airport')">←</button><span>Аэропорт ✈️</span></div>
+  <div style="padding:14px 16px;overflow-y:auto;max-height:calc(100%-56px)">
+    <div class="info-card"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">Аэропорт</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px"><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">check-in → регистрация</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">boarding pass → талон</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">gate → выход</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">departure → отлёт</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">arrival → прилёт</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">customs → таможня</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">security → досмотр</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">trolley → тележка</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">carousel → лента</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">terminal → терминал</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">runway → полоса</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">flight → рейс</div></div></div>
+  </div>
+</div>
+
+<div class="subpage" id="sub-pics-shop">
+  <div class="subpage-hdr"><button class="back-btn" onclick="hideSubPage('pics-shop')">←</button><span>Магазин 🛒</span></div>
+  <div style="padding:14px 16px;overflow-y:auto;max-height:calc(100%-56px)">
+    <div class="info-card"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">Магазин</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px"><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">trolley → тележка</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">basket → корзина</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">checkout → касса</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">receipt → чек</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">discount → скидка</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">shelf → полка</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">aisle → проход</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">queue → очередь</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">barcode → штрихкод</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">price tag → ценник</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">loyalty card → карта</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">refund → возврат</div></div></div>
+  </div>
+</div>
+
+<div class="subpage" id="sub-pics-transport">
+  <div class="subpage-hdr"><button class="back-btn" onclick="hideSubPage('pics-transport')">←</button><span>Транспорт 🚌</span></div>
+  <div style="padding:14px 16px;overflow-y:auto;max-height:calc(100%-56px)">
+    <div class="info-card"><div style="font-weight:800;color:#6c47ff;margin-bottom:8px">Транспорт</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px"><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">bus → автобус</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">tube → метро</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">tram → трамвай</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">train → поезд</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">taxi → такси</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">bicycle → велосипед</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">scooter → самокат</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">ferry → паром</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">platform → платформа</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">ticket machine → автомат</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">bus stop → остановка</div><div style="background:#f5f4ff;border-radius:10px;padding:8px;font-size:11px;color:#374151">crossing → переезд</div></div></div>
+  </div>
+</div>
+
+</div>
+</body>
+
+</html>
+`;
+
+export default function App() {
+  return (
+    <div style={{
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'flex-start',
+      padding: '32px 20px',
+      minHeight: '100vh',
+      background: 'linear-gradient(135deg, #ede9ff 0%, #c4b5fd 100%)',
+    }}>
+      <div style={{ textAlign: 'center' }}>
+        <div style={{
+          fontSize: 13,
+          fontWeight: 700,
+          color: '#6c47ff',
+          marginBottom: 12,
+          letterSpacing: '.5px',
+          fontFamily: 'system-ui, sans-serif'
+        }}>
+          CATCH QUEST — Preview
+        </div>
+        <iframe
+          srcDoc={HTML}
+          style={{
+            width: 390,
+            height: 844,
+            border: 'none',
+            borderRadius: 44,
+            boxShadow: '0 0 0 10px #1a1a2e, 0 30px 70px rgba(0,0,0,.4)',
+            display: 'block',
+          }}
+          title="Catch Quest App"
+        />
+      </div>
+    </div>
+  );
+}
