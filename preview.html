@@ -22134,17 +22134,32 @@ function showBasicsTab(tab,btn){
     css+=s+' .lb-row.me{border-color:'+t.c1+'!important;background:'+hexRGBA(t.c1,.08)+'!important}';
     css+=s+' .q-opt:hover{border-color:'+t.c1+'!important;background:'+hexRGBA(t.c1,.08)+'!important}';
     css+=s+' .q-input:focus{border-color:'+t.c1+'!important}';
-    // DARK variant: darken backgrounds
+    // ── PER-THEME BACKGROUNDS ──
     if(t.dark){
-      css+=s+'.phone{background:#13111F!important}';
-      css+=s+' #page-quests,'+s+' .page,'+s+' .subpage{background:#1A1726!important}';
-      css+=s+' #quests-hdr,'+s+' .hdr,'+s+' .bnav,'+s+' .sub-hdr{background:#211C30!important;box-shadow:none!important;border-color:#2D2740!important}';
-      css+=s+' .card,'+s+' .sc-card,'+s+' .stat-b,'+s+' .wcard,'+s+' .sent-card,'+s+' .q-card,'+s+' .info-card,'+s+' .tip-card,'+s+' .lb-row,'+s+' .site-card,'+s+' .move-cat,'+s+' .cq-tool,'+s+' [style*="background:#fff"],'+s+' [style*="background:#FFF"]{background:#262031!important;box-shadow:0 2px 10px rgba(0,0,0,.4)!important}';
-      css+=s+' [style*="color:#1F2937"],'+s+' [style*="color:#1a1a2e"],'+s+' [style*="color:#111"],'+s+' .sc-name,'+s+' .w-en,'+s+' .q-text,'+s+' .sub-title{color:#EDE9FF!important}';
-      css+=s+' [style*="color:#374151"],'+s+' [style*="color:#6B7280"],'+s+' [style*="color:#6b7280"],'+s+' .sc-desc,'+s+' .w-ph{color:#A99FC4!important}';
-      css+=s+' [style*="grid-template-columns:repeat(4,1fr)"][style*="padding:6px 16px 4px"]>div{background:#262031!important}';
+      // cool slate dark tuned to ice-blue accent
+      css+=s+'.phone{background:'+(t.bgDark||'#0E1320')+'!important}';
+      css+=s+' #page-quests,'+s+' .page,'+s+' .subpage{background:'+(t.bgDark2||'#121829')+'!important}';
+      css+=s+' #page-quests{animation:none!important;background-size:auto!important}';
+      css+=s+' #quests-hdr,'+s+' .hdr,'+s+' .bnav,'+s+' .sub-hdr{background:'+(t.bgDark3||'#1A2236')+'!important;box-shadow:none!important;border-color:#26314A!important}';
+      css+=s+' .card,'+s+' .sc-card,'+s+' .stat-b,'+s+' .wcard,'+s+' .sent-card,'+s+' .q-card,'+s+' .info-card,'+s+' .tip-card,'+s+' .lb-row,'+s+' .site-card,'+s+' .move-cat,'+s+' .cq-tool,'+s+' [style*="background:#fff"],'+s+' [style*="background:#FFF"]{background:'+(t.bgCard||'#1E2840')+'!important;box-shadow:0 2px 10px rgba(0,0,0,.4)!important}';
+      css+=s+' [style*="color:#1F2937"],'+s+' [style*="color:#1a1a2e"],'+s+' [style*="color:#111"],'+s+' .sc-name,'+s+' .w-en,'+s+' .q-text,'+s+' .sub-title{color:#E6EEFF!important}';
+      css+=s+' [style*="color:#374151"],'+s+' [style*="color:#6B7280"],'+s+' [style*="color:#6b7280"],'+s+' .sc-desc,'+s+' .w-ph{color:#94A3C4!important}';
+      css+=s+' [style*="grid-template-columns:repeat(4,1fr)"][style*="padding:6px 16px 4px"]>div{background:'+(t.bgCard||'#1E2840')+'!important}';
+    } else {
+      // light tinted gradient unique to each hue
+      css+=s+'.phone{background:linear-gradient(160deg,#ffffff 0%,'+hexRGBA(t.c1,.05)+' 42%,'+hexRGBA(t.c2,.15)+' 100%)!important}';
+      css+=s+' .page{background:transparent!important}';
+      css+=s+' #page-quests{background:linear-gradient(180deg,#ffffff 0%,'+hexRGBA(t.c1,.05)+' 45%,'+hexRGBA(t.c1,.13)+' 100%)!important;background-size:auto!important;animation:none!important}';
+      css+=s+' .subpage{background:linear-gradient(180deg,#ffffff,'+hexRGBA(t.c2,.10)+')!important}';
+      css+=s+' .podium{background:linear-gradient(180deg,'+hexRGBA(t.c2,.18)+','+hexRGBA(t.c1,.05)+')!important}';
     }
     return css;
+  }
+
+  function bodyBG(t){
+    if(t.rainbow) return 'linear-gradient(160deg,#1b1430,#241a3d 50%,#15203a)';
+    if(t.dark) return '#070A12';
+    return 'linear-gradient(160deg,'+hexRGBA(t.c1,.22)+','+hexRGBA(t.c2,.30)+')';
   }
 
   function active(){
@@ -22158,6 +22173,7 @@ function showBasicsTab(tab,btn){
     if(!t){t=THEMES[0];id='amethyst';}
     var ph=document.querySelector('.phone');if(ph)ph.setAttribute('data-theme',id);
     active().textContent=genCSS(t);
+    try{document.body.style.background=bodyBG(t);}catch(e){}
     P('cq10_theme',id);
     // move document.body style last so it wins cascade
     var s=document.getElementById('cq10-active');if(s)document.body.appendChild(s);
