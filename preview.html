@@ -21987,6 +21987,88 @@ function showBasicsTab(tab,btn){
 
 
 
+<!-- CQ9: COLOR ACCENTS -->
+<style id="cq9-color">
+/* ═══════════════════════════════════════════════════
+   CQ9 — COLORFUL ACCENT LAYER
+   Adds vibrant variety while keeping original layout
+═══════════════════════════════════════════════════ */
+
+/* ── TOOL BUTTONS: cycle through 4 vivid tints ────── */
+.cq-tool{transition:.2s cubic-bezier(.34,1.56,.64,1)!important;border:1.5px solid transparent!important}
+.cq-tool:nth-child(4n+1){background:linear-gradient(150deg,#EEF2FF,#E0E7FF)!important;box-shadow:0 4px 14px rgba(99,102,241,.18)!important}
+.cq-tool:nth-child(4n+2){background:linear-gradient(150deg,#FCE7F3,#FBCFE8)!important;box-shadow:0 4px 14px rgba(236,72,153,.18)!important}
+.cq-tool:nth-child(4n+3){background:linear-gradient(150deg,#D1FAE5,#A7F3D0)!important;box-shadow:0 4px 14px rgba(16,185,129,.18)!important}
+.cq-tool:nth-child(4n+4){background:linear-gradient(150deg,#FEF3C7,#FDE68A)!important;box-shadow:0 4px 14px rgba(245,158,11,.2)!important}
+.cq-tool:nth-child(4n+1) span{color:#4338CA!important}
+.cq-tool:nth-child(4n+2) span{color:#BE185D!important}
+.cq-tool:nth-child(4n+3) span{color:#047857!important}
+.cq-tool:nth-child(4n+4) span{color:#B45309!important}
+.cq-tool:hover{transform:translateY(-4px) scale(1.04)!important}
+.cq-tool:nth-child(4n+1):hover{box-shadow:0 12px 26px rgba(99,102,241,.32)!important}
+.cq-tool:nth-child(4n+2):hover{box-shadow:0 12px 26px rgba(236,72,153,.32)!important}
+.cq-tool:nth-child(4n+3):hover{box-shadow:0 12px 26px rgba(16,185,129,.32)!important}
+.cq-tool:nth-child(4n+4):hover{box-shadow:0 12px 26px rgba(245,158,11,.34)!important}
+
+/* ── FEATURE GRID (home top 4 cards): colored tints ─ */
+#page-quests [style*="grid-template-columns:repeat(4,1fr)"][style*="padding:6px 16px 4px"]>div:nth-child(1){background:linear-gradient(155deg,#EEF2FF,#E0E7FF)!important;box-shadow:0 4px 16px rgba(99,102,241,.2)!important}
+#page-quests [style*="grid-template-columns:repeat(4,1fr)"][style*="padding:6px 16px 4px"]>div:nth-child(2){background:linear-gradient(155deg,#FCE7F3,#FBCFE8)!important;box-shadow:0 4px 16px rgba(236,72,153,.2)!important}
+#page-quests [style*="grid-template-columns:repeat(4,1fr)"][style*="padding:6px 16px 4px"]>div:nth-child(3){background:linear-gradient(155deg,#FEE2E2,#FECACA)!important;box-shadow:0 4px 16px rgba(239,68,68,.18)!important}
+#page-quests [style*="grid-template-columns:repeat(4,1fr)"][style*="padding:6px 16px 4px"]>div:nth-child(4){background:linear-gradient(155deg,#FEF3C7,#FDE68A)!important;box-shadow:0 4px 16px rgba(245,158,11,.2)!important}
+
+/* ── HOME STATS: colorful numbers per column ───────── */
+#home-total-xp{color:#6366F1!important}
+#home-tests-done{color:#EC4899!important}
+#home-sims-done{color:#10B981!important}
+#home-streak{color:#F59E0B!important}
+
+/* ── SECTION LABELS: gradient text accent bar ──────── */
+#page-quests [style*="font-weight:900"][style*="letter-spacing:.4px"]{position:relative;padding-left:12px!important}
+#page-quests [style*="font-weight:900"][style*="letter-spacing:.4px"]::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:4px;height:14px;border-radius:3px;background:linear-gradient(180deg,#6366F1,#A78BFA)}
+
+/* ── DAILY GOAL ring card: warm tint ───────────────── */
+/* keep white but add a soft colored hairline */
+
+/* ── TAB pills: more saturated ─────────────────────── */
+.tab.active{background:linear-gradient(135deg,#6366F1,#A855F7)!important;box-shadow:0 4px 14px rgba(124,58,237,.4)!important}
+
+/* ── SEASON BADGE: rainbow-ish gradient ────────────── */
+.season-badge{background:linear-gradient(135deg,rgba(99,102,241,.12),rgba(236,72,153,.12))!important}
+
+/* ── VOCAB / SCENARIO cards: colored left borders ──── */
+.wcard:nth-child(5n+1){border-left-color:#6366F1!important}
+.wcard:nth-child(5n+2){border-left-color:#EC4899!important}
+.wcard:nth-child(5n+3){border-left-color:#10B981!important}
+.wcard:nth-child(5n+4){border-left-color:#F59E0B!important}
+.wcard:nth-child(5n+5){border-left-color:#06B6D4!important}
+
+/* ── SCENARIO ICON tiles: colorful backgrounds ─────── */
+.sc-card:nth-child(6n+1) .sc-img{background:linear-gradient(145deg,#EEF2FF,#C7D2FE)!important}
+.sc-card:nth-child(6n+2) .sc-img{background:linear-gradient(145deg,#FCE7F3,#FBCFE8)!important}
+.sc-card:nth-child(6n+3) .sc-img{background:linear-gradient(145deg,#D1FAE5,#A7F3D0)!important}
+.sc-card:nth-child(6n+4) .sc-img{background:linear-gradient(145deg,#FEF3C7,#FDE68A)!important}
+.sc-card:nth-child(6n+5) .sc-img{background:linear-gradient(145deg,#FEE2E2,#FECACA)!important}
+.sc-card:nth-child(6n+6) .sc-img{background:linear-gradient(145deg,#CFFAFE,#A5F3FC)!important}
+
+/* ── TIP cards: colorful number badges ─────────────── */
+.tip-card:nth-child(4n+1) .tip-num{background:linear-gradient(135deg,#6366F1,#818CF8)!important}
+.tip-card:nth-child(4n+2) .tip-num{background:linear-gradient(135deg,#EC4899,#F472B6)!important}
+.tip-card:nth-child(4n+3) .tip-num{background:linear-gradient(135deg,#10B981,#34D399)!important}
+.tip-card:nth-child(4n+4) .tip-num{background:linear-gradient(135deg,#F59E0B,#FBBF24)!important}
+
+/* ── MOVE category tiles: colorful ─────────────────── */
+.move-cat:nth-child(3n+1){background:linear-gradient(155deg,#EEF2FF,#E0E7FF)!important}
+.move-cat:nth-child(3n+2){background:linear-gradient(155deg,#FCE7F3,#FBCFE8)!important}
+.move-cat:nth-child(3n+3){background:linear-gradient(155deg,#D1FAE5,#A7F3D0)!important}
+
+/* ── SITE cards icons: rotate colors ───────────────── */
+.site-card:nth-child(4n+1) .site-ico{background:#E0E7FF!important}
+.site-card:nth-child(4n+2) .site-ico{background:#FBCFE8!important}
+.site-card:nth-child(4n+3) .site-ico{background:#A7F3D0!important}
+.site-card:nth-child(4n+4) .site-ico{background:#FDE68A!important}
+
+</style>
+
 <!-- CQ7: ANIMATION LAYER -->
 <style id="cq7-style">
 /* ── KEYFRAMES ─────────────────────────────────────────────────────── */
