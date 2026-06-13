@@ -589,7 +589,7 @@ button:active{filter:brightness(.97)}
       <div style="font-size:17px;font-weight:900;letter-spacing:.5px"><span style="color:#7C3AED">CATCH</span><span style="color:#1F2937"> QUEST</span></div>
       <div style="font-size:10px;color:#9CA3AF">Survive • Win</div>
     </div>
-    <div style="width:38px;height:38px"></div>
+    <button onclick="CQ10.open()" style="width:38px;height:38px;border-radius:12px;background:#F5F3FF;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px" title="Темы">🎨</button>
   </div>
 
   <div style="overflow-y:auto;padding-bottom:16px">
@@ -22068,6 +22068,135 @@ function showBasicsTab(tab,btn){
 .site-card:nth-child(4n+4) .site-ico{background:#FDE68A!important}
 
 </style>
+
+<!-- CQ10: THEME ENGINE -->
+<script>
+/* ═══════════════════════════════════════════════════
+   CQ10 — THEME ENGINE (switchable color themes)
+═══════════════════════════════════════════════════ */
+(function(){
+  function P(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+  function G(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+
+  // each theme: id,name,emoji, c1(main) c2(light accent), and per-theme card-bg behaviour
+  var THEMES=[
+    {id:'amethyst',name:'Аметист',emoji:'💜',c1:'#7C3AED',c2:'#A78BFA',rainbow:false},
+    {id:'rainbow', name:'Радуга', emoji:'🌈',c1:'#7C3AED',c2:'#A78BFA',rainbow:true},
+    {id:'ocean',   name:'Океан',  emoji:'🌊',c1:'#0EA5E9',c2:'#22D3EE',rainbow:false},
+    {id:'forest',  name:'Лес',    emoji:'🌲',c1:'#10B981',c2:'#34D399',rainbow:false},
+    {id:'sunset',  name:'Закат',  emoji:'🌅',c1:'#F97316',c2:'#FB7185',rainbow:false},
+    {id:'rose',    name:'Роза',   emoji:'🌸',c1:'#F43F5E',c2:'#FB7185',rainbow:false},
+    {id:'royal',   name:'Сапфир', emoji:'🔷',c1:'#4F46E5',c2:'#818CF8',rainbow:false},
+    {id:'mint',    name:'Мята',   emoji:'🍃',c1:'#14B8A6',c2:'#5EEAD4',rainbow:false},
+    {id:'night',   name:'Ночь',   emoji:'🌙',c1:'#A78BFA',c2:'#C4B5FD',rainbow:false,dark:true}
+  ];
+
+  function hexRGBA(hex,a){hex=hex.replace('#','');var r=parseInt(hex.substr(0,2),16),g=parseInt(hex.substr(2,2),16),b=parseInt(hex.substr(4,2),16);return 'rgba('+r+','+g+','+b+','+a+')';}
+
+  function genCSS(t){
+    if(t.rainbow) return ''; // rainbow keeps CQ9 multicolor accents
+    var s='.phone[data-theme="'+t.id+'"]';
+    var g='linear-gradient(135deg,'+t.c1+','+t.c2+')';
+    var css='';
+    // primary buttons / active tabs / nav
+    css+=s+' .cq-prim,'+s+' .btn-pu,'+s+' .tab.active{background:'+g+'!important;box-shadow:0 6px 22px '+hexRGBA(t.c1,.4)+'!important}';
+    css+=s+' .nb.active{color:'+t.c1+'!important}';
+    css+=s+' .nb.active::after{background:'+t.c1+'!important}';
+    css+=s+' .nb.active .ico svg [stop-color],'+s+' .nb.active .ico path{}';
+    // progress bars
+    css+=s+' .pbar-f,'+s+' #home-pbar{background:linear-gradient(90deg,'+t.c1+','+t.c2+')!important}';
+    // logo + season
+    css+=s+' .hdr-logo span{color:'+t.c1+'!important}';
+    css+=s+' .season,'+s+' .season-badge{color:'+t.c1+'!important;background:'+hexRGBA(t.c1,.1)+'!important}';
+    css+=s+' .season::before,'+s+' .season-dot{background:'+t.c1+'!important}';
+    // tool buttons — single accent tint (overrides CQ9 rainbow)
+    css+=s+' .cq-tool{background:linear-gradient(150deg,'+hexRGBA(t.c1,.10)+','+hexRGBA(t.c2,.18)+')!important;box-shadow:0 4px 14px '+hexRGBA(t.c1,.16)+'!important}';
+    css+=s+' .cq-tool span{color:'+t.c1+'!important}';
+    css+=s+' .cq-tool:hover{box-shadow:0 12px 26px '+hexRGBA(t.c1,.3)+'!important}';
+    // feature grid cards (home top4)
+    css+=s+' [style*="grid-template-columns:repeat(4,1fr)"][style*="padding:6px 16px 4px"]>div{background:linear-gradient(155deg,'+hexRGBA(t.c1,.08)+','+hexRGBA(t.c2,.16)+')!important;box-shadow:0 4px 16px '+hexRGBA(t.c1,.16)+'!important}';
+    // stat numbers
+    css+=s+' #home-total-xp,'+s+' #home-tests-done,'+s+' #home-sims-done,'+s+' #home-streak{color:'+t.c1+'!important}';
+    // section accent bars
+    css+=s+' [style*="font-weight:900"][style*="letter-spacing:.4px"]::before{background:linear-gradient(180deg,'+t.c1+','+t.c2+')!important}';
+    // vocab left borders / scenario tiles / tip badges / move tiles
+    css+=s+' .wcard{border-left-color:'+t.c1+'!important}';
+    css+=s+' .sc-card .sc-img{background:linear-gradient(145deg,'+hexRGBA(t.c1,.14)+','+hexRGBA(t.c2,.28)+')!important}';
+    css+=s+' .tip-card .tip-num{background:'+g+'!important}';
+    css+=s+' .move-cat{background:linear-gradient(155deg,'+hexRGBA(t.c1,.08)+','+hexRGBA(t.c2,.16)+')!important}';
+    css+=s+' .site-card .site-ico{background:'+hexRGBA(t.c1,.16)+'!important}';
+    // generic inline purple text → theme color
+    css+=s+' [style*="color:#7C3AED"],'+s+' [style*="color:#6c47ff"],'+s+' [style*="color:#6D28D9"]{color:'+t.c1+'!important}';
+    // generic purple pill backgrounds
+    css+=s+' .xp-tag,'+s+' .q-letter,'+s+' .q-timer{color:'+t.c1+'!important;background:'+hexRGBA(t.c1,.12)+'!important}';
+    css+=s+' .chat-bubble.user{background:'+g+'!important}';
+    css+=s+' .prof-hero{background:linear-gradient(135deg,'+t.c1+','+t.c2+')!important}';
+    css+=s+' .lb-row.me{border-color:'+t.c1+'!important;background:'+hexRGBA(t.c1,.08)+'!important}';
+    css+=s+' .q-opt:hover{border-color:'+t.c1+'!important;background:'+hexRGBA(t.c1,.08)+'!important}';
+    css+=s+' .q-input:focus{border-color:'+t.c1+'!important}';
+    // DARK variant: darken backgrounds
+    if(t.dark){
+      css+=s+'.phone{background:#13111F!important}';
+      css+=s+' #page-quests,'+s+' .page,'+s+' .subpage{background:#1A1726!important}';
+      css+=s+' #quests-hdr,'+s+' .hdr,'+s+' .bnav,'+s+' .sub-hdr{background:#211C30!important;box-shadow:none!important;border-color:#2D2740!important}';
+      css+=s+' .card,'+s+' .sc-card,'+s+' .stat-b,'+s+' .wcard,'+s+' .sent-card,'+s+' .q-card,'+s+' .info-card,'+s+' .tip-card,'+s+' .lb-row,'+s+' .site-card,'+s+' .move-cat,'+s+' .cq-tool,'+s+' [style*="background:#fff"],'+s+' [style*="background:#FFF"]{background:#262031!important;box-shadow:0 2px 10px rgba(0,0,0,.4)!important}';
+      css+=s+' [style*="color:#1F2937"],'+s+' [style*="color:#1a1a2e"],'+s+' [style*="color:#111"],'+s+' .sc-name,'+s+' .w-en,'+s+' .q-text,'+s+' .sub-title{color:#EDE9FF!important}';
+      css+=s+' [style*="color:#374151"],'+s+' [style*="color:#6B7280"],'+s+' [style*="color:#6b7280"],'+s+' .sc-desc,'+s+' .w-ph{color:#A99FC4!important}';
+      css+=s+' [style*="grid-template-columns:repeat(4,1fr)"][style*="padding:6px 16px 4px"]>div{background:#262031!important}';
+    }
+    return css;
+  }
+
+  function active(){
+    var st=document.getElementById('cq10-active');
+    if(!st){st=document.createElement('style');st.id='cq10-active';document.body.appendChild(st);}
+    return st;
+  }
+
+  function apply(id){
+    var t=null;for(var i=0;i<THEMES.length;i++)if(THEMES[i].id===id)t=THEMES[i];
+    if(!t){t=THEMES[0];id='amethyst';}
+    var ph=document.querySelector('.phone');if(ph)ph.setAttribute('data-theme',id);
+    active().textContent=genCSS(t);
+    P('cq10_theme',id);
+    // move document.body style last so it wins cascade
+    var s=document.getElementById('cq10-active');if(s)document.body.appendChild(s);
+  }
+
+  function close(){var m=document.getElementById('cq10-modal');if(m)m.remove();}
+
+  function open(){
+    close();
+    var cur=G('cq10_theme')||'amethyst';
+    var host=document.querySelector('.phone')||document.body;
+    var b=document.createElement('div');b.className='cq-back';b.id='cq10-modal';
+    b.onclick=function(e){if(e.target===b)close();};
+    var cards='';
+    THEMES.forEach(function(t){
+      var sw=t.rainbow
+        ? 'background:linear-gradient(135deg,#6366F1,#EC4899 40%,#10B981 70%,#F59E0B)'
+        : (t.dark?'background:linear-gradient(135deg,#1A1726,'+t.c1+')':'background:linear-gradient(135deg,'+t.c1+','+t.c2+')');
+      var on=cur===t.id;
+      cards+='<button onclick="CQ10.pick(\''+t.id+'\')" style="position:relative;border:2.5px solid '+(on?t.c1:'#EFEAFC')+';background:#fff;border-radius:18px;padding:12px 8px 10px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px;transition:.15s">'
+        +'<div style="width:100%;height:46px;border-radius:12px;'+sw+';box-shadow:0 3px 10px rgba(0,0,0,.12);display:flex;align-items:center;justify-content:center;font-size:22px">'+t.emoji+'</div>'
+        +'<div style="font-size:12px;font-weight:800;color:#1F2937">'+t.name+'</div>'
+        +(on?'<div style="position:absolute;top:6px;right:6px;width:20px;height:20px;border-radius:50%;background:'+t.c1+';color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center">✓</div>':'')
+        +'</button>';
+    });
+    b.innerHTML='<div class="cq-sheet"><div class="cq-sheet-h"><div style="font-size:16px;font-weight:900;color:#1F2937">🎨 Тема оформления</div><button onclick="CQ10.close()" style="width:32px;height:32px;border-radius:10px;border:none;background:#F3F4F6;cursor:pointer;font-size:15px">✕</button></div>'
+      +'<div style="padding:14px 16px 20px"><div style="font-size:12px;color:#6B7280;margin-bottom:14px">Выбери цветовую тему — применится сразу ко всему приложению.</div>'
+      +'<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">'+cards+'</div></div></div>';
+    host.appendChild(b);
+  }
+
+  function pick(id){apply(id);try{showToast&&showToast('🎨 Тема обновлена');}catch(e){}setTimeout(open,120);}
+
+  window.CQ10={open:open,close:close,pick:pick,apply:apply};
+
+  function init(){apply(G('cq10_theme')||'amethyst');}
+  if(document.readyState==='loading')window.addEventListener('DOMContentLoaded',init);else init();
+})();
+</script>
 
 <!-- CQ7: ANIMATION LAYER -->
 <style id="cq7-style">
