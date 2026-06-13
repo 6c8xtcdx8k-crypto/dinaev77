@@ -22136,15 +22136,32 @@ function showBasicsTab(tab,btn){
     css+=s+' .q-input:focus{border-color:'+t.c1+'!important}';
     // ── PER-THEME BACKGROUNDS ──
     if(t.dark){
-      // cool slate dark tuned to ice-blue accent
-      css+=s+'.phone{background:'+(t.bgDark||'#0E1320')+'!important}';
-      css+=s+' #page-quests,'+s+' .page,'+s+' .subpage{background:'+(t.bgDark2||'#121829')+'!important}';
+      var dBg=t.bgDark||'#0E1320', dPage=t.bgDark2||'#121829', dChrome=t.bgDark3||'#1A2236',
+          dCard=t.bgCard||'#1E2840', dChip='#28344F', lightTxt='#E8EEFF', muteTxt='#9FAACB';
+      var joinBg=function(list){return list.map(function(c){return s+' [style*="background:'+c+'"]';}).join(',');};
+      var joinTx=function(list){return list.map(function(c){return s+' [style*="color:'+c+'"]';}).join(',');};
+      // frame + pages
+      css+=s+'.phone{background:'+dBg+'!important}';
+      css+=s+' #onboarding{background:'+dPage+'!important}';
+      css+=s+' #page-quests,'+s+' .page,'+s+' .subpage{background:'+dPage+'!important}';
       css+=s+' #page-quests{animation:none!important;background-size:auto!important}';
-      css+=s+' #quests-hdr,'+s+' .hdr,'+s+' .bnav,'+s+' .sub-hdr{background:'+(t.bgDark3||'#1A2236')+'!important;box-shadow:none!important;border-color:#26314A!important}';
-      css+=s+' .card,'+s+' .sc-card,'+s+' .stat-b,'+s+' .wcard,'+s+' .sent-card,'+s+' .q-card,'+s+' .info-card,'+s+' .tip-card,'+s+' .lb-row,'+s+' .site-card,'+s+' .move-cat,'+s+' .cq-tool,'+s+' [style*="background:#fff"],'+s+' [style*="background:#FFF"]{background:'+(t.bgCard||'#1E2840')+'!important;box-shadow:0 2px 10px rgba(0,0,0,.4)!important}';
-      css+=s+' [style*="color:#1F2937"],'+s+' [style*="color:#1a1a2e"],'+s+' [style*="color:#111"],'+s+' .sc-name,'+s+' .w-en,'+s+' .q-text,'+s+' .sub-title{color:#E6EEFF!important}';
-      css+=s+' [style*="color:#374151"],'+s+' [style*="color:#6B7280"],'+s+' [style*="color:#6b7280"],'+s+' .sc-desc,'+s+' .w-ph{color:#94A3C4!important}';
-      css+=s+' [style*="grid-template-columns:repeat(4,1fr)"][style*="padding:6px 16px 4px"]>div{background:'+(t.bgCard||'#1E2840')+'!important}';
+      css+=s+' #quests-hdr,'+s+' .hdr,'+s+' .bnav,'+s+' .sub-hdr,'+s+' .ptab-row{background:'+dChrome+'!important;box-shadow:none!important;border-color:#26314A!important}';
+      // all light card surfaces → dark card
+      css+=joinBg(['#fff','#FFF','#ffffff','#faf9ff','#FAF9FF','#FAFAFA','#fafafa','#fbfaff','#F8F6FF','#F9FAFB','#F3F0FF'])
+          +','+s+' .card,'+s+' .sc-card,'+s+' .stat-b,'+s+' .wcard,'+s+' .sent-card,'+s+' .q-card,'+s+' .info-card,'+s+' .tip-card,'+s+' .lb-row,'+s+' .site-card,'+s+' .move-cat,'+s+' .cq-tool,'+s+' .chat-bubble.ai,'+s+' .typing-dots,'+s+' .cq-sheet,'+s+' .cq-sheet-h{background:'+dCard+'!important;box-shadow:0 2px 10px rgba(0,0,0,.4)!important}';
+      // nested chips / pills / option rows / inputs → lighter dark
+      css+=joinBg(['#F5F3FF','#F5F1FF','#ede9ff','#EDE9FF','#EFEAFC','#F1EDFF','#EEF2FF','#F3F4F6'])
+          +','+s+' .q-opt,'+s+' .cq-opt,'+s+' .cq6-opt,'+s+' .chat-opt,'+s+' .q-input,'+s+' .username-input,'+s+' input{background:'+dChip+'!important;border-color:#3A466A!important;color:'+lightTxt+'!important}';
+      css+=s+' input::placeholder,'+s+' .username-input::placeholder{color:'+muteTxt+'!important}';
+      // close (✕) buttons readable
+      css+=s+' [style*="background:#F3F4F6"]{color:'+lightTxt+'!important}';
+      // feature grid cards
+      css+=s+' [style*="grid-template-columns:repeat(4,1fr)"][style*="padding:6px 16px 4px"]>div{background:'+dCard+'!important}';
+      // text → light
+      css+=joinTx(['#1F2937','#1a1a2e','#1A1A2E','#111','#0A0718','#111827','#0f172a'])
+          +','+s+' .sc-name,'+s+' .w-en,'+s+' .q-text,'+s+' .sub-title{color:'+lightTxt+'!important}';
+      css+=joinTx(['#374151','#6B7280','#6b7280','#4B5563','#4b5563','#9CA3AF','#9ca3af','#D1D5DB'])
+          +','+s+' .sc-desc,'+s+' .w-ph{color:'+muteTxt+'!important}';
     } else {
       // light tinted gradient unique to each hue
       css+=s+'.phone{background:linear-gradient(160deg,#ffffff 0%,'+hexRGBA(t.c1,.05)+' 42%,'+hexRGBA(t.c2,.15)+' 100%)!important}';
