@@ -22080,15 +22080,15 @@ function showBasicsTab(tab,btn){
 
   // each theme: id,name,emoji, c1(main) c2(light accent), and per-theme card-bg behaviour
   var THEMES=[
-    {id:'amethyst',name:'Аметист',emoji:'💜',c1:'#7C3AED',c2:'#A78BFA',rainbow:false},
-    {id:'rainbow', name:'Радуга', emoji:'🌈',c1:'#7C3AED',c2:'#A78BFA',rainbow:true},
-    {id:'ocean',   name:'Океан',  emoji:'🌊',c1:'#0EA5E9',c2:'#22D3EE',rainbow:false},
-    {id:'forest',  name:'Лес',    emoji:'🌲',c1:'#10B981',c2:'#34D399',rainbow:false},
-    {id:'sunset',  name:'Закат',  emoji:'🌅',c1:'#F97316',c2:'#FB7185',rainbow:false},
-    {id:'rose',    name:'Роза',   emoji:'🌸',c1:'#F43F5E',c2:'#FB7185',rainbow:false},
-    {id:'royal',   name:'Сапфир', emoji:'🔷',c1:'#4F46E5',c2:'#818CF8',rainbow:false},
-    {id:'mint',    name:'Мята',   emoji:'🍃',c1:'#14B8A6',c2:'#5EEAD4',rainbow:false},
-    {id:'night',   name:'Ночь',   emoji:'🌙',c1:'#A78BFA',c2:'#C4B5FD',rainbow:false,dark:true}
+    {id:'amethyst',name:'Аметист',emoji:'💜',c1:'#7C3AED',c2:'#A78BFA',rainbow:false}, /* фиолетовый */
+    {id:'rainbow', name:'Радуга', emoji:'🌈',c1:'#7C3AED',c2:'#A78BFA',rainbow:true},  /* многоцветный */
+    {id:'ocean',   name:'Океан',  emoji:'🌊',c1:'#0284C7',c2:'#38BDF8',rainbow:false}, /* лазурный */
+    {id:'forest',  name:'Лес',    emoji:'🌲',c1:'#16A34A',c2:'#4ADE80',rainbow:false}, /* зелёный */
+    {id:'gold',    name:'Золото', emoji:'🏆',c1:'#D97706',c2:'#FBBF24',rainbow:false}, /* золотой */
+    {id:'sunset',  name:'Закат',  emoji:'🌅',c1:'#EA580C',c2:'#FB923C',rainbow:false}, /* оранжевый */
+    {id:'ruby',    name:'Рубин',  emoji:'❤️',c1:'#DC2626',c2:'#F87171',rainbow:false}, /* красный */
+    {id:'rose',    name:'Роза',   emoji:'🌸',c1:'#DB2777',c2:'#F472B6',rainbow:false}, /* малиновый */
+    {id:'night',   name:'Ночь',   emoji:'🌙',c1:'#60A5FA',c2:'#93C5FD',rainbow:false,dark:true} /* тёмная + лёд */
   ];
 
   function hexRGBA(hex,a){hex=hex.replace('#','');var r=parseInt(hex.substr(0,2),16),g=parseInt(hex.substr(2,2),16),b=parseInt(hex.substr(4,2),16);return 'rgba('+r+','+g+','+b+','+a+')';}
