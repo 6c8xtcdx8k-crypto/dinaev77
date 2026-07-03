@@ -62,7 +62,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
         <div>
           <p className="text-sm font-medium text-brand-600">
-            Styleberries · {GENDER_LABELS[product.gender as Gender] ?? product.gender}
+            {product.category.name} · {GENDER_LABELS[product.gender as Gender] ?? product.gender}
           </p>
           <h1 className="mt-1 text-2xl font-bold sm:text-3xl">{product.name}</h1>
           <div className="mt-2">

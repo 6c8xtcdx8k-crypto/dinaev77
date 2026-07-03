@@ -41,10 +41,10 @@ export default async function HomePage() {
           Новая коллекция
         </p>
         <h1 className="mt-2 max-w-xl text-3xl font-extrabold leading-tight sm:text-5xl">
-          Стиль, который собирается как ягоды — по одной
+          Всё для вашего стиля — в одном месте
         </h1>
         <p className="mt-4 max-w-md text-brand-50">
-          Кроссовки, обувь и одежда Styleberries. Скидки до 30% и промокод{" "}
+          Кроссовки, обувь и одежда для женщин и мужчин. Скидки до 30% и промокод{" "}
           <span className="rounded bg-white/20 px-2 py-0.5 font-mono font-bold">BERRY10</span> на
           первый заказ.
         </p>

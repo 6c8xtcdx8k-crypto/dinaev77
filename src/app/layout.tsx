@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     template: "%s — Styleberries",
   },
   description:
-    "Styleberries: кроссовки, обувь и одежда бренда. Быстрая доставка, скидки и промокоды.",
+    "Styleberries — интернет-магазин: кроссовки, обувь и одежда. Быстрая доставка, скидки и промокоды.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
