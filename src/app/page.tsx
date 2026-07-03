@@ -56,9 +56,13 @@ export default async function HomePage() {
             Товары со скидкой
           </Link>
         </div>
-        <span className="pointer-events-none absolute -right-6 -top-6 text-[9rem] opacity-20" aria-hidden>
-          🍓
-        </span>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/logo.png"
+          alt=""
+          className="pointer-events-none absolute -right-8 -top-8 w-52 rotate-12 opacity-15"
+          aria-hidden
+        />
       </section>
 
       {/* Категории */}

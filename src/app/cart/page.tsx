@@ -47,8 +47,9 @@ export default async function CartPage() {
                     className="h-28 w-20 rounded-xl object-cover"
                   />
                 ) : (
-                  <div className="flex h-28 w-20 items-center justify-center rounded-xl bg-zinc-100 text-2xl">
-                    🍓
+                  <div className="flex h-28 w-20 items-center justify-center rounded-xl bg-zinc-100">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src="/logo.png" alt="" className="w-10 rounded-lg opacity-30" />
                   </div>
                 )}
               </Link>

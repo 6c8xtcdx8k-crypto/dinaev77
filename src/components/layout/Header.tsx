@@ -22,8 +22,9 @@ export async function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur">
       <div className="container flex h-16 items-center gap-4">
-        <Link href="/" className="flex shrink-0 items-center gap-1.5 text-xl font-extrabold tracking-tight">
-          <span aria-hidden>🍓</span>
+        <Link href="/" className="flex shrink-0 items-center gap-2 text-xl font-extrabold tracking-tight">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/logo.png" alt="" className="h-8 w-8 rounded-lg" />
           <span>
             Style<span className="text-brand-600">berries</span>
           </span>

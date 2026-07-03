@@ -31,7 +31,10 @@ export function ProductCard({ product }: { product: ProductCardData }) {
             loading="lazy"
           />
         ) : (
-          <div className="flex h-full items-center justify-center text-4xl">🍓</div>
+          <div className="flex h-full items-center justify-center">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo.png" alt="" className="w-14 rounded-xl opacity-30" />
+          </div>
         )}
         {product.discountPercent > 0 && (
           <span className="badge absolute left-2 top-2 bg-accent-500 text-white">

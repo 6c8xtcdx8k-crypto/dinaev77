@@ -13,8 +13,9 @@ export function ProductGallery({
 
   if (images.length === 0) {
     return (
-      <div className="flex aspect-[3/4] items-center justify-center rounded-2xl bg-zinc-100 text-6xl">
-        🍓
+      <div className="flex aspect-[3/4] items-center justify-center rounded-2xl bg-zinc-100">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/logo.png" alt="" className="w-24 rounded-2xl opacity-30" />
       </div>
     );
   }

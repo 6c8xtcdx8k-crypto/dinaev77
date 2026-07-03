@@ -12,7 +12,7 @@ function layout(title: string, body: string): string {
   return `
   <div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto;color:#1f2937">
     <div style="background:#047857;color:#fff;padding:16px 24px;border-radius:8px 8px 0 0">
-      <strong style="font-size:18px">🍓 Styleberries</strong>
+      <strong style="font-size:18px">Styleberries</strong>
     </div>
     <div style="border:1px solid #e5e7eb;border-top:none;padding:24px;border-radius:0 0 8px 8px">
       <h2 style="margin-top:0">${title}</h2>

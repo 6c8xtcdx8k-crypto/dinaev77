@@ -48,7 +48,8 @@ export default async function AdminProductsPage() {
                         // eslint-disable-next-line @next/next/no-img-element
                         <img src={p.images[0].url} alt="" className="h-10 w-8 rounded object-cover" />
                       ) : (
-                        <span className="flex h-10 w-8 items-center justify-center rounded bg-zinc-100">🍓</span>
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src="/logo.png" alt="" className="h-8 w-8 rounded opacity-40" />
                       )}
                       {p.name}
                     </Link>

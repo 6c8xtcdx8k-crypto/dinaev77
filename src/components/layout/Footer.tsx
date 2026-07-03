@@ -5,8 +5,12 @@ export function Footer() {
     <footer className="mt-16 border-t border-zinc-200 bg-white">
       <div className="container grid gap-8 py-10 sm:grid-cols-2 lg:grid-cols-4">
         <div>
-          <div className="text-lg font-extrabold">
-            🍓 Style<span className="text-brand-600">berries</span>
+          <div className="flex items-center gap-2 text-lg font-extrabold">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo.png" alt="" className="h-7 w-7 rounded-lg" />
+            <span>
+              Style<span className="text-brand-600">berries</span>
+            </span>
           </div>
           <p className="mt-2 text-sm text-zinc-500">
             Фирменный магазин бренда: кроссовки, обувь и одежда для женщин и мужчин.
