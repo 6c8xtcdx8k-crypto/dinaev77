@@ -16,3 +16,6 @@ prisma/*.db-journal
 *.log
 .DS_Store
 .emails/
+
+# build artifacts
+*.tsbuildinfo
