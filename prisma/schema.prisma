@@ -1,0 +1,210 @@
+// Styleberries — схема данных.
+// Провайдер по умолчанию — SQLite (быстрый старт). Для продакшена
+// замените provider на "postgresql" и DATABASE_URL — схема совместима.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ---------- Пользователи ----------
+
+model User {
+  id           String     @id @default(cuid())
+  email        String     @unique
+  passwordHash String
+  name         String
+  phone        String?
+  role         String     @default("CUSTOMER") // CUSTOMER | ADMIN
+  createdAt    DateTime   @default(now())
+  orders       Order[]
+  reviews      Review[]
+  favorites    Favorite[]
+  carts        Cart[]
+}
+
+// ---------- Каталог ----------
+
+model Category {
+  id       String    @id @default(cuid())
+  slug     String    @unique // sneakers | shoes | clothing
+  name     String
+  sort     Int       @default(0)
+  products Product[]
+}
+
+model Product {
+  id              String         @id @default(cuid())
+  slug            String         @unique
+  name            String
+  description     String
+  categoryId      String
+  category        Category       @relation(fields: [categoryId], references: [id])
+  gender          String // WOMEN | MEN | UNISEX
+  basePrice       Int // копейки
+  discountPercent Int            @default(0) // постоянная скидка на товар, %
+  isActive        Boolean        @default(true)
+  ratingAvg       Float          @default(0)
+  ratingCount     Int            @default(0)
+  salesCount      Int            @default(0) // для сортировки «по популярности»
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  images          ProductImage[]
+  variants        Variant[]
+  reviews         Review[]
+  favorites       Favorite[]
+
+  @@index([categoryId, gender, isActive])
+}
+
+model ProductImage {
+  id        String  @id @default(cuid())
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  url       String
+  alt       String  @default("")
+  sort      Int     @default(0)
+}
+
+// Вариант товара: конкретная комбинация размера и цвета со своим остатком.
+model Variant {
+  id         String      @id @default(cuid())
+  productId  String
+  product    Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
+  sku        String      @unique
+  size       String // "38", "42", "M", "XL"…
+  color      String // "Чёрный", "Белый"…
+  colorHex   String      @default("#888888")
+  stock      Int         @default(0)
+  cartItems  CartItem[]
+  orderItems OrderItem[]
+
+  @@unique([productId, size, color])
+}
+
+// ---------- Отзывы и избранное ----------
+
+model Review {
+  id        String   @id @default(cuid())
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  rating    Int // 1..5
+  text      String
+  createdAt DateTime @default(now())
+
+  @@unique([productId, userId]) // один отзыв на товар от пользователя
+}
+
+model Favorite {
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@id([userId, productId])
+}
+
+// ---------- Корзина ----------
+
+// Корзина живёт и у гостя (по cookie-токену), и у авторизованного пользователя.
+model Cart {
+  id        String     @id @default(cuid())
+  token     String     @unique // значение cookie sb_cart
+  userId    String?
+  user      User?      @relation(fields: [userId], references: [id], onDelete: SetNull)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  items     CartItem[]
+}
+
+model CartItem {
+  id        String  @id @default(cuid())
+  cartId    String
+  cart      Cart    @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  variantId String
+  variant   Variant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  qty       Int     @default(1)
+
+  @@unique([cartId, variantId])
+}
+
+// ---------- Промокоды ----------
+
+model PromoCode {
+  id            String    @id @default(cuid())
+  code          String    @unique
+  type          String // PERCENT | FIXED
+  value         Int // % либо копейки
+  minOrderTotal Int       @default(0) // копейки
+  startsAt      DateTime?
+  endsAt        DateTime?
+  usageLimit    Int? // null = без ограничений
+  usedCount     Int       @default(0)
+  isActive      Boolean   @default(true)
+  orders        Order[]
+}
+
+// ---------- Заказы ----------
+
+model Order {
+  id              String               @id @default(cuid())
+  number          Int                  @unique // назначается в createOrder: max(number)+1
+  userId          String?
+  user            User?                @relation(fields: [userId], references: [id], onDelete: SetNull)
+  status          String               @default("NEW") // NEW | PAID | PROCESSING | SHIPPED | DELIVERED | CANCELLED
+  // контакты получателя (снимок на момент заказа)
+  customerName    String
+  customerEmail   String
+  customerPhone   String
+  // доставка
+  deliveryMethod  String // COURIER | PICKUP
+  deliveryAddress String
+  deliveryCost    Int                  @default(0)
+  // деньги (копейки)
+  subtotal        Int
+  discountTotal   Int                  @default(0)
+  total           Int
+  promoCodeId     String?
+  promoCode       PromoCode?           @relation(fields: [promoCodeId], references: [id], onDelete: SetNull)
+  // оплата
+  paymentProvider String               @default("mock")
+  paymentStatus   String               @default("PENDING") // PENDING | PAID | FAILED | REFUNDED
+  paymentId       String?
+  createdAt       DateTime             @default(now())
+  updatedAt       DateTime             @updatedAt
+  items           OrderItem[]
+  statusHistory   OrderStatusHistory[]
+
+  @@index([userId, createdAt])
+}
+
+// Позиция заказа хранит снимок товара: смена цены/названия не меняет историю.
+model OrderItem {
+  id          String   @id @default(cuid())
+  orderId     String
+  order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  variantId   String?
+  variant     Variant? @relation(fields: [variantId], references: [id], onDelete: SetNull)
+  productName String
+  productSlug String
+  size        String
+  color       String
+  price       Int // цена за единицу с учётом скидки товара, копейки
+  qty         Int
+}
+
+model OrderStatusHistory {
+  id        String   @id @default(cuid())
+  orderId   String
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  status    String
+  comment   String   @default("")
+  createdAt DateTime @default(now())
+}
