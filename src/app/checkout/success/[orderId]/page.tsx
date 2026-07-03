@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { prisma } from "@/lib/db";
 import { formatPrice } from "@/lib/money";
+import { IconCheckCircle } from "@/components/ui/icons";
 
 export const metadata: Metadata = { title: "Заказ оформлен" };
 export const dynamic = "force-dynamic";
@@ -21,7 +22,7 @@ export default async function CheckoutSuccessPage({
 
   return (
     <div className="container max-w-lg py-16 text-center">
-      <p className="text-5xl" aria-hidden>🎉</p>
+      <IconCheckCircle className="!text-brand-500" />
       <h1 className="mt-4 text-2xl font-bold">Спасибо за заказ!</h1>
       <p className="mt-2 text-zinc-500">
         Заказ <strong>№{order.number}</strong> на сумму{" "}

@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { ProductCard } from "@/components/product/ProductCard";
+import { IconHeart } from "@/components/ui/icons";
 
 export const metadata: Metadata = { title: "Избранное" };
 export const dynamic = "force-dynamic";
@@ -30,7 +31,7 @@ export default async function FavoritesPage() {
 
       {products.length === 0 ? (
         <div className="py-12 text-center">
-          <p className="text-5xl" aria-hidden>💚</p>
+          <IconHeart />
           <p className="mt-4 font-semibold">В избранном пока пусто</p>
           <p className="mt-1 text-sm text-zinc-500">
             Нажимайте на сердечко на карточке товара, чтобы сохранить его здесь.

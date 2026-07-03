@@ -5,10 +5,10 @@ import { ProductCard } from "@/components/product/ProductCard";
 export const dynamic = "force-dynamic";
 
 const TILES = [
-  { href: "/catalog?gender=WOMEN", title: "Женщинам", emoji: "👗" },
-  { href: "/catalog?gender=MEN", title: "Мужчинам", emoji: "🧥" },
-  { href: "/catalog?category=sneakers", title: "Кроссовки", emoji: "👟" },
-  { href: "/catalog?category=shoes", title: "Обувь", emoji: "👞" },
+  { href: "/catalog?gender=WOMEN", title: "Женщинам" },
+  { href: "/catalog?gender=MEN", title: "Мужчинам" },
+  { href: "/catalog?category=sneakers", title: "Кроссовки" },
+  { href: "/catalog?category=shoes", title: "Обувь" },
 ];
 
 export default async function HomePage() {
@@ -71,12 +71,12 @@ export default async function HomePage() {
           <Link
             key={tile.href}
             href={tile.href}
-            className="card flex items-center gap-3 p-5 transition hover:border-brand-400 hover:shadow-md"
+            className="card group flex items-center justify-between gap-3 border-l-4 border-l-brand-500 p-5 transition hover:border-brand-400 hover:shadow-md"
           >
-            <span className="text-3xl" aria-hidden>
-              {tile.emoji}
-            </span>
             <span className="font-semibold">{tile.title}</span>
+            <span className="text-brand-600 transition group-hover:translate-x-1" aria-hidden>
+              →
+            </span>
           </Link>
         ))}
       </section>

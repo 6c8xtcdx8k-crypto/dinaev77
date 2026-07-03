@@ -54,7 +54,7 @@ export default async function AdminPromoPage() {
                       type="submit"
                       className={`badge ${p.isActive ? "bg-brand-100 text-brand-800" : "bg-zinc-100 text-zinc-500"}`}
                     >
-                      {p.isActive ? "Активен ⏻" : "Выключен ⏻"}
+                      {p.isActive ? "Активен · выключить" : "Выключен · включить"}
                     </button>
                   </form>
                 </td>

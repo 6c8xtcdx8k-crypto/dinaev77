@@ -6,7 +6,12 @@
     </linearGradient>
   </defs>
   <rect width="600" height="800" fill="url(#g)"/>
-  <text x="300" y="400" font-size="220" text-anchor="middle" dominant-baseline="middle">👢</text>
-  <text x="300" y="700" font-size="30" text-anchor="middle" fill="rgba(255,255,255,0.85)"
-        font-family="Arial, sans-serif" font-weight="bold">Ботинки челси женские Berry</text>
+  <circle cx="300" cy="400" r="230" fill="rgba(255,255,255,0.08)"/>
+  <circle cx="300" cy="400" r="160" fill="rgba(255,255,255,0.08)"/>
+  <text x="300" y="374" font-size="40" text-anchor="middle"
+        fill="#ffffff" font-family="Arial, sans-serif" font-weight="bold">Ботинки челси</text>
+  <text x="300" y="426" font-size="40" text-anchor="middle"
+        fill="#ffffff" font-family="Arial, sans-serif" font-weight="bold">женские Berry</text>
+  <text x="300" y="740" font-size="22" text-anchor="middle" fill="rgba(255,255,255,0.6)"
+        font-family="Arial, sans-serif" letter-spacing="4">STYLEBERRIES</text>
 </svg>

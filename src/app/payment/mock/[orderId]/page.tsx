@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { prisma } from "@/lib/db";
 import { formatPrice } from "@/lib/money";
 import { confirmMockPaymentAction, cancelMockPaymentAction } from "@/actions/payment";
+import { IconCard } from "@/components/ui/icons";
 
 export const metadata: Metadata = { title: "Оплата заказа" };
 export const dynamic = "force-dynamic";
@@ -34,7 +35,7 @@ export default async function MockPaymentPage({
   return (
     <div className="container max-w-md py-16">
       <div className="card p-8 text-center">
-        <p className="text-4xl" aria-hidden>💳</p>
+        <IconCard size={48} />
         <h1 className="mt-3 text-xl font-bold">Тестовая оплата</h1>
         <p className="mt-1 text-sm text-zinc-500">
           Заказ №{order.number} · {formatPrice(order.total)}

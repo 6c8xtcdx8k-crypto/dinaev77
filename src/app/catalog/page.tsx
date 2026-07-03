@@ -4,6 +4,7 @@ import { ProductCard } from "@/components/product/ProductCard";
 import { FilterSidebar } from "@/components/catalog/FilterSidebar";
 import { SortSelect } from "@/components/catalog/SortSelect";
 import { Pagination } from "@/components/catalog/Pagination";
+import { IconSearch } from "@/components/ui/icons";
 import { GENDER_LABELS, type Gender, type SortValue } from "@/lib/constants";
 
 export const metadata: Metadata = { title: "Каталог" };
@@ -84,7 +85,7 @@ export default async function CatalogPage({
         <div>
           {result.items.length === 0 ? (
             <div className="card flex flex-col items-center gap-2 p-12 text-center">
-              <span className="text-4xl" aria-hidden>🔍</span>
+              <IconSearch size={48} />
               <p className="font-semibold">Ничего не нашлось</p>
               <p className="text-sm text-zinc-500">
                 Попробуйте изменить запрос или сбросить фильтры.

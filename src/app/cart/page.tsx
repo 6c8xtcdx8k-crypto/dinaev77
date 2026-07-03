@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { getCart, getCartLines } from "@/lib/cart";
 import { formatPrice } from "@/lib/money";
 import { CartItemControls } from "@/components/cart/CartItemControls";
+import { IconCart } from "@/components/ui/icons";
 
 export const metadata: Metadata = { title: "Корзина" };
 export const dynamic = "force-dynamic";
@@ -14,7 +15,7 @@ export default async function CartPage() {
   if (lines.length === 0) {
     return (
       <div className="container py-16 text-center">
-        <p className="text-5xl" aria-hidden>🛒</p>
+        <IconCart />
         <h1 className="mt-4 text-2xl font-bold">Корзина пуста</h1>
         <p className="mt-2 text-zinc-500">Загляните в каталог — там много интересного.</p>
         <Link href="/catalog" className="btn-primary mt-6">
