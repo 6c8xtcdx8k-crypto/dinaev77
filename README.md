@@ -53,6 +53,12 @@ npm run dev         # http://localhost:3000
 - Заказы: фильтр по статусу, смена статусов по state machine (NEW → PAID → PROCESSING → SHIPPED → DELIVERED, отмена с возвратом остатков)
 - Промокоды: процентные и фиксированные, минимальная сумма, лимиты, срок действия, вкл/выкл
 
+**Telegram Mini App**
+- Магазин работает внутри Telegram: бот открывает Mini App кнопкой меню или по `/start`
+- Автовход по подписанным `initData` Telegram — без регистрации и паролей
+- Уведомления о заказе и смене статуса сообщением от бота (плюс дублирование на email)
+- Автонастройка бота одной командой: `npm run telegram:setup` (см. [docs/TELEGRAM.md](docs/TELEGRAM.md))
+
 **Системное**
 - Email-уведомления о создании заказа и смене статуса (в dev пишутся в `.emails/`)
 - Атомарное списание остатков при заказе (защита от гонок)
@@ -70,8 +76,10 @@ npm run db:push    # применить схему Prisma
 npm run db:seed    # демо-данные
 npm run db:reset   # пересоздать БД + демо-данные
 npm run smoke      # сквозной smoke-тест бизнес-логики (корзина → заказ → статусы)
+npm run telegram:setup  # настроить Telegram-бота и Mini App (нужен TELEGRAM_BOT_TOKEN)
 ```
 
 ## Документация
 
-Архитектура, модель данных, интеграция реальных платежей/SMTP и переход на PostgreSQL — в [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
+- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) — архитектура, модель данных, интеграция реальных платежей/SMTP, переход на PostgreSQL
+- [docs/TELEGRAM.md](docs/TELEGRAM.md) — запуск магазина как Telegram Mini App: создание бота, деплой, автонастройка, платежи в Telegram

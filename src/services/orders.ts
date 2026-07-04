@@ -4,6 +4,9 @@ import { getCartLines } from "@/lib/cart";
 import { validatePromoCode } from "@/services/promo";
 import { sendEmail } from "@/services/email";
 import { orderCreatedEmail, orderStatusEmail } from "@/services/email/templates";
+import { sendTelegramMessage } from "@/lib/telegram";
+import { formatPrice } from "@/lib/money";
+import { ORDER_STATUS_LABELS } from "@/lib/constants";
 import {
   DELIVERY_METHODS,
   ORDER_STATUS_TRANSITIONS,
@@ -125,7 +128,13 @@ export async function createOrder(input: CheckoutInput): Promise<CheckoutResult>
       return created;
     });
 
-    // Письмо — вне транзакции, сбой почты не откатывает заказ.
+    // Уведомления — вне транзакции, их сбой не откатывает заказ.
+    if (input.userId) {
+      void notifyTelegram(
+        input.userId,
+        `Заказ <b>№${order.number}</b> оформлен на сумму <b>${formatPrice(order.total)}</b>. Ждём оплату!`,
+      );
+    }
     const tpl = orderCreatedEmail({
       number: order.number,
       customerName: order.customerName,
@@ -199,6 +208,25 @@ export async function changeOrderStatus(
 
   const tpl = orderStatusEmail({ number: order.number, customerName: order.customerName }, next);
   void sendEmail({ to: order.customerEmail, ...tpl });
+  if (order.userId) {
+    void notifyTelegram(
+      order.userId,
+      `Заказ <b>№${order.number}</b>: новый статус — <b>${ORDER_STATUS_LABELS[next]}</b>.`,
+    );
+  }
 
   return { ok: true };
+}
+
+/** Дублирует уведомление в Telegram, если пользователь пришёл из Mini App. */
+async function notifyTelegram(userId: string, text: string): Promise<void> {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { telegramId: true },
+    });
+    if (user?.telegramId) await sendTelegramMessage(user.telegramId, text);
+  } catch (err) {
+    console.error("[telegram] notify failed:", err);
+  }
 }
