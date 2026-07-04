@@ -9,7 +9,7 @@ export const metadata: Metadata = { title: "Возвраты — админка"
 export const dynamic = "force-dynamic";
 
 const STATUS_COLORS: Record<ReturnStatus, string> = {
-  REQUESTED: "bg-amber-100 text-amber-800",
+  REQUESTED: "bg-sky-200 text-sky-800",
   APPROVED: "bg-sky-100 text-sky-800",
   REJECTED: "bg-red-100 text-red-700",
   REFUNDED: "bg-brand-100 text-brand-800",

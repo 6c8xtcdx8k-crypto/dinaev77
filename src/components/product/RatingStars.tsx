@@ -10,7 +10,7 @@ export function RatingStars({
   const cls = size === "sm" ? "text-xs" : "text-sm";
   return (
     <div className={`flex items-center gap-1 ${cls}`}>
-      <div className="flex text-accent-500" aria-label={`Рейтинг ${rating} из 5`}>
+      <div className="flex text-brand-400" aria-label={`Рейтинг ${rating} из 5`}>
         {[1, 2, 3, 4, 5].map((i) => (
           <span key={i} className={i <= Math.round(rating) ? "" : "text-zinc-300"}>
             ★

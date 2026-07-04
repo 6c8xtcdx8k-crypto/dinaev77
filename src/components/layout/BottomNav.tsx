@@ -43,7 +43,7 @@ export function BottomNav({ cartCount, favCount }: { cartCount: number; favCount
             <span className={`relative transition-transform duration-300 ${item.active ? "scale-110 animate-pop" : ""}`}>
               <item.icon filled={item.active} />
               {item.badge !== undefined && item.badge > 0 && (
-                <span className="absolute -right-2 -top-1 flex h-4 min-w-4 animate-scale-in items-center justify-center rounded-full bg-gradient-to-r from-brand-600 to-emerald-500 px-1 text-[9.5px] font-bold text-white shadow-glow">
+                <span className="absolute -right-2 -top-1 flex h-4 min-w-4 animate-scale-in items-center justify-center rounded-full bg-gradient-to-r from-brand-500 to-brand-400 px-1 text-[9.5px] font-bold text-white shadow-glow">
                   {item.badge > 99 ? "99+" : item.badge}
                 </span>
               )}

@@ -105,7 +105,7 @@ export function VariantPicker({ variants }: { variants: VariantData[] }) {
               }}
               className={`min-w-12 rounded-xl border px-3 py-2 text-sm font-medium transition-all duration-300 ${
                 s === size
-                  ? "scale-105 border-brand-600 bg-gradient-to-r from-brand-600 to-emerald-500 text-white shadow-glow"
+                  ? "scale-105 border-brand-400 bg-gradient-to-r from-brand-400 to-brand-300 font-bold text-[#8a1a5e] shadow-glow"
                   : available
                     ? "border-zinc-300 bg-white hover:-translate-y-0.5 hover:border-brand-400 hover:shadow-card active:scale-95"
                     : "cursor-not-allowed border-zinc-200 bg-zinc-50 text-zinc-300 line-through"

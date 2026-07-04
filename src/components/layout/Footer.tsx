@@ -5,12 +5,13 @@ export function Footer() {
     <footer className="mt-16 border-t border-transparent bg-white [border-image:linear-gradient(90deg,transparent,#10b981,transparent)_1]">
       <div className="container grid gap-8 py-10 sm:grid-cols-2 lg:grid-cols-4">
         <div>
-          <div className="flex items-center gap-2 text-lg font-extrabold">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo.png" alt="" className="h-7 w-7 rounded-lg" />
-            <span>
-              Style<span className="text-brand-600">berries</span>
+          <div className="flex items-baseline gap-0.5 text-lg font-black italic tracking-tight">
+            <span className="flex -skew-x-12 gap-[3px] pr-1.5" aria-hidden>
+              <span className="h-4 w-1 rounded-sm bg-sky-500" />
+              <span className="h-4 w-1 rounded-sm bg-brand-300" />
+              <span className="h-4 w-1 rounded-sm bg-sky-300" />
             </span>
+            <span className="uppercase text-brand-400">Styleberries</span>
           </div>
           <p className="mt-2 text-sm text-zinc-500">
             Интернет-магазин: кроссовки, обувь и одежда для женщин и мужчин.

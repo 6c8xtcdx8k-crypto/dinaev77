@@ -37,7 +37,7 @@ export function ProductCard({ product }: { product: ProductCardData }) {
           </div>
         )}
         {product.discountPercent > 0 && (
-          <span className="badge absolute left-2 top-2 bg-gradient-to-r from-accent-500 to-orange-500 text-white shadow-md transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3">
+          <span className="badge absolute left-2 top-2 bg-gradient-to-r from-brand-400 to-brand-500 text-white shadow-md transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3">
             −{product.discountPercent}%
           </span>
         )}

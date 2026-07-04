@@ -57,7 +57,7 @@ export default async function AdminProductsPage() {
                   <td className="p-3 text-zinc-500">{p.category.name}</td>
                   <td className="p-3">{formatPrice(p.basePrice)}</td>
                   <td className="p-3">{p.discountPercent > 0 ? `−${p.discountPercent}%` : "—"}</td>
-                  <td className={`p-3 font-medium ${stock === 0 ? "text-red-600" : stock <= 5 ? "text-amber-600" : ""}`}>
+                  <td className={`p-3 font-medium ${stock === 0 ? "text-red-600" : stock <= 5 ? "text-brand-600" : ""}`}>
                     {stock} шт.
                   </td>
                   <td className="p-3">

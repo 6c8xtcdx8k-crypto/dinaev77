@@ -1,17 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="600" height="800" viewBox="0 0 600 800">
   <defs>
     <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#0f766e"/>
-      <stop offset="1" stop-color="#34d399"/>
+      <stop offset="0" stop-color="#acdefc"/>
+      <stop offset="1" stop-color="#e3f4fe"/>
     </linearGradient>
   </defs>
   <rect width="600" height="800" fill="url(#g)"/>
-  <circle cx="300" cy="400" r="230" fill="rgba(255,255,255,0.08)"/>
-  <circle cx="300" cy="400" r="160" fill="rgba(255,255,255,0.08)"/>
+  <circle cx="300" cy="400" r="230" fill="rgba(255,255,255,0.45)"/>
+  <circle cx="300" cy="400" r="160" fill="rgba(255,255,255,0.45)"/>
   <text x="300" y="374" font-size="40" text-anchor="middle"
-        fill="#ffffff" font-family="Arial, sans-serif" font-weight="bold">Кроссовки Berry</text>
+        fill="#2c2c2c" font-family="Arial, sans-serif" font-weight="bold">Кроссовки Berry</text>
   <text x="300" y="426" font-size="40" text-anchor="middle"
-        fill="#ffffff" font-family="Arial, sans-serif" font-weight="bold">Run Classic</text>
-  <text x="300" y="740" font-size="22" text-anchor="middle" fill="rgba(255,255,255,0.6)"
+        fill="#2c2c2c" font-family="Arial, sans-serif" font-weight="bold">Run Classic</text>
+  <text x="300" y="740" font-size="22" text-anchor="middle" fill="rgba(44,44,44,0.4)"
         font-family="Arial, sans-serif" letter-spacing="4">STYLEBERRIES</text>
 </svg>

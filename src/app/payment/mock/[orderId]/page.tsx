@@ -40,7 +40,7 @@ export default async function MockPaymentPage({
         <p className="mt-1 text-sm text-zinc-500">
           Заказ №{order.number} · {formatPrice(order.total)}
         </p>
-        <p className="mt-3 rounded-lg bg-amber-50 p-3 text-xs text-amber-800">
+        <p className="mt-3 rounded-lg bg-sky-100 p-3 text-xs text-sky-800">
           Это демонстрационный платёжный шлюз. В продакшене здесь будет страница
           реального провайдера (ЮKassa, Stripe и т.п.).
         </p>

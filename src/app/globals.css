@@ -7,27 +7,27 @@
 }
 
 body {
-  @apply bg-zinc-50 text-zinc-900 antialiased;
+  @apply bg-[#f7fbff] text-[#2c2c2c] antialiased;
   background-image:
-    radial-gradient(60rem 30rem at 115% -10%, rgba(16, 185, 129, 0.07), transparent 60%),
-    radial-gradient(50rem 26rem at -15% 25%, rgba(245, 158, 11, 0.05), transparent 60%);
+    radial-gradient(60rem 30rem at 115% -10%, rgba(172, 222, 252, 0.4), transparent 60%),
+    radial-gradient(50rem 26rem at -15% 25%, rgba(255, 176, 235, 0.22), transparent 60%);
 }
 
 @layer components {
   .btn-primary {
-    @apply relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-xl bg-gradient-to-r from-brand-600 via-emerald-500 to-brand-600 bg-[length:200%_auto] px-5 py-2.5 font-semibold text-white shadow-glow transition-all duration-300 hover:bg-right hover:shadow-glow-lg active:scale-[.97] disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none;
+    @apply relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-brand-400 via-brand-300 to-brand-400 bg-[length:200%_auto] px-6 py-2.5 font-bold text-[#8a1a5e] shadow-glow transition-all duration-300 hover:bg-right hover:shadow-glow-lg active:scale-[.97] disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none;
   }
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-zinc-300 bg-white px-5 py-2.5 font-medium text-zinc-800 transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-500 hover:text-brand-700 hover:shadow-card active:scale-[.97] disabled:opacity-50;
+    @apply inline-flex items-center justify-center gap-2 rounded-full border-2 border-sky-300 bg-white px-6 py-2.5 font-semibold text-sky-700 transition-all duration-300 hover:-translate-y-0.5 hover:border-sky-500 hover:shadow-glow-sky active:scale-[.97] disabled:opacity-50;
   }
   .input {
-    @apply w-full rounded-xl border border-zinc-300 bg-white px-4 py-2.5 text-sm outline-none transition-all duration-300 focus:border-brand-500 focus:shadow-glow focus:ring-2 focus:ring-brand-100;
+    @apply w-full rounded-2xl border border-sky-200 bg-white px-4 py-2.5 text-sm outline-none transition-all duration-300 focus:border-brand-300 focus:shadow-glow focus:ring-2 focus:ring-brand-100;
   }
   .card {
-    @apply rounded-2xl border border-zinc-200/80 bg-white shadow-card transition-shadow duration-300;
+    @apply rounded-3xl border border-sky-100 bg-white shadow-card transition-shadow duration-300;
   }
   .card-lift {
-    @apply transition-all duration-300 hover:-translate-y-1 hover:border-brand-300 hover:shadow-card-hover;
+    @apply transition-all duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-card-hover;
   }
   .badge {
     @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold;
@@ -83,7 +83,12 @@ body {
   }
   .navlink::after {
     content: "";
-    @apply absolute -bottom-1 left-0 h-0.5 w-0 rounded-full bg-gradient-to-r from-brand-500 to-emerald-400 transition-all duration-300;
+    @apply absolute -bottom-1 left-0 h-0.5 w-0 rounded-full bg-gradient-to-r from-brand-400 to-sky-500 transition-all duration-300;
+  }
+
+  /* Наклонный «стикер» как на meprod */
+  .sticker {
+    @apply inline-block -rotate-3 rounded-full bg-brand-300 px-4 py-1.5 text-sm font-extrabold text-[#8a1a5e] shadow-glow;
   }
   .navlink:hover::after {
     @apply w-full;

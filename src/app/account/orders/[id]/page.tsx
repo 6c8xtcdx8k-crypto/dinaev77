@@ -47,8 +47,8 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
       </p>
 
       {order.status === "NEW" && (
-        <div className="card mt-4 flex items-center justify-between gap-3 border-amber-200 bg-amber-50 p-4">
-          <p className="text-sm text-amber-800">Заказ ожидает оплаты.</p>
+        <div className="card mt-4 flex items-center justify-between gap-3 border-brand-200 bg-brand-50 p-4">
+          <p className="text-sm text-brand-800">Заказ ожидает оплаты.</p>
           <Link href={`/payment/mock/${order.id}`} className="btn-primary !py-2 text-sm">
             Оплатить
           </Link>

@@ -86,7 +86,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 <span className="text-lg text-zinc-400 line-through">
                   {formatPrice(product.basePrice)}
                 </span>
-                <span className="badge bg-accent-500 text-white">−{product.discountPercent}%</span>
+                <span className="badge bg-brand-400 text-white">−{product.discountPercent}%</span>
               </>
             )}
           </div>

@@ -5,33 +5,50 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // Палитра в духе meprod.ru: розовый + пастельно-голубой
         brand: {
-          50: "#ecfdf5",
-          100: "#d1fae5",
-          200: "#a7f3d0",
-          300: "#6ee7b7",
-          400: "#34d399",
-          500: "#10b981",
-          600: "#059669",
-          700: "#047857",
-          800: "#065f46",
-          900: "#064e3b",
+          50: "#fff0fa",
+          100: "#ffe3f6",
+          200: "#ffc9ef",
+          300: "#ffb0eb", // фирменный розовый
+          400: "#ff8fdf",
+          500: "#fb6ecb",
+          600: "#ef47ae",
+          700: "#d62e93",
+          800: "#ab1f74",
+          900: "#8a1a5e",
+        },
+        sky: {
+          50: "#f2f9ff",
+          100: "#e3f4fe", // бледно-голубой фон
+          200: "#cdeafd",
+          300: "#acdefc", // облачный голубой
+          400: "#8ad2fd",
+          500: "#67c6ff", // яркий голубой
+          600: "#3fabf2",
+          700: "#2b8cd6",
+          800: "#2470ae",
+          900: "#1f5c8d",
         },
         accent: {
-          400: "#fbbf24",
-          500: "#f59e0b",
-          600: "#d97706",
+          400: "#8ad2fd",
+          500: "#67c6ff",
+          600: "#3fabf2",
         },
+      },
+      fontFamily: {
+        sans: ["var(--font-montserrat)", "Montserrat", "system-ui", "sans-serif"],
       },
       container: {
         center: true,
         padding: "1rem",
       },
       boxShadow: {
-        glow: "0 10px 30px -8px rgba(5, 150, 105, 0.45)",
-        "glow-lg": "0 18px 50px -10px rgba(5, 150, 105, 0.5)",
-        card: "0 1px 3px rgba(24, 24, 27, 0.06), 0 10px 30px -12px rgba(24, 24, 27, 0.12)",
-        "card-hover": "0 4px 10px rgba(24, 24, 27, 0.06), 0 24px 50px -12px rgba(24, 24, 27, 0.22)",
+        glow: "0 10px 30px -8px rgba(255, 143, 223, 0.55)",
+        "glow-lg": "0 18px 50px -10px rgba(255, 143, 223, 0.6)",
+        "glow-sky": "0 10px 30px -8px rgba(103, 198, 255, 0.5)",
+        card: "0 1px 3px rgba(36, 99, 155, 0.05), 0 12px 32px -14px rgba(36, 99, 155, 0.18)",
+        "card-hover": "0 4px 10px rgba(36, 99, 155, 0.06), 0 26px 54px -14px rgba(36, 99, 155, 0.3)",
       },
       keyframes: {
         "fade-up": {
@@ -73,9 +90,9 @@ const config: Config = {
           to: { transform: "translateX(240%) skewX(-18deg)" },
         },
         "pulse-ring": {
-          "0%": { boxShadow: "0 0 0 0 rgba(16, 185, 129, .45)" },
-          "70%": { boxShadow: "0 0 0 10px rgba(16, 185, 129, 0)" },
-          "100%": { boxShadow: "0 0 0 0 rgba(16, 185, 129, 0)" },
+          "0%": { boxShadow: "0 0 0 0 rgba(255, 143, 223, .5)" },
+          "70%": { boxShadow: "0 0 0 10px rgba(255, 143, 223, 0)" },
+          "100%": { boxShadow: "0 0 0 0 rgba(255, 143, 223, 0)" },
         },
         shimmer: {
           from: { backgroundPosition: "200% 0" },

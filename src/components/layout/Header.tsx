@@ -22,19 +22,14 @@ export async function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-zinc-200/70 bg-white/80 shadow-[0_1px_20px_rgba(24,24,27,.04)] backdrop-blur-xl">
       <div className="container flex h-16 items-center gap-4">
-        <Link href="/" className="group flex shrink-0 items-center gap-2 text-xl font-extrabold tracking-tight">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/logo.png"
-            alt=""
-            className="h-8 w-8 rounded-lg shadow-glow transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110"
-          />
-          <span>
-            Style
-            <span className="bg-gradient-to-r from-brand-600 to-emerald-400 bg-clip-text text-transparent">
-              berries
-            </span>
+        {/* Логотип в духе meprod: цветные слэши + жирный курсив */}
+        <Link href="/" className="group flex shrink-0 items-baseline gap-0.5 text-xl font-black italic tracking-tight">
+          <span className="flex -skew-x-12 gap-[3px] pr-1.5" aria-hidden>
+            <span className="h-5 w-1.5 rounded-sm bg-sky-500 transition-transform duration-300 group-hover:-translate-y-0.5" />
+            <span className="h-5 w-1.5 rounded-sm bg-brand-300 transition-transform duration-300 delay-75 group-hover:-translate-y-0.5" />
+            <span className="h-5 w-1.5 rounded-sm bg-sky-300 transition-transform duration-300 delay-150 group-hover:-translate-y-0.5" />
           </span>
+          <span className="uppercase text-brand-400">Styleberries</span>
         </Link>
 
         <div className="hidden flex-1 md:block">
@@ -72,7 +67,7 @@ export async function Header() {
             <Link
               key={item.label}
               href={item.href}
-              className={`navlink ${item.accent ? "text-accent-600" : "text-zinc-600 hover:text-brand-600"}`}
+              className={`navlink ${item.accent ? "font-bold text-brand-600" : "text-zinc-600 hover:text-brand-600"}`}
             >
               {item.label}
             </Link>
@@ -102,7 +97,7 @@ function HeaderIcon({
       <span className="transition-transform duration-300 group-hover:scale-110">{children}</span>
       <span className="hidden text-[11px] leading-none sm:block">{label}</span>
       {count !== undefined && count > 0 && (
-        <span className="absolute -top-1 right-0 flex h-4 min-w-4 animate-scale-in items-center justify-center rounded-full bg-gradient-to-r from-brand-600 to-emerald-500 px-1 text-[10px] font-bold text-white shadow-glow">
+        <span className="absolute -top-1 right-0 flex h-4 min-w-4 animate-scale-in items-center justify-center rounded-full bg-gradient-to-r from-brand-500 to-brand-400 px-1 text-[10px] font-bold text-white shadow-glow">
           {count > 99 ? "99+" : count}
         </span>
       )}

@@ -42,7 +42,7 @@ export function ReviewForm({ productId, isAuthed }: { productId: string; isAuthe
               onClick={() => setRating(i)}
               onMouseEnter={() => setHover(i)}
               onMouseLeave={() => setHover(0)}
-              className={i <= (hover || rating) ? "text-accent-500" : "text-zinc-300"}
+              className={i <= (hover || rating) ? "text-brand-400" : "text-zinc-300"}
             >
               ★
             </button>
