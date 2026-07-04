@@ -15,7 +15,7 @@ export default async function AccountPage() {
   const user = await getCurrentUser();
   if (!user) redirect("/login");
 
-  const [orders, deliveryCount, viewedCount] = await Promise.all([
+  const [orders, deliveryCount, favCount, viewedCount] = await Promise.all([
     prisma.order.findMany({
       where: { userId: user.id },
       orderBy: { createdAt: "desc" },
@@ -25,11 +25,13 @@ export default async function AccountPage() {
     prisma.order.count({
       where: { userId: user.id, status: { in: [...ACTIVE_DELIVERY_STATUSES] } },
     }),
+    prisma.favorite.count({ where: { userId: user.id } }),
     prisma.viewedProduct.count({ where: { userId: user.id } }),
   ]);
 
   const tiles = [
     { href: "/account/deliveries", label: "Доставки", count: deliveryCount, icon: <TruckIcon /> },
+    { href: "/favorites", label: "Избранное", count: favCount, icon: <HeartIcon /> },
     { href: "/account/viewed", label: "Просмотренные", count: viewedCount, icon: <EyeIcon /> },
   ];
 
@@ -40,7 +42,7 @@ export default async function AccountPage() {
       <div className="grid gap-6 lg:grid-cols-[1fr_300px]">
         <div>
           {/* Плитки разделов */}
-          <div className="mb-6 grid grid-cols-2 gap-3">
+          <div className="mb-6 grid grid-cols-3 gap-3">
             {tiles.map((tile) => (
               <Link
                 key={tile.href}
@@ -113,6 +115,13 @@ function TruckIcon() {
       <path d="M14 10H18L21 13V16H14V10Z" />
       <circle cx="7" cy="18" r="1.6" />
       <circle cx="17" cy="18" r="1.6" />
+    </svg>
+  );
+}
+function HeartIcon() {
+  return (
+    <svg width="26" height="26" viewBox="0 0 24 24" {...stroke}>
+      <path d="M12 21C12 21 3 14.5 3 8.5C3 5.5 5.5 3 8.5 3C10 3 11.3 3.7 12 4.8C12.7 3.7 14 3 15.5 3C18.5 3 21 5.5 21 8.5C21 14.5 12 21 12 21Z" />
     </svg>
   );
 }

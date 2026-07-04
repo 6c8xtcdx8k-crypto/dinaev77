@@ -20,7 +20,7 @@ export async function Header() {
     : 0;
 
   return (
-    <header className="sticky top-0 z-40 border-b border-zinc-200/70 bg-white/80 shadow-[0_1px_20px_rgba(24,24,27,.04)] backdrop-blur-xl">
+    <header className="sticky top-0 z-40 border-b border-white/60 bg-white/55 shadow-[0_1px_20px_rgba(31,92,141,.08)] backdrop-blur-2xl backdrop-saturate-150">
       <div className="container flex h-16 items-center gap-4">
         {/* Логотип в духе meprod: цветные слэши + жирный курсив */}
         <Link href="/" className="group flex shrink-0 items-baseline gap-0.5 text-xl font-black italic tracking-tight">
@@ -61,7 +61,7 @@ export async function Header() {
         <SearchBar />
       </div>
 
-      <div className="border-t border-zinc-100 bg-white">
+      <div className="border-t border-white/50 bg-white/40 backdrop-blur-xl">
         <div className="container flex gap-5 overflow-x-auto py-2 text-sm">
           {NAV.map((item) => (
             <Link

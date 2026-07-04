@@ -7,7 +7,6 @@ import { TelegramInit } from "@/components/telegram/TelegramInit";
 import { BottomNav } from "@/components/layout/BottomNav";
 import { getCurrentUser } from "@/lib/auth";
 import { getCartCount } from "@/lib/cart";
-import { prisma } from "@/lib/db";
 
 const montserrat = Montserrat({
   subsets: ["latin", "cyrillic"],
@@ -26,18 +25,15 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const user = await getCurrentUser();
-  const [cartCount, favCount] = await Promise.all([
-    getCartCount(),
-    user ? prisma.favorite.count({ where: { userId: user.id } }) : 0,
-  ]);
+  const cartCount = await getCartCount();
   return (
     <html lang="ru" className={montserrat.variable}>
-      <body className="flex min-h-screen flex-col pb-16 font-sans md:pb-0">
+      <body className="flex min-h-screen flex-col pb-20 font-sans md:pb-0">
         <TelegramInit isAuthed={!!user} />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
-        <BottomNav cartCount={cartCount} favCount={favCount} />
+        <BottomNav cartCount={cartCount} />
       </body>
     </html>
   );
