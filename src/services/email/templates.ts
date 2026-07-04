@@ -1,5 +1,10 @@
 import { formatPrice } from "@/lib/money";
-import { ORDER_STATUS_LABELS, type OrderStatus } from "@/lib/constants";
+import {
+  ORDER_STATUS_LABELS,
+  RETURN_STATUS_LABELS,
+  type OrderStatus,
+  type ReturnStatus,
+} from "@/lib/constants";
 
 type OrderForEmail = {
   number: number;
@@ -47,6 +52,21 @@ export function orderCreatedEmail(order: OrderForEmail): { subject: string; html
       `<p>Мы приняли ваш заказ <strong>№${order.number}</strong> и ждём оплату.</p>
        ${itemsTable(order.items)}
        <p style="text-align:right;font-size:16px"><strong>Итого: ${formatPrice(order.total)}</strong></p>`,
+    ),
+  };
+}
+
+export function returnStatusEmail(
+  info: { orderNumber: number; productName: string },
+  status: ReturnStatus,
+): { subject: string; html: string } {
+  const label = RETURN_STATUS_LABELS[status];
+  return {
+    subject: `Возврат по заказу №${info.orderNumber}: ${label} — Styleberries`,
+    html: layout(
+      `Статус возврата обновлён`,
+      `<p>Возврат товара «${info.productName}» (заказ №${info.orderNumber}) — <strong>${label}</strong>.</p>
+       <p>Детали — в <a href="${process.env.NEXT_PUBLIC_BASE_URL ?? ""}/account/returns" style="color:#047857">личном кабинете</a>.</p>`,
     ),
   };
 }

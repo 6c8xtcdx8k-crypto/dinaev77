@@ -31,6 +31,16 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   if (!product || !product.isActive) notFound();
 
   const user = await getCurrentUser();
+
+  // История просмотров для раздела «Просмотренные» в кабинете.
+  if (user) {
+    await prisma.viewedProduct.upsert({
+      where: { userId_productId: { userId: user.id, productId: product.id } },
+      update: { viewedAt: new Date() },
+      create: { userId: user.id, productId: product.id },
+    });
+  }
+
   const [favorited, similar] = await Promise.all([
     user
       ? prisma.favorite

@@ -4,8 +4,16 @@ import type { Metadata } from "next";
 import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { formatPrice } from "@/lib/money";
-import { DELIVERY_METHODS, ORDER_STATUS_LABELS, type DeliveryMethod, type OrderStatus } from "@/lib/constants";
+import {
+  DELIVERY_METHODS,
+  ORDER_STATUS_LABELS,
+  RETURN_STATUS_LABELS,
+  type DeliveryMethod,
+  type OrderStatus,
+  type ReturnStatus,
+} from "@/lib/constants";
 import { OrderStatusBadge } from "@/components/account/OrderStatusBadge";
+import { ReturnButton } from "@/components/account/ReturnButton";
 
 export const metadata: Metadata = { title: "Заказ" };
 export const dynamic = "force-dynamic";
@@ -17,7 +25,11 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
   const { id } = await params;
   const order = await prisma.order.findFirst({
     where: { id, userId: user.id },
-    include: { items: true, statusHistory: { orderBy: { createdAt: "asc" } }, promoCode: true },
+    include: {
+      items: { include: { returnRequest: true } },
+      statusHistory: { orderBy: { createdAt: "asc" } },
+      promoCode: true,
+    },
   });
   if (!order) notFound();
 
@@ -47,16 +59,34 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
         <h2 className="mb-3 font-bold">Состав заказа</h2>
         <ul className="divide-y divide-zinc-100">
           {order.items.map((item) => (
-            <li key={item.id} className="flex items-center justify-between gap-3 py-2 text-sm">
-              <div>
-                <Link href={`/product/${item.productSlug}`} className="font-medium hover:text-brand-600">
-                  {item.productName}
-                </Link>
-                <p className="text-zinc-400">
-                  {item.size} · {item.color} · {item.qty} шт.
-                </p>
+            <li key={item.id} className="py-2 text-sm">
+              <div className="flex items-center justify-between gap-3">
+                <div>
+                  <Link href={`/product/${item.productSlug}`} className="font-medium hover:text-brand-600">
+                    {item.productName}
+                  </Link>
+                  <p className="text-zinc-400">
+                    {item.size} · {item.color} · {item.qty} шт.
+                  </p>
+                </div>
+                <span className="font-semibold">{formatPrice(item.price * item.qty)}</span>
               </div>
-              <span className="font-semibold">{formatPrice(item.price * item.qty)}</span>
+              {order.status === "DELIVERED" &&
+                (item.returnRequest ? (
+                  <p className="mt-1 text-xs text-zinc-500">
+                    Возврат:{" "}
+                    <span className="font-medium">
+                      {RETURN_STATUS_LABELS[item.returnRequest.status as ReturnStatus] ??
+                        item.returnRequest.status}
+                    </span>{" "}
+                    ·{" "}
+                    <Link href="/account/returns" className="text-brand-600 hover:underline">
+                      подробнее
+                    </Link>
+                  </p>
+                ) : (
+                  <ReturnButton orderItemId={item.id} />
+                ))}
             </li>
           ))}
         </ul>

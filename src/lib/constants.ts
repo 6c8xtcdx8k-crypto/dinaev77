@@ -28,6 +28,33 @@ export const ORDER_STATUS_TRANSITIONS: Record<OrderStatus, OrderStatus[]> = {
   CANCELLED: [],
 };
 
+// Статусы заказа, считающиеся «активной доставкой» в кабинете.
+export const ACTIVE_DELIVERY_STATUSES: OrderStatus[] = ["PAID", "PROCESSING", "SHIPPED"];
+
+export const RETURN_STATUSES = ["REQUESTED", "APPROVED", "REJECTED", "REFUNDED"] as const;
+export type ReturnStatus = (typeof RETURN_STATUSES)[number];
+
+export const RETURN_STATUS_LABELS: Record<ReturnStatus, string> = {
+  REQUESTED: "На рассмотрении",
+  APPROVED: "Одобрен, ждём товар",
+  REJECTED: "Отклонён",
+  REFUNDED: "Деньги возвращены",
+};
+
+export const RETURN_STATUS_TRANSITIONS: Record<ReturnStatus, ReturnStatus[]> = {
+  REQUESTED: ["APPROVED", "REJECTED"],
+  APPROVED: ["REFUNDED", "REJECTED"],
+  REJECTED: [],
+  REFUNDED: [],
+};
+
+export const RETURN_REASONS = [
+  "Не подошёл размер",
+  "Не соответствует описанию",
+  "Брак или повреждение",
+  "Передумал(а)",
+] as const;
+
 export const GENDERS = ["WOMEN", "MEN", "UNISEX"] as const;
 export type Gender = (typeof GENDERS)[number];
 
