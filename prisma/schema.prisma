@@ -26,7 +26,6 @@ model User {
   reviews      Review[]
   favorites    Favorite[]
   carts        Cart[]
-  returns      ReturnRequest[]
   viewed       ViewedProduct[]
 }
 
@@ -191,35 +190,17 @@ model Order {
 
 // Позиция заказа хранит снимок товара: смена цены/названия не меняет историю.
 model OrderItem {
-  id            String         @id @default(cuid())
-  orderId       String
-  order         Order          @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  variantId     String?
-  variant       Variant?       @relation(fields: [variantId], references: [id], onDelete: SetNull)
-  productName   String
-  productSlug   String
-  size          String
-  color         String
-  price         Int // цена за единицу с учётом скидки товара, копейки
-  qty           Int
-  returnRequest ReturnRequest?
-}
-
-// ---------- Возвраты ----------
-
-// Заявка на возврат позиции доставленного заказа.
-model ReturnRequest {
-  id          String    @id @default(cuid())
-  orderItemId String    @unique // одна заявка на позицию
-  orderItem   OrderItem @relation(fields: [orderItemId], references: [id], onDelete: Cascade)
-  userId      String
-  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  reason      String
-  status      String    @default("REQUESTED") // REQUESTED | APPROVED | REJECTED | REFUNDED
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-
-  @@index([userId, createdAt])
+  id          String   @id @default(cuid())
+  orderId     String
+  order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  variantId   String?
+  variant     Variant? @relation(fields: [variantId], references: [id], onDelete: SetNull)
+  productName String
+  productSlug String
+  size        String
+  color       String
+  price       Int // цена за единицу с учётом скидки товара, копейки
+  qty         Int
 }
 
 // ---------- Просмотренные товары ----------

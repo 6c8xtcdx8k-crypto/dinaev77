@@ -6,15 +6,7 @@ import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
 import { requireAdmin } from "@/lib/auth";
 import { changeOrderStatus } from "@/services/orders";
-import { sendEmail } from "@/services/email";
-import { returnStatusEmail } from "@/services/email/templates";
-import { sendTelegramMessage } from "@/lib/telegram";
-import {
-  RETURN_STATUS_LABELS,
-  RETURN_STATUS_TRANSITIONS,
-  type OrderStatus,
-  type ReturnStatus,
-} from "@/lib/constants";
+import type { OrderStatus } from "@/lib/constants";
 
 export type AdminFormState = { error?: string; success?: boolean } | undefined;
 
@@ -196,57 +188,6 @@ export async function setOrderStatusAction(
   revalidatePath(`/admin/orders/${orderId}`);
   revalidatePath("/account");
   return res.ok ? { ok: true } : { ok: false, error: res.error };
-}
-
-// ---------- Возвраты ----------
-
-export async function setReturnStatusAction(
-  returnId: string,
-  status: ReturnStatus,
-): Promise<{ ok: boolean; error?: string }> {
-  await requireAdmin();
-
-  const req = await prisma.returnRequest.findUnique({
-    where: { id: returnId },
-    include: {
-      orderItem: { include: { order: true } },
-      user: { select: { telegramId: true } },
-    },
-  });
-  if (!req) return { ok: false, error: "Заявка не найдена" };
-
-  const allowed = RETURN_STATUS_TRANSITIONS[req.status as ReturnStatus] ?? [];
-  if (!allowed.includes(status)) {
-    return { ok: false, error: `Недопустимый переход: ${req.status} → ${status}` };
-  }
-
-  await prisma.$transaction(async (tx) => {
-    await tx.returnRequest.update({ where: { id: returnId }, data: { status } });
-    // Товар физически вернулся на склад — возвращаем остаток.
-    if (status === "REFUNDED" && req.orderItem.variantId) {
-      await tx.variant.update({
-        where: { id: req.orderItem.variantId },
-        data: { stock: { increment: req.orderItem.qty } },
-      });
-    }
-  });
-
-  // Уведомления покупателю (вне транзакции).
-  const tpl = returnStatusEmail(
-    { orderNumber: req.orderItem.order.number, productName: req.orderItem.productName },
-    status,
-  );
-  void sendEmail({ to: req.orderItem.order.customerEmail, ...tpl });
-  if (req.user.telegramId) {
-    void sendTelegramMessage(
-      req.user.telegramId,
-      `Возврат «${req.orderItem.productName}» (заказ №${req.orderItem.order.number}): <b>${RETURN_STATUS_LABELS[status]}</b>.`,
-    );
-  }
-
-  revalidatePath("/admin/returns");
-  revalidatePath("/account/returns");
-  return { ok: true };
 }
 
 // ---------- Промокоды ----------

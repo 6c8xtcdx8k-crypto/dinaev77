@@ -6,7 +6,6 @@ const NAV = [
   { href: "/admin", label: "Дашборд" },
   { href: "/admin/products", label: "Товары" },
   { href: "/admin/orders", label: "Заказы" },
-  { href: "/admin/returns", label: "Возвраты" },
   { href: "/admin/promocodes", label: "Промокоды" },
 ];
 
