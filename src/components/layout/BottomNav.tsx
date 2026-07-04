@@ -29,19 +29,26 @@ export function BottomNav({ cartCount, favCount }: { cartCount: number; favCount
             key={item.href}
             href={item.href}
             aria-current={item.active ? "page" : undefined}
-            className={`relative flex flex-col items-center gap-0.5 py-2 text-[10.5px] font-medium transition ${
+            className={`relative flex flex-col items-center gap-0.5 py-2 text-[10.5px] font-medium transition-colors duration-300 ${
               item.active ? "text-brand-600" : "text-zinc-500"
             }`}
           >
-            <span className="relative">
+            {/* активная «пилюля» позади иконки */}
+            <span
+              className={`absolute top-1 h-7 w-12 rounded-full bg-brand-50 transition-all duration-300 ${
+                item.active ? "scale-100 opacity-100" : "scale-50 opacity-0"
+              }`}
+              aria-hidden
+            />
+            <span className={`relative transition-transform duration-300 ${item.active ? "scale-110 animate-pop" : ""}`}>
               <item.icon filled={item.active} />
               {item.badge !== undefined && item.badge > 0 && (
-                <span className="absolute -right-2 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-brand-600 px-1 text-[9.5px] font-bold text-white">
+                <span className="absolute -right-2 -top-1 flex h-4 min-w-4 animate-scale-in items-center justify-center rounded-full bg-gradient-to-r from-brand-600 to-emerald-500 px-1 text-[9.5px] font-bold text-white shadow-glow">
                   {item.badge > 99 ? "99+" : item.badge}
                 </span>
               )}
             </span>
-            {item.label}
+            <span className="relative">{item.label}</span>
           </Link>
         ))}
       </div>

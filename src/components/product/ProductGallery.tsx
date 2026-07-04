@@ -30,8 +30,8 @@ export function ProductGallery({
               type="button"
               onClick={() => setActive(i)}
               aria-label={`Фото ${i + 1}`}
-              className={`h-16 w-12 overflow-hidden rounded-lg border-2 transition ${
-                i === active ? "border-brand-600" : "border-transparent opacity-70"
+              className={`h-16 w-12 overflow-hidden rounded-lg border-2 transition-all duration-300 hover:scale-105 ${
+                i === active ? "border-brand-600 shadow-glow" : "border-transparent opacity-60 hover:opacity-100"
               }`}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -40,12 +40,13 @@ export function ProductGallery({
           ))}
         </div>
       )}
-      <div className="flex-1 overflow-hidden rounded-2xl bg-zinc-100">
+      <div className="flex-1 overflow-hidden rounded-2xl bg-zinc-100 shadow-card">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
+          key={active}
           src={images[active].url}
           alt={images[active].alt || name}
-          className="aspect-[3/4] h-auto w-full object-cover"
+          className="aspect-[3/4] h-auto w-full animate-scale-in object-cover"
         />
       </div>
     </div>

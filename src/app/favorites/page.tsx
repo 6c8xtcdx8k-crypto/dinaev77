@@ -5,6 +5,7 @@ import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { ProductCard } from "@/components/product/ProductCard";
 import { IconHeart } from "@/components/ui/icons";
+import { Reveal } from "@/components/ui/Reveal";
 
 export const metadata: Metadata = { title: "Избранное" };
 export const dynamic = "force-dynamic";
@@ -41,11 +42,11 @@ export default async function FavoritesPage() {
           </Link>
         </div>
       ) : (
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+        <Reveal variant="stagger" className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
           {products.map((p) => (
             <ProductCard key={p.id} product={p} />
           ))}
-        </div>
+        </Reveal>
       )}
     </div>
   );

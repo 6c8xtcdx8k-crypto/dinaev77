@@ -78,8 +78,10 @@ export function VariantPicker({ variants }: { variants: VariantData[] }) {
                   setSize(null);
                   setMessage(null);
                 }}
-                className={`h-9 w-9 rounded-full border-2 transition ${
-                  c.name === color ? "border-brand-600 ring-2 ring-brand-200" : "border-zinc-200"
+                className={`h-9 w-9 rounded-full border-2 transition-all duration-300 hover:scale-110 active:scale-95 ${
+                  c.name === color
+                    ? "scale-110 border-brand-600 shadow-glow ring-2 ring-brand-200"
+                    : "border-zinc-200"
                 }`}
                 style={{ backgroundColor: c.hex }}
               />
@@ -101,11 +103,11 @@ export function VariantPicker({ variants }: { variants: VariantData[] }) {
                 setSize(s);
                 setMessage(null);
               }}
-              className={`min-w-12 rounded-xl border px-3 py-2 text-sm font-medium transition ${
+              className={`min-w-12 rounded-xl border px-3 py-2 text-sm font-medium transition-all duration-300 ${
                 s === size
-                  ? "border-brand-600 bg-brand-600 text-white"
+                  ? "scale-105 border-brand-600 bg-gradient-to-r from-brand-600 to-emerald-500 text-white shadow-glow"
                   : available
-                    ? "border-zinc-300 bg-white hover:border-brand-400"
+                    ? "border-zinc-300 bg-white hover:-translate-y-0.5 hover:border-brand-400 hover:shadow-card active:scale-95"
                     : "cursor-not-allowed border-zinc-200 bg-zinc-50 text-zinc-300 line-through"
               }`}
             >
@@ -134,7 +136,7 @@ export function VariantPicker({ variants }: { variants: VariantData[] }) {
       {message && (
         <p
           role="status"
-          className={`text-sm font-medium ${message.kind === "ok" ? "text-brand-700" : "text-red-600"}`}
+          className={`animate-fade-up text-sm font-medium ${message.kind === "ok" ? "text-brand-700" : "text-red-600"}`}
         >
           {message.kind === "ok" ? "✓ " : ""}
           {message.text}

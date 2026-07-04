@@ -47,9 +47,11 @@ export default async function AccountPage() {
               <Link
                 key={tile.href}
                 href={tile.href}
-                className="card flex flex-col items-center gap-1.5 p-4 text-center transition hover:border-brand-400 hover:shadow-md"
+                className="card card-lift shine group flex flex-col items-center gap-1.5 p-4 text-center"
               >
-                <span className="text-brand-600">{tile.icon}</span>
+                <span className="text-brand-600 transition-transform duration-300 group-hover:scale-125 group-hover:-rotate-6">
+                  {tile.icon}
+                </span>
                 <span className="text-sm font-semibold leading-tight">{tile.label}</span>
                 <span className="text-xs text-zinc-400">{tile.count}</span>
               </Link>
@@ -73,7 +75,7 @@ export default async function AccountPage() {
                   <li key={order.id}>
                     <Link
                       href={`/account/orders/${order.id}`}
-                      className="card block p-4 transition hover:border-brand-400"
+                      className="card card-lift block p-4"
                     >
                       <div className="flex flex-wrap items-center justify-between gap-2">
                         <div>

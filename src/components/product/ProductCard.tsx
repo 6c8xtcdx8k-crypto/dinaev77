@@ -19,7 +19,7 @@ export function ProductCard({ product }: { product: ProductCardData }) {
   return (
     <Link
       href={`/product/${product.slug}`}
-      className="card group flex flex-col overflow-hidden transition hover:shadow-lg"
+      className="card card-lift shine group flex flex-col overflow-hidden"
     >
       <div className="relative aspect-[3/4] overflow-hidden bg-zinc-100">
         {image ? (
@@ -27,7 +27,7 @@ export function ProductCard({ product }: { product: ProductCardData }) {
           <img
             src={image.url}
             alt={image.alt || product.name}
-            className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+            className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-110 group-hover:rotate-1"
             loading="lazy"
           />
         ) : (
@@ -37,7 +37,7 @@ export function ProductCard({ product }: { product: ProductCardData }) {
           </div>
         )}
         {product.discountPercent > 0 && (
-          <span className="badge absolute left-2 top-2 bg-accent-500 text-white">
+          <span className="badge absolute left-2 top-2 bg-gradient-to-r from-accent-500 to-orange-500 text-white shadow-md transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3">
             −{product.discountPercent}%
           </span>
         )}
@@ -45,7 +45,9 @@ export function ProductCard({ product }: { product: ProductCardData }) {
 
       <div className="flex flex-1 flex-col gap-1 p-3">
         <div className="flex items-baseline gap-2">
-          <span className="text-lg font-bold text-zinc-900">{formatPrice(finalPrice)}</span>
+          <span className="text-lg font-extrabold text-zinc-900 transition-colors duration-300 group-hover:text-brand-700">
+            {formatPrice(finalPrice)}
+          </span>
           {product.discountPercent > 0 && (
             <span className="text-sm text-zinc-400 line-through">{formatPrice(product.basePrice)}</span>
           )}

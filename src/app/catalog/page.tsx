@@ -5,6 +5,7 @@ import { FilterSidebar } from "@/components/catalog/FilterSidebar";
 import { SortSelect } from "@/components/catalog/SortSelect";
 import { Pagination } from "@/components/catalog/Pagination";
 import { IconSearch } from "@/components/ui/icons";
+import { Reveal } from "@/components/ui/Reveal";
 import { GENDER_LABELS, type Gender, type SortValue } from "@/lib/constants";
 
 export const metadata: Metadata = { title: "Каталог" };
@@ -93,11 +94,11 @@ export default async function CatalogPage({
             </div>
           ) : (
             <>
-              <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 xl:grid-cols-4">
+              <Reveal variant="stagger" className="grid grid-cols-2 gap-4 sm:grid-cols-3 xl:grid-cols-4">
                 {result.items.map((p) => (
                   <ProductCard key={p.id} product={p} />
                 ))}
-              </div>
+              </Reveal>
               <Pagination page={result.page} totalPages={result.totalPages} makeHref={makeHref} />
             </>
           )}
