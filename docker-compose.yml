@@ -1,0 +1,35 @@
+# Styleberries на VPS: приложение + Caddy (автоматический HTTPS от Let's Encrypt).
+# DOMAIN задаётся в .env; без своего домена подходит адрес вида 1-2-3-4.sslip.io
+# (где 1-2-3-4 — IP сервера через дефисы): сертификат выпустится автоматически.
+
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATABASE_URL: "file:/app/data/prod.db"
+    volumes:
+      - sbdata:/app/data
+    expose:
+      - "3000"
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      DOMAIN: ${DOMAIN}
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - app
+
+volumes:
+  sbdata:
+  caddy_data:
+  caddy_config:

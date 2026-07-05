@@ -83,3 +83,4 @@ npm run telegram:setup  # настроить Telegram-бота и Mini App (ну
 
 - [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) — архитектура, модель данных, интеграция реальных платежей/SMTP, переход на PostgreSQL
 - [docs/TELEGRAM.md](docs/TELEGRAM.md) — запуск магазина как Telegram Mini App: создание бота, деплой, автонастройка, платежи в Telegram
+- [docs/DEPLOY.md](docs/DEPLOY.md) — деплой: VPS одной командой (Docker + Caddy + HTTPS), Netlify, Railway
