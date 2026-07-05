@@ -71,18 +71,18 @@ npm run telegram:setup
 Опционально в @BotFather → `/newapp` можно создать прямую ссылку вида
 `t.me/<бот>/shop` и загрузить обложку.
 
-## Платежи внутри Telegram
+## Оплата через менеджера
 
-Сейчас используется mock-шлюз (открывается страницей внутри Mini App).
-Для продакшена есть два пути:
+Оплата ручная: после оформления заказа покупатель получает кнопку
+«Написать менеджеру» (`MANAGER_USERNAME`), менеджер присылает реквизиты
+(карта/крипта) и после оплаты переводит заказ в «Оплачен» в админке.
+Каждый новый заказ бот автоматически отправляет в служебный чат
+(`ORDERS_CHAT_ID` — узнать ID: добавить бота в чат и отправить `/id`).
 
-1. **Любой веб-эквайринг** (ЮKassa, CloudPayments) — реализуйте
-   `PaymentProvider` (см. `docs/ARCHITECTURE.md → Платежи`); страница оплаты
-   провайдера откроется внутри Mini App как обычный редирект.
-2. **Telegram Payments** — платёж нативным окном Telegram: бот отправляет
-   invoice через `sendInvoice` с токеном платёжного провайдера от BotFather,
-   подтверждение приходит в webhook (`pre_checkout_query` → `successful_payment`).
-   Каркас webhook уже есть в `src/app/api/telegram/webhook/route.ts`.
+Автоматизация на будущее: Crypto Pay API (@CryptoBot) — крипто-счета
+прямо в Telegram с webhook-подтверждением, или Telegram Payments
+(`sendInvoice` + `pre_checkout_query`) — каркас webhook уже есть в
+`src/app/api/telegram/webhook/route.ts`.
 
 ## Проверка без Telegram
 

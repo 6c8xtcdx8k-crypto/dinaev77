@@ -7,8 +7,6 @@ import { getCart, getCartLines } from "@/lib/cart";
 import { getCurrentUser } from "@/lib/auth";
 import { createOrder } from "@/services/orders";
 import { validatePromoCode } from "@/services/promo";
-import { getPaymentProvider } from "@/services/payments";
-import { prisma } from "@/lib/db";
 import type { DeliveryMethod } from "@/lib/constants";
 
 export type CheckoutFormState = { error?: string } | undefined;
@@ -48,22 +46,10 @@ export async function placeOrderAction(
   });
   if (!result.ok) return { error: result.error };
 
-  // Создаём платёж и отправляем покупателя на страницу оплаты.
-  const order = await prisma.order.findUniqueOrThrow({ where: { id: result.orderId } });
-  const provider = getPaymentProvider();
-  const payment = await provider.createPayment({
-    orderId: order.id,
-    orderNumber: order.number,
-    amount: order.total,
-    description: `Оплата заказа №${order.number} в Styleberries`,
-  });
-  await prisma.order.update({
-    where: { id: order.id },
-    data: { paymentId: payment.paymentId },
-  });
-
+  // Оплата проходит через менеджера: сразу на страницу «заказ принят»,
+  // где есть кнопка «Написать менеджеру».
   revalidatePath("/", "layout");
-  redirect(payment.confirmationUrl);
+  redirect(`/checkout/success/${result.orderId}`);
 }
 
 /** Проверка промокода на странице корзины/оформления (без создания заказа). */

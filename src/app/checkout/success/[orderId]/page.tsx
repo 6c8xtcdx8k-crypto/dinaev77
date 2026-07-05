@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { prisma } from "@/lib/db";
 import { formatPrice } from "@/lib/money";
+import { managerChatLink } from "@/lib/telegram";
 import { IconCheckCircle } from "@/components/ui/icons";
 
 export const metadata: Metadata = { title: "Заказ оформлен" };
@@ -20,17 +21,37 @@ export default async function CheckoutSuccessPage({
   });
   if (!order) notFound();
 
+  const managerLink = managerChatLink(
+    `Здравствуйте! Хочу оплатить заказ №${order.number} на ${formatPrice(order.total)}`,
+  );
+
   return (
     <div className="container max-w-lg py-16 text-center">
       <IconCheckCircle className="!text-brand-500" />
-      <h1 className="mt-4 text-2xl font-bold">Спасибо за заказ!</h1>
+      <h1 className="mt-4 text-2xl font-bold">Заказ принят!</h1>
       <p className="mt-2 text-zinc-500">
         Заказ <strong>№{order.number}</strong> на сумму{" "}
-        <strong>{formatPrice(order.total)}</strong> оплачен и передан в сборку.
-        Мы отправили подтверждение на {order.customerEmail}.
+        <strong>{formatPrice(order.total)}</strong> оформлен.
       </p>
 
-      <div className="card mt-6 p-5 text-left">
+      <div className="card mt-6 border-brand-200 bg-brand-50 p-5">
+        <p className="text-sm font-semibold text-brand-800">Как оплатить</p>
+        <p className="mt-1 text-sm text-brand-800/80">
+          Напишите менеджеру — он пришлёт реквизиты для оплаты
+          (перевод на карту или криптовалюта) и подтвердит заказ.
+        </p>
+        {managerLink ? (
+          <a href={managerLink} target="_blank" rel="noopener" className="btn-primary mt-4 w-full !py-3">
+            Написать менеджеру
+          </a>
+        ) : (
+          <p className="mt-3 text-sm font-medium text-brand-800">
+            Менеджер свяжется с вами в Telegram в ближайшее время.
+          </p>
+        )}
+      </div>
+
+      <div className="card mt-5 p-5 text-left">
         <h2 className="mb-3 font-bold">Состав заказа</h2>
         <ul className="space-y-2 text-sm">
           {order.items.map((item) => (
@@ -48,7 +69,7 @@ export default async function CheckoutSuccessPage({
       </div>
 
       <div className="mt-6 flex justify-center gap-3">
-        <Link href="/account" className="btn-primary">Мои заказы</Link>
+        <Link href="/account" className="btn-secondary">Мои заказы</Link>
         <Link href="/catalog" className="btn-secondary">Продолжить покупки</Link>
       </div>
     </div>

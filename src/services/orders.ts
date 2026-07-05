@@ -4,7 +4,7 @@ import { getCartLines } from "@/lib/cart";
 import { validatePromoCode } from "@/services/promo";
 import { sendEmail } from "@/services/email";
 import { orderCreatedEmail, orderStatusEmail } from "@/services/email/templates";
-import { sendTelegramMessage } from "@/lib/telegram";
+import { managerChatLink, sendTelegramMessage } from "@/lib/telegram";
 import { formatPrice } from "@/lib/money";
 import { ORDER_STATUS_LABELS } from "@/lib/constants";
 import {
@@ -106,7 +106,7 @@ export async function createOrder(input: CheckoutInput): Promise<CheckoutResult>
           discountTotal,
           total,
           promoCodeId: promoId,
-          paymentProvider: process.env.PAYMENT_PROVIDER ?? "mock",
+          paymentProvider: "manager", // оплата вручную через менеджера (карта/крипта)
           items: {
             create: lines.map((l) => ({
               variantId: l.variantId,
@@ -129,12 +129,24 @@ export async function createOrder(input: CheckoutInput): Promise<CheckoutResult>
     });
 
     // Уведомления — вне транзакции, их сбой не откатывает заказ.
+    // 1. Покупателю: заказ принят + кнопка «Написать менеджеру» для оплаты.
     if (input.userId) {
+      const link = managerChatLink(`Здравствуйте! Хочу оплатить заказ №${order.number}`);
       void notifyTelegram(
         input.userId,
-        `Заказ <b>№${order.number}</b> оформлен на сумму <b>${formatPrice(order.total)}</b>. Ждём оплату!`,
+        `Заказ <b>№${order.number}</b> оформлен на сумму <b>${formatPrice(order.total)}</b>.\n` +
+          `Для оплаты напишите менеджеру — он пришлёт реквизиты (карта или крипта).`,
+        link ? { inline_keyboard: [[{ text: "Написать менеджеру", url: link }]] } : undefined,
       );
     }
+    // 2. В служебный чат менеджеров: состав заказа и контакты покупателя.
+    void notifyOrdersChat(order.id, order.number, input.userId, lines, {
+      name: order.customerName,
+      phone: order.customerPhone,
+      total: order.total,
+      deliveryMethod: input.deliveryMethod,
+      deliveryAddress: order.deliveryAddress,
+    });
     const tpl = orderCreatedEmail({
       number: order.number,
       customerName: order.customerName,
@@ -219,14 +231,60 @@ export async function changeOrderStatus(
 }
 
 /** Дублирует уведомление в Telegram, если пользователь пришёл из Mini App. */
-async function notifyTelegram(userId: string, text: string): Promise<void> {
+async function notifyTelegram(
+  userId: string,
+  text: string,
+  replyMarkup?: Record<string, unknown>,
+): Promise<void> {
   try {
     const user = await prisma.user.findUnique({
       where: { id: userId },
       select: { telegramId: true },
     });
-    if (user?.telegramId) await sendTelegramMessage(user.telegramId, text);
+    if (user?.telegramId) await sendTelegramMessage(user.telegramId, text, replyMarkup);
   } catch (err) {
     console.error("[telegram] notify failed:", err);
+  }
+}
+
+/**
+ * Отправляет новый заказ в служебный чат менеджеров (env ORDERS_CHAT_ID).
+ * Товара на складе нет — менеджер закупает по этому сообщению.
+ */
+async function notifyOrdersChat(
+  orderId: string,
+  orderNumber: number,
+  userId: string | null,
+  lines: { name: string; size: string; color: string; qty: number; price: number }[],
+  info: { name: string; phone: string; total: number; deliveryMethod: string; deliveryAddress: string },
+): Promise<void> {
+  const chatId = process.env.ORDERS_CHAT_ID;
+  if (!chatId) return;
+  try {
+    const user = userId
+      ? await prisma.user.findUnique({
+          where: { id: userId },
+          select: { telegramUsername: true },
+        })
+      : null;
+    const username = user?.telegramUsername ? `@${user.telegramUsername}` : "без username (гость/веб)";
+
+    const items = lines
+      .map((l) => `• ${l.name} — ${l.size}, ${l.color} × ${l.qty} (${formatPrice(l.price * l.qty)})`)
+      .join("\n");
+    const delivery =
+      info.deliveryMethod === "COURIER" ? "Курьер" : "Пункт выдачи";
+    const base = process.env.NEXT_PUBLIC_BASE_URL ?? "";
+
+    await sendTelegramMessage(
+      chatId,
+      `🛒 <b>Новый заказ №${orderNumber}</b> — <b>${formatPrice(info.total)}</b>\n\n` +
+        `${items}\n\n` +
+        `Покупатель: ${info.name}, ${info.phone}\nTelegram: <b>${username}</b>\n` +
+        `${delivery}: ${info.deliveryAddress}\n\n` +
+        (base ? `Админка: ${base}/admin/orders/${orderId}` : ""),
+    );
+  } catch (err) {
+    console.error("[telegram] orders-chat notify failed:", err);
   }
 }

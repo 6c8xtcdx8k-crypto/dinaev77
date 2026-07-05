@@ -11,19 +11,47 @@ export const dynamic = "force-dynamic";
 export default async function AdminOrdersPage({
   searchParams,
 }: {
-  searchParams: Promise<{ status?: string }>;
+  searchParams: Promise<{ status?: string; q?: string }>;
 }) {
-  const { status } = await searchParams;
+  const { status, q } = await searchParams;
   const filter = ORDER_STATUSES.includes(status as OrderStatus) ? status : undefined;
 
+  // Поиск: номер заказа, имя покупателя или Telegram-@username.
+  const query = q?.trim().replace(/^@/, "");
+  const search = query
+    ? {
+        OR: [
+          ...(Number.isInteger(Number(query)) ? [{ number: Number(query) }] : []),
+          { customerName: { contains: query } },
+          { customerPhone: { contains: query } },
+          { user: { is: { telegramUsername: { contains: query } } } },
+        ],
+      }
+    : undefined;
+
   const orders = await prisma.order.findMany({
-    where: filter ? { status: filter } : undefined,
+    where: { ...(filter ? { status: filter } : {}), ...(search ?? {}) },
     orderBy: { createdAt: "desc" },
-    include: { items: { select: { qty: true } } },
+    include: {
+      items: { select: { qty: true } },
+      user: { select: { telegramUsername: true } },
+    },
   });
 
   return (
     <div>
+      <form className="mb-3 flex max-w-md gap-2" action="/admin/orders">
+        {filter && <input type="hidden" name="status" value={filter} />}
+        <input
+          name="q"
+          defaultValue={q ?? ""}
+          placeholder="Поиск: @username, номер заказа, имя, телефон"
+          className="input !py-2 text-sm"
+        />
+        <button type="submit" className="btn-secondary shrink-0 !py-2 text-sm">
+          Найти
+        </button>
+      </form>
       <div className="mb-4 flex flex-wrap items-center gap-2">
         <h2 className="mr-2 text-lg font-bold">Заказы ({orders.length})</h2>
         <Link
@@ -50,6 +78,7 @@ export default async function AdminOrdersPage({
               <th className="p-3">Заказ</th>
               <th className="p-3">Дата</th>
               <th className="p-3">Покупатель</th>
+              <th className="p-3">Telegram</th>
               <th className="p-3">Позиции</th>
               <th className="p-3">Сумма</th>
               <th className="p-3">Статус</th>
@@ -58,7 +87,7 @@ export default async function AdminOrdersPage({
           <tbody className="divide-y divide-zinc-50">
             {orders.length === 0 && (
               <tr>
-                <td colSpan={6} className="p-6 text-center text-zinc-400">
+                <td colSpan={7} className="p-6 text-center text-zinc-400">
                   Заказов нет
                 </td>
               </tr>
@@ -74,6 +103,20 @@ export default async function AdminOrdersPage({
                   {new Date(order.createdAt).toLocaleString("ru-RU")}
                 </td>
                 <td className="p-3">{order.customerName}</td>
+                <td className="p-3">
+                  {order.user?.telegramUsername ? (
+                    <a
+                      href={`https://t.me/${order.user.telegramUsername}`}
+                      target="_blank"
+                      rel="noopener"
+                      className="font-medium text-sky-600 hover:underline"
+                    >
+                      @{order.user.telegramUsername}
+                    </a>
+                  ) : (
+                    <span className="text-zinc-400">—</span>
+                  )}
+                </td>
                 <td className="p-3 text-zinc-500">
                   {order.items.reduce((s, i) => s + i.qty, 0)} шт.
                 </td>

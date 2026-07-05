@@ -76,6 +76,22 @@ export async function botApi(method: string, payload: Record<string, unknown>): 
 }
 
 /** Отправка сообщения пользователю (уведомления о заказе). Fire-and-forget. */
-export async function sendTelegramMessage(chatId: string | number, text: string): Promise<void> {
-  await botApi("sendMessage", { chat_id: chatId, text, parse_mode: "HTML" });
+export async function sendTelegramMessage(
+  chatId: string | number,
+  text: string,
+  replyMarkup?: Record<string, unknown>,
+): Promise<void> {
+  await botApi("sendMessage", {
+    chat_id: chatId,
+    text,
+    parse_mode: "HTML",
+    ...(replyMarkup ? { reply_markup: replyMarkup } : {}),
+  });
+}
+
+/** Ссылка на чат с менеджером (env MANAGER_USERNAME, без @) с предзаполненным текстом. */
+export function managerChatLink(text: string): string | null {
+  const manager = process.env.MANAGER_USERNAME;
+  if (!manager) return null;
+  return `https://t.me/${manager}?text=${encodeURIComponent(text)}`;
 }

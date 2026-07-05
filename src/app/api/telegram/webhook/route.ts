@@ -24,6 +24,17 @@ export async function POST(req: Request) {
   const text = update.message?.text ?? "";
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "";
 
+  // /id — узнать ID чата (нужно для ORDERS_CHAT_ID: добавьте бота
+  // в служебный чат менеджеров и отправьте туда /id).
+  if (chatId && text.startsWith("/id")) {
+    await botApi("sendMessage", {
+      chat_id: chatId,
+      text: `ID этого чата: <code>${chatId}</code>\nВпишите его в ORDERS_CHAT_ID, чтобы заказы приходили сюда.`,
+      parse_mode: "HTML",
+    });
+    return NextResponse.json({ ok: true });
+  }
+
   if (chatId && text.startsWith("/start")) {
     await botApi("sendMessage", {
       chat_id: chatId,

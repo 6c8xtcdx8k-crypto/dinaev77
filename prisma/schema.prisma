@@ -21,6 +21,7 @@ model User {
   phone        String?
   role         String     @default("CUSTOMER") // CUSTOMER | ADMIN
   telegramId   String?    @unique // id пользователя Telegram (для Mini App)
+  telegramUsername String? // @username из Telegram — менеджер ищет заказы по нему
   createdAt    DateTime   @default(now())
   orders       Order[]
   reviews      Review[]

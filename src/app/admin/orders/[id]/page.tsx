@@ -18,7 +18,7 @@ export default async function AdminOrderPage({ params }: { params: Promise<{ id:
       items: true,
       statusHistory: { orderBy: { createdAt: "asc" } },
       promoCode: true,
-      user: { select: { email: true } },
+      user: { select: { email: true, telegramUsername: true } },
     },
   });
   if (!order) notFound();
@@ -87,6 +87,20 @@ export default async function AdminOrderPage({ params }: { params: Promise<{ id:
           {order.customerName} · {order.customerPhone} · {order.customerEmail}
           {order.user ? "" : " (гость)"}
         </p>
+        {order.user?.telegramUsername && (
+          <p className="mt-1">
+            Telegram:{" "}
+            <a
+              href={`https://t.me/${order.user.telegramUsername}`}
+              target="_blank"
+              rel="noopener"
+              className="font-semibold text-sky-600 hover:underline"
+            >
+              @{order.user.telegramUsername}
+            </a>{" "}
+            <span className="text-zinc-400">— напишите ему для оплаты</span>
+          </p>
+        )}
         <p className="mt-1 text-zinc-500">
           {DELIVERY_METHODS[order.deliveryMethod as DeliveryMethod]?.label ?? order.deliveryMethod}:{" "}
           {order.deliveryAddress}

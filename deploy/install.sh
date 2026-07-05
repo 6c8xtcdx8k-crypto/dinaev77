@@ -39,14 +39,17 @@ if [ ! -f .env ]; then
   read -rp "Домен [${DOMAIN_DEFAULT}]: " DOMAIN_IN
   DOMAIN="${DOMAIN_IN:-$DOMAIN_DEFAULT}"
   read -rp "Токен Telegram-бота (можно оставить пустым и добавить позже): " TG_TOKEN
+  read -rp "Username менеджера в Telegram без @ (для кнопки «Написать менеджеру»): " MANAGER
   cat > .env <<ENV
 DOMAIN=${DOMAIN}
 NEXT_PUBLIC_BASE_URL=https://${DOMAIN}
 AUTH_SECRET=$(head -c 32 /dev/urandom | base64 | tr -d '=+/')
 TELEGRAM_BOT_TOKEN=${TG_TOKEN}
 TELEGRAM_WEBHOOK_SECRET=$(head -c 16 /dev/urandom | base64 | tr -d '=+/')
+MANAGER_USERNAME=${MANAGER}
+# ID служебного чата для заказов: добавьте бота в чат, отправьте /id и впишите сюда
+ORDERS_CHAT_ID=
 EMAIL_PROVIDER=console
-PAYMENT_PROVIDER=mock
 ENV
   echo "    .env создан (домен: ${DOMAIN})"
 else

@@ -27,6 +27,7 @@ export async function POST(req: Request) {
 
   const tg = valid.user;
   const telegramId = String(tg.id);
+  const telegramUsername = tg.username ?? null;
   const name = [tg.first_name, tg.last_name].filter(Boolean).join(" ") || tg.username || "Покупатель";
 
   let user = await prisma.user.findUnique({ where: { telegramId } });
@@ -34,14 +35,18 @@ export async function POST(req: Request) {
     user = await prisma.user.create({
       data: {
         telegramId,
+        telegramUsername,
         name,
         // Синтетический email: вход у Telegram-пользователей только через Mini App.
         email: `tg${telegramId}@telegram.local`,
         passwordHash: await hashPassword(randomUUID()),
       },
     });
-  } else if (user.name !== name) {
-    user = await prisma.user.update({ where: { id: user.id }, data: { name } });
+  } else if (user.name !== name || user.telegramUsername !== telegramUsername) {
+    user = await prisma.user.update({
+      where: { id: user.id },
+      data: { name, telegramUsername },
+    });
   }
 
   await createSession(user.id);

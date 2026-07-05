@@ -11,6 +11,7 @@ import {
   type OrderStatus,
 } from "@/lib/constants";
 import { OrderStatusBadge } from "@/components/account/OrderStatusBadge";
+import { managerChatLink } from "@/lib/telegram";
 
 export const metadata: Metadata = { title: "Заказ" };
 export const dynamic = "force-dynamic";
@@ -44,11 +45,20 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
       </p>
 
       {order.status === "NEW" && (
-        <div className="card mt-4 flex items-center justify-between gap-3 border-brand-200 bg-brand-50 p-4">
-          <p className="text-sm text-brand-800">Заказ ожидает оплаты.</p>
-          <Link href={`/payment/mock/${order.id}`} className="btn-primary !py-2 text-sm">
-            Оплатить
-          </Link>
+        <div className="card mt-4 flex flex-wrap items-center justify-between gap-3 border-brand-200 bg-brand-50 p-4">
+          <p className="text-sm text-brand-800">
+            Заказ ожидает оплаты — реквизиты пришлёт менеджер.
+          </p>
+          {managerChatLink(`Здравствуйте! Хочу оплатить заказ №${order.number}`) && (
+            <a
+              href={managerChatLink(`Здравствуйте! Хочу оплатить заказ №${order.number}`)!}
+              target="_blank"
+              rel="noopener"
+              className="btn-primary !py-2 text-sm"
+            >
+              Написать менеджеру
+            </a>
+          )}
         </div>
       )}
 
