@@ -89,6 +89,11 @@ const PRODUCTS: SeedProduct[] = [
   { slug: "berry-shirt-m", name: "Рубашка оксфорд мужская Berry", description: "Рубашка из ткани оксфорд с воротником button-down. Слегка свободный крой, подходит и к джинсам, и к брюкам.\n\n• Состав: 100% хлопок", category: "clothing", gender: "MEN", priceRub: 3490, gradient: ["#acdefc", "#cdeafd"], colors: [{ name: "Голубой", hex: "#7dd3fc" }, { name: "Белый", hex: "#f4f4f5" }], sizes: ["S", "M", "L", "XL"] },
   { slug: "berry-leggings-w", name: "Леггинсы спортивные Berry Move", description: "Леггинсы с высокой талией и утягивающим эффектом. Не просвечивают, быстро сохнут.\n\n• Состав: 75% нейлон, 25% эластан", category: "clothing", gender: "WOMEN", priceRub: 2490, discountPercent: 10, gradient: ["#ffe3f6", "#acdefc"], colors: [{ name: "Чёрный", hex: "#27272a" }, { name: "Зелёный", hex: "#059669" }], sizes: ["XS", "S", "M", "L"] },
   { slug: "berry-cap", name: "Кепка шестипанельная", description: "Классическая шестипанельная кепка с минималистичной вышивкой. Регулируемый ремешок сзади.\n\n• Состав: 100% хлопок", category: "clothing", gender: "UNISEX", priceRub: 1290, gradient: ["#ffc9ef", "#ffe3f6"], colors: [{ name: "Чёрный", hex: "#27272a" }, { name: "Зелёный", hex: "#059669" }], sizes: ["ONE SIZE"] },
+  // Сумки (женские)
+  { slug: "berry-bag-tote", name: "Сумка-тоут женская Berry Tote", description: "Вместительная сумка-тоут из мягкой экокожи: помещается ноутбук 13″, внутри карман на молнии.\n\n• Материал: экокожа\n• Размер: 38 × 30 × 12 см\n• Подкладка: текстиль", category: "bags", gender: "WOMEN", priceRub: 4990, discountPercent: 15, gradient: ["#ffb0eb", "#acdefc"], colors: [{ name: "Чёрный", hex: "#27272a" }, { name: "Бежевый", hex: "#d6c7b0" }], sizes: ["ONE SIZE"] },
+  { slug: "berry-bag-cross", name: "Сумка кросс-боди Berry Mini", description: "Компактная сумка через плечо с регулируемым ремнём и золотистой фурнитурой. Для самого нужного: телефон, ключи, карты.\n\n• Материал: экокожа\n• Размер: 20 × 14 × 7 см", category: "bags", gender: "WOMEN", priceRub: 3490, gradient: ["#ffc9ef", "#fff0fa"], colors: [{ name: "Розовый", hex: "#f9a8d4" }, { name: "Чёрный", hex: "#27272a" }], sizes: ["ONE SIZE"] },
+  { slug: "berry-bag-shopper", name: "Шоппер женский Berry Daily", description: "Лёгкий шоппер на каждый день: выдерживает до 10 кг, складывается в собственный внутренний карман.\n\n• Материал: плотный хлопок\n• Размер: 40 × 35 см", category: "bags", gender: "WOMEN", priceRub: 2990, discountPercent: 20, gradient: ["#acdefc", "#ffe3f6"], colors: [{ name: "Бежевый", hex: "#d6c7b0" }, { name: "Голубой", hex: "#7dd3fc" }], sizes: ["ONE SIZE"] },
+  { slug: "berry-bag-clutch", name: "Клатч вечерний Berry Night", description: "Изящный клатч с цепочкой для вечернего выхода: магнитная застёжка, съёмный ремешок.\n\n• Материал: экокожа\n• Размер: 24 × 14 × 5 см", category: "bags", gender: "WOMEN", priceRub: 3990, discountPercent: 10, gradient: ["#cdeafd", "#ffc9ef"], colors: [{ name: "Чёрный", hex: "#27272a" }, { name: "Серебристый", hex: "#d4d4d8" }], sizes: ["ONE SIZE"] },
 ];
 
 async function main() {
@@ -97,6 +102,7 @@ async function main() {
   // Категории
   const categories = [
     { slug: "clothing", name: "Одежда", sort: 1 },
+    { slug: "bags", name: "Сумки", sort: 2 },
   ];
   for (const c of categories) {
     await prisma.category.upsert({ where: { slug: c.slug }, update: c, create: c });

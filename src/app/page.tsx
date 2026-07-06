@@ -6,10 +6,10 @@ import { Reveal } from "@/components/ui/Reveal";
 export const dynamic = "force-dynamic";
 
 const TILES = [
+  { href: "/catalog?category=clothing", title: "Одежда" },
+  { href: "/catalog?category=bags", title: "Сумки" },
   { href: "/catalog?gender=WOMEN", title: "Женщинам" },
   { href: "/catalog?gender=MEN", title: "Мужчинам" },
-  { href: "/catalog?sort=new", title: "Новинки" },
-  { href: "/catalog?sale=1", title: "Скидки" },
 ];
 
 const MARQUEE = [

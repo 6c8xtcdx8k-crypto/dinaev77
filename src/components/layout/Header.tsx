@@ -5,7 +5,8 @@ import { prisma } from "@/lib/db";
 import { SearchBar } from "./SearchBar";
 
 const NAV = [
-  { href: "/catalog", label: "Вся одежда" },
+  { href: "/catalog?category=clothing", label: "Одежда" },
+  { href: "/catalog?category=bags", label: "Сумки" },
   { href: "/catalog?gender=WOMEN", label: "Женщинам" },
   { href: "/catalog?gender=MEN", label: "Мужчинам" },
   { href: "/catalog?sort=new", label: "Новинки" },
