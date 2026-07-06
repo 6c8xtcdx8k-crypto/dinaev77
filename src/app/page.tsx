@@ -8,8 +8,8 @@ export const dynamic = "force-dynamic";
 const TILES = [
   { href: "/catalog?gender=WOMEN", title: "Женщинам" },
   { href: "/catalog?gender=MEN", title: "Мужчинам" },
-  { href: "/catalog?category=sneakers", title: "Кроссовки" },
-  { href: "/catalog?category=shoes", title: "Обувь" },
+  { href: "/catalog?sort=new", title: "Новинки" },
+  { href: "/catalog?sale=1", title: "Скидки" },
 ];
 
 const MARQUEE = [
@@ -73,7 +73,7 @@ export default async function HomePage() {
           className="mt-5 max-w-md animate-fade-up text-lg font-medium text-[#2c2c2c]"
           style={{ animationDelay: ".24s" }}
         >
-          Кроссовки, обувь и одежда для женщин и мужчин. Скидки до 30% и промокод{" "}
+          Одежда для женщин и мужчин: худи, платья, джинсы и не только. Скидки до 30% и промокод{" "}
           <span className="rounded-full bg-white/70 px-2.5 py-0.5 font-mono font-bold text-brand-700">BERRY10</span>{" "}
           на первый заказ.
         </p>

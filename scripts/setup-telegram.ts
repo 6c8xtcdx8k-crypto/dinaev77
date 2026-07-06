@@ -40,10 +40,10 @@ async function main() {
   console.log(`Бот найден: @${me.username} (${me.first_name})`);
 
   await api("setMyDescription", {
-    description: "Styleberries — интернет-магазин: кроссовки, обувь и одежда. Откройте магазин кнопкой ниже.",
+    description: "Styleberries — интернет-магазин одежды для женщин и мужчин. Откройте магазин кнопкой ниже.",
   });
   await api("setMyShortDescription", {
-    short_description: "Интернет-магазин: кроссовки, обувь и одежда",
+    short_description: "Интернет-магазин одежды",
   });
   console.log("Описание бота обновлено");
 

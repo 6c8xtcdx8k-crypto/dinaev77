@@ -14,7 +14,7 @@ export function Footer() {
             <span className="uppercase text-brand-400">Styleberries</span>
           </div>
           <p className="mt-2 text-sm text-zinc-500">
-            Интернет-магазин: кроссовки, обувь и одежда для женщин и мужчин.
+            Интернет-магазин одежды для женщин и мужчин.
           </p>
         </div>
         <FooterCol
@@ -22,7 +22,7 @@ export function Footer() {
           links={[
             ["Женщинам", "/catalog?gender=WOMEN"],
             ["Мужчинам", "/catalog?gender=MEN"],
-            ["Кроссовки", "/catalog?category=sneakers"],
+            ["Новинки", "/catalog?sort=new"],
             ["Скидки", "/catalog?sale=1"],
           ]}
         />

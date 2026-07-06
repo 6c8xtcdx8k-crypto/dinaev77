@@ -16,11 +16,11 @@ const montserrat = Montserrat({
 
 export const metadata: Metadata = {
   title: {
-    default: "Styleberries — обувь и одежда для женщин и мужчин",
+    default: "Styleberries — одежда для женщин и мужчин",
     template: "%s — Styleberries",
   },
   description:
-    "Styleberries — интернет-магазин: кроссовки, обувь и одежда. Быстрая доставка, скидки и промокоды.",
+    "Styleberries — интернет-магазин одежды. Быстрая доставка, скидки и промокоды.",
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

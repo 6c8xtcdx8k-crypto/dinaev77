@@ -22,7 +22,7 @@ function SearchBarInner() {
         type="search"
         value={q}
         onChange={(e) => setQ(e.target.value)}
-        placeholder="Найти кроссовки, обувь, одежду…"
+        placeholder="Найти одежду: худи, платья, джинсы…"
         className="input pr-11"
         aria-label="Поиск по каталогу"
       />

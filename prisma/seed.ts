@@ -80,16 +80,6 @@ type SeedProduct = {
 };
 
 const PRODUCTS: SeedProduct[] = [
-  // Кроссовки
-  { slug: "berry-run-classic", name: "Кроссовки Berry Run Classic", description: "Лёгкие беговые кроссовки с амортизирующей подошвой и дышащим верхом из сетки. Подходят для города и лёгких тренировок.\n\n• Верх: текстиль\n• Подошва: EVA\n• Сезон: лето/демисезон", category: "sneakers", gender: "UNISEX", priceRub: 5990, discountPercent: 15, gradient: ["#acdefc", "#e3f4fe"], colors: [{ name: "Белый", hex: "#f4f4f5" }, { name: "Чёрный", hex: "#27272a" }], sizes: ["38", "39", "40", "41", "42", "43", "44"] },
-  { slug: "berry-street-w", name: "Кроссовки Berry Street женские", description: "Городские кроссовки на массивной подошве. Мягкая стелька и усиленный задник держат стопу весь день.\n\n• Верх: экокожа\n• Подошва: резина\n• Высота подошвы: 4 см", category: "sneakers", gender: "WOMEN", priceRub: 6990, discountPercent: 25, gradient: ["#ffb0eb", "#ffe3f6"], colors: [{ name: "Белый", hex: "#f4f4f5" }, { name: "Розовый", hex: "#f9a8d4" }], sizes: ["36", "37", "38", "39", "40"] },
-  { slug: "berry-flex-m", name: "Кроссовки Berry Flex мужские", description: "Тренировочные кроссовки с гибкой подошвой и боковой поддержкой. Для зала и улицы.\n\n• Верх: сетка + синтетика\n• Подошва: резина с протектором", category: "sneakers", gender: "MEN", priceRub: 7490, gradient: ["#8ad2fd", "#cdeafd"], colors: [{ name: "Чёрный", hex: "#27272a" }, { name: "Синий", hex: "#3b82f6" }], sizes: ["40", "41", "42", "43", "44", "45"] },
-  { slug: "berry-retro-90", name: "Кроссовки Berry Retro '90", description: "Ретро-силуэт из 90-х: замшевые вставки, контрастные панели и рифлёная подошва.\n\n• Верх: замша/текстиль\n• Подошва: резина", category: "sneakers", gender: "UNISEX", priceRub: 8990, discountPercent: 10, gradient: ["#ffc9ef", "#acdefc"], colors: [{ name: "Бежевый", hex: "#d6c7b0" }, { name: "Серый", hex: "#9ca3af" }], sizes: ["38", "39", "40", "41", "42", "43"] },
-  // Обувь
-  { slug: "berry-chelsea-w", name: "Ботинки челси женские Berry", description: "Классические челси на устойчивом каблуке с эластичными вставками. Утеплённая подкладка для прохладной погоды.\n\n• Верх: натуральная кожа\n• Подкладка: байка", category: "shoes", gender: "WOMEN", priceRub: 10990, discountPercent: 30, gradient: ["#e3f4fe", "#cdeafd"], colors: [{ name: "Чёрный", hex: "#27272a" }], sizes: ["36", "37", "38", "39", "40"] },
-  { slug: "berry-derby-m", name: "Туфли дерби мужские Berry", description: "Строгие дерби из гладкой кожи на тонкой подошве. Для офиса и торжественных случаев.\n\n• Верх: натуральная кожа\n• Подошва: кожа с профилактикой", category: "shoes", gender: "MEN", priceRub: 12990, gradient: ["#acdefc", "#ffe3f6"], colors: [{ name: "Чёрный", hex: "#27272a" }, { name: "Коричневый", hex: "#78350f" }], sizes: ["40", "41", "42", "43", "44"] },
-  { slug: "berry-sandals-w", name: "Босоножки Berry Summer", description: "Лёгкие босоножки на плоском ходу с мягкими ремешками. Идеальны для жаркой погоды.\n\n• Верх: экокожа\n• Подошва: полиуретан", category: "shoes", gender: "WOMEN", priceRub: 4590, discountPercent: 20, gradient: ["#ffe3f6", "#fff0fa"], colors: [{ name: "Бежевый", hex: "#d6c7b0" }, { name: "Белый", hex: "#f4f4f5" }], sizes: ["36", "37", "38", "39"] },
-  { slug: "berry-loafers-m", name: "Лоферы мужские Berry Soft", description: "Мягкие лоферы из нубука на гибкой подошве. Комфорт городского ритма без шнурков.\n\n• Верх: нубук\n• Подошва: резина", category: "shoes", gender: "MEN", priceRub: 9490, gradient: ["#cdeafd", "#e3f4fe"], colors: [{ name: "Коричневый", hex: "#78350f" }, { name: "Тёмно-синий", hex: "#1e3a8a" }], sizes: ["40", "41", "42", "43", "44"] },
   // Одежда
   { slug: "berry-hoodie", name: "Худи оверсайз с начёсом", description: "Плотное худи свободного кроя с начёсом внутри. Капюшон на шнурке, карман-кенгуру.\n\n• Состав: 80% хлопок, 20% полиэстер\n• Плотность: 340 г/м²", category: "clothing", gender: "UNISEX", priceRub: 3990, discountPercent: 20, gradient: ["#ffb0eb", "#cdeafd"], colors: [{ name: "Зелёный", hex: "#059669" }, { name: "Чёрный", hex: "#27272a" }, { name: "Серый", hex: "#9ca3af" }], sizes: ["XS", "S", "M", "L", "XL"] },
   { slug: "berry-tshirt-basic", name: "Футболка базовая Berry", description: "Базовая футболка из плотного хлопка. Прямой крой, укреплённая горловина, без принта.\n\n• Состав: 100% хлопок\n• Плотность: 190 г/м²", category: "clothing", gender: "UNISEX", priceRub: 1490, gradient: ["#acdefc", "#f2f9ff"], colors: [{ name: "Белый", hex: "#f4f4f5" }, { name: "Чёрный", hex: "#27272a" }, { name: "Зелёный", hex: "#059669" }], sizes: ["XS", "S", "M", "L", "XL", "XXL"] },
@@ -106,9 +96,7 @@ async function main() {
 
   // Категории
   const categories = [
-    { slug: "sneakers", name: "Кроссовки", sort: 1 },
-    { slug: "shoes", name: "Обувь", sort: 2 },
-    { slug: "clothing", name: "Одежда", sort: 3 },
+    { slug: "clothing", name: "Одежда", sort: 1 },
   ];
   for (const c of categories) {
     await prisma.category.upsert({ where: { slug: c.slug }, update: c, create: c });
