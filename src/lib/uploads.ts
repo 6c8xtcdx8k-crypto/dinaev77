@@ -9,7 +9,8 @@ import path from "path";
  * локально — ./data/uploads). Файлы раздаются маршрутом /uploads/[file].
  */
 
-export const UPLOAD_DIR = process.env.UPLOAD_DIR ?? path.join(process.cwd(), "data", "uploads");
+export const UPLOAD_DIR =
+  process.env.UPLOAD_DIR || path.join(process.cwd(), "data", "uploads");
 
 const ALLOWED_TYPES: Record<string, string> = {
   "image/jpeg": ".jpg",
