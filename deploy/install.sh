@@ -40,6 +40,9 @@ if [ ! -f .env ]; then
   DOMAIN="${DOMAIN_IN:-$DOMAIN_DEFAULT}"
   read -rp "Токен Telegram-бота (можно оставить пустым и добавить позже): " TG_TOKEN
   read -rp "Username менеджера в Telegram без @ (для кнопки «Написать менеджеру»): " MANAGER
+  read -rp "Email администратора [admin@styleberries.example]: " ADMIN_EMAIL_IN
+  ADMIN_EMAIL="${ADMIN_EMAIL_IN:-admin@styleberries.example}"
+  ADMIN_PASSWORD=$(head -c 12 /dev/urandom | base64 | tr -d '=+/' | head -c 14)
   cat > .env <<ENV
 DOMAIN=${DOMAIN}
 NEXT_PUBLIC_BASE_URL=https://${DOMAIN}
@@ -49,6 +52,8 @@ TELEGRAM_WEBHOOK_SECRET=$(head -c 16 /dev/urandom | base64 | tr -d '=+/')
 MANAGER_USERNAME=${MANAGER}
 # ID служебного чата для заказов: добавьте бота в чат, отправьте /id и впишите сюда
 ORDERS_CHAT_ID=
+ADMIN_EMAIL=${ADMIN_EMAIL}
+ADMIN_PASSWORD=${ADMIN_PASSWORD}
 EMAIL_PROVIDER=console
 ENV
   echo "    .env создан (домен: ${DOMAIN})"
@@ -64,6 +69,10 @@ echo
 echo "================================================================"
 echo " Готово! Магазин поднимается на https://${DOMAIN}"
 echo " (сертификат выпускается ~30–60 секунд после старта)"
+echo
+echo " Админ-панель: https://${DOMAIN}/admin"
+grep -E '^ADMIN_(EMAIL|PASSWORD)=' .env | sed 's/^/   /'
+echo "   Сохраните пароль — он показан только здесь (и в .env)."
 echo
 echo " Настроить Telegram-бота (после заполнения TELEGRAM_BOT_TOKEN в .env):"
 echo "   cd ${DIR} && docker compose exec app npx tsx scripts/setup-telegram.ts"

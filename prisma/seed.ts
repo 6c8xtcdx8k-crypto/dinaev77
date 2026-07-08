@@ -111,14 +111,17 @@ async function main() {
     (await prisma.category.findMany()).map((c) => [c.slug, c.id]),
   );
 
-  // Пользователи
+  // Пользователи. Данные админа берутся из окружения (ADMIN_EMAIL /
+  // ADMIN_PASSWORD); демо-значения — только для локальной разработки.
+  const adminEmail = process.env.ADMIN_EMAIL || "admin@styleberries.example";
+  const adminPassword = process.env.ADMIN_PASSWORD || "admin123";
   const admin = await prisma.user.upsert({
-    where: { email: "admin@styleberries.example" },
+    where: { email: adminEmail },
     update: {},
     create: {
-      email: "admin@styleberries.example",
+      email: adminEmail,
       name: "Администратор",
-      passwordHash: await bcrypt.hash("admin123", 10),
+      passwordHash: await bcrypt.hash(adminPassword, 10),
       role: "ADMIN",
     },
   });
@@ -201,7 +204,7 @@ async function main() {
   }
 
   console.log("Seed complete.");
-  console.log(`  Админ:      admin@styleberries.example / admin123`);
+  console.log(`  Админ:      ${adminEmail} / ${process.env.ADMIN_PASSWORD ? "(пароль из ADMIN_PASSWORD)" : "admin123"}`);
   console.log(`  Покупатель: customer@example.com / customer123`);
   console.log(`  Промокоды:  BERRY10 (−10%), SUMMER500 (−500₽ от 3000₽), VIP20 (−20% от 10000₽)`);
   void admin;

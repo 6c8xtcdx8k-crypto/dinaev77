@@ -69,6 +69,43 @@ const profileSchema = z.object({
   phone: z.string().optional(),
 });
 
+const passwordSchema = z
+  .object({
+    current: z.string().min(1, "Введите текущий пароль"),
+    next: z.string().min(8, "Новый пароль — минимум 8 символов"),
+    confirm: z.string(),
+  })
+  .refine((d) => d.next === d.confirm, { message: "Пароли не совпадают" });
+
+export type PasswordFormState = { error?: string; success?: boolean } | undefined;
+
+/** Смена пароля текущего пользователя (используется в настройках админки). */
+export async function changePasswordAction(
+  _prev: PasswordFormState,
+  formData: FormData,
+): Promise<PasswordFormState> {
+  const user = await getCurrentUser();
+  if (!user) return { error: "Требуется вход" };
+
+  const parsed = passwordSchema.safeParse({
+    current: formData.get("current"),
+    next: formData.get("next"),
+    confirm: formData.get("confirm"),
+  });
+  if (!parsed.success) return { error: parsed.error.errors[0].message };
+
+  const full = await prisma.user.findUniqueOrThrow({ where: { id: user.id } });
+  if (!(await verifyPassword(parsed.data.current, full.passwordHash))) {
+    return { error: "Текущий пароль неверный" };
+  }
+
+  await prisma.user.update({
+    where: { id: user.id },
+    data: { passwordHash: await hashPassword(parsed.data.next) },
+  });
+  return { success: true };
+}
+
 export async function updateProfileAction(_prev: FormState, formData: FormData): Promise<FormState> {
   const user = await getCurrentUser();
   if (!user) return { error: "Требуется вход" };
