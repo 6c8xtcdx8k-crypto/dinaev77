@@ -1,11 +1,12 @@
 import Link from "next/link";
-import { discountedPrice, formatPrice } from "@/lib/money";
+import { formatPrice } from "@/lib/money";
 import { RatingStars } from "./RatingStars";
 
 export type ProductCardData = {
   slug: string;
   name: string;
   basePrice: number;
+  oldPrice: number | null;
   discountPercent: number;
   ratingAvg: number;
   ratingCount: number;
@@ -13,7 +14,6 @@ export type ProductCardData = {
 };
 
 export function ProductCard({ product }: { product: ProductCardData }) {
-  const finalPrice = discountedPrice(product.basePrice, product.discountPercent);
   const image = product.images[0];
 
   return (
@@ -46,10 +46,10 @@ export function ProductCard({ product }: { product: ProductCardData }) {
       <div className="flex flex-1 flex-col gap-1 p-3">
         <div className="flex items-baseline gap-2">
           <span className="text-lg font-extrabold text-zinc-900 transition-colors duration-300 group-hover:text-brand-700">
-            {formatPrice(finalPrice)}
+            {formatPrice(product.basePrice)}
           </span>
-          {product.discountPercent > 0 && (
-            <span className="text-sm text-zinc-400 line-through">{formatPrice(product.basePrice)}</span>
+          {product.oldPrice && product.oldPrice > product.basePrice && (
+            <span className="text-sm text-zinc-400 line-through">{formatPrice(product.oldPrice)}</span>
           )}
         </div>
         <span className="line-clamp-2 text-sm text-zinc-600">{product.name}</span>

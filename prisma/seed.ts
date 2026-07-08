@@ -136,6 +136,10 @@ async function main() {
   // Товары
   for (const [i, p] of PRODUCTS.entries()) {
     const imageUrl = makeImage(p.slug, p.name, p.gradient[0], p.gradient[1]);
+    // priceRub в данных — цена ДО скидки; при скидке она становится
+    // «старой», а цена продажи считается со скидкой.
+    const d = p.discountPercent ?? 0;
+    const salePrice = d > 0 ? Math.round((p.priceRub * (100 - d)) / 100) * 100 : p.priceRub * 100;
     const product = await prisma.product.upsert({
       where: { slug: p.slug },
       update: {},
@@ -145,8 +149,9 @@ async function main() {
         description: p.description,
         categoryId: catBySlug[p.category],
         gender: p.gender,
-        basePrice: p.priceRub * 100,
-        discountPercent: p.discountPercent ?? 0,
+        basePrice: salePrice,
+        oldPrice: d > 0 ? p.priceRub * 100 : null,
+        discountPercent: d,
         salesCount: Math.max(0, 120 - i * 7),
         images: { create: [{ url: imageUrl, alt: p.name, sort: 0 }] },
         variants: {

@@ -6,7 +6,16 @@ import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
 import { requireAdmin } from "@/lib/auth";
 import { changeOrderStatus } from "@/services/orders";
+import { discountPercentFrom } from "@/lib/money";
 import type { OrderStatus } from "@/lib/constants";
+
+/** Обновляет витрину после изменения товара: каталог, главную и карточку. */
+function revalidateProduct(slug?: string) {
+  revalidatePath("/");
+  revalidatePath("/catalog");
+  revalidatePath("/admin/products");
+  if (slug) revalidatePath(`/product/${slug}`);
+}
 
 export type AdminFormState = { error?: string; success?: boolean } | undefined;
 
@@ -22,7 +31,7 @@ const productSchema = z.object({
   categoryId: z.string().min(1, "Выберите категорию"),
   gender: z.enum(["WOMEN", "MEN", "UNISEX"]),
   priceRub: z.coerce.number().positive("Цена должна быть больше нуля"),
-  discountPercent: z.coerce.number().int().min(0).max(90),
+  oldPriceRub: z.coerce.number().min(0).optional(),
   isActive: z.boolean(),
 });
 
@@ -34,9 +43,17 @@ function parseProductForm(formData: FormData) {
     categoryId: formData.get("categoryId"),
     gender: formData.get("gender"),
     priceRub: formData.get("priceRub"),
-    discountPercent: formData.get("discountPercent") || 0,
+    oldPriceRub: formData.get("oldPriceRub") || 0,
     isActive: formData.get("isActive") === "on",
   });
+}
+
+/** Цена продажи + старая цена → поля БД (копейки, процент для бейджа). */
+function priceFields(priceRub: number, oldPriceRub?: number) {
+  const basePrice = Math.round(priceRub * 100);
+  const oldPrice =
+    oldPriceRub && oldPriceRub > priceRub ? Math.round(oldPriceRub * 100) : null;
+  return { basePrice, oldPrice, discountPercent: discountPercentFrom(basePrice, oldPrice) };
 }
 
 export async function createProductAction(
@@ -50,12 +67,12 @@ export async function createProductAction(
   const exists = await prisma.product.findUnique({ where: { slug: parsed.data.slug } });
   if (exists) return { error: "Товар с таким slug уже существует" };
 
-  const { priceRub, ...rest } = parsed.data;
+  const { priceRub, oldPriceRub, ...rest } = parsed.data;
   const product = await prisma.product.create({
-    data: { ...rest, basePrice: Math.round(priceRub * 100) },
+    data: { ...rest, ...priceFields(priceRub, oldPriceRub) },
   });
 
-  revalidatePath("/admin/products");
+  revalidateProduct(product.slug);
   redirect(`/admin/products/${product.id}`);
 }
 
@@ -73,47 +90,147 @@ export async function updateProductAction(
   });
   if (clash) return { error: "Товар с таким slug уже существует" };
 
-  const { priceRub, ...rest } = parsed.data;
-  await prisma.product.update({
+  const { priceRub, oldPriceRub, ...rest } = parsed.data;
+  const updated = await prisma.product.update({
     where: { id: productId },
-    data: { ...rest, basePrice: Math.round(priceRub * 100) },
+    data: { ...rest, ...priceFields(priceRub, oldPriceRub) },
   });
 
-  revalidatePath("/admin/products");
-  revalidatePath("/catalog");
+  revalidateProduct(updated.slug);
   return { success: true };
 }
 
-export async function deleteProductAction(productId: string): Promise<void> {
+/** Показать/скрыть товар в каталоге (мягкое скрытие). */
+export async function toggleProductActiveAction(productId: string): Promise<void> {
   await requireAdmin();
-  // Мягкое скрытие: у товара могут быть заказы/отзывы — не удаляем физически.
-  await prisma.product.update({ where: { id: productId }, data: { isActive: false } });
-  revalidatePath("/admin/products");
-  revalidatePath("/catalog");
+  const product = await prisma.product.findUniqueOrThrow({ where: { id: productId } });
+  await prisma.product.update({
+    where: { id: productId },
+    data: { isActive: !product.isActive },
+  });
+  revalidateProduct(product.slug);
+}
+
+/**
+ * Полное удаление товара. История заказов не страдает:
+ * позиции заказов хранят снимки (название, цена, размер).
+ */
+export async function deleteProductPermanentlyAction(
+  productId: string,
+): Promise<{ ok: boolean; error?: string }> {
+  await requireAdmin();
+  const product = await prisma.product.findUnique({ where: { id: productId } });
+  if (!product) return { ok: false, error: "Товар не найден" };
+  await prisma.product.delete({ where: { id: productId } });
+  revalidateProduct(product.slug);
+  redirect("/admin/products");
+}
+
+/** Быстрое изменение цены из таблицы товаров. */
+export async function updateProductPriceAction(
+  productId: string,
+  priceRub: number,
+): Promise<{ ok: boolean; error?: string }> {
+  await requireAdmin();
+  if (!Number.isFinite(priceRub) || priceRub <= 0) {
+    return { ok: false, error: "Цена должна быть больше нуля" };
+  }
+  const product = await prisma.product.findUniqueOrThrow({ where: { id: productId } });
+  const basePrice = Math.round(priceRub * 100);
+  const oldPrice = product.oldPrice && product.oldPrice > basePrice ? product.oldPrice : null;
+  await prisma.product.update({
+    where: { id: productId },
+    data: { basePrice, oldPrice, discountPercent: discountPercentFrom(basePrice, oldPrice) },
+  });
+  revalidateProduct(product.slug);
+  return { ok: true };
 }
 
 // ---------- Изображения ----------
 
 export async function addProductImageAction(
   productId: string,
-  _prev: AdminFormState,
-  formData: FormData,
-): Promise<AdminFormState> {
+  url: string,
+  alt = "",
+): Promise<{ ok: boolean; error?: string }> {
   await requireAdmin();
-  const url = String(formData.get("url") ?? "").trim();
-  if (!url) return { error: "Укажите URL изображения" };
+  const trimmed = url.trim();
+  if (!trimmed) return { ok: false, error: "Укажите изображение" };
+  const product = await prisma.product.findUniqueOrThrow({ where: { id: productId } });
   const count = await prisma.productImage.count({ where: { productId } });
   await prisma.productImage.create({
-    data: { productId, url, alt: String(formData.get("alt") ?? ""), sort: count },
+    data: { productId, url: trimmed, alt, sort: count },
   });
   revalidatePath(`/admin/products/${productId}`);
-  return { success: true };
+  revalidateProduct(product.slug);
+  return { ok: true };
 }
 
 export async function deleteProductImageAction(imageId: string, productId: string): Promise<void> {
   await requireAdmin();
   await prisma.productImage.delete({ where: { id: imageId } });
+  await resortImages(productId);
+}
+
+/** Сделать фото главным (оно показывается в каталоге и первым в галерее). */
+export async function setMainImageAction(imageId: string, productId: string): Promise<void> {
+  await requireAdmin();
+  const images = await prisma.productImage.findMany({
+    where: { productId },
+    orderBy: { sort: "asc" },
+  });
+  const ordered = [
+    ...images.filter((i) => i.id === imageId),
+    ...images.filter((i) => i.id !== imageId),
+  ];
+  await Promise.all(
+    ordered.map((img, i) =>
+      prisma.productImage.update({ where: { id: img.id }, data: { sort: i } }),
+    ),
+  );
+  await revalidateForProduct(productId);
+}
+
+/** Передвинуть фото влево/вправо в галерее. */
+export async function moveImageAction(
+  imageId: string,
+  productId: string,
+  direction: "left" | "right",
+): Promise<void> {
+  await requireAdmin();
+  const images = await prisma.productImage.findMany({
+    where: { productId },
+    orderBy: { sort: "asc" },
+  });
+  const idx = images.findIndex((i) => i.id === imageId);
+  const swap = direction === "left" ? idx - 1 : idx + 1;
+  if (idx < 0 || swap < 0 || swap >= images.length) return;
+  await prisma.$transaction([
+    prisma.productImage.update({ where: { id: images[idx].id }, data: { sort: swap } }),
+    prisma.productImage.update({ where: { id: images[swap].id }, data: { sort: idx } }),
+  ]);
+  await revalidateForProduct(productId);
+}
+
+async function resortImages(productId: string): Promise<void> {
+  const images = await prisma.productImage.findMany({
+    where: { productId },
+    orderBy: { sort: "asc" },
+  });
+  await Promise.all(
+    images.map((img, i) =>
+      img.sort === i
+        ? Promise.resolve()
+        : prisma.productImage.update({ where: { id: img.id }, data: { sort: i } }),
+    ),
+  );
+  await revalidateForProduct(productId);
+}
+
+async function revalidateForProduct(productId: string): Promise<void> {
+  const product = await prisma.product.findUnique({ where: { id: productId } });
   revalidatePath(`/admin/products/${productId}`);
+  revalidateProduct(product?.slug);
 }
 
 // ---------- Варианты (размер/цвет/остаток) ----------
@@ -156,23 +273,23 @@ export async function addVariantAction(
     .replace(/[^a-z0-9а-яё-]+/gi, "-");
 
   await prisma.variant.create({ data: { productId, sku, ...parsed.data } });
-  revalidatePath(`/admin/products/${productId}`);
+  await revalidateForProduct(productId);
   return { success: true };
 }
 
 export async function updateVariantStockAction(variantId: string, stock: number): Promise<void> {
   await requireAdmin();
-  await prisma.variant.update({
+  const variant = await prisma.variant.update({
     where: { id: variantId },
     data: { stock: Math.max(0, Math.floor(stock)) },
   });
-  revalidatePath("/admin/products");
+  await revalidateForProduct(variant.productId);
 }
 
 export async function deleteVariantAction(variantId: string, productId: string): Promise<void> {
   await requireAdmin();
   await prisma.variant.delete({ where: { id: variantId } });
-  revalidatePath(`/admin/products/${productId}`);
+  await revalidateForProduct(productId);
 }
 
 // ---------- Заказы ----------

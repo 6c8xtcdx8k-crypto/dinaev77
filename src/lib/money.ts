@@ -11,8 +11,11 @@ export function formatPrice(kopecks: number): string {
   );
 }
 
-/** Цена товара с учётом его постоянной скидки. */
-export function discountedPrice(basePrice: number, discountPercent: number): number {
-  if (discountPercent <= 0) return basePrice;
-  return Math.round((basePrice * (100 - discountPercent)) / 100);
+/**
+ * Процент скидки по старой и новой цене (для бейджа «−N%»).
+ * basePrice — актуальная цена продажи; oldPrice — зачёркнутая.
+ */
+export function discountPercentFrom(basePrice: number, oldPrice: number | null): number {
+  if (!oldPrice || oldPrice <= basePrice) return 0;
+  return Math.round((1 - basePrice / oldPrice) * 100);
 }

@@ -9,6 +9,7 @@ services:
     env_file: .env
     environment:
       DATABASE_URL: "file:/app/data/prod.db"
+      UPLOAD_DIR: "/app/data/uploads"
     volumes:
       - sbdata:/app/data
     expose:

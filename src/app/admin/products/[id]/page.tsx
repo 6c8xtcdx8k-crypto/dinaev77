@@ -5,7 +5,7 @@ import { prisma } from "@/lib/db";
 import { ProductForm } from "@/components/admin/ProductForm";
 import { VariantManager } from "@/components/admin/VariantManager";
 import { ImageManager } from "@/components/admin/ImageManager";
-import { deleteProductAction } from "@/actions/admin";
+import { DangerZone } from "@/components/admin/DangerZone";
 
 export const metadata: Metadata = { title: "Товар — админка" };
 export const dynamic = "force-dynamic";
@@ -32,18 +32,9 @@ export default async function AdminProductPage({
     <div className="max-w-3xl space-y-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h2 className="text-lg font-bold">{product.name}</h2>
-        <div className="flex items-center gap-3">
-          <Link href={`/product/${product.slug}`} className="text-sm font-medium text-brand-600 hover:underline">
-            Открыть на сайте →
-          </Link>
-          {product.isActive && (
-            <form action={deleteProductAction.bind(null, product.id)}>
-              <button type="submit" className="text-sm text-zinc-400 underline hover:text-red-600">
-                Скрыть из каталога
-              </button>
-            </form>
-          )}
-        </div>
+        <Link href={`/product/${product.slug}`} className="text-sm font-medium text-brand-600 hover:underline">
+          Открыть на сайте →
+        </Link>
       </div>
 
       <ProductForm
@@ -56,13 +47,14 @@ export default async function AdminProductPage({
           categoryId: product.categoryId,
           gender: product.gender,
           priceRub: product.basePrice / 100,
-          discountPercent: product.discountPercent,
+          oldPriceRub: product.oldPrice ? product.oldPrice / 100 : null,
           isActive: product.isActive,
         }}
       />
 
       <ImageManager productId={product.id} images={product.images} />
       <VariantManager productId={product.id} variants={product.variants} />
+      <DangerZone productId={product.id} productName={product.name} isActive={product.isActive} />
     </div>
   );
 }

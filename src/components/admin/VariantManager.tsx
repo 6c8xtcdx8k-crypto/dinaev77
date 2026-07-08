@@ -84,7 +84,11 @@ function VariantRow({ variant, productId }: { variant: Variant; productId: strin
         <button
           type="button"
           disabled={pending}
-          onClick={() => startTransition(() => deleteVariantAction(variant.id, productId))}
+          onClick={() => {
+            if (confirm(`Удалить вариант ${variant.color} / ${variant.size}?`)) {
+              startTransition(() => deleteVariantAction(variant.id, productId));
+            }
+          }}
           className="text-xs text-zinc-400 underline hover:text-red-600"
         >
           Удалить

@@ -19,3 +19,6 @@ prisma/*.db-journal
 
 # build artifacts
 *.tsbuildinfo
+
+# загруженные файлы (изображения товаров)
+data/

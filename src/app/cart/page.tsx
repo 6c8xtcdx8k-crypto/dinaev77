@@ -26,7 +26,10 @@ export default async function CartPage() {
   }
 
   const subtotal = lines.reduce((s, l) => s + l.price * l.qty, 0);
-  const productDiscount = lines.reduce((s, l) => s + (l.basePrice - l.price) * l.qty, 0);
+  const productDiscount = lines.reduce(
+    (s, l) => s + (l.oldPrice ? (l.oldPrice - l.price) * l.qty : 0),
+    0,
+  );
   const count = lines.reduce((s, l) => s + l.qty, 0);
 
   return (
@@ -71,9 +74,9 @@ export default async function CartPage() {
                   <CartItemControls itemId={line.itemId} qty={line.qty} maxQty={line.stock} />
                   <div className="text-right">
                     <div className="font-bold">{formatPrice(line.price * line.qty)}</div>
-                    {line.basePrice > line.price && (
+                    {line.oldPrice && line.oldPrice > line.price && (
                       <div className="text-xs text-zinc-400 line-through">
-                        {formatPrice(line.basePrice * line.qty)}
+                        {formatPrice(line.oldPrice * line.qty)}
                       </div>
                     )}
                   </div>

@@ -3,7 +3,6 @@ import { cookies } from "next/headers";
 import { randomUUID } from "crypto";
 import { prisma } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
-import { discountedPrice } from "@/lib/money";
 
 const CART_COOKIE = "sb_cart";
 
@@ -52,8 +51,8 @@ export type CartLine = {
   imageUrl: string | null;
   size: string;
   color: string;
-  price: number; // за единицу, со скидкой товара
-  basePrice: number;
+  price: number; // цена продажи за единицу
+  oldPrice: number | null; // зачёркнутая цена (если есть скидка)
   qty: number;
   stock: number;
 };
@@ -80,8 +79,8 @@ export async function getCartLines(cartId: string): Promise<CartLine[]> {
     imageUrl: it.variant.product.images[0]?.url ?? null,
     size: it.variant.size,
     color: it.variant.color,
-    price: discountedPrice(it.variant.product.basePrice, it.variant.product.discountPercent),
-    basePrice: it.variant.product.basePrice,
+    price: it.variant.product.basePrice,
+    oldPrice: it.variant.product.oldPrice,
     qty: it.qty,
     stock: it.variant.stock,
   }));

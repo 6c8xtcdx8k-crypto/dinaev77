@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { getProductBySlug, getSimilarProducts } from "@/services/catalog";
 import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/db";
-import { discountedPrice, formatPrice } from "@/lib/money";
+import { formatPrice } from "@/lib/money";
 import { GENDER_LABELS, type Gender } from "@/lib/constants";
 import { ProductGallery } from "@/components/product/ProductGallery";
 import { VariantPicker } from "@/components/product/VariantPicker";
@@ -52,7 +52,6 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     getSimilarProducts(product.id, product.categoryId),
   ]);
 
-  const finalPrice = discountedPrice(product.basePrice, product.discountPercent);
   const totalStock = product.variants.reduce((s, v) => s + v.stock, 0);
 
   return (
@@ -80,11 +79,11 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           </div>
 
           <div className="mt-4 flex items-baseline gap-3">
-            <span className="text-3xl font-extrabold">{formatPrice(finalPrice)}</span>
-            {product.discountPercent > 0 && (
+            <span className="text-3xl font-extrabold">{formatPrice(product.basePrice)}</span>
+            {product.oldPrice && product.oldPrice > product.basePrice && (
               <>
                 <span className="text-lg text-zinc-400 line-through">
-                  {formatPrice(product.basePrice)}
+                  {formatPrice(product.oldPrice)}
                 </span>
                 <span className="badge bg-brand-400 text-white">−{product.discountPercent}%</span>
               </>

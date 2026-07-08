@@ -64,7 +64,7 @@ function orderBy(sort: SortValue | undefined): Prisma.ProductOrderByWithRelation
 export async function queryCatalog(f: CatalogFilters) {
   const where = buildWhere(f);
 
-  // Загружаем список, затем применяем точный ценовой фильтр по цене со скидкой.
+  // basePrice — актуальная цена продажи, фильтруем по ней напрямую.
   const all = await prisma.product.findMany({
     where,
     orderBy: orderBy(f.sort),
@@ -74,16 +74,11 @@ export async function queryCatalog(f: CatalogFilters) {
     },
   });
 
-  const withFinal = all
-    .map((p) => ({
-      ...p,
-      finalPrice: Math.round((p.basePrice * (100 - p.discountPercent)) / 100),
-    }))
-    .filter(
-      (p) =>
-        (f.priceMin === undefined || p.finalPrice >= f.priceMin) &&
-        (f.priceMax === undefined || p.finalPrice <= f.priceMax),
-    );
+  const withFinal = all.filter(
+    (p) =>
+      (f.priceMin === undefined || p.basePrice >= f.priceMin) &&
+      (f.priceMax === undefined || p.basePrice <= f.priceMax),
+  );
 
   const page = Math.max(1, f.page ?? 1);
   const total = withFinal.length;
@@ -100,7 +95,6 @@ export async function getFilterFacets(f: Pick<CatalogFilters, "category" | "gend
     where,
     select: {
       basePrice: true,
-      discountPercent: true,
       variants: { select: { size: true, color: true, colorHex: true } },
     },
   });
@@ -111,9 +105,8 @@ export async function getFilterFacets(f: Pick<CatalogFilters, "category" | "gend
   let max = 0;
 
   for (const p of products) {
-    const final = Math.round((p.basePrice * (100 - p.discountPercent)) / 100);
-    min = Math.min(min, final);
-    max = Math.max(max, final);
+    min = Math.min(min, p.basePrice);
+    max = Math.max(max, p.basePrice);
     for (const v of p.variants) {
       sizes.add(v.size);
       if (!colors.has(v.color)) colors.set(v.color, v.colorHex);

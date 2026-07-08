@@ -48,8 +48,9 @@ model Product {
   categoryId      String
   category        Category       @relation(fields: [categoryId], references: [id])
   gender          String // WOMEN | MEN | UNISEX
-  basePrice       Int // копейки
-  discountPercent Int            @default(0) // постоянная скидка на товар, %
+  basePrice       Int // цена продажи, копейки
+  oldPrice        Int? // старая (зачёркнутая) цена, копейки; null = без скидки
+  discountPercent Int            @default(0) // вычисляется из oldPrice, для бейджа и сортировки
   isActive        Boolean        @default(true)
   ratingAvg       Float          @default(0)
   ratingCount     Int            @default(0)
