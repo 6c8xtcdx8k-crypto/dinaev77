@@ -34,16 +34,67 @@ export function ImageManager({ productId, images }: { productId: string; images:
     setPreviews(next);
   }
 
+  /**
+   * Сжимает фото в браузере перед отправкой: длинная сторона до 1600px,
+   * JPEG. Иначе снимки с телефона (5–12 МБ) упираются в лимит тела
+   * запроса хостинга (4,5 МБ) и загрузка падает с невнятной ошибкой.
+   * GIF не трогаем (потеряется анимация), лёгкие файлы — тоже.
+   */
+  async function compressImage(file: File): Promise<File> {
+    if (file.type === "image/gif" || file.size < 1_500_000) return file;
+    const objectUrl = URL.createObjectURL(file);
+    try {
+      const img = await new Promise<HTMLImageElement>((resolve, reject) => {
+        const el = new window.Image();
+        el.onload = () => resolve(el);
+        el.onerror = () => reject(new Error("Не удалось прочитать изображение"));
+        el.src = objectUrl;
+      });
+      const MAX_SIDE = 1600;
+      const scale = Math.min(1, MAX_SIDE / Math.max(img.naturalWidth, img.naturalHeight));
+      const w = Math.max(1, Math.round(img.naturalWidth * scale));
+      const h = Math.max(1, Math.round(img.naturalHeight * scale));
+      const canvas = document.createElement("canvas");
+      canvas.width = w;
+      canvas.height = h;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return file;
+      ctx.drawImage(img, 0, 0, w, h);
+      const blob = await new Promise<Blob | null>((resolve) =>
+        canvas.toBlob(resolve, "image/jpeg", 0.85),
+      );
+      if (!blob || blob.size >= file.size) return file;
+      const name = file.name.replace(/\.[^.]+$/, "") + ".jpg";
+      return new File([blob], name, { type: "image/jpeg" });
+    } finally {
+      URL.revokeObjectURL(objectUrl);
+    }
+  }
+
   async function uploadAll() {
     setUploading(true);
     setError(null);
     try {
       for (const item of previews) {
+        const prepared = await compressImage(item.file);
+        if (prepared.size > 4_000_000) {
+          throw new Error("Файл слишком большой — сожмите фото до 4 МБ и попробуйте снова");
+        }
         const form = new FormData();
-        form.append("file", item.file);
+        form.append("file", prepared);
         const res = await fetch("/api/admin/upload", { method: "POST", body: form });
-        const json = await res.json();
-        if (!res.ok) throw new Error(json.error ?? "Ошибка загрузки");
+        const text = await res.text();
+        let json: { url?: string; error?: string };
+        try {
+          json = JSON.parse(text);
+        } catch {
+          throw new Error(
+            res.status === 413
+              ? "Файл слишком большой для загрузки"
+              : `Сервер ответил ошибкой (${res.status}) — попробуйте ещё раз`,
+          );
+        }
+        if (!res.ok || !json.url) throw new Error(json.error ?? "Ошибка загрузки");
         const added = await addProductImageAction(productId, json.url);
         if (!added.ok) throw new Error(added.error ?? "Не удалось сохранить");
         URL.revokeObjectURL(item.url);
