@@ -41,9 +41,6 @@ export function Footer() {
           </p>
         </div>
       </div>
-      <div className="border-t border-zinc-100 py-4 text-center text-xs text-zinc-400">
-        © {new Date().getFullYear()} Styleberries. Демонстрационная платформа.
-      </div>
     </footer>
   );
 }

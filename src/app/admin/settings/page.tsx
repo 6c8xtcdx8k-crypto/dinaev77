@@ -22,8 +22,7 @@ export default async function AdminSettingsPage() {
         <h2 className="mb-3 font-bold">Сменить пароль</h2>
         <PasswordForm />
         <p className="mt-3 text-xs text-zinc-400">
-          Если магазин запускался с демо-паролем — смените его сразу:
-          демо-данные общеизвестны.
+          Если магазин запускался со стандартным паролем — смените его сразу.
         </p>
       </div>
     </div>
