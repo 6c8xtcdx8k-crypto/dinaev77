@@ -3,9 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { prisma } from "@/lib/db";
 import { formatPrice } from "@/lib/money";
-import { getPaymentInfo } from "@/lib/payment";
 import { IconCheckCircle } from "@/components/ui/icons";
-import { PaymentMethods } from "@/components/checkout/PaymentMethods";
 
 export const metadata: Metadata = { title: "Заказ оформлен" };
 export const dynamic = "force-dynamic";
@@ -22,8 +20,6 @@ export default async function CheckoutSuccessPage({
   });
   if (!order) notFound();
 
-  const pay = getPaymentInfo();
-
   return (
     <div className="container max-w-lg py-16 text-center">
       <IconCheckCircle className="!text-brand-500" />
@@ -33,19 +29,14 @@ export default async function CheckoutSuccessPage({
         <strong>{formatPrice(order.total)}</strong> оформлен.
       </p>
 
-      {/* Реквизиты оплаты: USDT и/или карта, у каждого — QR */}
-      {pay.configured ? (
-        <div className="card mt-6 p-5 text-left">
-          <PaymentMethods methods={pay.methods} />
-        </div>
-      ) : (
-        <div className="card mt-6 border-brand-200 bg-brand-50 p-5">
-          <p className="text-sm font-semibold text-brand-800">Как оплатить</p>
-          <p className="mt-1 text-sm text-brand-800/80">
-            Реквизиты для оплаты придут в чат с ботом Styleberries.
-          </p>
-        </div>
-      )}
+      {/* Реквизиты в приложении не показываем — их присылает бот в чат */}
+      <div className="card mt-6 border-brand-200 bg-brand-50 p-5">
+        <p className="text-sm font-semibold text-brand-800">Как оплатить</p>
+        <p className="mt-1 text-sm text-brand-800/80">
+          Реквизиты для оплаты и QR-коды бот Styleberries уже отправил вам в чат.
+          После оплаты пришлите туда чек — заказ подтвердим после проверки.
+        </p>
+      </div>
 
       <div className="card mt-5 p-5 text-left">
         <h2 className="mb-3 font-bold">Состав заказа</h2>

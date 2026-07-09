@@ -11,8 +11,6 @@ import {
   type OrderStatus,
 } from "@/lib/constants";
 import { OrderStatusBadge } from "@/components/account/OrderStatusBadge";
-import { getPaymentInfo } from "@/lib/payment";
-import { PaymentMethods } from "@/components/checkout/PaymentMethods";
 
 export const metadata: Metadata = { title: "Заказ" };
 export const dynamic = "force-dynamic";
@@ -44,24 +42,14 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
         Оформлен {new Date(order.createdAt).toLocaleString("ru-RU")}
       </p>
 
-      {order.status === "NEW" &&
-        (() => {
-          const pay = getPaymentInfo();
-          if (!pay.configured) {
-            return (
-              <div className="card mt-4 border-brand-200 bg-brand-50 p-4">
-                <p className="text-sm text-brand-800">
-                  Заказ ожидает оплаты — реквизиты придут в чат с ботом.
-                </p>
-              </div>
-            );
-          }
-          return (
-            <div className="card mt-4 p-4">
-              <PaymentMethods methods={pay.methods} compact />
-            </div>
-          );
-        })()}
+      {order.status === "NEW" && (
+        <div className="card mt-4 border-brand-200 bg-brand-50 p-4">
+          <p className="text-sm text-brand-800">
+            Заказ ожидает оплаты — реквизиты и QR-коды бот отправил вам в чат.
+            После оплаты пришлите туда чек.
+          </p>
+        </div>
+      )}
 
       <section className="card mt-5 p-5">
         <h2 className="mb-3 font-bold">Состав заказа</h2>
@@ -85,10 +73,12 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
             <dt className="text-zinc-500">Товары</dt>
             <dd>{formatPrice(order.subtotal)}</dd>
           </div>
-          <div className="flex justify-between">
-            <dt className="text-zinc-500">Доставка</dt>
-            <dd>{order.deliveryCost === 0 ? "за счёт покупателя (СДЭК)" : formatPrice(order.deliveryCost)}</dd>
-          </div>
+          {order.deliveryCost > 0 && (
+            <div className="flex justify-between">
+              <dt className="text-zinc-500">Доставка</dt>
+              <dd>{formatPrice(order.deliveryCost)}</dd>
+            </div>
+          )}
           <div className="flex justify-between text-base font-bold">
             <dt>Итого</dt>
             <dd>{formatPrice(order.total)}</dd>

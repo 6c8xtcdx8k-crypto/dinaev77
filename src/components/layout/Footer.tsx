@@ -37,9 +37,7 @@ export function Footer() {
         <div>
           <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-zinc-400">Доставка и оплата</h3>
           <p className="text-sm text-zinc-500">
-            Доставка по всей России через СДЭК — до ближайшего пункта выдачи,
-            тариф оплачивается покупателем при получении.
-            Оплата USDT (TRC-20) или картой.
+            Доставка по всей России через СДЭК — до ближайшего пункта выдачи.
           </p>
         </div>
       </div>

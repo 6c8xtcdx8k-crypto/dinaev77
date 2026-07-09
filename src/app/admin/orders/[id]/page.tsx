@@ -63,10 +63,12 @@ export default async function AdminOrderPage({ params }: { params: Promise<{ id:
             <dt className="text-zinc-500">Товары</dt>
             <dd>{formatPrice(order.subtotal)}</dd>
           </div>
-          <div className="flex justify-between">
-            <dt className="text-zinc-500">Доставка</dt>
-            <dd>{order.deliveryCost === 0 ? "за счёт покупателя (СДЭК)" : formatPrice(order.deliveryCost)}</dd>
-          </div>
+          {order.deliveryCost > 0 && (
+            <div className="flex justify-between">
+              <dt className="text-zinc-500">Доставка</dt>
+              <dd>{formatPrice(order.deliveryCost)}</dd>
+            </div>
+          )}
           <div className="flex justify-between text-base font-bold">
             <dt>Итого</dt>
             <dd>{formatPrice(order.total)}</dd>

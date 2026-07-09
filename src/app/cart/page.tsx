@@ -89,9 +89,6 @@ export default async function CartPage() {
               <dd>{formatPrice(subtotal)}</dd>
             </div>
           </dl>
-          <p className="mt-2 text-xs text-zinc-400">
-            Доставка СДЭК за счёт покупателя — тариф оплачивается при получении.
-          </p>
           <Link href="/checkout" className="btn-primary mt-4 w-full !py-3">
             Перейти к оформлению
           </Link>

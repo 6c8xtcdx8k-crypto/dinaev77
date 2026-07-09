@@ -41,11 +41,6 @@ export function getPaymentMethods(): PaymentMethod[] {
   return methods;
 }
 
-export function getPaymentInfo() {
-  const methods = getPaymentMethods();
-  return { methods, configured: methods.length > 0 };
-}
-
 /** URL картинки с QR-кодом (обслуживается /api/qr). */
 export function qrUrlFor(data: string, baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? ""): string {
   return `${baseUrl}/api/qr?data=${encodeURIComponent(data)}`;
