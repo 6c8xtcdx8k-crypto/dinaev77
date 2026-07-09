@@ -64,6 +64,11 @@ fi
 echo "==> Собираю и запускаю (первая сборка занимает несколько минут)…"
 docker compose up -d --build
 
+echo "==> Включаю автообновление из GitHub (каждые 10 минут)…"
+chmod +x "$DIR/deploy/auto-update.sh"
+CRON_LINE="*/10 * * * * $DIR/deploy/auto-update.sh >> /var/log/styleberries-update.log 2>&1"
+( crontab -l 2>/dev/null | grep -v "styleberries" ; echo "$CRON_LINE" ) | crontab -
+
 DOMAIN=$(grep '^DOMAIN=' .env | cut -d= -f2)
 echo
 echo "================================================================"
@@ -77,6 +82,8 @@ echo
 echo " Настроить Telegram-бота (после заполнения TELEGRAM_BOT_TOKEN в .env):"
 echo "   cd ${DIR} && docker compose exec app npx tsx scripts/setup-telegram.ts"
 echo
-echo " Логи:        docker compose logs -f app"
-echo " Обновление:  git pull && docker compose up -d --build"
+echo " Логи:            docker compose logs -f app"
+echo " Автообновление:  включено — новые версии кода из GitHub"
+echo "                  подтягиваются сами (проверка каждые 10 минут)."
+echo " Обновить сейчас: bash $DIR/deploy/auto-update.sh"
 echo "================================================================"
