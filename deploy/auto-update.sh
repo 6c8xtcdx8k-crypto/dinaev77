@@ -1,13 +1,17 @@
 #!/bin/bash
 # Автообновление Styleberries: если в GitHub появились новые коммиты —
 # подтянуть и пересобрать. Ставится в cron установщиком (install.sh),
-# запускается раз в 10 минут. Если обновлений нет — выходит мгновенно.
+# запускается каждую минуту; без обновлений выходит мгновенно.
 #
 # Логи: /var/log/styleberries-update.log
 set -euo pipefail
 
 DIR="/opt/styleberries"
 cd "$DIR"
+
+# Не запускаться поверх идущей сборки (сборка длится дольше минуты).
+exec 9>/tmp/styleberries-update.lock
+flock -n 9 || exit 0
 
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
