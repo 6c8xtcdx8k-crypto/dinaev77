@@ -12,7 +12,6 @@ export type CatalogFilters = {
   priceMin?: number; // копейки
   priceMax?: number;
   inStock?: boolean;
-  sale?: boolean;
   sort?: SortValue;
   page?: number;
 };
@@ -28,8 +27,6 @@ function buildWhere(f: CatalogFilters): Prisma.ProductWhereInput {
     const q = f.q.trim();
     where.OR = [{ name: { contains: q } }, { description: { contains: q } }];
   }
-  if (f.sale) where.discountPercent = { gt: 0 };
-
   // Фильтры по вариантам: размер/цвет/наличие должны совпадать в одном варианте.
   const variantAnd: Prisma.VariantWhereInput = {};
   if (f.sizes?.length) variantAnd.size = { in: f.sizes };
@@ -37,9 +34,6 @@ function buildWhere(f: CatalogFilters): Prisma.ProductWhereInput {
   if (f.inStock) variantAnd.stock = { gt: 0 };
   if (Object.keys(variantAnd).length > 0) where.variants = { some: variantAnd };
 
-  // Диапазон цен фильтруем по итоговой цене (basePrice со скидкой) ниже, в памяти
-  // страницы это дорого — поэтому фильтруем по basePrice консервативно на уровне SQL,
-  // а точную отсечку делаем после расчёта скидки.
   return where;
 }
 
@@ -51,8 +45,6 @@ function orderBy(sort: SortValue | undefined): Prisma.ProductOrderByWithRelation
       return [{ basePrice: "desc" }];
     case "new":
       return [{ createdAt: "desc" }];
-    case "discount":
-      return [{ discountPercent: "desc" }];
     case "rating":
       return [{ ratingAvg: "desc" }, { ratingCount: "desc" }];
     case "popular":

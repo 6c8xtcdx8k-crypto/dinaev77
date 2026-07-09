@@ -1,7 +1,6 @@
 import "server-only";
 import { prisma } from "@/lib/db";
 import { getCartLines } from "@/lib/cart";
-import { validatePromoCode } from "@/services/promo";
 import { sendEmail } from "@/services/email";
 import { orderCreatedEmail, orderStatusEmail } from "@/services/email/templates";
 import { escapeHtml, sendTelegramMessage, sendTelegramPhoto } from "@/lib/telegram";
@@ -23,7 +22,6 @@ export type CheckoutInput = {
   customerPhone: string;
   deliveryMethod: DeliveryMethod;
   deliveryAddress: string;
-  promoCode?: string;
 };
 
 export type CheckoutResult =
@@ -38,25 +36,15 @@ export function deliveryCostFor(method: DeliveryMethod, _subtotal: number): numb
 /**
  * Создание заказа из корзины. Атомарно (в транзакции):
  * проверяет и списывает остатки, фиксирует снимки позиций,
- * применяет промокод, очищает корзину.
+ * очищает корзину.
  */
 export async function createOrder(input: CheckoutInput): Promise<CheckoutResult> {
   const lines = await getCartLines(input.cartId);
   if (lines.length === 0) return { ok: false, error: "Корзина пуста" };
 
   const subtotal = lines.reduce((sum, l) => sum + l.price * l.qty, 0);
-
-  let promoId: string | null = null;
-  let discountTotal = 0;
-  if (input.promoCode) {
-    const check = await validatePromoCode(input.promoCode, subtotal);
-    if (!check.ok) return { ok: false, error: check.error };
-    promoId = check.promo.id;
-    discountTotal = check.discount;
-  }
-
-  const deliveryCost = deliveryCostFor(input.deliveryMethod, subtotal - discountTotal);
-  const total = subtotal - discountTotal + deliveryCost;
+  const deliveryCost = deliveryCostFor(input.deliveryMethod, subtotal);
+  const total = subtotal + deliveryCost;
 
   try {
     const order = await prisma.$transaction(async (tx) => {
@@ -76,20 +64,7 @@ export async function createOrder(input: CheckoutInput): Promise<CheckoutResult>
         });
       }
 
-      // 2. Учитываем использование промокода (тоже с защитой от гонок по лимиту).
-      if (promoId) {
-        const res = await tx.promoCode.updateMany({
-          where: {
-            id: promoId,
-            isActive: true,
-            OR: [{ usageLimit: null }, { usedCount: { lt: prisma.promoCode.fields.usageLimit } }],
-          },
-          data: { usedCount: { increment: 1 } },
-        });
-        if (res.count === 0) throw new Error("PROMO_EXHAUSTED");
-      }
-
-      // 3. Создаём заказ со снимками позиций. Номер — max+1 внутри
+      // 2. Создаём заказ со снимками позиций. Номер — max+1 внутри
       //    транзакции; unique-констрейнт страхует от коллизий.
       const lastNumber = await tx.order.aggregate({ _max: { number: true } });
       const created = await tx.order.create({
@@ -103,10 +78,8 @@ export async function createOrder(input: CheckoutInput): Promise<CheckoutResult>
           deliveryAddress: input.deliveryAddress,
           deliveryCost,
           subtotal,
-          discountTotal,
           total,
-          promoCodeId: promoId,
-          paymentProvider: "manager", // оплата вручную через менеджера (карта/крипта)
+          paymentProvider: "manual", // оплата USDT/картой, подтверждает владелец
           items: {
             create: lines.map((l) => ({
               variantId: l.variantId,
@@ -160,9 +133,6 @@ export async function createOrder(input: CheckoutInput): Promise<CheckoutResult>
     const msg = err instanceof Error ? err.message : "";
     if (msg.startsWith("OUT_OF_STOCK:")) {
       return { ok: false, error: `Недостаточно на складе: ${msg.slice("OUT_OF_STOCK:".length)}` };
-    }
-    if (msg === "PROMO_EXHAUSTED") {
-      return { ok: false, error: "Лимит использований промокода исчерпан" };
     }
     console.error("[orders] createOrder failed:", err);
     return { ok: false, error: "Не удалось оформить заказ, попробуйте ещё раз" };

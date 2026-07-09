@@ -80,14 +80,6 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
           <div className="mt-4 flex items-baseline gap-3">
             <span className="text-3xl font-extrabold">{formatPrice(product.basePrice)}</span>
-            {product.oldPrice && product.oldPrice > product.basePrice && (
-              <>
-                <span className="text-lg text-zinc-400 line-through">
-                  {formatPrice(product.oldPrice)}
-                </span>
-                <span className="badge bg-brand-400 text-white">−{product.discountPercent}%</span>
-              </>
-            )}
           </div>
 
           <div className="mt-6 flex items-start gap-3">

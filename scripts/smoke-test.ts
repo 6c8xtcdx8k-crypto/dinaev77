@@ -1,6 +1,6 @@
 /**
  * Сквозной smoke-тест бизнес-логики против реальной БД:
- * корзина → промокод → заказ (списание остатков) → оплата → сборка → отмена (возврат остатков).
+ * корзина → заказ (списание остатков) → оплата → сборка → отмена (возврат остатков).
  *
  * Запуск: NODE_OPTIONS="--conditions=react-server" npx tsx scripts/smoke-test.ts
  * (условие react-server отключает guard пакета "server-only" вне Next.js)
@@ -8,7 +8,6 @@
 import { randomUUID } from "crypto";
 import { prisma } from "@/lib/db";
 import { createOrder, changeOrderStatus } from "@/services/orders";
-import { validatePromoCode } from "@/services/promo";
 
 let failures = 0;
 function check(cond: boolean, msg: string) {
@@ -30,14 +29,6 @@ async function main() {
     await prisma.cartItem.create({ data: { cartId: cart.id, variantId: v.id, qty: 2 } });
   }
 
-  // Промокод: валидный и невалидный
-  const bad = await validatePromoCode("NOPE", 100000);
-  check(!bad.ok, "несуществующий промокод отклонён");
-  const vip = await validatePromoCode("VIP20", 100000);
-  check(!vip.ok, "VIP20 отклонён при сумме ниже минимальной");
-  const good = await validatePromoCode("berry10", 100000);
-  check(good.ok && good.discount === 10000, "BERRY10 даёт 10% (регистронезависимо)");
-
   const stockBefore = new Map(variants.map((v) => [v.id, v.stock]));
 
   // Заказ
@@ -49,7 +40,6 @@ async function main() {
     customerPhone: "+7 999 111-22-33",
     deliveryMethod: "CDEK",
     deliveryAddress: "г. Москва, пункт СДЭК №1",
-    promoCode: "BERRY10",
   });
   check(res.ok, `заказ создан: ${res.ok ? `№${res.orderNumber}` : res.error}`);
   if (!res.ok) process.exit(1);
@@ -59,8 +49,7 @@ async function main() {
     include: { items: true, statusHistory: true },
   });
   check(order.items.length === 2, "в заказе 2 позиции-снимка");
-  check(order.discountTotal === Math.round(order.subtotal * 0.1), "скидка промокода = 10% подытога");
-  check(order.total === order.subtotal - order.discountTotal + order.deliveryCost, "итог сходится");
+  check(order.total === order.subtotal + order.deliveryCost, "итог сходится");
 
   for (const v of variants) {
     const after = await prisma.variant.findUniqueOrThrow({ where: { id: v.id } });
@@ -99,7 +88,6 @@ async function main() {
   // Уборка тестовых данных
   await prisma.order.deleteMany({ where: { customerEmail: "smoke@test.local" } });
   await prisma.cart.deleteMany({ where: { id: { in: [cart.id, cart2.id] } } });
-  await prisma.promoCode.update({ where: { code: "BERRY10" }, data: { usedCount: 0 } });
 
   console.log(failures === 0 ? "\nALL CHECKS PASSED" : `\n${failures} CHECK(S) FAILED`);
   process.exit(failures === 0 ? 0 : 1);

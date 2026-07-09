@@ -17,7 +17,6 @@ export default async function AdminOrderPage({ params }: { params: Promise<{ id:
     include: {
       items: true,
       statusHistory: { orderBy: { createdAt: "asc" } },
-      promoCode: true,
       user: { select: { email: true, telegramUsername: true } },
     },
   });
@@ -64,12 +63,6 @@ export default async function AdminOrderPage({ params }: { params: Promise<{ id:
             <dt className="text-zinc-500">Товары</dt>
             <dd>{formatPrice(order.subtotal)}</dd>
           </div>
-          {order.discountTotal > 0 && (
-            <div className="flex justify-between text-brand-700">
-              <dt>Промокод {order.promoCode?.code}</dt>
-              <dd>−{formatPrice(order.discountTotal)}</dd>
-            </div>
-          )}
           <div className="flex justify-between">
             <dt className="text-zinc-500">Доставка</dt>
             <dd>{formatPrice(order.deliveryCost)}</dd>

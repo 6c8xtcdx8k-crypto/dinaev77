@@ -47,7 +47,6 @@ export default async function AdminProductPage({
           categoryId: product.categoryId,
           gender: product.gender,
           priceRub: product.basePrice / 100,
-          oldPriceRub: product.oldPrice ? product.oldPrice / 100 : null,
           isActive: product.isActive,
         }}
       />

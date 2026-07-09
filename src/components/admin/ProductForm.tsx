@@ -12,7 +12,6 @@ export type ProductFormValues = {
   categoryId: string;
   gender: string;
   priceRub: number;
-  oldPriceRub: number | null;
   isActive: boolean;
 };
 
@@ -49,12 +48,6 @@ export function ProductForm({
   const [slug, setSlug] = useState(product?.slug ?? "");
   const [slugTouched, setSlugTouched] = useState(!!product?.id);
   const [price, setPrice] = useState(product ? String(product.priceRub) : "");
-  const [oldPrice, setOldPrice] = useState(product?.oldPriceRub ? String(product.oldPriceRub) : "");
-
-  const p = parseFloat(price);
-  const op = parseFloat(oldPrice);
-  const discount =
-    p > 0 && op > p ? Math.round((1 - p / op) * 100) : 0;
 
   return (
     <form action={formAction} className="card space-y-4 p-5">
@@ -124,33 +117,7 @@ export function ProductForm({
             className="input"
           />
         </label>
-        <label className="block text-sm">
-          <span className="mb-1 block font-medium">
-            Старая цена, ₽ <span className="font-normal text-zinc-400">— необязательно</span>
-          </span>
-          <input
-            name="oldPriceRub"
-            type="number"
-            step="0.01"
-            min="0"
-            value={oldPrice}
-            onChange={(e) => setOldPrice(e.target.value)}
-            placeholder="Для зачёркнутой цены"
-            className="input"
-          />
-        </label>
       </div>
-
-      {discount > 0 && (
-        <p className="animate-fade-up text-sm">
-          На карточке будет: <b>{p.toLocaleString("ru-RU")} ₽</b>{" "}
-          <span className="text-zinc-400 line-through">{op.toLocaleString("ru-RU")} ₽</span>{" "}
-          <span className="badge bg-gradient-to-r from-brand-400 to-brand-500 text-white">−{discount}%</span>
-        </p>
-      )}
-      {op > 0 && p > 0 && op <= p && (
-        <p className="text-sm text-red-600">Старая цена должна быть выше цены продажи — иначе она не покажется.</p>
-      )}
 
       <label className="flex items-center gap-2 text-sm font-medium">
         <input

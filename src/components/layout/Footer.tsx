@@ -23,7 +23,7 @@ export function Footer() {
             ["Одежда", "/catalog?category=clothing"],
             ["Сумки", "/catalog?category=bags"],
             ["Женщинам", "/catalog?gender=WOMEN"],
-            ["Скидки", "/catalog?sale=1"],
+            ["Новинки", "/catalog?sort=new"],
           ]}
         />
         <FooterCol

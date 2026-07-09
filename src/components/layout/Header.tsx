@@ -9,8 +9,7 @@ const NAV = [
   { href: "/catalog?category=bags", label: "Сумки" },
   { href: "/catalog?gender=WOMEN", label: "Женщинам" },
   { href: "/catalog?gender=MEN", label: "Мужчинам" },
-  { href: "/catalog?sort=new", label: "Новинки" },
-  { href: "/catalog?sale=1", label: "Скидки", accent: true },
+  { href: "/catalog?sort=new", label: "Новинки", accent: true },
 ];
 
 export async function Header() {

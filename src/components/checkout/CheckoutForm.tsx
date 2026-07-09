@@ -1,7 +1,7 @@
 "use client";
 
-import { useActionState, useState, useTransition } from "react";
-import { placeOrderAction, checkPromoAction, type CheckoutFormState } from "@/actions/checkout";
+import { useActionState } from "react";
+import { placeOrderAction, type CheckoutFormState } from "@/actions/checkout";
 import { formatPrice } from "@/lib/money";
 
 export function CheckoutForm({
@@ -15,28 +15,8 @@ export function CheckoutForm({
     placeOrderAction,
     undefined,
   );
-  const [promoInput, setPromoInput] = useState("");
-  const [promo, setPromo] = useState<{ code: string; discount: number } | null>(null);
-  const [promoError, setPromoError] = useState<string | null>(null);
-  const [checkingPromo, startPromoCheck] = useTransition();
 
-  const discount = promo?.discount ?? 0;
-  const total = subtotal - discount;
-
-  function applyPromo() {
-    const code = promoInput.trim();
-    if (!code) return;
-    setPromoError(null);
-    startPromoCheck(async () => {
-      const res = await checkPromoAction(code);
-      if (res.ok) {
-        setPromo({ code: res.code, discount: res.discount });
-      } else {
-        setPromo(null);
-        setPromoError(res.error);
-      }
-    });
-  }
+  const total = subtotal;
 
   return (
     <form action={formAction} className="grid gap-6 lg:grid-cols-[1fr_320px]">
@@ -74,33 +54,6 @@ export function CheckoutForm({
             Ближайший пункт можно посмотреть на cdek.ru — впишите его адрес.
           </p>
         </section>
-
-        <section className="card space-y-3 p-5">
-          <h2 className="text-lg font-bold">Промокод</h2>
-          <div className="flex gap-2">
-            <input
-              value={promoInput}
-              onChange={(e) => setPromoInput(e.target.value)}
-              placeholder="Например, BERRY10"
-              className="input uppercase"
-            />
-            <button
-              type="button"
-              onClick={applyPromo}
-              disabled={checkingPromo}
-              className="btn-secondary shrink-0"
-            >
-              {checkingPromo ? "…" : "Применить"}
-            </button>
-          </div>
-          <input type="hidden" name="promoCode" value={promo?.code ?? ""} />
-          {promo && (
-            <p className="text-sm font-medium text-brand-700">
-              ✓ Промокод {promo.code}: скидка {formatPrice(promo.discount)}
-            </p>
-          )}
-          {promoError && <p className="text-sm font-medium text-red-600">{promoError}</p>}
-        </section>
       </div>
 
       <aside className="card h-fit p-5 lg:sticky lg:top-36">
@@ -110,12 +63,6 @@ export function CheckoutForm({
             <dt className="text-zinc-500">Товары</dt>
             <dd>{formatPrice(subtotal)}</dd>
           </div>
-          {discount > 0 && (
-            <div className="flex justify-between text-brand-700">
-              <dt>Промокод</dt>
-              <dd>−{formatPrice(discount)}</dd>
-            </div>
-          )}
           <div className="flex justify-between">
             <dt className="text-zinc-500">Доставка СДЭК</dt>
             <dd className="text-zinc-500">при получении</dd>

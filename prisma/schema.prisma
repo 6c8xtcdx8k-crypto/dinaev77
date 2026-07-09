@@ -49,8 +49,6 @@ model Product {
   category        Category       @relation(fields: [categoryId], references: [id])
   gender          String // WOMEN | MEN | UNISEX
   basePrice       Int // цена продажи, копейки
-  oldPrice        Int? // старая (зачёркнутая) цена, копейки; null = без скидки
-  discountPercent Int            @default(0) // вычисляется из oldPrice, для бейджа и сортировки
   isActive        Boolean        @default(true)
   ratingAvg       Float          @default(0)
   ratingCount     Int            @default(0)
@@ -140,22 +138,6 @@ model CartItem {
   @@unique([cartId, variantId])
 }
 
-// ---------- Промокоды ----------
-
-model PromoCode {
-  id            String    @id @default(cuid())
-  code          String    @unique
-  type          String // PERCENT | FIXED
-  value         Int // % либо копейки
-  minOrderTotal Int       @default(0) // копейки
-  startsAt      DateTime?
-  endsAt        DateTime?
-  usageLimit    Int? // null = без ограничений
-  usedCount     Int       @default(0)
-  isActive      Boolean   @default(true)
-  orders        Order[]
-}
-
 // ---------- Заказы ----------
 
 model Order {
@@ -174,10 +156,7 @@ model Order {
   deliveryCost    Int                  @default(0)
   // деньги (копейки)
   subtotal        Int
-  discountTotal   Int                  @default(0)
   total           Int
-  promoCodeId     String?
-  promoCode       PromoCode?           @relation(fields: [promoCodeId], references: [id], onDelete: SetNull)
   // оплата
   paymentProvider String               @default("mock")
   paymentStatus   String               @default("PENDING") // PENDING | PAID | FAILED | REFUNDED
@@ -201,7 +180,7 @@ model OrderItem {
   productSlug String
   size        String
   color       String
-  price       Int // цена за единицу с учётом скидки товара, копейки
+  price       Int // цена за единицу на момент заказа, копейки
   qty         Int
 }
 

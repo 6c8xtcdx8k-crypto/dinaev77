@@ -26,10 +26,6 @@ export default async function CartPage() {
   }
 
   const subtotal = lines.reduce((s, l) => s + l.price * l.qty, 0);
-  const productDiscount = lines.reduce(
-    (s, l) => s + (l.oldPrice ? (l.oldPrice - l.price) * l.qty : 0),
-    0,
-  );
   const count = lines.reduce((s, l) => s + l.qty, 0);
 
   return (
@@ -74,11 +70,6 @@ export default async function CartPage() {
                   <CartItemControls itemId={line.itemId} qty={line.qty} maxQty={line.stock} />
                   <div className="text-right">
                     <div className="font-bold">{formatPrice(line.price * line.qty)}</div>
-                    {line.oldPrice && line.oldPrice > line.price && (
-                      <div className="text-xs text-zinc-400 line-through">
-                        {formatPrice(line.oldPrice * line.qty)}
-                      </div>
-                    )}
                   </div>
                 </div>
               </div>
@@ -91,21 +82,15 @@ export default async function CartPage() {
           <dl className="mt-3 space-y-2 text-sm">
             <div className="flex justify-between">
               <dt className="text-zinc-500">Товары, {count} шт.</dt>
-              <dd>{formatPrice(subtotal + productDiscount)}</dd>
+              <dd>{formatPrice(subtotal)}</dd>
             </div>
-            {productDiscount > 0 && (
-              <div className="flex justify-between text-brand-700">
-                <dt>Скидка</dt>
-                <dd>−{formatPrice(productDiscount)}</dd>
-              </div>
-            )}
             <div className="flex justify-between border-t border-zinc-100 pt-2 text-base font-bold">
               <dt>К оплате</dt>
               <dd>{formatPrice(subtotal)}</dd>
             </div>
           </dl>
           <p className="mt-2 text-xs text-zinc-400">
-            Промокод можно применить на шаге оформления.
+            Доставка СДЭК рассчитывается при получении.
           </p>
           <Link href="/checkout" className="btn-primary mt-4 w-full !py-3">
             Перейти к оформлению

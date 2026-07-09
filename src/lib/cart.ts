@@ -52,7 +52,6 @@ export type CartLine = {
   size: string;
   color: string;
   price: number; // цена продажи за единицу
-  oldPrice: number | null; // зачёркнутая цена (если есть скидка)
   qty: number;
   stock: number;
 };
@@ -80,7 +79,6 @@ export async function getCartLines(cartId: string): Promise<CartLine[]> {
     size: it.variant.size,
     color: it.variant.color,
     price: it.variant.product.basePrice,
-    oldPrice: it.variant.product.oldPrice,
     qty: it.qty,
     stock: it.variant.stock,
   }));

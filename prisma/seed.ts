@@ -1,6 +1,6 @@
 /**
  * Наполнение базы демо-данными: категории, товары с вариантами,
- * админ и тестовый покупатель, промокоды, отзывы.
+ * админ и тестовый покупатель, отзывы.
  * Изображения товаров генерируются как SVG в public/products/.
  *
  * Запуск: npm run db:seed
@@ -71,7 +71,6 @@ type SeedProduct = {
   category: string;
   gender: "WOMEN" | "MEN" | "UNISEX";
   priceRub: number;
-  discountPercent?: number;
 
   gradient: [string, string];
   colors: { name: string; hex: string }[];
@@ -81,19 +80,19 @@ type SeedProduct = {
 
 const PRODUCTS: SeedProduct[] = [
   // Одежда
-  { slug: "berry-hoodie", name: "Худи оверсайз с начёсом", description: "Плотное худи свободного кроя с начёсом внутри. Капюшон на шнурке, карман-кенгуру.\n\n• Состав: 80% хлопок, 20% полиэстер\n• Плотность: 340 г/м²", category: "clothing", gender: "UNISEX", priceRub: 3990, discountPercent: 20, gradient: ["#ffb0eb", "#cdeafd"], colors: [{ name: "Зелёный", hex: "#059669" }, { name: "Чёрный", hex: "#27272a" }, { name: "Серый", hex: "#9ca3af" }], sizes: ["XS", "S", "M", "L", "XL"] },
+  { slug: "berry-hoodie", name: "Худи оверсайз с начёсом", description: "Плотное худи свободного кроя с начёсом внутри. Капюшон на шнурке, карман-кенгуру.\n\n• Состав: 80% хлопок, 20% полиэстер\n• Плотность: 340 г/м²", category: "clothing", gender: "UNISEX", priceRub: 3990, gradient: ["#ffb0eb", "#cdeafd"], colors: [{ name: "Зелёный", hex: "#059669" }, { name: "Чёрный", hex: "#27272a" }, { name: "Серый", hex: "#9ca3af" }], sizes: ["XS", "S", "M", "L", "XL"] },
   { slug: "berry-tshirt-basic", name: "Футболка базовая Berry", description: "Базовая футболка из плотного хлопка. Прямой крой, укреплённая горловина, без принта.\n\n• Состав: 100% хлопок\n• Плотность: 190 г/м²", category: "clothing", gender: "UNISEX", priceRub: 1490, gradient: ["#acdefc", "#f2f9ff"], colors: [{ name: "Белый", hex: "#f4f4f5" }, { name: "Чёрный", hex: "#27272a" }, { name: "Зелёный", hex: "#059669" }], sizes: ["XS", "S", "M", "L", "XL", "XXL"] },
-  { slug: "berry-dress-midi", name: "Платье миди Berry Bloom", description: "Струящееся платье миди с цветочным настроением: приталенный силуэт, юбка полусолнце.\n\n• Состав: вискоза\n• Длина: миди", category: "clothing", gender: "WOMEN", priceRub: 5490, discountPercent: 15, gradient: ["#ffb0eb", "#fff0fa"], colors: [{ name: "Розовый", hex: "#f9a8d4" }, { name: "Чёрный", hex: "#27272a" }], sizes: ["XS", "S", "M", "L"] },
+  { slug: "berry-dress-midi", name: "Платье миди Berry Bloom", description: "Струящееся платье миди с цветочным настроением: приталенный силуэт, юбка полусолнце.\n\n• Состав: вискоза\n• Длина: миди", category: "clothing", gender: "WOMEN", priceRub: 5490, gradient: ["#ffb0eb", "#fff0fa"], colors: [{ name: "Розовый", hex: "#f9a8d4" }, { name: "Чёрный", hex: "#27272a" }], sizes: ["XS", "S", "M", "L"] },
   { slug: "berry-jeans-m", name: "Джинсы прямые мужские Berry", description: "Классические прямые джинсы средней посадки из плотного денима с лёгким эффектом потёртости.\n\n• Состав: 99% хлопок, 1% эластан", category: "clothing", gender: "MEN", priceRub: 4990, gradient: ["#8ad2fd", "#e3f4fe"], colors: [{ name: "Синий", hex: "#3b82f6" }, { name: "Чёрный", hex: "#27272a" }], sizes: ["S", "M", "L", "XL", "XXL"] },
-  { slug: "berry-puffer-w", name: "Куртка стёганая женская Berry Warm", description: "Утеплённая стёганая куртка с высоким воротником и скрытым капюшоном. Ветро- и влагозащита.\n\n• Утеплитель: синтепух 200 г\n• Температура: до −10°C", category: "clothing", gender: "WOMEN", priceRub: 8990, discountPercent: 25, gradient: ["#cdeafd", "#ffc9ef"], colors: [{ name: "Фиолетовый", hex: "#a855f7" }, { name: "Чёрный", hex: "#27272a" }], sizes: ["XS", "S", "M", "L", "XL"] },
+  { slug: "berry-puffer-w", name: "Куртка стёганая женская Berry Warm", description: "Утеплённая стёганая куртка с высоким воротником и скрытым капюшоном. Ветро- и влагозащита.\n\n• Утеплитель: синтепух 200 г\n• Температура: до −10°C", category: "clothing", gender: "WOMEN", priceRub: 8990, gradient: ["#cdeafd", "#ffc9ef"], colors: [{ name: "Фиолетовый", hex: "#a855f7" }, { name: "Чёрный", hex: "#27272a" }], sizes: ["XS", "S", "M", "L", "XL"] },
   { slug: "berry-shirt-m", name: "Рубашка оксфорд мужская Berry", description: "Рубашка из ткани оксфорд с воротником button-down. Слегка свободный крой, подходит и к джинсам, и к брюкам.\n\n• Состав: 100% хлопок", category: "clothing", gender: "MEN", priceRub: 3490, gradient: ["#acdefc", "#cdeafd"], colors: [{ name: "Голубой", hex: "#7dd3fc" }, { name: "Белый", hex: "#f4f4f5" }], sizes: ["S", "M", "L", "XL"] },
-  { slug: "berry-leggings-w", name: "Леггинсы спортивные Berry Move", description: "Леггинсы с высокой талией и утягивающим эффектом. Не просвечивают, быстро сохнут.\n\n• Состав: 75% нейлон, 25% эластан", category: "clothing", gender: "WOMEN", priceRub: 2490, discountPercent: 10, gradient: ["#ffe3f6", "#acdefc"], colors: [{ name: "Чёрный", hex: "#27272a" }, { name: "Зелёный", hex: "#059669" }], sizes: ["XS", "S", "M", "L"] },
+  { slug: "berry-leggings-w", name: "Леггинсы спортивные Berry Move", description: "Леггинсы с высокой талией и утягивающим эффектом. Не просвечивают, быстро сохнут.\n\n• Состав: 75% нейлон, 25% эластан", category: "clothing", gender: "WOMEN", priceRub: 2490, gradient: ["#ffe3f6", "#acdefc"], colors: [{ name: "Чёрный", hex: "#27272a" }, { name: "Зелёный", hex: "#059669" }], sizes: ["XS", "S", "M", "L"] },
   { slug: "berry-cap", name: "Кепка шестипанельная", description: "Классическая шестипанельная кепка с минималистичной вышивкой. Регулируемый ремешок сзади.\n\n• Состав: 100% хлопок", category: "clothing", gender: "UNISEX", priceRub: 1290, gradient: ["#ffc9ef", "#ffe3f6"], colors: [{ name: "Чёрный", hex: "#27272a" }, { name: "Зелёный", hex: "#059669" }], sizes: ["ONE SIZE"] },
   // Сумки (женские)
-  { slug: "berry-bag-tote", name: "Сумка-тоут женская Berry Tote", description: "Вместительная сумка-тоут из мягкой экокожи: помещается ноутбук 13″, внутри карман на молнии.\n\n• Материал: экокожа\n• Размер: 38 × 30 × 12 см\n• Подкладка: текстиль", category: "bags", gender: "WOMEN", priceRub: 4990, discountPercent: 15, gradient: ["#ffb0eb", "#acdefc"], colors: [{ name: "Чёрный", hex: "#27272a" }, { name: "Бежевый", hex: "#d6c7b0" }], sizes: ["ONE SIZE"] },
+  { slug: "berry-bag-tote", name: "Сумка-тоут женская Berry Tote", description: "Вместительная сумка-тоут из мягкой экокожи: помещается ноутбук 13″, внутри карман на молнии.\n\n• Материал: экокожа\n• Размер: 38 × 30 × 12 см\n• Подкладка: текстиль", category: "bags", gender: "WOMEN", priceRub: 4990, gradient: ["#ffb0eb", "#acdefc"], colors: [{ name: "Чёрный", hex: "#27272a" }, { name: "Бежевый", hex: "#d6c7b0" }], sizes: ["ONE SIZE"] },
   { slug: "berry-bag-cross", name: "Сумка кросс-боди Berry Mini", description: "Компактная сумка через плечо с регулируемым ремнём и золотистой фурнитурой. Для самого нужного: телефон, ключи, карты.\n\n• Материал: экокожа\n• Размер: 20 × 14 × 7 см", category: "bags", gender: "WOMEN", priceRub: 3490, gradient: ["#ffc9ef", "#fff0fa"], colors: [{ name: "Розовый", hex: "#f9a8d4" }, { name: "Чёрный", hex: "#27272a" }], sizes: ["ONE SIZE"] },
-  { slug: "berry-bag-shopper", name: "Шоппер женский Berry Daily", description: "Лёгкий шоппер на каждый день: выдерживает до 10 кг, складывается в собственный внутренний карман.\n\n• Материал: плотный хлопок\n• Размер: 40 × 35 см", category: "bags", gender: "WOMEN", priceRub: 2990, discountPercent: 20, gradient: ["#acdefc", "#ffe3f6"], colors: [{ name: "Бежевый", hex: "#d6c7b0" }, { name: "Голубой", hex: "#7dd3fc" }], sizes: ["ONE SIZE"] },
-  { slug: "berry-bag-clutch", name: "Клатч вечерний Berry Night", description: "Изящный клатч с цепочкой для вечернего выхода: магнитная застёжка, съёмный ремешок.\n\n• Материал: экокожа\n• Размер: 24 × 14 × 5 см", category: "bags", gender: "WOMEN", priceRub: 3990, discountPercent: 10, gradient: ["#cdeafd", "#ffc9ef"], colors: [{ name: "Чёрный", hex: "#27272a" }, { name: "Серебристый", hex: "#d4d4d8" }], sizes: ["ONE SIZE"] },
+  { slug: "berry-bag-shopper", name: "Шоппер женский Berry Daily", description: "Лёгкий шоппер на каждый день: выдерживает до 10 кг, складывается в собственный внутренний карман.\n\n• Материал: плотный хлопок\n• Размер: 40 × 35 см", category: "bags", gender: "WOMEN", priceRub: 2990, gradient: ["#acdefc", "#ffe3f6"], colors: [{ name: "Бежевый", hex: "#d6c7b0" }, { name: "Голубой", hex: "#7dd3fc" }], sizes: ["ONE SIZE"] },
+  { slug: "berry-bag-clutch", name: "Клатч вечерний Berry Night", description: "Изящный клатч с цепочкой для вечернего выхода: магнитная застёжка, съёмный ремешок.\n\n• Материал: экокожа\n• Размер: 24 × 14 × 5 см", category: "bags", gender: "WOMEN", priceRub: 3990, gradient: ["#cdeafd", "#ffc9ef"], colors: [{ name: "Чёрный", hex: "#27272a" }, { name: "Серебристый", hex: "#d4d4d8" }], sizes: ["ONE SIZE"] },
 ];
 
 async function main() {
@@ -139,10 +138,6 @@ async function main() {
   // Товары
   for (const [i, p] of PRODUCTS.entries()) {
     const imageUrl = makeImage(p.slug, p.name, p.gradient[0], p.gradient[1]);
-    // priceRub в данных — цена ДО скидки; при скидке она становится
-    // «старой», а цена продажи считается со скидкой.
-    const d = p.discountPercent ?? 0;
-    const salePrice = d > 0 ? Math.round((p.priceRub * (100 - d)) / 100) * 100 : p.priceRub * 100;
     const product = await prisma.product.upsert({
       where: { slug: p.slug },
       update: {},
@@ -152,9 +147,7 @@ async function main() {
         description: p.description,
         categoryId: catBySlug[p.category],
         gender: p.gender,
-        basePrice: salePrice,
-        oldPrice: d > 0 ? p.priceRub * 100 : null,
-        discountPercent: d,
+        basePrice: p.priceRub * 100,
         salesCount: Math.max(0, 120 - i * 7),
         images: { create: [{ url: imageUrl, alt: p.name, sort: 0 }] },
         variants: {
@@ -193,20 +186,9 @@ async function main() {
     }
   }
 
-  // Промокоды
-  const promos = [
-    { code: "BERRY10", type: "PERCENT", value: 10, minOrderTotal: 0, usageLimit: null as number | null },
-    { code: "SUMMER500", type: "FIXED", value: 50000, minOrderTotal: 300000, usageLimit: 100 },
-    { code: "VIP20", type: "PERCENT", value: 20, minOrderTotal: 1000000, usageLimit: 20 },
-  ];
-  for (const promo of promos) {
-    await prisma.promoCode.upsert({ where: { code: promo.code }, update: {}, create: promo });
-  }
-
   console.log("Seed complete.");
   console.log(`  Админ:      ${adminEmail} / ${process.env.ADMIN_PASSWORD ? "(пароль из ADMIN_PASSWORD)" : "admin123"}`);
   console.log(`  Покупатель: customer@example.com / customer123`);
-  console.log(`  Промокоды:  BERRY10 (−10%), SUMMER500 (−500₽ от 3000₽), VIP20 (−20% от 10000₽)`);
   void admin;
 }
 

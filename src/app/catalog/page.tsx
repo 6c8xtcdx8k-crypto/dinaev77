@@ -44,7 +44,6 @@ export default async function CatalogPage({
     priceMin: priceMin ? Math.round(Number(priceMin) * 100) : undefined,
     priceMax: priceMax ? Math.round(Number(priceMax) * 100) : undefined,
     inStock: asString(sp.inStock) === "1",
-    sale: asString(sp.sale) === "1",
     sort: (asString(sp.sort) as SortValue) ?? "popular",
     page: Number(asString(sp.page)) || 1,
   };

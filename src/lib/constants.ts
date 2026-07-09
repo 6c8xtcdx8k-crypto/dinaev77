@@ -56,7 +56,6 @@ export const SORT_OPTIONS = [
   { value: "price_asc", label: "Сначала дешевле" },
   { value: "price_desc", label: "Сначала дороже" },
   { value: "new", label: "Новинки" },
-  { value: "discount", label: "По размеру скидки" },
   { value: "rating", label: "По рейтингу" },
 ] as const;
 

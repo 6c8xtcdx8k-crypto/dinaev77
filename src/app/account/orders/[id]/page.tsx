@@ -27,7 +27,6 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
     include: {
       items: true,
       statusHistory: { orderBy: { createdAt: "asc" } },
-      promoCode: true,
     },
   });
   if (!order) notFound();
@@ -86,15 +85,9 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
             <dt className="text-zinc-500">Товары</dt>
             <dd>{formatPrice(order.subtotal)}</dd>
           </div>
-          {order.discountTotal > 0 && (
-            <div className="flex justify-between text-brand-700">
-              <dt>Скидка {order.promoCode ? `(${order.promoCode.code})` : ""}</dt>
-              <dd>−{formatPrice(order.discountTotal)}</dd>
-            </div>
-          )}
           <div className="flex justify-between">
             <dt className="text-zinc-500">Доставка</dt>
-            <dd>{order.deliveryCost === 0 ? "Бесплатно" : formatPrice(order.deliveryCost)}</dd>
+            <dd>{order.deliveryCost === 0 ? "СДЭК (при получении)" : formatPrice(order.deliveryCost)}</dd>
           </div>
           <div className="flex justify-between text-base font-bold">
             <dt>Итого</dt>

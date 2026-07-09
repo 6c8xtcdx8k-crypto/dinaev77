@@ -6,7 +6,6 @@ import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
 import { requireAdmin } from "@/lib/auth";
 import { changeOrderStatus } from "@/services/orders";
-import { discountPercentFrom } from "@/lib/money";
 import type { OrderStatus } from "@/lib/constants";
 
 /** Обновляет витрину после изменения товара: каталог, главную и карточку. */
@@ -31,7 +30,6 @@ const productSchema = z.object({
   categoryId: z.string().min(1, "Выберите категорию"),
   gender: z.enum(["WOMEN", "MEN", "UNISEX"]),
   priceRub: z.coerce.number().positive("Цена должна быть больше нуля"),
-  oldPriceRub: z.coerce.number().min(0).optional(),
   isActive: z.boolean(),
 });
 
@@ -43,17 +41,8 @@ function parseProductForm(formData: FormData) {
     categoryId: formData.get("categoryId"),
     gender: formData.get("gender"),
     priceRub: formData.get("priceRub"),
-    oldPriceRub: formData.get("oldPriceRub") || 0,
     isActive: formData.get("isActive") === "on",
   });
-}
-
-/** Цена продажи + старая цена → поля БД (копейки, процент для бейджа). */
-function priceFields(priceRub: number, oldPriceRub?: number) {
-  const basePrice = Math.round(priceRub * 100);
-  const oldPrice =
-    oldPriceRub && oldPriceRub > priceRub ? Math.round(oldPriceRub * 100) : null;
-  return { basePrice, oldPrice, discountPercent: discountPercentFrom(basePrice, oldPrice) };
 }
 
 export async function createProductAction(
@@ -67,9 +56,9 @@ export async function createProductAction(
   const exists = await prisma.product.findUnique({ where: { slug: parsed.data.slug } });
   if (exists) return { error: "Товар с таким slug уже существует" };
 
-  const { priceRub, oldPriceRub, ...rest } = parsed.data;
+  const { priceRub, ...rest } = parsed.data;
   const product = await prisma.product.create({
-    data: { ...rest, ...priceFields(priceRub, oldPriceRub) },
+    data: { ...rest, basePrice: Math.round(priceRub * 100) },
   });
 
   revalidateProduct(product.slug);
@@ -90,10 +79,10 @@ export async function updateProductAction(
   });
   if (clash) return { error: "Товар с таким slug уже существует" };
 
-  const { priceRub, oldPriceRub, ...rest } = parsed.data;
+  const { priceRub, ...rest } = parsed.data;
   const updated = await prisma.product.update({
     where: { id: productId },
-    data: { ...rest, ...priceFields(priceRub, oldPriceRub) },
+    data: { ...rest, basePrice: Math.round(priceRub * 100) },
   });
 
   revalidateProduct(updated.slug);
@@ -136,11 +125,9 @@ export async function updateProductPriceAction(
     return { ok: false, error: "Цена должна быть больше нуля" };
   }
   const product = await prisma.product.findUniqueOrThrow({ where: { id: productId } });
-  const basePrice = Math.round(priceRub * 100);
-  const oldPrice = product.oldPrice && product.oldPrice > basePrice ? product.oldPrice : null;
   await prisma.product.update({
     where: { id: productId },
-    data: { basePrice, oldPrice, discountPercent: discountPercentFrom(basePrice, oldPrice) },
+    data: { basePrice: Math.round(priceRub * 100) },
   });
   revalidateProduct(product.slug);
   return { ok: true };
@@ -358,61 +345,3 @@ export async function setOrderStatusAction(
   return res.ok ? { ok: true } : { ok: false, error: res.error };
 }
 
-// ---------- Промокоды ----------
-
-const promoSchema = z.object({
-  code: z.string().min(2, "Код минимум 2 символа").transform((s) => s.trim().toUpperCase()),
-  type: z.enum(["PERCENT", "FIXED"]),
-  value: z.coerce.number().int().positive("Значение должно быть больше нуля"),
-  minOrderRub: z.coerce.number().min(0),
-  usageLimit: z.coerce.number().int().min(0),
-  endsAt: z.string().optional(),
-});
-
-export async function createPromoAction(
-  _prev: AdminFormState,
-  formData: FormData,
-): Promise<AdminFormState> {
-  await requireAdmin();
-  const parsed = promoSchema.safeParse({
-    code: formData.get("code"),
-    type: formData.get("type"),
-    value: formData.get("value"),
-    minOrderRub: formData.get("minOrderRub") || 0,
-    usageLimit: formData.get("usageLimit") || 0,
-    endsAt: (formData.get("endsAt") as string) || undefined,
-  });
-  if (!parsed.success) return { error: parsed.error.errors[0].message };
-
-  if (parsed.data.type === "PERCENT" && parsed.data.value > 100) {
-    return { error: "Процент скидки не может быть больше 100" };
-  }
-
-  const exists = await prisma.promoCode.findUnique({ where: { code: parsed.data.code } });
-  if (exists) return { error: "Промокод с таким кодом уже существует" };
-
-  await prisma.promoCode.create({
-    data: {
-      code: parsed.data.code,
-      type: parsed.data.type,
-      // PERCENT хранится как %, FIXED — в копейках
-      value: parsed.data.type === "FIXED" ? Math.round(parsed.data.value * 100) : parsed.data.value,
-      minOrderTotal: Math.round(parsed.data.minOrderRub * 100),
-      usageLimit: parsed.data.usageLimit > 0 ? parsed.data.usageLimit : null,
-      endsAt: parsed.data.endsAt ? new Date(parsed.data.endsAt) : null,
-    },
-  });
-
-  revalidatePath("/admin/promocodes");
-  return { success: true };
-}
-
-export async function togglePromoAction(promoId: string): Promise<void> {
-  await requireAdmin();
-  const promo = await prisma.promoCode.findUniqueOrThrow({ where: { id: promoId } });
-  await prisma.promoCode.update({
-    where: { id: promoId },
-    data: { isActive: !promo.isActive },
-  });
-  revalidatePath("/admin/promocodes");
-}

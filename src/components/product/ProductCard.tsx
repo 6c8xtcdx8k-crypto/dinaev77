@@ -6,8 +6,6 @@ export type ProductCardData = {
   slug: string;
   name: string;
   basePrice: number;
-  oldPrice: number | null;
-  discountPercent: number;
   ratingAvg: number;
   ratingCount: number;
   images: { url: string; alt?: string }[];
@@ -36,11 +34,6 @@ export function ProductCard({ product }: { product: ProductCardData }) {
             <img src="/logo.png" alt="" className="w-14 rounded-xl opacity-30" />
           </div>
         )}
-        {product.discountPercent > 0 && (
-          <span className="badge absolute left-2 top-2 bg-gradient-to-r from-brand-400 to-brand-500 text-white shadow-md transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3">
-            −{product.discountPercent}%
-          </span>
-        )}
       </div>
 
       <div className="flex flex-1 flex-col gap-1 p-3">
@@ -48,9 +41,6 @@ export function ProductCard({ product }: { product: ProductCardData }) {
           <span className="text-lg font-extrabold text-zinc-900 transition-colors duration-300 group-hover:text-brand-700">
             {formatPrice(product.basePrice)}
           </span>
-          {product.oldPrice && product.oldPrice > product.basePrice && (
-            <span className="text-sm text-zinc-400 line-through">{formatPrice(product.oldPrice)}</span>
-          )}
         </div>
         <span className="line-clamp-2 text-sm text-zinc-600">{product.name}</span>
         <div className="mt-auto pt-1">

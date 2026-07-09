@@ -1,7 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { prisma } from "@/lib/db";
-import { formatPrice } from "@/lib/money";
 import { QuickPrice, ActiveToggle } from "@/components/admin/QuickEdit";
 
 export const metadata: Metadata = { title: "Товары — админка" };
@@ -71,7 +70,6 @@ export default async function AdminProductsPage({
               <th className="p-3">Товар</th>
               <th className="p-3">Категория</th>
               <th className="p-3">Цена (быстрое ред.)</th>
-              <th className="p-3">Старая</th>
               <th className="p-3">Остаток</th>
               <th className="p-3">Статус</th>
             </tr>
@@ -79,7 +77,7 @@ export default async function AdminProductsPage({
           <tbody className="divide-y divide-zinc-50">
             {products.length === 0 && (
               <tr>
-                <td colSpan={6} className="p-6 text-center text-zinc-400">
+                <td colSpan={5} className="p-6 text-center text-zinc-400">
                   Ничего не найдено
                 </td>
               </tr>
@@ -104,16 +102,6 @@ export default async function AdminProductsPage({
                   <td className="p-3 text-zinc-500">{p.category.name}</td>
                   <td className="p-3">
                     <QuickPrice productId={p.id} priceRub={p.basePrice / 100} />
-                  </td>
-                  <td className="p-3 text-zinc-400">
-                    {p.oldPrice ? (
-                      <span className="line-through">{formatPrice(p.oldPrice)}</span>
-                    ) : (
-                      "—"
-                    )}
-                    {p.discountPercent > 0 && (
-                      <span className="ml-1 text-xs font-bold text-brand-500">−{p.discountPercent}%</span>
-                    )}
                   </td>
                   <td className={`p-3 font-medium ${stock === 0 ? "text-red-600" : stock <= 5 ? "text-brand-600" : ""}`}>
                     {stock} шт.

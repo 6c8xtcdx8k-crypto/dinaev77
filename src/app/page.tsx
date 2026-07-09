@@ -14,23 +14,16 @@ const TILES = [
 
 const MARQUEE = [
   "Доставка по всей России через СДЭК",
-  "Промокод BERRY10 — скидка 10%",
   "Новая коллекция уже в каталоге",
-  "Скидки до 30%",
   "Одежда и сумки для женщин и мужчин",
+  "Тысячи довольных покупателей",
 ];
 
 export default async function HomePage() {
-  const [newArrivals, saleItems, popular] = await Promise.all([
+  const [newArrivals, popular] = await Promise.all([
     prisma.product.findMany({
       where: { isActive: true },
       orderBy: { createdAt: "desc" },
-      take: 4,
-      include: { images: { orderBy: { sort: "asc" }, take: 1 } },
-    }),
-    prisma.product.findMany({
-      where: { isActive: true, discountPercent: { gt: 0 } },
-      orderBy: { discountPercent: "desc" },
       take: 4,
       include: { images: { orderBy: { sort: "asc" }, take: 1 } },
     }),
@@ -53,7 +46,7 @@ export default async function HomePage() {
           className="pointer-events-none absolute right-8 top-10 hidden rotate-12 select-none rounded-full bg-white/60 px-5 py-3 text-sm font-extrabold text-sky-700 shadow-card backdrop-blur-md animate-float sm:block"
           aria-hidden
         >
-          −30% на хиты
+          Новая коллекция
         </span>
         <span
           className="pointer-events-none absolute bottom-12 right-24 hidden -rotate-6 select-none rounded-full bg-white/60 px-5 py-3 text-sm font-extrabold text-brand-700 shadow-card backdrop-blur-md animate-float-slow lg:block"
@@ -73,9 +66,8 @@ export default async function HomePage() {
           className="mt-5 max-w-md animate-fade-up text-lg font-medium text-[#2c2c2c]"
           style={{ animationDelay: ".24s" }}
         >
-          Одежда для женщин и мужчин: худи, платья, джинсы и не только. Скидки до 30% и промокод{" "}
-          <span className="rounded-full bg-white/70 px-2.5 py-0.5 font-mono font-bold text-brand-700">BERRY10</span>{" "}
-          на первый заказ.
+          Одежда для женщин и мужчин и женские сумки: худи, платья, джинсы и не только.
+          Доставка по всей России через СДЭК.
         </p>
         <div className="mt-8 flex flex-wrap gap-3 animate-fade-up" style={{ animationDelay: ".36s" }}>
           <Link href="/catalog" className="btn-primary group !px-8 !py-3.5 text-base">
@@ -83,10 +75,10 @@ export default async function HomePage() {
             <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
           </Link>
           <Link
-            href="/catalog?sale=1"
+            href="/catalog?sort=new"
             className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-3.5 font-bold text-sky-700 shadow-card transition-all duration-300 hover:-translate-y-0.5 hover:shadow-card-hover active:scale-95"
           >
-            Товары со скидкой
+            Новинки
           </Link>
         </div>
       </section>
@@ -129,8 +121,7 @@ export default async function HomePage() {
         ))}
       </Reveal>
 
-      <ProductRow title="Хиты продаж" href="/catalog" products={popular} />
-      <ProductRow title="Скидки" href="/catalog?sale=1" products={saleItems} accent />
+      <ProductRow title="Хиты продаж" href="/catalog" products={popular} accent />
       <ProductRow title="Новинки" href="/catalog?sort=new" products={newArrivals} />
     </div>
   );
