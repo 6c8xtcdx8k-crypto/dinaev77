@@ -29,7 +29,8 @@ export type CheckoutResult =
   | { ok: false; error: string };
 
 export function deliveryCostFor(method: DeliveryMethod, _subtotal: number): number {
-  // Доставка СДЭК в сумму заказа не включается (тариф оплачивается при получении).
+  // Доставка СДЭК за счёт покупателя: в сумму заказа не включается,
+  // тариф оплачивается при получении.
   return DELIVERY_METHODS[method]?.cost ?? 0;
 }
 
@@ -282,8 +283,7 @@ async function notifyOrdersChat(
     const items = lines
       .map((l) => `• ${escapeHtml(l.name)} — ${escapeHtml(l.size)}, ${escapeHtml(l.color)} × ${l.qty} (${formatPrice(l.price * l.qty)})`)
       .join("\n");
-    const delivery =
-      info.deliveryMethod === "COURIER" ? "Курьер" : "Пункт выдачи";
+    const delivery = "СДЭК (за счёт покупателя)";
     const base = process.env.NEXT_PUBLIC_BASE_URL ?? "";
 
     await sendTelegramMessage(

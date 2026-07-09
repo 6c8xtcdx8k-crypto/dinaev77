@@ -87,7 +87,7 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
           </div>
           <div className="flex justify-between">
             <dt className="text-zinc-500">Доставка</dt>
-            <dd>{order.deliveryCost === 0 ? "СДЭК (при получении)" : formatPrice(order.deliveryCost)}</dd>
+            <dd>{order.deliveryCost === 0 ? "за счёт покупателя (СДЭК)" : formatPrice(order.deliveryCost)}</dd>
           </div>
           <div className="flex justify-between text-base font-bold">
             <dt>Итого</dt>

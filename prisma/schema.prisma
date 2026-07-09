@@ -150,8 +150,8 @@ model Order {
   customerName    String
   customerEmail   String
   customerPhone   String
-  // доставка
-  deliveryMethod  String // COURIER | PICKUP
+  // доставка — только СДЭК, тариф за счёт покупателя (в total не входит)
+  deliveryMethod  String // CDEK
   deliveryAddress String
   deliveryCost    Int                  @default(0)
   // деньги (копейки)

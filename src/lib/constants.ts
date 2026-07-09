@@ -40,13 +40,10 @@ export const GENDER_LABELS: Record<Gender, string> = {
   UNISEX: "Унисекс",
 };
 
-// Доставка только через СДЭК. Стоимость доставки в заказ не включается —
-// тариф СДЭК оплачивается при получении / согласуется с менеджером.
+// Доставка только через СДЭК и только за счёт покупателя:
+// тариф СДЭК в сумму заказа не входит и оплачивается при получении.
 export const DELIVERY_METHODS = {
-  CDEK: { label: "СДЭК (пункт выдачи)", cost: 0, freeFrom: 0 },
-  // Метки для старых заказов, оформленных до перехода на СДЭК:
-  COURIER: { label: "Курьером до двери", cost: 0, freeFrom: 0 },
-  PICKUP: { label: "Пункт выдачи", cost: 0, freeFrom: 0 },
+  CDEK: { label: "СДЭК (пункт выдачи)", cost: 0 },
 } as const;
 
 export type DeliveryMethod = keyof typeof DELIVERY_METHODS;

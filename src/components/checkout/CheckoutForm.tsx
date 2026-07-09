@@ -40,7 +40,7 @@ export function CheckoutForm({
             <span className="flex-1">
               <span className="block font-bold">СДЭК — пункт выдачи</span>
               <span className="text-sm text-zinc-500">
-                Тариф СДЭК оплачивается при получении, в сумму заказа не входит
+                Доставка за счёт покупателя: тариф СДЭК оплачивается при получении и в сумму заказа не входит
               </span>
             </span>
           </div>
@@ -65,7 +65,7 @@ export function CheckoutForm({
           </div>
           <div className="flex justify-between">
             <dt className="text-zinc-500">Доставка СДЭК</dt>
-            <dd className="text-zinc-500">при получении</dd>
+            <dd className="text-zinc-500">за счёт покупателя</dd>
           </div>
           <div className="flex justify-between border-t border-zinc-100 pt-2 text-base font-bold">
             <dt>Итого</dt>
