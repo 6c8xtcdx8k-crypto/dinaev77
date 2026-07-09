@@ -124,6 +124,20 @@ async function main() {
       role: "ADMIN",
     },
   });
+
+  // Демо-данные заливаются только в пустую базу: повторный сид (например,
+  // при каждом деплое) не возвращает товары, которые владелец удалил.
+  const productCount = await prisma.product.count();
+  if (productCount > 0 || process.env.SEED_DEMO === "0") {
+    // SVG-заглушки всё равно регенерируем: файлы не хранятся в git,
+    // а существующие демо-товары могут ссылаться на них.
+    for (const p of PRODUCTS) makeImage(p.slug, p.name, p.gradient[0], p.gradient[1]);
+    console.log(`Seed: база не пуста (товаров: ${productCount}) — демо-данные пропущены.`);
+    console.log(`  Админ: ${adminEmail}`);
+    void admin;
+    return;
+  }
+
   const customer = await prisma.user.upsert({
     where: { email: "customer@example.com" },
     update: {},

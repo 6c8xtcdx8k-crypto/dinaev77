@@ -22,3 +22,6 @@ prisma/*.db-journal
 
 # загруженные файлы (изображения товаров)
 data/
+
+# генерируется vercel-build (провайдер postgres)
+prisma/schema.pg.prisma

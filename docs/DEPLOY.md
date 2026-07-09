@@ -1,9 +1,34 @@
 # Деплой Styleberries
 
-Три проверенных пути — выберите по ситуации. Для Telegram Mini App нужен
-публичный HTTPS-адрес; все варианты ниже его дают.
+Для Telegram Mini App нужен публичный HTTPS-адрес; все варианты ниже его дают.
 
-## Вариант А: любой VPS одной командой (рекомендуется из России)
+## Вариант Vercel (рекомендуется, бесплатно)
+
+Код уже адаптирован: скрипт `vercel-build` переключает Prisma на PostgreSQL,
+накатывает схему, сидирует базу (демо-данные — только в пустую) и собирает
+приложение; фото товаров при наличии `BLOB_READ_WRITE_TOKEN` уходят в
+Vercel Blob.
+
+1. vercel.com → **Add New → Project** → Import Git Repository →
+   `6c8xtcdx8k-crypto/dinaev77`.
+2. Settings → **Git → Production Branch** → `claude/styleberries-ecommerce-6lqyv1`.
+3. Storage → **Create Database → Neon (Postgres)** → подключить к проекту
+   (переменная `DATABASE_URL` добавится сама).
+4. Storage → **Create → Blob** (добавится `BLOB_READ_WRITE_TOKEN`).
+5. Settings → Environment Variables (Production):
+   - `AUTH_SECRET` — длинная случайная строка (32+ символов)
+   - `ADMIN_EMAIL`, `ADMIN_PASSWORD` — доступ в админку
+   - `TELEGRAM_BOT_TOKEN`, `TELEGRAM_WEBHOOK_SECRET` (случайная строка)
+   - `PAYMENT_USDT_TRC20`, `PAYMENT_CARD`, `PAYMENT_CARD_QR` (опционально)
+   - `ORDERS_CHAT_ID` — id чата владельца (бот подскажет по команде /id)
+   - `NEXT_PUBLIC_BASE_URL` — `https://<проект>.vercel.app` (после первого
+     деплоя, затем Redeploy)
+6. Deploy. После деплоя зайдите в `/admin` → Настройки → **«Подключить
+   бота»** — webhook и кнопка меню настроятся одним кликом.
+
+Каждый push в production-ветку пересобирает сайт автоматически.
+
+## Вариант VPS одной командой (если Vercel недоступен)
 
 Подходит любой хостинг с VPS на Ubuntu/Debian: Timeweb Cloud, Beget, reg.ru,
 Selectel и т.д. Хватит минимальной конфигурации (1 CPU / 1–2 ГБ RAM,
