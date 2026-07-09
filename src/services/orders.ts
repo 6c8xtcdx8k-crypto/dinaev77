@@ -273,8 +273,8 @@ export async function sendPaymentRequisites(
     await sendTelegramMessage(
       user.telegramId,
       `${hi}\n\nВаш заказ <b>№${orderNumber}</b> на <b>${formatPrice(total)}</b> принят. 🛍\n\n` +
-        `Оплатить можно одним из способов ниже. После оплаты пришлите сюда скриншот — ` +
-        `я подтвержу заказ. Жду оплату 🙌`,
+        `Оплатить можно одним из способов ниже. После оплаты пришлите сюда чек — ` +
+        `и дождитесь подтверждения: проверю поступление и подтвержу заказ. Жду оплату 🙌`,
     );
     for (const m of methods) {
       const caption =

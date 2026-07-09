@@ -9,7 +9,7 @@ import { getPaymentMethods, qrUrlFor } from "@/lib/payment";
  * Что умеет бот сам:
  *  - /start и кнопка «Открыть магазин» → Mini App;
  *  - /pay, «оплата», «реквизиты» → кошелёк USDT TRC-20 + QR-код;
- *  - «оплатил», «чек», скриншот/фото → благодарность + сигнал владельцу;
+ *  - «оплатил», чек/фото → просьба подождать проверку + сигнал владельцу;
  *  - любой другой вопрос → подсказка с кнопкой магазина;
  *  - /id → id чата (для настройки ORDERS_CHAT_ID).
  * О каждом присланном подтверждении оплаты владелец получает сообщение
@@ -32,6 +32,7 @@ export async function POST(req: Request) {
       from?: { first_name?: string; username?: string };
       text?: string;
       photo?: unknown[];
+      document?: unknown;
       caption?: string;
     };
   };
@@ -48,6 +49,7 @@ export async function POST(req: Request) {
   const text = (msg.text ?? msg.caption ?? "").trim();
   const lower = text.toLowerCase();
   const hasPhoto = Array.isArray(msg.photo) && msg.photo.length > 0;
+  const hasDocument = !!msg.document; // чек, присланный файлом (PDF)
   const firstName = msg.from?.first_name ? escapeHtml(msg.from.first_name) : "друг";
 
   try {
@@ -72,21 +74,27 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: true });
     }
 
-    // --- Подтверждение оплаты: скриншот или слова об оплате ---
-    if (hasPhoto || /оплат|перевёл|перевел|чек|скрин|квитанц|paid/.test(lower)) {
+    // --- Чек об оплате: фото/документ или явное подтверждение оплаты ---
+    // (вопросы «как оплатить» сюда не попадают — они уходят в блок реквизитов ниже)
+    if (
+      hasPhoto ||
+      hasDocument ||
+      /оплатил|оплатила|оплачен|перевёл|перевел|перевела|скинул|отправил чек|вот чек|чек|квитанц|paid/.test(lower)
+    ) {
       await sendTelegramMessage(
         chatId,
-        "Спасибо! 🙏 Получил, передаю на проверку. Как только оплата подтвердится — " +
-          "пришлю сообщение о статусе заказа. Обычно это занимает немного времени.",
+        "Спасибо, чек получил! 🙏\n\n" +
+          "Пожалуйста, подождите — проверяю поступление оплаты. " +
+          "Как только всё подтвердится, пришлю сообщение о статусе заказа. Это займёт немного времени 🙌",
       );
-      // Сигнал владельцу: клиент сообщил об оплате.
+      // Сигнал владельцу: клиент прислал чек — нужно проверить поступление.
       const ownerChat = process.env.ORDERS_CHAT_ID;
       if (ownerChat) {
         const who = msg.from?.username ? `@${escapeHtml(msg.from.username)}` : firstName;
         await sendTelegramMessage(
           ownerChat,
-          `💳 <b>${who}</b> сообщил(а) об оплате${hasPhoto ? " (прислан скриншот)" : ""}. ` +
-            `Проверьте поступление и подтвердите заказ в админке.`,
+          `💳 <b>${who}</b> прислал(а) чек об оплате. ` +
+            `Проверьте поступление и подтвердите заказ в админке (статус «Оплачен»).`,
         );
       }
       return NextResponse.json({ ok: true });
@@ -102,7 +110,7 @@ export async function POST(req: Request) {
             chatId,
             qrUrlFor(m.qrData),
             `<b>${m.title}</b>\n${m.label}:\n<code>${escapeHtml(m.value)}</code>\n\n` +
-              "Отсканируйте QR или скопируйте реквизиты. После оплаты пришлите скриншот — подтвержу заказ.",
+              "Отсканируйте QR или скопируйте реквизиты. После оплаты пришлите чек — подтвержу заказ после проверки поступления.",
           );
         }
       } else {
@@ -118,7 +126,7 @@ export async function POST(req: Request) {
         `Я бот магазина <b>Styleberries</b> 🛍\n\n` +
           "• «Открыть магазин» — каталог, выбор размера и цвета, оформление заказа\n" +
           "• После заказа я сразу пришлю реквизиты для оплаты (USDT TRC-20 + QR)\n" +
-          "• Оплатили — пришлите скриншот, и я подтвержу заказ\n\n" +
+          "• Оплатили — пришлите чек, и я подтвержу заказ после проверки поступления\n\n" +
           "Команды: /pay — реквизиты, /help — помощь.",
         shopButton(),
       );
@@ -129,7 +137,7 @@ export async function POST(req: Request) {
     await sendTelegramMessage(
       chatId,
       `${firstName}, я на связи! 💬 Открывайте магазин кнопкой ниже, а после заказа я пришлю реквизиты для оплаты. ` +
-        "Если оплатили — пришлите скриншот.",
+        "Если оплатили — пришлите чек.",
       shopButton(),
     );
   } catch (err) {
