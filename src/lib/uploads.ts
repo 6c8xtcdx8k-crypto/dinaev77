@@ -30,7 +30,12 @@ export function extensionForMime(mime: string): string | null {
   return ALLOWED_TYPES[mime] ?? null;
 }
 
-/** Сохраняет файл и возвращает публичный URL. */
+/**
+ * Сохраняет файл и возвращает URL вида /uploads/<имя> — всегда со своего
+ * домена. В Blob-режиме файл лежит в облаке, а маршрут /uploads/[file]
+ * проксирует его: домен *.blob.vercel-storage.com у части провайдеров
+ * недоступен, свой домен работает везде.
+ */
 export async function saveUpload(buffer: Buffer, mime: string): Promise<string> {
   const ext = extensionForMime(mime);
   if (!ext) throw new Error("UNSUPPORTED_TYPE");
@@ -41,12 +46,38 @@ export async function saveUpload(buffer: Buffer, mime: string): Promise<string> 
       access: "public",
       contentType: mime,
     });
-    return blob.url;
+    rememberBlobBase(blob.url);
+    return `/uploads/${name}`;
   }
 
   await mkdir(UPLOAD_DIR, { recursive: true });
   await writeFile(path.join(UPLOAD_DIR, name), buffer);
   return `/uploads/${name}`;
+}
+
+// Базовый адрес blob-хранилища: из env или запоминается после загрузки.
+let blobBaseCache: string | null = process.env.BLOB_PUBLIC_BASE?.replace(/\/$/, "") || null;
+
+function rememberBlobBase(blobUrl: string): void {
+  try {
+    blobBaseCache = new URL(blobUrl).origin;
+  } catch {
+    /* не критично — есть fallback через list() */
+  }
+}
+
+/** Возвращает origin публичного blob-хранилища (например https://xxx.public.blob.vercel-storage.com). */
+export async function getBlobBase(): Promise<string | null> {
+  if (!process.env.BLOB_READ_WRITE_TOKEN) return null;
+  if (blobBaseCache) return blobBaseCache;
+  try {
+    const { list } = await import("@vercel/blob");
+    const { blobs } = await list({ prefix: "products/", limit: 1 });
+    if (blobs[0]) rememberBlobBase(blobs[0].url);
+  } catch (err) {
+    console.error("[uploads] blob base lookup failed:", err);
+  }
+  return blobBaseCache;
 }
 
 export function contentTypeForFile(filename: string): string {
