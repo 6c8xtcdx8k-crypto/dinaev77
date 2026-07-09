@@ -3,8 +3,9 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { prisma } from "@/lib/db";
 import { formatPrice } from "@/lib/money";
-import { managerChatLink } from "@/lib/telegram";
+import { getPaymentInfo, qrUrlFor } from "@/lib/payment";
 import { IconCheckCircle } from "@/components/ui/icons";
+import { CopyButton } from "@/components/checkout/CopyButton";
 
 export const metadata: Metadata = { title: "Заказ оформлен" };
 export const dynamic = "force-dynamic";
@@ -21,9 +22,7 @@ export default async function CheckoutSuccessPage({
   });
   if (!order) notFound();
 
-  const managerLink = managerChatLink(
-    `Здравствуйте! Хочу оплатить заказ №${order.number} на ${formatPrice(order.total)}`,
-  );
+  const pay = getPaymentInfo();
 
   return (
     <div className="container max-w-lg py-16 text-center">
@@ -34,22 +33,36 @@ export default async function CheckoutSuccessPage({
         <strong>{formatPrice(order.total)}</strong> оформлен.
       </p>
 
-      <div className="card mt-6 border-brand-200 bg-brand-50 p-5">
-        <p className="text-sm font-semibold text-brand-800">Как оплатить</p>
-        <p className="mt-1 text-sm text-brand-800/80">
-          Напишите менеджеру — он пришлёт реквизиты для оплаты
-          (перевод на карту или криптовалюта) и подтвердит заказ.
-        </p>
-        {managerLink ? (
-          <a href={managerLink} target="_blank" rel="noopener" className="btn-primary mt-4 w-full !py-3">
-            Написать менеджеру
-          </a>
-        ) : (
-          <p className="mt-3 text-sm font-medium text-brand-800">
-            Менеджер свяжется с вами в Telegram в ближайшее время.
+      {/* Оплата USDT TRC-20 + QR */}
+      {pay.configured ? (
+        <div className="card mt-6 p-5 text-left">
+          <p className="text-center text-sm font-semibold text-brand-800">Оплата — USDT (сеть TRC-20)</p>
+          <div className="mt-3 flex justify-center">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={qrUrlFor(pay.usdtTrc20, "")}
+              alt="QR-код кошелька для оплаты"
+              className="h-44 w-44 rounded-xl border border-sky-100"
+            />
+          </div>
+          <p className="mt-3 text-center text-xs text-zinc-500">Кошелёк USDT TRC-20:</p>
+          <div className="mt-1 flex items-center gap-2 rounded-xl bg-sky-50 p-2">
+            <code className="flex-1 break-all text-xs text-zinc-700">{pay.usdtTrc20}</code>
+            <CopyButton text={pay.usdtTrc20} />
+          </div>
+          <p className="mt-3 text-center text-sm text-zinc-500">
+            Отсканируйте QR или скопируйте адрес. После оплаты пришлите скриншот боту —
+            заказ подтвердят.
           </p>
-        )}
-      </div>
+        </div>
+      ) : (
+        <div className="card mt-6 border-brand-200 bg-brand-50 p-5">
+          <p className="text-sm font-semibold text-brand-800">Как оплатить</p>
+          <p className="mt-1 text-sm text-brand-800/80">
+            Реквизиты для оплаты придут в чат с ботом Styleberries.
+          </p>
+        </div>
+      )}
 
       <div className="card mt-5 p-5 text-left">
         <h2 className="mb-3 font-bold">Состав заказа</h2>

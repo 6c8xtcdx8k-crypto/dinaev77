@@ -11,7 +11,8 @@ import {
   type OrderStatus,
 } from "@/lib/constants";
 import { OrderStatusBadge } from "@/components/account/OrderStatusBadge";
-import { managerChatLink } from "@/lib/telegram";
+import { getPaymentInfo, qrUrlFor } from "@/lib/payment";
+import { CopyButton } from "@/components/checkout/CopyButton";
 
 export const metadata: Metadata = { title: "Заказ" };
 export const dynamic = "force-dynamic";
@@ -44,23 +45,42 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
         Оформлен {new Date(order.createdAt).toLocaleString("ru-RU")}
       </p>
 
-      {order.status === "NEW" && (
-        <div className="card mt-4 flex flex-wrap items-center justify-between gap-3 border-brand-200 bg-brand-50 p-4">
-          <p className="text-sm text-brand-800">
-            Заказ ожидает оплаты — реквизиты пришлёт менеджер.
-          </p>
-          {managerChatLink(`Здравствуйте! Хочу оплатить заказ №${order.number}`) && (
-            <a
-              href={managerChatLink(`Здравствуйте! Хочу оплатить заказ №${order.number}`)!}
-              target="_blank"
-              rel="noopener"
-              className="btn-primary !py-2 text-sm"
-            >
-              Написать менеджеру
-            </a>
-          )}
-        </div>
-      )}
+      {order.status === "NEW" &&
+        (() => {
+          const pay = getPaymentInfo();
+          if (!pay.configured) {
+            return (
+              <div className="card mt-4 border-brand-200 bg-brand-50 p-4">
+                <p className="text-sm text-brand-800">
+                  Заказ ожидает оплаты — реквизиты придут в чат с ботом.
+                </p>
+              </div>
+            );
+          }
+          return (
+            <div className="card mt-4 p-4">
+              <p className="text-sm font-semibold text-brand-800">Оплата — USDT (сеть TRC-20)</p>
+              <div className="mt-3 flex flex-col items-center gap-3 sm:flex-row sm:items-start">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={qrUrlFor(pay.usdtTrc20, "")}
+                  alt="QR-код кошелька"
+                  className="h-32 w-32 rounded-xl border border-sky-100"
+                />
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs text-zinc-500">Кошелёк USDT TRC-20:</p>
+                  <div className="mt-1 flex items-center gap-2 rounded-xl bg-sky-50 p-2">
+                    <code className="flex-1 break-all text-xs text-zinc-700">{pay.usdtTrc20}</code>
+                    <CopyButton text={pay.usdtTrc20} />
+                  </div>
+                  <p className="mt-2 text-xs text-zinc-500">
+                    После оплаты пришлите скриншот боту — заказ подтвердят.
+                  </p>
+                </div>
+              </div>
+            </div>
+          );
+        })()}
 
       <section className="card mt-5 p-5">
         <h2 className="mb-3 font-bold">Состав заказа</h2>

@@ -135,10 +135,6 @@ export function CheckoutForm({
         <button type="submit" disabled={pending} className="btn-primary mt-4 w-full !py-3">
           {pending ? "Оформляем…" : "Оформить заказ"}
         </button>
-        <p className="mt-2 text-center text-xs text-zinc-400">
-          После оформления менеджер пришлёт реквизиты для оплаты
-          (карта или криптовалюта).
-        </p>
       </aside>
     </form>
   );

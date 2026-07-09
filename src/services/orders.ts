@@ -4,7 +4,8 @@ import { getCartLines } from "@/lib/cart";
 import { validatePromoCode } from "@/services/promo";
 import { sendEmail } from "@/services/email";
 import { orderCreatedEmail, orderStatusEmail } from "@/services/email/templates";
-import { escapeHtml, managerChatLink, sendTelegramMessage } from "@/lib/telegram";
+import { escapeHtml, sendTelegramMessage, sendTelegramPhoto } from "@/lib/telegram";
+import { getPaymentInfo, qrUrlFor } from "@/lib/payment";
 import { formatPrice } from "@/lib/money";
 import { ORDER_STATUS_LABELS } from "@/lib/constants";
 import {
@@ -128,17 +129,11 @@ export async function createOrder(input: CheckoutInput): Promise<CheckoutResult>
     });
 
     // Уведомления — вне транзакции, их сбой не откатывает заказ.
-    // 1. Покупателю: заказ принят + кнопка «Написать менеджеру» для оплаты.
+    // 1. Покупателю в Telegram: бот сам присылает реквизиты и QR для оплаты.
     if (input.userId) {
-      const link = managerChatLink(`Здравствуйте! Хочу оплатить заказ №${order.number}`);
-      void notifyTelegram(
-        input.userId,
-        `Заказ <b>№${order.number}</b> оформлен на сумму <b>${formatPrice(order.total)}</b>.\n` +
-          `Для оплаты напишите менеджеру — он пришлёт реквизиты (карта или крипта).`,
-        link ? { inline_keyboard: [[{ text: "Написать менеджеру", url: link }]] } : undefined,
-      );
+      void sendPaymentRequisites(input.userId, order.number, order.total);
     }
-    // 2. В служебный чат менеджеров: состав заказа и контакты покупателя.
+    // 2. Владельцу магазина: новый заказ (состав, контакты, @username).
     void notifyOrdersChat(order.id, order.number, input.userId, lines, {
       name: order.customerName,
       phone: order.customerPhone,
@@ -243,6 +238,48 @@ async function notifyTelegram(
     if (user?.telegramId) await sendTelegramMessage(user.telegramId, text, replyMarkup);
   } catch (err) {
     console.error("[telegram] notify failed:", err);
+  }
+}
+
+/**
+ * Бот присылает покупателю реквизиты оплаты: приветствие, кошелёк USDT TRC-20
+ * и QR-код. Работает автоматически, без участия владельца.
+ */
+export async function sendPaymentRequisites(
+  userId: string,
+  orderNumber: number,
+  total: number,
+): Promise<void> {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { telegramId: true, name: true },
+    });
+    if (!user?.telegramId) return;
+
+    const pay = getPaymentInfo();
+    const hi = `Здравствуйте, ${escapeHtml(user.name.split(" ")[0] || "друг")}! 👋`;
+
+    if (!pay.configured) {
+      await sendTelegramMessage(
+        user.telegramId,
+        `${hi}\n\nВаш заказ <b>№${orderNumber}</b> на <b>${formatPrice(total)}</b> принят. ` +
+          `Реквизиты для оплаты пришлём в ближайшее время.`,
+      );
+      return;
+    }
+
+    const caption =
+      `${hi}\n\nВаш заказ <b>№${orderNumber}</b> на <b>${formatPrice(total)}</b> принят. 🛍\n\n` +
+      `<b>Оплата — USDT, сеть TRC-20.</b>\n` +
+      `Кошелёк:\n<code>${escapeHtml(pay.usdtTrc20)}</code>\n\n` +
+      `Отсканируйте QR-код выше или скопируйте адрес. ` +
+      `После оплаты пришлите сюда скриншот — я подтвержу заказ. Жду оплату 🙌`;
+
+    // Фото (QR) с подписью-реквизитами.
+    await sendTelegramPhoto(user.telegramId, qrUrlFor(pay.usdtTrc20), caption);
+  } catch (err) {
+    console.error("[telegram] payment requisites failed:", err);
   }
 }
 

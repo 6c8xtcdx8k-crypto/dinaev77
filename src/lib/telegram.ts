@@ -94,9 +94,17 @@ export async function sendTelegramMessage(
   });
 }
 
-/** Ссылка на чат с менеджером (env MANAGER_USERNAME, без @) с предзаполненным текстом. */
-export function managerChatLink(text: string): string | null {
-  const manager = process.env.MANAGER_USERNAME;
-  if (!manager) return null;
-  return `https://t.me/${manager}?text=${encodeURIComponent(text)}`;
+/** Отправка фото (QR-кода оплаты) по URL с подписью. */
+export async function sendTelegramPhoto(
+  chatId: string | number,
+  photoUrl: string,
+  caption: string,
+): Promise<void> {
+  await botApi("sendPhoto", {
+    chat_id: chatId,
+    photo: photoUrl,
+    caption,
+    parse_mode: "HTML",
+  });
 }
+
