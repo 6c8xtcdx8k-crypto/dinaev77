@@ -6,6 +6,11 @@ import { createHmac, timingSafeEqual } from "crypto";
  * Токен бота задаётся переменной TELEGRAM_BOT_TOKEN (получить у @BotFather).
  */
 
+/** Экранирование для parse_mode: "HTML" — имена и названия задаёт пользователь. */
+export function escapeHtml(text: string): string {
+  return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
 export type TelegramUser = {
   id: number;
   first_name: string;

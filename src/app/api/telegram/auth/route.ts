@@ -3,6 +3,7 @@ import { randomUUID } from "crypto";
 import { prisma } from "@/lib/db";
 import { validateInitData } from "@/lib/telegram";
 import { createSession, hashPassword } from "@/lib/auth";
+import { getClientIp, rateLimit } from "@/lib/rate-limit";
 
 /**
  * Автовход из Telegram Mini App: клиент присылает initData,
@@ -10,6 +11,9 @@ import { createSession, hashPassword } from "@/lib/auth";
  * Аккаунт создаётся при первом входе и привязывается к telegramId.
  */
 export async function POST(req: Request) {
+  if (!rateLimit(`tg-auth:${await getClientIp()}`, 20, 10 * 60 * 1000)) {
+    return NextResponse.json({ error: "too many requests" }, { status: 429 });
+  }
   let initData: unknown;
   try {
     ({ initData } = await req.json());

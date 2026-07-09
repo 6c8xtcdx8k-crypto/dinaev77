@@ -8,7 +8,15 @@ const SESSION_COOKIE = "sb_session";
 const SESSION_TTL_DAYS = 30;
 
 function secretKey(): Uint8Array {
-  const secret = process.env.AUTH_SECRET ?? "dev-secret-do-not-use-in-production";
+  const secret = process.env.AUTH_SECRET;
+  // В продакшене без надёжного секрета сессии можно подделать —
+  // отказываемся работать, чем работать взламываемо.
+  if (!secret || secret === "change-me-in-production") {
+    if (process.env.NODE_ENV === "production") {
+      throw new Error("AUTH_SECRET не задан — задайте случайную строку в .env");
+    }
+    return new TextEncoder().encode("dev-secret-do-not-use-in-production");
+  }
   return new TextEncoder().encode(secret);
 }
 

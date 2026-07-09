@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getCurrentUser } from "@/lib/auth";
+import { getClientIp, rateLimit } from "@/lib/rate-limit";
 import { saveUpload, extensionForMime, MAX_UPLOAD_BYTES } from "@/lib/uploads";
 
 /** Загрузка изображения товара из админки (multipart/form-data, поле file). */
@@ -7,6 +8,9 @@ export async function POST(req: Request) {
   const user = await getCurrentUser();
   if (!user || user.role !== "ADMIN") {
     return NextResponse.json({ error: "Доступ запрещён" }, { status: 403 });
+  }
+  if (!rateLimit(`upload:${user.id}`, 60, 60 * 60 * 1000)) {
+    return NextResponse.json({ error: "Слишком много загрузок — подождите" }, { status: 429 });
   }
 
   let form: FormData;
@@ -22,7 +26,7 @@ export async function POST(req: Request) {
   }
   if (!extensionForMime(file.type)) {
     return NextResponse.json(
-      { error: "Поддерживаются изображения: JPG, PNG, WebP, GIF, SVG" },
+      { error: "Поддерживаются изображения: JPG, PNG, WebP, GIF" },
       { status: 415 },
     );
   }

@@ -21,6 +21,9 @@ export async function GET(
       headers: {
         "Content-Type": contentTypeForFile(safe),
         "Cache-Control": "public, max-age=31536000, immutable",
+        "X-Content-Type-Options": "nosniff",
+        // Если в каталоге окажется svg — запретить исполнение скриптов
+        "Content-Security-Policy": "default-src 'none'; style-src 'unsafe-inline'; sandbox",
       },
     });
   } catch {

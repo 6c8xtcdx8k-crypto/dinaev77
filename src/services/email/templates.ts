@@ -1,4 +1,8 @@
 import { formatPrice } from "@/lib/money";
+
+function esc(text: string): string {
+  return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
 import { ORDER_STATUS_LABELS, type OrderStatus } from "@/lib/constants";
 
 type OrderForEmail = {
@@ -29,8 +33,8 @@ function itemsTable(items: OrderForEmail["items"]): string {
     .map(
       (i) =>
         `<tr>
-          <td style="padding:6px 8px;border-bottom:1px solid #f3f4f6">${i.productName}<br>
-            <span style="color:#6b7280;font-size:12px">Размер: ${i.size} · Цвет: ${i.color}</span></td>
+          <td style="padding:6px 8px;border-bottom:1px solid #f3f4f6">${esc(i.productName)}<br>
+            <span style="color:#6b7280;font-size:12px">Размер: ${esc(i.size)} · Цвет: ${esc(i.color)}</span></td>
           <td style="padding:6px 8px;border-bottom:1px solid #f3f4f6;text-align:center">${i.qty} шт.</td>
           <td style="padding:6px 8px;border-bottom:1px solid #f3f4f6;text-align:right">${formatPrice(i.price * i.qty)}</td>
         </tr>`,
@@ -43,7 +47,7 @@ export function orderCreatedEmail(order: OrderForEmail): { subject: string; html
   return {
     subject: `Заказ №${order.number} оформлен — Styleberries`,
     html: layout(
-      `Спасибо за заказ, ${order.customerName}!`,
+      `Спасибо за заказ, ${esc(order.customerName)}!`,
       `<p>Мы приняли ваш заказ <strong>№${order.number}</strong> и ждём оплату.</p>
        ${itemsTable(order.items)}
        <p style="text-align:right;font-size:16px"><strong>Итого: ${formatPrice(order.total)}</strong></p>`,
@@ -60,7 +64,7 @@ export function orderStatusEmail(
     subject: `Заказ №${order.number}: ${label} — Styleberries`,
     html: layout(
       `Статус заказа №${order.number} обновлён`,
-      `<p>${order.customerName}, ваш заказ теперь в статусе: <strong>${label}</strong>.</p>
+      `<p>${esc(order.customerName)}, ваш заказ теперь в статусе: <strong>${label}</strong>.</p>
        <p>Отследить заказ можно в <a href="${process.env.NEXT_PUBLIC_BASE_URL ?? ""}/account" style="color:#047857">личном кабинете</a>.</p>`,
     ),
   };

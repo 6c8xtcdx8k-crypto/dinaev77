@@ -7,6 +7,7 @@ import { getCart, getCartLines } from "@/lib/cart";
 import { getCurrentUser } from "@/lib/auth";
 import { createOrder } from "@/services/orders";
 import { validatePromoCode } from "@/services/promo";
+import { getClientIp, rateLimit } from "@/lib/rate-limit";
 import type { DeliveryMethod } from "@/lib/constants";
 
 export type CheckoutFormState = { error?: string } | undefined;
@@ -24,6 +25,10 @@ export async function placeOrderAction(
   _prev: CheckoutFormState,
   formData: FormData,
 ): Promise<CheckoutFormState> {
+  // Защита от флуда заказами (и спама в чат менеджеров).
+  if (!rateLimit(`order:${await getClientIp()}`, 5, 60 * 60 * 1000)) {
+    return { error: "Слишком много заказов подряд — попробуйте позже" };
+  }
   const parsed = checkoutSchema.safeParse({
     customerName: formData.get("customerName"),
     customerEmail: formData.get("customerEmail"),
@@ -56,6 +61,10 @@ export async function placeOrderAction(
 export async function checkPromoAction(code: string): Promise<
   { ok: true; discount: number; code: string } | { ok: false; error: string }
 > {
+  // Защита от перебора промокодов.
+  if (!rateLimit(`promo:${await getClientIp()}`, 15, 10 * 60 * 1000)) {
+    return { ok: false, error: "Слишком много попыток — подождите" };
+  }
   const cart = await getCart();
   if (!cart) return { ok: false, error: "Корзина пуста" };
   const lines = await getCartLines(cart.id);

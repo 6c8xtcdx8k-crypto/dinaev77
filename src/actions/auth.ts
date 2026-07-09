@@ -4,6 +4,7 @@ import { z } from "zod";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { createSession, destroySession, getCurrentUser, hashPassword, verifyPassword } from "@/lib/auth";
+import { getClientIp, rateLimit } from "@/lib/rate-limit";
 
 export type FormState = { error?: string } | undefined;
 
@@ -14,6 +15,10 @@ const registerSchema = z.object({
 });
 
 export async function registerAction(_prev: FormState, formData: FormData): Promise<FormState> {
+  // Защита от флуда аккаунтами.
+  if (!rateLimit(`register:${await getClientIp()}`, 5, 60 * 60 * 1000)) {
+    return { error: "Слишком много регистраций — попробуйте позже" };
+  }
   const parsed = registerSchema.safeParse({
     name: formData.get("name"),
     email: formData.get("email"),
@@ -48,8 +53,18 @@ export async function loginAction(_prev: FormState, formData: FormData): Promise
   });
   if (!parsed.success) return { error: parsed.error.errors[0].message };
 
+  // Защита от перебора пароля: по IP и по конкретному аккаунту.
+  const ip = await getClientIp();
+  const email = parsed.data.email.toLowerCase();
+  if (
+    !rateLimit(`login-ip:${ip}`, 20, 10 * 60 * 1000) ||
+    !rateLimit(`login-acc:${email}`, 10, 10 * 60 * 1000)
+  ) {
+    return { error: "Слишком много попыток входа — подождите 10 минут" };
+  }
+
   const user = await prisma.user.findUnique({
-    where: { email: parsed.data.email.toLowerCase() },
+    where: { email },
   });
   if (!user || !(await verifyPassword(parsed.data.password, user.passwordHash))) {
     return { error: "Неверный email или пароль" };

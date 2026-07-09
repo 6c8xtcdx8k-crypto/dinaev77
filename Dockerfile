@@ -33,7 +33,11 @@ COPY --from=builder /app/scripts ./scripts
 # но не кладёт в standalone node_modules
 RUN npm install bcryptjs@^3 --no-audit --no-fund --no-save
 COPY deploy/entrypoint.sh ./entrypoint.sh
-RUN chmod +x ./entrypoint.sh && mkdir -p /app/data
+RUN chmod +x ./entrypoint.sh && mkdir -p /app/data \
+  && chown -R node:node /app
+
+# Запуск без root: компрометация приложения не даёт прав в контейнере
+USER node
 
 EXPOSE 3000
 VOLUME ["/app/data"]
