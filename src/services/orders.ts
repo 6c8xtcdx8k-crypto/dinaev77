@@ -5,7 +5,7 @@ import { validatePromoCode } from "@/services/promo";
 import { sendEmail } from "@/services/email";
 import { orderCreatedEmail, orderStatusEmail } from "@/services/email/templates";
 import { escapeHtml, sendTelegramMessage, sendTelegramPhoto } from "@/lib/telegram";
-import { getPaymentInfo, qrUrlFor } from "@/lib/payment";
+import { getPaymentMethods, qrUrlFor } from "@/lib/payment";
 import { formatPrice } from "@/lib/money";
 import { ORDER_STATUS_LABELS } from "@/lib/constants";
 import {
@@ -257,10 +257,10 @@ export async function sendPaymentRequisites(
     });
     if (!user?.telegramId) return;
 
-    const pay = getPaymentInfo();
+    const methods = getPaymentMethods();
     const hi = `Здравствуйте, ${escapeHtml(user.name.split(" ")[0] || "друг")}! 👋`;
 
-    if (!pay.configured) {
+    if (methods.length === 0) {
       await sendTelegramMessage(
         user.telegramId,
         `${hi}\n\nВаш заказ <b>№${orderNumber}</b> на <b>${formatPrice(total)}</b> принят. ` +
@@ -269,15 +269,19 @@ export async function sendPaymentRequisites(
       return;
     }
 
-    const caption =
+    // Приветствие + список способов, затем по QR-коду на каждый.
+    await sendTelegramMessage(
+      user.telegramId,
       `${hi}\n\nВаш заказ <b>№${orderNumber}</b> на <b>${formatPrice(total)}</b> принят. 🛍\n\n` +
-      `<b>Оплата — USDT, сеть TRC-20.</b>\n` +
-      `Кошелёк:\n<code>${escapeHtml(pay.usdtTrc20)}</code>\n\n` +
-      `Отсканируйте QR-код выше или скопируйте адрес. ` +
-      `После оплаты пришлите сюда скриншот — я подтвержу заказ. Жду оплату 🙌`;
-
-    // Фото (QR) с подписью-реквизитами.
-    await sendTelegramPhoto(user.telegramId, qrUrlFor(pay.usdtTrc20), caption);
+        `Оплатить можно одним из способов ниже. После оплаты пришлите сюда скриншот — ` +
+        `я подтвержу заказ. Жду оплату 🙌`,
+    );
+    for (const m of methods) {
+      const caption =
+        `<b>${m.title}</b>\n${m.label}:\n<code>${escapeHtml(m.value)}</code>\n\n` +
+        `Отсканируйте QR-код или скопируйте реквизиты.`;
+      await sendTelegramPhoto(user.telegramId, qrUrlFor(m.qrData), caption);
+    }
   } catch (err) {
     console.error("[telegram] payment requisites failed:", err);
   }

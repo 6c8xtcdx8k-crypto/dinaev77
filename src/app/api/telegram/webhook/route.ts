@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { botApi, sendTelegramMessage, sendTelegramPhoto, escapeHtml } from "@/lib/telegram";
-import { getPaymentInfo, qrUrlFor } from "@/lib/payment";
+import { sendTelegramMessage, sendTelegramPhoto, escapeHtml } from "@/lib/telegram";
+import { getPaymentMethods, qrUrlFor } from "@/lib/payment";
 
 /**
  * Webhook Telegram-бота: полностью автономные ответы, магазин работает
@@ -94,15 +94,17 @@ export async function POST(req: Request) {
 
     // --- Реквизиты оплаты ---
     if (lower.startsWith("/pay") || /реквизит|оплат|куда плат|кошел|usdt|крипт|карт|qr/.test(lower)) {
-      const pay = getPaymentInfo();
-      if (pay.configured) {
-        await sendTelegramPhoto(
-          chatId,
-          qrUrlFor(pay.usdtTrc20),
-          "<b>Оплата — USDT, сеть TRC-20.</b>\n" +
-            `Кошелёк:\n<code>${escapeHtml(pay.usdtTrc20)}</code>\n\n` +
-            "Отсканируйте QR-код или скопируйте адрес. После оплаты пришлите скриншот — подтвержу заказ.",
-        );
+      const methods = getPaymentMethods();
+      if (methods.length > 0) {
+        await sendTelegramMessage(chatId, "Реквизиты для оплаты — выберите удобный способ:");
+        for (const m of methods) {
+          await sendTelegramPhoto(
+            chatId,
+            qrUrlFor(m.qrData),
+            `<b>${m.title}</b>\n${m.label}:\n<code>${escapeHtml(m.value)}</code>\n\n` +
+              "Отсканируйте QR или скопируйте реквизиты. После оплаты пришлите скриншот — подтвержу заказ.",
+          );
+        }
       } else {
         await sendTelegramMessage(chatId, "Реквизиты для оплаты пришлём после оформления заказа.", shopButton());
       }

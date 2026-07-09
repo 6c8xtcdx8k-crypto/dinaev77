@@ -39,7 +39,8 @@ if [ ! -f .env ]; then
   read -rp "Домен [${DOMAIN_DEFAULT}]: " DOMAIN_IN
   DOMAIN="${DOMAIN_IN:-$DOMAIN_DEFAULT}"
   read -rp "Токен Telegram-бота (можно оставить пустым и добавить позже): " TG_TOKEN
-  read -rp "Кошелёк USDT TRC-20 для приёма оплаты (можно оставить пустым): " USDT
+  read -rp "Кошелёк USDT TRC-20 (можно оставить пустым): " USDT
+  read -rp "Номер карты для оплаты (можно оставить пустым): " CARD
   read -rp "Email администратора [admin@styleberries.example]: " ADMIN_EMAIL_IN
   ADMIN_EMAIL="${ADMIN_EMAIL_IN:-admin@styleberries.example}"
   ADMIN_PASSWORD=$(head -c 12 /dev/urandom | base64 | tr -d '=+/' | head -c 14)
@@ -50,6 +51,8 @@ AUTH_SECRET=$(head -c 32 /dev/urandom | base64 | tr -d '=+/')
 TELEGRAM_BOT_TOKEN=${TG_TOKEN}
 TELEGRAM_WEBHOOK_SECRET=$(head -c 16 /dev/urandom | base64 | tr -d '=+/')
 PAYMENT_USDT_TRC20=${USDT}
+PAYMENT_CARD=${CARD}
+PAYMENT_CARD_QR=
 # ID служебного чата для заказов и сигналов об оплате: добавьте бота в чат, отправьте /id
 ORDERS_CHAT_ID=
 ADMIN_EMAIL=${ADMIN_EMAIL}

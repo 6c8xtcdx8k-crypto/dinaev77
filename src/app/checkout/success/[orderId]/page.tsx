@@ -3,9 +3,9 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { prisma } from "@/lib/db";
 import { formatPrice } from "@/lib/money";
-import { getPaymentInfo, qrUrlFor } from "@/lib/payment";
+import { getPaymentInfo } from "@/lib/payment";
 import { IconCheckCircle } from "@/components/ui/icons";
-import { CopyButton } from "@/components/checkout/CopyButton";
+import { PaymentMethods } from "@/components/checkout/PaymentMethods";
 
 export const metadata: Metadata = { title: "Заказ оформлен" };
 export const dynamic = "force-dynamic";
@@ -33,27 +33,10 @@ export default async function CheckoutSuccessPage({
         <strong>{formatPrice(order.total)}</strong> оформлен.
       </p>
 
-      {/* Оплата USDT TRC-20 + QR */}
+      {/* Реквизиты оплаты: USDT и/или карта, у каждого — QR */}
       {pay.configured ? (
         <div className="card mt-6 p-5 text-left">
-          <p className="text-center text-sm font-semibold text-brand-800">Оплата — USDT (сеть TRC-20)</p>
-          <div className="mt-3 flex justify-center">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={qrUrlFor(pay.usdtTrc20, "")}
-              alt="QR-код кошелька для оплаты"
-              className="h-44 w-44 rounded-xl border border-sky-100"
-            />
-          </div>
-          <p className="mt-3 text-center text-xs text-zinc-500">Кошелёк USDT TRC-20:</p>
-          <div className="mt-1 flex items-center gap-2 rounded-xl bg-sky-50 p-2">
-            <code className="flex-1 break-all text-xs text-zinc-700">{pay.usdtTrc20}</code>
-            <CopyButton text={pay.usdtTrc20} />
-          </div>
-          <p className="mt-3 text-center text-sm text-zinc-500">
-            Отсканируйте QR или скопируйте адрес. После оплаты пришлите скриншот боту —
-            заказ подтвердят.
-          </p>
+          <PaymentMethods methods={pay.methods} />
         </div>
       ) : (
         <div className="card mt-6 border-brand-200 bg-brand-50 p-5">

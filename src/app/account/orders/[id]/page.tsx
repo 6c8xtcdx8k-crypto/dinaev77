@@ -11,8 +11,8 @@ import {
   type OrderStatus,
 } from "@/lib/constants";
 import { OrderStatusBadge } from "@/components/account/OrderStatusBadge";
-import { getPaymentInfo, qrUrlFor } from "@/lib/payment";
-import { CopyButton } from "@/components/checkout/CopyButton";
+import { getPaymentInfo } from "@/lib/payment";
+import { PaymentMethods } from "@/components/checkout/PaymentMethods";
 
 export const metadata: Metadata = { title: "Заказ" };
 export const dynamic = "force-dynamic";
@@ -59,25 +59,7 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
           }
           return (
             <div className="card mt-4 p-4">
-              <p className="text-sm font-semibold text-brand-800">Оплата — USDT (сеть TRC-20)</p>
-              <div className="mt-3 flex flex-col items-center gap-3 sm:flex-row sm:items-start">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={qrUrlFor(pay.usdtTrc20, "")}
-                  alt="QR-код кошелька"
-                  className="h-32 w-32 rounded-xl border border-sky-100"
-                />
-                <div className="min-w-0 flex-1">
-                  <p className="text-xs text-zinc-500">Кошелёк USDT TRC-20:</p>
-                  <div className="mt-1 flex items-center gap-2 rounded-xl bg-sky-50 p-2">
-                    <code className="flex-1 break-all text-xs text-zinc-700">{pay.usdtTrc20}</code>
-                    <CopyButton text={pay.usdtTrc20} />
-                  </div>
-                  <p className="mt-2 text-xs text-zinc-500">
-                    После оплаты пришлите скриншот боту — заказ подтвердят.
-                  </p>
-                </div>
-              </div>
+              <PaymentMethods methods={pay.methods} compact />
             </div>
           );
         })()}
