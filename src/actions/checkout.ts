@@ -15,8 +15,8 @@ const checkoutSchema = z.object({
   customerName: z.string().min(2, "Укажите имя получателя"),
   customerEmail: z.string().email("Некорректный email"),
   customerPhone: z.string().min(10, "Укажите телефон"),
-  deliveryMethod: z.enum(["COURIER", "PICKUP"]),
-  deliveryAddress: z.string().min(5, "Укажите адрес доставки или пункт выдачи"),
+  deliveryMethod: z.enum(["CDEK"]),
+  deliveryAddress: z.string().min(5, "Укажите город и адрес пункта СДЭК"),
   promoCode: z.string().optional(),
 });
 

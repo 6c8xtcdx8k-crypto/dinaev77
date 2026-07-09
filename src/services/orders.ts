@@ -29,10 +29,9 @@ export type CheckoutResult =
   | { ok: true; orderId: string; orderNumber: number }
   | { ok: false; error: string };
 
-export function deliveryCostFor(method: DeliveryMethod, subtotal: number): number {
-  const cfg = DELIVERY_METHODS[method];
-  if (cfg.freeFrom > 0 && subtotal >= cfg.freeFrom) return 0;
-  return cfg.cost;
+export function deliveryCostFor(method: DeliveryMethod, _subtotal: number): number {
+  // Доставка СДЭК в сумму заказа не включается (тариф оплачивается при получении).
+  return DELIVERY_METHODS[method]?.cost ?? 0;
 }
 
 /**

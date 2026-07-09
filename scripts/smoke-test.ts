@@ -47,8 +47,8 @@ async function main() {
     customerName: "Тест Тестов",
     customerEmail: "smoke@test.local",
     customerPhone: "+7 999 111-22-33",
-    deliveryMethod: "PICKUP",
-    deliveryAddress: "г. Москва, ПВЗ №1",
+    deliveryMethod: "CDEK",
+    deliveryAddress: "г. Москва, пункт СДЭК №1",
     promoCode: "BERRY10",
   });
   check(res.ok, `заказ создан: ${res.ok ? `№${res.orderNumber}` : res.error}`);
@@ -91,8 +91,8 @@ async function main() {
     customerName: "Т",
     customerEmail: "smoke@test.local",
     customerPhone: "+7 999 111-22-33",
-    deliveryMethod: "COURIER",
-    deliveryAddress: "адрес",
+    deliveryMethod: "CDEK",
+    deliveryAddress: "г. Москва, пункт СДЭК",
   });
   check(!res2.ok, "заказ сверх остатка отклонён");
 

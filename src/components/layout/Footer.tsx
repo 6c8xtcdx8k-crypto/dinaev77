@@ -37,7 +37,8 @@ export function Footer() {
         <div>
           <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-zinc-400">Доставка и оплата</h3>
           <p className="text-sm text-zinc-500">
-            Курьером до двери или в пункт выдачи. Бесплатная курьерская доставка от 5 000 ₽.
+            Доставка по всей России через СДЭК — до ближайшего пункта выдачи.
+            Оплата заказа через менеджера.
           </p>
         </div>
       </div>

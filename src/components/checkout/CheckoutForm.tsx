@@ -1,15 +1,8 @@
 "use client";
 
-import { useActionState, useMemo, useState, useTransition } from "react";
+import { useActionState, useState, useTransition } from "react";
 import { placeOrderAction, checkPromoAction, type CheckoutFormState } from "@/actions/checkout";
 import { formatPrice } from "@/lib/money";
-
-const DELIVERY = {
-  COURIER: { label: "Курьером до двери", hint: "399 ₽, бесплатно от 5 000 ₽", cost: 39900, freeFrom: 500000 },
-  PICKUP: { label: "Пункт выдачи Styleberries", hint: "Бесплатно, 2–4 дня", cost: 0, freeFrom: 0 },
-} as const;
-
-type DeliveryKey = keyof typeof DELIVERY;
 
 export function CheckoutForm({
   subtotal,
@@ -22,19 +15,13 @@ export function CheckoutForm({
     placeOrderAction,
     undefined,
   );
-  const [method, setMethod] = useState<DeliveryKey>("PICKUP");
   const [promoInput, setPromoInput] = useState("");
   const [promo, setPromo] = useState<{ code: string; discount: number } | null>(null);
   const [promoError, setPromoError] = useState<string | null>(null);
   const [checkingPromo, startPromoCheck] = useTransition();
 
   const discount = promo?.discount ?? 0;
-  const deliveryCost = useMemo(() => {
-    const cfg = DELIVERY[method];
-    if (cfg.freeFrom > 0 && subtotal - discount >= cfg.freeFrom) return 0;
-    return cfg.cost;
-  }, [method, subtotal, discount]);
-  const total = subtotal - discount + deliveryCost;
+  const total = subtotal - discount;
 
   function applyPromo() {
     const code = promoInput.trim();
@@ -65,35 +52,27 @@ export function CheckoutForm({
 
         <section className="card space-y-3 p-5">
           <h2 className="text-lg font-bold">Доставка</h2>
-          {(Object.entries(DELIVERY) as [DeliveryKey, (typeof DELIVERY)[DeliveryKey]][]).map(
-            ([key, cfg]) => (
-              <label
-                key={key}
-                className={`flex cursor-pointer items-center gap-3 rounded-xl border p-3 transition ${
-                  method === key ? "border-brand-600 bg-brand-50" : "border-zinc-200"
-                }`}
-              >
-                <input
-                  type="radio"
-                  name="deliveryMethod"
-                  value={key}
-                  checked={method === key}
-                  onChange={() => setMethod(key)}
-                  className="h-4 w-4 accent-brand-600"
-                />
-                <span className="flex-1">
-                  <span className="block font-medium">{cfg.label}</span>
-                  <span className="text-sm text-zinc-500">{cfg.hint}</span>
-                </span>
-              </label>
-            ),
-          )}
+          <input type="hidden" name="deliveryMethod" value="CDEK" />
+          <div className="flex items-center gap-3 rounded-xl border border-brand-300 bg-brand-50 p-3">
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white font-black text-brand-600 shadow-card">
+              С
+            </span>
+            <span className="flex-1">
+              <span className="block font-bold">СДЭК — пункт выдачи</span>
+              <span className="text-sm text-zinc-500">
+                Тариф СДЭК оплачивается при получении, в сумму заказа не входит
+              </span>
+            </span>
+          </div>
           <input
             name="deliveryAddress"
-            placeholder={method === "COURIER" ? "Город, улица, дом, квартира" : "Город и адрес пункта выдачи"}
+            placeholder="Город и адрес пункта выдачи СДЭК"
             required
             className="input"
           />
+          <p className="text-xs text-zinc-400">
+            Ближайший пункт можно посмотреть на cdek.ru — впишите его адрес.
+          </p>
         </section>
 
         <section className="card space-y-3 p-5">
@@ -138,8 +117,8 @@ export function CheckoutForm({
             </div>
           )}
           <div className="flex justify-between">
-            <dt className="text-zinc-500">Доставка</dt>
-            <dd>{deliveryCost === 0 ? "Бесплатно" : formatPrice(deliveryCost)}</dd>
+            <dt className="text-zinc-500">Доставка СДЭК</dt>
+            <dd className="text-zinc-500">при получении</dd>
           </div>
           <div className="flex justify-between border-t border-zinc-100 pt-2 text-base font-bold">
             <dt>Итого</dt>

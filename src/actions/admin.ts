@@ -277,6 +277,57 @@ export async function addVariantAction(
   return { success: true };
 }
 
+/**
+ * Массовое создание вариантов: все комбинации выбранных размеров и цветов
+ * с одним стартовым остатком. Существующие комбинации пропускаются.
+ */
+export async function addVariantsBulkAction(
+  productId: string,
+  sizes: string[],
+  colors: { name: string; hex: string }[],
+  stock: number,
+): Promise<{ ok: boolean; created?: number; skipped?: number; error?: string }> {
+  await requireAdmin();
+
+  const cleanSizes = [...new Set(sizes.map((s) => s.trim()).filter(Boolean))];
+  const cleanColors = colors
+    .map((c) => ({ name: c.name.trim(), hex: /^#[0-9a-fA-F]{6}$/.test(c.hex) ? c.hex : "#888888" }))
+    .filter((c) => c.name);
+  if (cleanSizes.length === 0) return { ok: false, error: "Выберите хотя бы один размер" };
+  if (cleanColors.length === 0) return { ok: false, error: "Выберите хотя бы один цвет" };
+  const safeStock = Math.max(0, Math.floor(stock) || 0);
+
+  const product = await prisma.product.findUnique({ where: { id: productId } });
+  if (!product) return { ok: false, error: "Товар не найден" };
+
+  const existing = await prisma.variant.findMany({
+    where: { productId },
+    select: { size: true, color: true },
+  });
+  const taken = new Set(existing.map((v) => `${v.color}::${v.size}`));
+
+  let created = 0;
+  let skipped = 0;
+  for (const color of cleanColors) {
+    for (const size of cleanSizes) {
+      if (taken.has(`${color.name}::${size}`)) {
+        skipped++;
+        continue;
+      }
+      const sku = `${product.slug}-${color.name}-${size}`
+        .toLowerCase()
+        .replace(/[^a-z0-9а-яё-]+/gi, "-");
+      await prisma.variant.create({
+        data: { productId, size, color: color.name, colorHex: color.hex, sku, stock: safeStock },
+      });
+      created++;
+    }
+  }
+
+  await revalidateForProduct(productId);
+  return { ok: true, created, skipped };
+}
+
 export async function updateVariantStockAction(variantId: string, stock: number): Promise<void> {
   await requireAdmin();
   const variant = await prisma.variant.update({
