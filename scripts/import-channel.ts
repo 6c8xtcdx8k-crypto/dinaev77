@@ -128,6 +128,58 @@ async function fixExistingColorNames(): Promise<void> {
   if (dirty.length > 0) console.log(`[import] исправлено названий цветов: ${dirty.length}`);
 }
 
+/**
+ * Самовосстановление фото (Blob-режим): если файл картинки пропал из
+ * хранилища (например, загружен до подключения Blob), скачиваем заново
+ * с исходного CDN Telegram по ссылкам из channel-products.json.
+ */
+async function repairImportedPhotos(items: ChannelProduct[]): Promise<void> {
+  if (!process.env.BLOB_READ_WRITE_TOKEN) return;
+  const { list } = await import("@vercel/blob");
+  // Один список всех файлов вместо тысяч точечных проверок
+  const existing = new Set<string>();
+  let cursor: string | undefined;
+  do {
+    const page = await list({ prefix: "products/", limit: 1000, cursor });
+    for (const b of page.blobs) existing.add(b.pathname.slice("products/".length));
+    cursor = page.hasMore ? page.cursor : undefined;
+  } while (cursor);
+  console.log(`[repair] файлов в хранилище: ${existing.size}`);
+
+  const bySlug = new Map(items.map((i) => [i.slug, i]));
+  const products = await prisma.product.findMany({
+    include: { images: { orderBy: { sort: "asc" } } },
+  });
+  let fixed = 0;
+  let lost = 0;
+  for (const p of products) {
+    const src = bySlug.get(p.slug);
+    const broken = p.images.filter(
+      (img) => img.url.startsWith("/uploads/") && !existing.has(img.url.slice("/uploads/".length)),
+    );
+    if (broken.length === 0) continue;
+    if (!src) {
+      lost += broken.length; // ручные загрузки: оригинала нет
+      continue;
+    }
+    await Promise.all(
+      broken.map(async (img) => {
+        const idx = p.images.findIndex((i) => i.id === img.id);
+        const orig = src.photos[idx] ?? src.photos[0];
+        if (!orig) return;
+        const fresh = await downloadPhoto(orig);
+        if (fresh) {
+          await prisma.productImage.update({ where: { id: img.id }, data: { url: fresh } });
+          fixed++;
+        }
+      }),
+    );
+  }
+  if (fixed > 0 || lost > 0) {
+    console.log(`[repair] восстановлено фото: ${fixed}; без оригинала (ручные): ${lost}`);
+  }
+}
+
 async function main() {
   if (!existsSync(DATA_FILE)) {
     console.log("[import] scripts/channel-products.json не найден — нечего импортировать");
@@ -139,6 +191,7 @@ async function main() {
   await removeDemoData();
   await removeBagsImport();
   await fixExistingColorNames();
+  await repairImportedPhotos(items);
 
   const clothing = await prisma.category.upsert({
     where: { slug: "clothing" },
