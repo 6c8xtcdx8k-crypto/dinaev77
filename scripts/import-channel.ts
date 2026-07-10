@@ -27,6 +27,7 @@ type ChannelProduct = {
   name: string;
   description: string;
   gender: "WOMEN" | "MEN" | "UNISEX";
+  category?: "clothing" | "bags"; // по умолчанию clothing
   priceRub: number;
   sizes: string[];
   colors: { name: string; hex: string }[];
@@ -121,11 +122,17 @@ async function main() {
   await removeDemoData();
   await fixExistingColorNames();
 
-  const category = await prisma.category.upsert({
+  const clothing = await prisma.category.upsert({
     where: { slug: "clothing" },
     update: {},
     create: { slug: "clothing", name: "Одежда", sort: 1 },
   });
+  const bags = await prisma.category.upsert({
+    where: { slug: "bags" },
+    update: {},
+    create: { slug: "bags", name: "Сумки", sort: 2 },
+  });
+  const categoryId = (item: ChannelProduct) => (item.category === "bags" ? bags.id : clothing.id);
 
   let created = 0;
   let skipped = 0;
@@ -155,7 +162,7 @@ async function main() {
           slug: item.slug,
           name: item.name,
           description: item.description,
-          categoryId: category.id,
+          categoryId: categoryId(item),
           gender: item.gender ?? "WOMEN",
           basePrice: Math.round(item.priceRub * 100),
           isActive: true,
