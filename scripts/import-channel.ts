@@ -160,6 +160,43 @@ async function migratePhotosToSourceUrls(items: ChannelProduct[]): Promise<void>
   if (fixed > 0) console.log(`[repair] фото переведены на CDN-ссылки: ${fixed}`);
 }
 
+/**
+ * Фото для товаров, созданных владельцем вручную: их оригиналы остались
+ * в заблокированном Blob-хранилище. scripts/manual-photos.json — подобранные
+ * фотографии исходных постов канала поставщика (slug → CDN-ссылки).
+ */
+async function fixManualProductPhotos(): Promise<void> {
+  const file = path.join(process.cwd(), "scripts", "manual-photos.json");
+  if (!existsSync(file)) return;
+  const map: Record<string, string[]> = JSON.parse(readFileSync(file, "utf8"));
+  let fixed = 0;
+  for (const [slug, photos] of Object.entries(map)) {
+    const product = await prisma.product.findUnique({
+      where: { slug },
+      include: { images: true },
+    });
+    if (!product) continue;
+    // Чиним только битые загрузки (/uploads/...); если фото уже заменили —
+    // не трогаем.
+    const broken = product.images.filter((i) => i.url.startsWith("/uploads/"));
+    if (broken.length === 0 && product.images.length > 0) continue;
+    await prisma.productImage.deleteMany({
+      where: { productId: product.id, url: { startsWith: "/uploads/" } },
+    });
+    for (const [i, url] of photos.entries()) {
+      const saved = await downloadPhoto(url);
+      if (saved) {
+        await prisma.productImage.create({
+          data: { productId: product.id, url: saved, alt: product.name, sort: i },
+        });
+      }
+    }
+    fixed++;
+    console.log(`[manual] ${slug}: фото восстановлены (${photos.length})`);
+  }
+  if (fixed > 0) console.log(`[manual] исправлено товаров: ${fixed}`);
+}
+
 async function main() {
   if (!existsSync(DATA_FILE)) {
     console.log("[import] scripts/channel-products.json не найден — нечего импортировать");
@@ -172,6 +209,7 @@ async function main() {
   await removeBagsImport();
   await fixExistingColorNames();
   await migratePhotosToSourceUrls(items);
+  await fixManualProductPhotos();
 
   const clothing = await prisma.category.upsert({
     where: { slug: "clothing" },
