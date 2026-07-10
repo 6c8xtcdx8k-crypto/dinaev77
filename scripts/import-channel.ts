@@ -78,6 +78,24 @@ function cleanColorName(name: string): string {
   return name.replace(/[.…!\s]+$/g, "").trim() || name;
 }
 
+/** Демо-товары сида: убраны из магазина, реальный ассортимент — из каналов. */
+const DEMO_SLUGS = [
+  "berry-hoodie", "berry-tshirt-basic", "berry-dress-midi", "berry-jeans-m",
+  "berry-puffer-w", "berry-shirt-m", "berry-leggings-w", "berry-cap",
+  "berry-bag-tote", "berry-bag-cross", "berry-bag-shopper", "berry-bag-clutch",
+];
+
+/** Удаляет демо-товары и демо-покупателя. История заказов не страдает:
+ *  позиции заказов хранят снимки, а ссылки на варианты обнуляются (SetNull). */
+async function removeDemoData(): Promise<void> {
+  const gone = await prisma.product.deleteMany({ where: { slug: { in: DEMO_SLUGS } } });
+  if (gone.count > 0) console.log(`[import] удалено демо-товаров: ${gone.count}`);
+  const demoUser = await prisma.user.deleteMany({
+    where: { email: "customer@example.com", role: "CUSTOMER" },
+  });
+  if (demoUser.count > 0) console.log("[import] удалён демо-покупатель customer@example.com");
+}
+
 /** Разовая уборка: чинит названия цветов у ранее импортированных вариантов. */
 async function fixExistingColorNames(): Promise<void> {
   const dirty = await prisma.variant.findMany({
@@ -100,6 +118,7 @@ async function main() {
   const items: ChannelProduct[] = JSON.parse(readFileSync(DATA_FILE, "utf8"));
   console.log(`[import] товаров в файле: ${items.length}`);
 
+  await removeDemoData();
   await fixExistingColorNames();
 
   const category = await prisma.category.upsert({
