@@ -33,7 +33,16 @@ type ChannelProduct = {
   photos: string[];
 };
 
+/**
+ * Сохраняет фото товара и возвращает URL для ProductImage:
+ * - есть BLOB_READ_WRITE_TOKEN (Vercel) — скачиваем в Vercel Blob,
+ *   раздаётся через /uploads/[file] со своего домена;
+ * - Vercel без Blob — используем исходный URL CDN Telegram (диск
+ *   в serverless-окружении не переживает деплой);
+ * - иначе (VPS/локально) — скачиваем на диск в UPLOAD_DIR.
+ */
 async function downloadPhoto(url: string): Promise<string | null> {
+  if (!process.env.BLOB_READ_WRITE_TOKEN && process.env.VERCEL) return url;
   try {
     const res = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0" } });
     if (!res.ok) return null;
@@ -41,8 +50,18 @@ async function downloadPhoto(url: string): Promise<string | null> {
     const ext = type.includes("png") ? ".png" : type.includes("webp") ? ".webp" : ".jpg";
     const buf = Buffer.from(await res.arrayBuffer());
     if (buf.length === 0 || buf.length > MAX_PHOTO_BYTES) return null;
-    mkdirSync(UPLOAD_DIR, { recursive: true });
     const name = `${randomUUID()}${ext}`;
+
+    if (process.env.BLOB_READ_WRITE_TOKEN) {
+      const { put } = await import("@vercel/blob");
+      await put(`products/${name}`, buf, {
+        access: "public",
+        contentType: type || "image/jpeg",
+      });
+      return `/uploads/${name}`;
+    }
+
+    mkdirSync(UPLOAD_DIR, { recursive: true });
     writeFileSync(path.join(UPLOAD_DIR, name), buf);
     return `/uploads/${name}`;
   } catch {
