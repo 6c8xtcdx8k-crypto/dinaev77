@@ -1,13 +1,12 @@
 import { NextResponse } from "next/server";
 import { readFile } from "fs/promises";
 import path from "path";
-import { UPLOAD_DIR, contentTypeForFile, getBlobBase } from "@/lib/uploads";
+import { UPLOAD_DIR, contentTypeForFile, getBlobBase, readUploadFromDb } from "@/lib/uploads";
 
 /**
  * Раздача загруженных изображений товаров со своего домена.
- * В Blob-режиме (Vercel) файл проксируется из облачного хранилища:
- * его домен у части провайдеров недоступен, свой — работает везде.
- * Иначе файл читается с диска (VPS/локально).
+ * Порядок поиска: база данных (основное хранилище) → диск (VPS/локально)
+ * → Vercel Blob (старые файлы, если хранилище доступно).
  */
 export async function GET(
   _req: Request,
@@ -28,25 +27,36 @@ export async function GET(
     "Content-Security-Policy": "default-src 'none'; style-src 'unsafe-inline'; sandbox",
   };
 
-  const blobBase = await getBlobBase();
-  if (blobBase) {
-    try {
-      const res = await fetch(`${blobBase}/products/${safe}`, {
-        cache: "no-store",
+  // 1. База данных — основное хранилище загрузок.
+  try {
+    const fromDb = await readUploadFromDb(safe);
+    if (fromDb) {
+      return new NextResponse(new Uint8Array(fromDb.data), {
+        headers: { ...headers, "Content-Type": fromDb.mime },
       });
-      if (!res.ok || !res.body) {
-        return NextResponse.json({ error: "not found" }, { status: 404 });
-      }
-      return new NextResponse(res.body, { headers });
-    } catch {
-      return NextResponse.json({ error: "not found" }, { status: 404 });
     }
+  } catch {
+    /* таблицы может ещё не быть — ищем в других источниках */
   }
 
+  // 2. Диск (VPS/локально).
   try {
     const data = await readFile(path.join(UPLOAD_DIR, safe));
     return new NextResponse(new Uint8Array(data), { headers });
   } catch {
-    return NextResponse.json({ error: "not found" }, { status: 404 });
+    /* нет на диске — пробуем Blob */
   }
+
+  // 3. Vercel Blob (старые файлы).
+  const blobBase = await getBlobBase();
+  if (blobBase) {
+    try {
+      const res = await fetch(`${blobBase}/products/${safe}`, { cache: "no-store" });
+      if (res.ok && res.body) return new NextResponse(res.body, { headers });
+    } catch {
+      /* ниже — общий 404 */
+    }
+  }
+
+  return NextResponse.json({ error: "not found" }, { status: 404 });
 }

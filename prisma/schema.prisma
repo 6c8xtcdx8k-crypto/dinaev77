@@ -197,6 +197,15 @@ model ViewedProduct {
   @@index([userId, viewedAt])
 }
 
+// Загруженные из админки изображения товаров: хранятся в БД,
+// чтобы не зависеть от платного файлового хранилища на Vercel.
+model Upload {
+  name      String   @id // имя файла: <uuid>.<ext> (отдаётся как /uploads/<name>)
+  mime      String
+  data      Bytes
+  createdAt DateTime @default(now())
+}
+
 model OrderStatusHistory {
   id        String   @id @default(cuid())
   orderId   String

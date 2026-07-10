@@ -1,16 +1,15 @@
 import "server-only";
-import { mkdir, writeFile } from "fs/promises";
 import { randomUUID } from "crypto";
 import path from "path";
-import { put } from "@vercel/blob";
+import { prisma } from "@/lib/db";
 
 /**
- * Хранилище загруженных изображений товаров.
- * - На Vercel (есть BLOB_READ_WRITE_TOKEN) файлы уходят в Vercel Blob,
- *   URL получается абсолютный (https://…blob.vercel-storage.com/…).
- * - Иначе (VPS/локально) файл кладётся на диск: каталог задаётся UPLOAD_DIR
- *   (в Docker — /app/data/uploads на volume, локально — ./data/uploads),
- *   раздаётся маршрутом /uploads/[file].
+ * Хранилище загруженных изображений товаров: база данных (таблица Upload).
+ * Работает одинаково на Vercel, VPS и локально, не зависит от платного
+ * файлового хранилища (Vercel Blob на бесплатном тарифе блокируется
+ * при превышении лимитов). Файлы раздаются маршрутом /uploads/[file];
+ * он же продолжает отдавать старые файлы с диска (VPS) и из Blob.
+ * Вернуть загрузку в Blob: переменная USE_BLOB=1.
  */
 
 export const UPLOAD_DIR =
@@ -32,16 +31,15 @@ export function extensionForMime(mime: string): string | null {
 
 /**
  * Сохраняет файл и возвращает URL вида /uploads/<имя> — всегда со своего
- * домена. В Blob-режиме файл лежит в облаке, а маршрут /uploads/[file]
- * проксирует его: домен *.blob.vercel-storage.com у части провайдеров
- * недоступен, свой домен работает везде.
+ * домена. Файл кладётся в базу данных; опционально (USE_BLOB=1) — в Blob.
  */
 export async function saveUpload(buffer: Buffer, mime: string): Promise<string> {
   const ext = extensionForMime(mime);
   if (!ext) throw new Error("UNSUPPORTED_TYPE");
   const name = `${randomUUID()}${ext}`;
 
-  if (process.env.BLOB_READ_WRITE_TOKEN) {
+  if (process.env.USE_BLOB === "1" && process.env.BLOB_READ_WRITE_TOKEN) {
+    const { put } = await import("@vercel/blob");
     const blob = await put(`products/${name}`, buffer, {
       access: "public",
       contentType: mime,
@@ -50,9 +48,16 @@ export async function saveUpload(buffer: Buffer, mime: string): Promise<string> 
     return `/uploads/${name}`;
   }
 
-  await mkdir(UPLOAD_DIR, { recursive: true });
-  await writeFile(path.join(UPLOAD_DIR, name), buffer);
+  await prisma.upload.create({ data: { name, mime, data: new Uint8Array(buffer) } });
   return `/uploads/${name}`;
+}
+
+/** Читает загруженный файл из БД (null — файла нет, ищите на диске/в Blob). */
+export async function readUploadFromDb(
+  name: string,
+): Promise<{ mime: string; data: Buffer } | null> {
+  const row = await prisma.upload.findUnique({ where: { name } });
+  return row ? { mime: row.mime, data: Buffer.from(row.data) } : null;
 }
 
 // Базовый адрес blob-хранилища: из env или запоминается после загрузки.
