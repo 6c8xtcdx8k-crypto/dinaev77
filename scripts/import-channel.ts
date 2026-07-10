@@ -42,11 +42,14 @@ type ChannelProduct = {
  *   в serverless-окружении не переживает деплой);
  * - иначе (VPS/локально) — скачиваем на диск в UPLOAD_DIR.
  */
-async function downloadPhoto(url: string): Promise<string | null> {
+async function downloadPhoto(url: string, attempt = 1): Promise<string | null> {
   if (!process.env.BLOB_READ_WRITE_TOKEN && process.env.VERCEL) return url;
   try {
     const res = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0" } });
-    if (!res.ok) return null;
+    if (!res.ok) {
+      if (attempt < 2) return downloadPhoto(url, attempt + 1);
+      return null;
+    }
     const type = res.headers.get("content-type") ?? "";
     const ext = type.includes("png") ? ".png" : type.includes("webp") ? ".webp" : ".jpg";
     const buf = Buffer.from(await res.arrayBuffer());
@@ -66,6 +69,7 @@ async function downloadPhoto(url: string): Promise<string | null> {
     writeFileSync(path.join(UPLOAD_DIR, name), buf);
     return `/uploads/${name}`;
   } catch {
+    if (attempt < 2) return downloadPhoto(url, attempt + 1);
     return null;
   }
 }
@@ -209,7 +213,8 @@ async function main() {
 
 main()
   .catch((e) => {
-    console.error(e);
-    process.exit(1);
+    // Импорт не должен блокировать деплой: при фатальной ошибке сайт
+    // выкатывается со старым каталогом, ошибка видна в логе сборки.
+    console.error("[import] ФАТАЛЬНАЯ ОШИБКА (деплой продолжается):", e);
   })
   .finally(() => prisma.$disconnect());
