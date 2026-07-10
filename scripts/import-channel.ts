@@ -97,6 +97,19 @@ async function removeDemoData(): Promise<void> {
   if (demoUser.count > 0) console.log("[import] удалён демо-покупатель customer@example.com");
 }
 
+/** Поставщик сумок не отправляет — снимаем ранее импортированные сумки
+ *  (slug вида ...-b<номер поста>) с витрины. */
+async function removeBagsImport(): Promise<void> {
+  const candidates = await prisma.product.findMany({
+    where: { slug: { contains: "-b" } },
+    select: { id: true, slug: true },
+  });
+  const ids = candidates.filter((p) => /-b\d+$/.test(p.slug)).map((p) => p.id);
+  if (ids.length === 0) return;
+  const gone = await prisma.product.deleteMany({ where: { id: { in: ids } } });
+  console.log(`[import] удалено сумок (поставщик не отправляет): ${gone.count}`);
+}
+
 /** Разовая уборка: чинит названия цветов у ранее импортированных вариантов. */
 async function fixExistingColorNames(): Promise<void> {
   const dirty = await prisma.variant.findMany({
@@ -120,6 +133,7 @@ async function main() {
   console.log(`[import] товаров в файле: ${items.length}`);
 
   await removeDemoData();
+  await removeBagsImport();
   await fixExistingColorNames();
 
   const clothing = await prisma.category.upsert({

@@ -6,7 +6,6 @@ import { SearchBar } from "./SearchBar";
 
 const NAV = [
   { href: "/catalog?category=clothing", label: "Одежда" },
-  { href: "/catalog?category=bags", label: "Сумки" },
   { href: "/catalog?gender=WOMEN", label: "Женщинам" },
   { href: "/catalog?gender=MEN", label: "Мужчинам" },
   { href: "/catalog?sort=new", label: "Новинки", accent: true },

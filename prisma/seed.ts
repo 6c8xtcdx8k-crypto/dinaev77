@@ -15,7 +15,6 @@ async function main() {
   // Категории
   const categories = [
     { slug: "clothing", name: "Одежда", sort: 1 },
-    { slug: "bags", name: "Сумки", sort: 2 },
   ];
   for (const c of categories) {
     await prisma.category.upsert({ where: { slug: c.slug }, update: c, create: c });
