@@ -54,6 +54,25 @@ function makeSku(slug: string, color: string, size: string): string {
   return `${slug}-${color}-${size}`.toLowerCase().replace(/[^a-z0-9а-яё-]+/gi, "-");
 }
 
+/** Убирает хвостовую пунктуацию из названия цвета («Чёрный.» → «Чёрный»). */
+function cleanColorName(name: string): string {
+  return name.replace(/[.…!\s]+$/g, "").trim() || name;
+}
+
+/** Разовая уборка: чинит названия цветов у ранее импортированных вариантов. */
+async function fixExistingColorNames(): Promise<void> {
+  const dirty = await prisma.variant.findMany({
+    where: { color: { endsWith: "." } },
+    select: { id: true, color: true },
+  });
+  for (const v of dirty) {
+    await prisma.variant
+      .update({ where: { id: v.id }, data: { color: cleanColorName(v.color) } })
+      .catch(() => {}); // конфликт уникальности (productId,size,color) — пропускаем
+  }
+  if (dirty.length > 0) console.log(`[import] исправлено названий цветов: ${dirty.length}`);
+}
+
 async function main() {
   if (!existsSync(DATA_FILE)) {
     console.log("[import] scripts/channel-products.json не найден — нечего импортировать");
@@ -61,6 +80,8 @@ async function main() {
   }
   const items: ChannelProduct[] = JSON.parse(readFileSync(DATA_FILE, "utf8"));
   console.log(`[import] товаров в файле: ${items.length}`);
+
+  await fixExistingColorNames();
 
   const category = await prisma.category.upsert({
     where: { slug: "clothing" },
@@ -106,9 +127,9 @@ async function main() {
           variants: {
             create: item.colors.flatMap((color) =>
               item.sizes.map((size) => ({
-                sku: makeSku(item.slug, color.name, size),
+                sku: makeSku(item.slug, cleanColorName(color.name), size),
                 size,
-                color: color.name,
+                color: cleanColorName(color.name),
                 colorHex: color.hex,
                 stock: STOCK_PER_VARIANT,
               })),
