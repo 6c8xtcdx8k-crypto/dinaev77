@@ -12,6 +12,7 @@ import { FavoriteButton } from "@/components/product/FavoriteButton";
 import { RatingStars } from "@/components/product/RatingStars";
 import { ReviewForm } from "@/components/product/ReviewForm";
 import { ProductCard } from "@/components/product/ProductCard";
+import { BackButton } from "@/components/ui/BackButton";
 
 export const dynamic = "force-dynamic";
 
@@ -56,15 +57,18 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
   return (
     <div className="container py-6">
-      <nav className="mb-4 text-sm text-zinc-400" aria-label="Хлебные крошки">
-        <Link href="/" className="hover:text-brand-600">Главная</Link>
-        {" / "}
-        <Link href={`/catalog?category=${product.category.slug}`} className="hover:text-brand-600">
-          {product.category.name}
-        </Link>
-        {" / "}
-        <span className="text-zinc-600">{product.name}</span>
-      </nav>
+      <div className="mb-4 flex items-center gap-4">
+        <BackButton />
+        <nav className="min-w-0 truncate text-sm text-zinc-400" aria-label="Хлебные крошки">
+          <Link href="/" className="hover:text-brand-600">Главная</Link>
+          {" / "}
+          <Link href={`/catalog?category=${product.category.slug}`} className="hover:text-brand-600">
+            {product.category.name}
+          </Link>
+          {" / "}
+          <span className="text-zinc-600">{product.name}</span>
+        </nav>
+      </div>
 
       <div className="grid gap-8 lg:grid-cols-[minmax(0,480px)_1fr]">
         <ProductGallery images={product.images} name={product.name} />
