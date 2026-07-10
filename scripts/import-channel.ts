@@ -184,6 +184,20 @@ async function fixManualProductPhotos(): Promise<void> {
   if (fixed > 0) console.log(`[manual] исправлено товаров: ${fixed}`);
 }
 
+/**
+ * Удаляет фотографии из чёрного списка (scripts/banned-photos.json) —
+ * QR-визитки поставщиков, попавшие в фотоальбомы постов.
+ * Список пополняется сканером scripts/scan-qr.mjs.
+ */
+async function removeBannedPhotos(): Promise<void> {
+  const file = path.join(process.cwd(), "scripts", "banned-photos.json");
+  if (!existsSync(file)) return;
+  const banned: string[] = JSON.parse(readFileSync(file, "utf8"));
+  if (banned.length === 0) return;
+  const gone = await prisma.productImage.deleteMany({ where: { url: { in: banned } } });
+  if (gone.count > 0) console.log(`[import] удалено фото с QR-кодами: ${gone.count}`);
+}
+
 async function main() {
   if (!existsSync(DATA_FILE)) {
     console.log("[import] scripts/channel-products.json не найден — нечего импортировать");
@@ -196,6 +210,7 @@ async function main() {
   await fixExistingColorNames();
   await migratePhotosToSourceUrls(items);
   await fixManualProductPhotos();
+  await removeBannedPhotos();
 
   const CATEGORY_DEFS = [
     { slug: "clothing", name: "Одежда", sort: 1 },
