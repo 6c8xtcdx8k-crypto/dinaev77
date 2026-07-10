@@ -27,7 +27,7 @@ type ChannelProduct = {
   name: string;
   description: string;
   gender: "WOMEN" | "MEN" | "UNISEX";
-  category?: "clothing" | "bags"; // по умолчанию clothing
+  category?: "clothing" | "bags" | "bags-lux"; // по умолчанию clothing
   priceRub: number;
   sizes: string[];
   colors: { name: string; hex: string }[];
@@ -197,17 +197,33 @@ async function main() {
   await migratePhotosToSourceUrls(items);
   await fixManualProductPhotos();
 
-  const clothing = await prisma.category.upsert({
-    where: { slug: "clothing" },
-    update: {},
-    create: { slug: "clothing", name: "Одежда", sort: 1 },
-  });
-  const bags = await prisma.category.upsert({
-    where: { slug: "bags" },
-    update: {},
-    create: { slug: "bags", name: "Сумки", sort: 2 },
-  });
-  const categoryId = (item: ChannelProduct) => (item.category === "bags" ? bags.id : clothing.id);
+  const CATEGORY_DEFS = [
+    { slug: "clothing", name: "Одежда", sort: 1 },
+    { slug: "bags", name: "Сумки", sort: 2 },
+    { slug: "bags-lux", name: "Сумки люкс", sort: 3 },
+  ];
+  const catBySlug = new Map<string, string>();
+  for (const c of CATEGORY_DEFS) {
+    const cat = await prisma.category.upsert({ where: { slug: c.slug }, update: { name: c.name }, create: c });
+    catBySlug.set(c.slug, cat.id);
+  }
+  const categoryId = (item: ChannelProduct) =>
+    catBySlug.get(item.category ?? "clothing") ?? catBySlug.get("clothing")!;
+
+  // Синхронизация категорий уже импортированных товаров (например,
+  // люксовые сумки выделены в отдельную категорию задним числом).
+  for (const item of items) {
+    const existing = await prisma.product.findUnique({
+      where: { slug: item.slug },
+      select: { id: true, categoryId: true },
+    });
+    if (existing && existing.categoryId !== categoryId(item)) {
+      await prisma.product.update({
+        where: { id: existing.id },
+        data: { categoryId: categoryId(item) },
+      });
+    }
+  }
 
   let created = 0;
   let skipped = 0;

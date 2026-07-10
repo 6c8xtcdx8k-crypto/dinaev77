@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { queryCatalog, getFilterFacets } from "@/services/catalog";
 import { ProductCard } from "@/components/product/ProductCard";
 import { FilterSidebar } from "@/components/catalog/FilterSidebar";
@@ -54,9 +55,18 @@ export default async function CatalogPage({
   ]);
 
   const titleParts: string[] = [];
+  if (category === "bags") titleParts.push("Сумки");
+  if (category === "bags-lux") titleParts.push("Сумки люкс");
   if (gender && gender in GENDER_LABELS) titleParts.push(GENDER_LABELS[gender as Gender]);
   if (q) titleParts.push(`«${q}»`);
   const title = titleParts.length > 0 ? titleParts.join(" · ") : "Каталог";
+
+  // Внутри раздела сумок — два вида: люксовые и другие
+  const isBags = category === "bags" || category === "bags-lux";
+  const BAG_KINDS = [
+    { slug: "bags-lux", label: "Люксовые" },
+    { slug: "bags", label: "Другие" },
+  ];
 
   function makeHref(page: number): string {
     const next = new URLSearchParams();
@@ -76,6 +86,24 @@ export default async function CatalogPage({
         </h1>
         <SortSelect />
       </div>
+
+      {isBags && (
+        <div className="mb-5 flex gap-2">
+          {BAG_KINDS.map((kind) => (
+            <Link
+              key={kind.slug}
+              href={`/catalog?category=${kind.slug}`}
+              className={`rounded-full px-5 py-2 text-sm font-bold shadow-card transition-all duration-300 hover:-translate-y-0.5 ${
+                category === kind.slug
+                  ? "bg-gradient-to-r from-brand-400 to-brand-500 text-white shadow-glow"
+                  : "bg-white text-zinc-600 hover:text-brand-600"
+              }`}
+            >
+              {kind.label}
+            </Link>
+          ))}
+        </div>
+      )}
 
       <div className="grid gap-8 lg:grid-cols-[240px_1fr]">
         <aside className="card h-fit p-5 lg:sticky lg:top-36">
