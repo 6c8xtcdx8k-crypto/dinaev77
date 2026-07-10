@@ -67,7 +67,7 @@ export async function POST(req: Request) {
       await sendTelegramMessage(
         chatId,
         `Здравствуйте, ${firstName}! 👋\n\n` +
-          "Добро пожаловать в <b>Styleberries</b> — одежда для женщин и мужчин.\n" +
+          "Добро пожаловать в <b>Styleberries</b> — одежда и сумки для женщин и мужчин.\n" +
           "Нажмите кнопку ниже, чтобы открыть магазин и оформить заказ.",
         shopButton(),
       );

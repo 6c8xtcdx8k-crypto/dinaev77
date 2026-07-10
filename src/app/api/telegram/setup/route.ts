@@ -45,9 +45,9 @@ export async function POST() {
 
     await tg("setMyDescription", {
       description:
-        "Styleberries — одежда для женщин и мужчин. Откройте магазин кнопкой ниже.",
+        "Styleberries — одежда и сумки для женщин и мужчин. Откройте магазин кнопкой ниже.",
     });
-    await tg("setMyShortDescription", { short_description: "Одежда для женщин и мужчин" });
+    await tg("setMyShortDescription", { short_description: "Одежда и сумки" });
     await tg("setMyCommands", {
       commands: [{ command: "start", description: "Открыть магазин" }],
     });

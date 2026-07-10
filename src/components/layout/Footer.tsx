@@ -14,13 +14,14 @@ export function Footer() {
             <span className="uppercase text-brand-400">Styleberries</span>
           </div>
           <p className="mt-2 text-sm text-zinc-500">
-            Интернет-магазин одежды для женщин и мужчин.
+            Интернет-магазин одежды и сумок для женщин и мужчин.
           </p>
         </div>
         <FooterCol
           title="Каталог"
           links={[
             ["Одежда", "/catalog?category=clothing"],
+            ["Сумки", "/catalog?category=bags"],
             ["Женщинам", "/catalog?gender=WOMEN"],
             ["Новинки", "/catalog?sort=new"],
           ]}

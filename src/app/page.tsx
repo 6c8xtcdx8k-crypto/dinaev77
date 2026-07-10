@@ -7,6 +7,7 @@ export const dynamic = "force-dynamic";
 
 const TILES = [
   { href: "/catalog?category=clothing", title: "Одежда" },
+  { href: "/catalog?category=bags", title: "Сумки" },
   { href: "/catalog?gender=WOMEN", title: "Женщинам" },
   { href: "/catalog?gender=MEN", title: "Мужчинам" },
 ];
@@ -14,7 +15,7 @@ const TILES = [
 const MARQUEE = [
   "Доставка по всей России через СДЭК",
   "Новая коллекция уже в каталоге",
-  "Одежда для женщин и мужчин",
+  "Одежда и сумки для женщин и мужчин",
   "Тысячи довольных покупателей",
 ];
 
@@ -65,7 +66,7 @@ export default async function HomePage() {
           className="mt-5 max-w-md animate-fade-up text-lg font-medium text-[#2c2c2c]"
           style={{ animationDelay: ".24s" }}
         >
-          Одежда для женщин и мужчин: худи, платья, джинсы и не только.
+          Одежда для женщин и мужчин и женские сумки: худи, платья, джинсы и не только.
           Доставка по всей России через СДЭК.
         </p>
         <div className="mt-8 flex flex-wrap gap-3 animate-fade-up" style={{ animationDelay: ".36s" }}>
@@ -98,7 +99,7 @@ export default async function HomePage() {
       </div>
 
       {/* Категории — пастельные облака */}
-      <Reveal variant="stagger" className="grid grid-cols-3 gap-4">
+      <Reveal variant="stagger" className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         {TILES.map((tile, i) => (
           <Link
             key={tile.href}
