@@ -52,7 +52,7 @@ TELEGRAM_BOT_TOKEN=${TG_TOKEN}
 TELEGRAM_WEBHOOK_SECRET=$(head -c 16 /dev/urandom | base64 | tr -d '=+/')
 PAYMENT_USDT_TRC20=${USDT}
 PAYMENT_CARD=${CARD}
-PAYMENT_CARD_QR=
+PAYMENT_CARD_QR=https://tbank.ru/cf/2lpzxBl3uEn
 # ID служебного чата для заказов и сигналов об оплате: добавьте бота в чат, отправьте /id
 ORDERS_CHAT_ID=
 ADMIN_EMAIL=${ADMIN_EMAIL}
