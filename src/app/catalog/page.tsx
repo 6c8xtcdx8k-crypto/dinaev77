@@ -55,9 +55,15 @@ export default async function CatalogPage({
   ]);
 
   const titleParts: string[] = [];
-  if (category === "bags") titleParts.push("Сумки");
-  if (category === "bags-lux") titleParts.push("Сумки люкс");
-  if (gender && gender in GENDER_LABELS) titleParts.push(GENDER_LABELS[gender as Gender]);
+  if (category === "clothing") {
+    titleParts.push(
+      gender === "WOMEN" ? "Одежда женская" : gender === "MEN" ? "Одежда мужская" : "Одежда",
+    );
+  } else {
+    if (category === "bags") titleParts.push("Сумки");
+    if (category === "bags-lux") titleParts.push("Сумки люкс");
+    if (gender && gender in GENDER_LABELS) titleParts.push(GENDER_LABELS[gender as Gender]);
+  }
   if (q) titleParts.push(`«${q}»`);
   const title = titleParts.length > 0 ? titleParts.join(" · ") : "Каталог";
 
@@ -66,6 +72,12 @@ export default async function CatalogPage({
   const BAG_KINDS = [
     { slug: "bags-lux", label: "Люксовые" },
     { slug: "bags", label: "Другие" },
+  ];
+  // Внутри раздела одежды — женская и мужская
+  const isClothing = category === "clothing";
+  const CLOTHING_KINDS = [
+    { gender: "WOMEN", label: "Женская" },
+    { gender: "MEN", label: "Мужская" },
   ];
 
   function makeHref(page: number): string {
@@ -95,6 +107,24 @@ export default async function CatalogPage({
               href={`/catalog?category=${kind.slug}`}
               className={`rounded-full px-5 py-2 text-sm font-bold shadow-card transition-all duration-300 hover:-translate-y-0.5 ${
                 category === kind.slug
+                  ? "bg-gradient-to-r from-brand-400 to-brand-500 text-white shadow-glow"
+                  : "bg-white text-zinc-600 hover:text-brand-600"
+              }`}
+            >
+              {kind.label}
+            </Link>
+          ))}
+        </div>
+      )}
+
+      {isClothing && (
+        <div className="mb-5 flex gap-2">
+          {CLOTHING_KINDS.map((kind) => (
+            <Link
+              key={kind.gender}
+              href={`/catalog?category=clothing${gender === kind.gender ? "" : `&gender=${kind.gender}`}`}
+              className={`rounded-full px-5 py-2 text-sm font-bold shadow-card transition-all duration-300 hover:-translate-y-0.5 ${
+                gender === kind.gender
                   ? "bg-gradient-to-r from-brand-400 to-brand-500 text-white shadow-glow"
                   : "bg-white text-zinc-600 hover:text-brand-600"
               }`}
