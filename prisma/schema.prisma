@@ -197,6 +197,14 @@ model ViewedProduct {
   @@index([userId, viewedAt])
 }
 
+// Настройки магазина, задаваемые из админки (ключ → значение):
+// подключение Instagram и другое, что неудобно держать в env.
+model Setting {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt
+}
+
 // Загруженные из админки изображения товаров: хранятся в БД,
 // чтобы не зависеть от платного файлового хранилища на Vercel.
 model Upload {

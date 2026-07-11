@@ -55,7 +55,7 @@ export default async function AdminProductPage({
 
       <ImageManager productId={product.id} images={product.images} />
       <VariantManager productId={product.id} variants={product.variants} />
-      {isInstagramConfigured() && <InstagramPublish productId={product.id} />}
+      {(await isInstagramConfigured()) && <InstagramPublish productId={product.id} />}
       <DangerZone productId={product.id} productName={product.name} isActive={product.isActive} />
     </div>
   );

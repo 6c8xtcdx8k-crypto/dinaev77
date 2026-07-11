@@ -2,12 +2,15 @@ import type { Metadata } from "next";
 import { getCurrentUser } from "@/lib/auth";
 import { PasswordForm } from "@/components/admin/PasswordForm";
 import { TelegramSetup } from "@/components/admin/TelegramSetup";
+import { InstagramConnect } from "@/components/admin/InstagramConnect";
+import { getInstagramStatus } from "@/lib/instagram";
 
 export const metadata: Metadata = { title: "Настройки — админка" };
 export const dynamic = "force-dynamic";
 
 export default async function AdminSettingsPage() {
   const user = await getCurrentUser();
+  const instagram = await getInstagramStatus();
 
   return (
     <div className="max-w-md space-y-5">
@@ -35,6 +38,38 @@ export default async function AdminSettingsPage() {
           задан в переменной окружения TELEGRAM_BOT_TOKEN.
         </p>
         <TelegramSetup />
+      </div>
+
+      <div className="card p-5">
+        <h2 className="mb-1 font-bold">Instagram</h2>
+        <p className="mb-3 text-sm text-zinc-500">
+          Публикация товаров в Instagram одной кнопкой с карточки товара.
+          Нужен токен доступа — получается один раз:
+        </p>
+        <ol className="mb-4 list-decimal space-y-1 pl-5 text-sm text-zinc-600">
+          <li>
+            В Instagram: Настройки → Для профессионалов → переключиться на
+            профессиональный аккаунт (тип «Бизнес», бесплатно)
+          </li>
+          <li>
+            На{" "}
+            <a
+              href="https://developers.facebook.com"
+              target="_blank"
+              rel="noopener"
+              className="font-medium text-sky-600 hover:underline"
+            >
+              developers.facebook.com
+            </a>
+            : My Apps → Create App → тип Business → в приложении добавить
+            продукт Instagram → «API setup with Instagram login»
+          </li>
+          <li>
+            Там же: Add account (войти в Instagram магазина) → Generate token →
+            скопировать токен и вставить сюда
+          </li>
+        </ol>
+        <InstagramConnect connected={instagram.connected} username={instagram.username} />
       </div>
     </div>
   );
