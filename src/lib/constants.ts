@@ -35,8 +35,8 @@ export const GENDERS = ["WOMEN", "MEN", "UNISEX"] as const;
 export type Gender = (typeof GENDERS)[number];
 
 export const GENDER_LABELS: Record<Gender, string> = {
-  WOMEN: "Женщинам",
-  MEN: "Мужчинам",
+  WOMEN: "Женская",
+  MEN: "Мужская",
   UNISEX: "Унисекс",
 };
 
