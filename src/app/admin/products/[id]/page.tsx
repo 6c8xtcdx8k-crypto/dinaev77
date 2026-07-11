@@ -5,7 +5,9 @@ import { prisma } from "@/lib/db";
 import { ProductForm } from "@/components/admin/ProductForm";
 import { VariantManager } from "@/components/admin/VariantManager";
 import { ImageManager } from "@/components/admin/ImageManager";
+import { InstagramPublish } from "@/components/admin/InstagramPublish";
 import { DangerZone } from "@/components/admin/DangerZone";
+import { isInstagramConfigured } from "@/lib/instagram";
 
 export const metadata: Metadata = { title: "Товар — админка" };
 export const dynamic = "force-dynamic";
@@ -53,6 +55,7 @@ export default async function AdminProductPage({
 
       <ImageManager productId={product.id} images={product.images} />
       <VariantManager productId={product.id} variants={product.variants} />
+      {isInstagramConfigured() && <InstagramPublish productId={product.id} />}
       <DangerZone productId={product.id} productName={product.name} isActive={product.isActive} />
     </div>
   );

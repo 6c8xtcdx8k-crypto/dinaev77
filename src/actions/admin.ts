@@ -6,6 +6,7 @@ import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
 import { requireAdmin } from "@/lib/auth";
 import { changeOrderStatus } from "@/services/orders";
+import { publishProductToInstagram, type PublishResult } from "@/lib/instagram";
 import type { OrderStatus } from "@/lib/constants";
 
 /** Обновляет витрину после изменения товара: каталог, главную и карточку. */
@@ -345,3 +346,11 @@ export async function setOrderStatusAction(
   return res.ok ? { ok: true } : { ok: false, error: res.error };
 }
 
+
+// ---------- Instagram ----------
+
+/** Публикует товар в Instagram (фото + подпись с ценой и ссылкой на бота). */
+export async function publishToInstagramAction(productId: string): Promise<PublishResult> {
+  await requireAdmin();
+  return publishProductToInstagram(productId);
+}
