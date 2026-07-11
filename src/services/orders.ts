@@ -266,7 +266,7 @@ async function notifyOrdersChat(
   orderId: string,
   orderNumber: number,
   userId: string | null,
-  lines: { name: string; size: string; color: string; qty: number; price: number }[],
+  lines: { name: string; slug: string; size: string; color: string; qty: number; price: number }[],
   info: { name: string; phone: string; total: number; deliveryMethod: string; deliveryAddress: string },
 ): Promise<void> {
   const chatId = process.env.ORDERS_CHAT_ID;
@@ -280,11 +280,17 @@ async function notifyOrdersChat(
       : null;
     const username = user?.telegramUsername ? `@${escapeHtml(user.telegramUsername)}` : "без username (гость/веб)";
 
+    const base = process.env.NEXT_PUBLIC_BASE_URL ?? "";
+    // Название товара — ссылкой на карточку, чтобы сразу видеть, что заказали
     const items = lines
-      .map((l) => `• ${escapeHtml(l.name)} — ${escapeHtml(l.size)}, ${escapeHtml(l.color)} × ${l.qty} (${formatPrice(l.price * l.qty)})`)
+      .map((l) => {
+        const name = base
+          ? `<a href="${base}/product/${l.slug}">${escapeHtml(l.name)}</a>`
+          : escapeHtml(l.name);
+        return `• ${name} — ${escapeHtml(l.size)}, ${escapeHtml(l.color)} × ${l.qty} (${formatPrice(l.price * l.qty)})`;
+      })
       .join("\n");
     const delivery = "СДЭК (за счёт покупателя)";
-    const base = process.env.NEXT_PUBLIC_BASE_URL ?? "";
 
     await sendTelegramMessage(
       chatId,

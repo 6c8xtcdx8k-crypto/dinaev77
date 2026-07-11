@@ -49,7 +49,13 @@ export default async function AdminOrderPage({ params }: { params: Promise<{ id:
           {order.items.map((item) => (
             <li key={item.id} className="flex justify-between gap-3 py-2 text-sm">
               <span>
-                {item.productName}{" "}
+                <Link
+                  href={`/product/${item.productSlug}`}
+                  target="_blank"
+                  className="font-medium text-sky-700 hover:text-brand-600 hover:underline"
+                >
+                  {item.productName}
+                </Link>{" "}
                 <span className="text-zinc-400">
                   ({item.size}, {item.color}) × {item.qty}
                 </span>
