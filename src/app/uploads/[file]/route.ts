@@ -22,6 +22,8 @@ export async function GET(
   const headers = {
     "Content-Type": contentTypeForFile(safe),
     "Cache-Control": "public, max-age=31536000, immutable",
+    // Кэш на CDN Vercel: файл читается из БД один раз, дальше отдаёт edge
+    "CDN-Cache-Control": "public, max-age=31536000, immutable",
     "X-Content-Type-Options": "nosniff",
     // Если в каталоге окажется svg — запретить исполнение скриптов
     "Content-Security-Policy": "default-src 'none'; style-src 'unsafe-inline'; sandbox",

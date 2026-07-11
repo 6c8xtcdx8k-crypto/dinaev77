@@ -35,19 +35,13 @@ type ChannelProduct = {
 };
 
 /**
- * Сохраняет фото товара и возвращает URL для ProductImage:
- * - есть BLOB_READ_WRITE_TOKEN (Vercel) — скачиваем в Vercel Blob,
- *   раздаётся через /uploads/[file] со своего домена;
- * - Vercel без Blob — используем исходный URL CDN Telegram (диск
- *   в serverless-окружении не переживает деплой);
- * - иначе (VPS/локально) — скачиваем на диск в UPLOAD_DIR.
+ * Сохраняет фото товара и возвращает URL для ProductImage (/uploads/<имя>).
+ * Ссылки CDN Telegram протухают за часы, поэтому фото всегда копируются:
+ * - Vercel: сжимаются (sharp, ширина ≤900, JPEG) и кладутся в БД (Upload) —
+ *   бесплатно и навсегда; Blob-режим возвращается переменной USE_BLOB=1;
+ * - VPS/локально: на диск в UPLOAD_DIR, как раньше.
  */
 async function downloadPhoto(url: string, attempt = 1): Promise<string | null> {
-  // На Vercel фото не копируем: Blob-хранилище на бесплатном тарифе
-  // упирается в лимиты (suspended → 403 на все файлы). Карточки ссылаются
-  // на исходный CDN Telegram напрямую. Вернуть копирование: USE_BLOB=1.
-  if (process.env.VERCEL && process.env.USE_BLOB !== "1") return url;
-  if (!process.env.BLOB_READ_WRITE_TOKEN && process.env.VERCEL) return url;
   try {
     const res = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0" } });
     if (!res.ok) {
@@ -55,12 +49,12 @@ async function downloadPhoto(url: string, attempt = 1): Promise<string | null> {
       return null;
     }
     const type = res.headers.get("content-type") ?? "";
-    const ext = type.includes("png") ? ".png" : type.includes("webp") ? ".webp" : ".jpg";
-    const buf = Buffer.from(await res.arrayBuffer());
+    let buf = Buffer.from(await res.arrayBuffer());
     if (buf.length === 0 || buf.length > MAX_PHOTO_BYTES) return null;
-    const name = `${randomUUID()}${ext}`;
+    let ext = type.includes("png") ? ".png" : type.includes("webp") ? ".webp" : ".jpg";
 
-    if (process.env.BLOB_READ_WRITE_TOKEN) {
+    if (process.env.USE_BLOB === "1" && process.env.BLOB_READ_WRITE_TOKEN) {
+      const name = `${randomUUID()}${ext}`;
       const { put } = await import("@vercel/blob");
       await put(`products/${name}`, buf, {
         access: "public",
@@ -69,6 +63,26 @@ async function downloadPhoto(url: string, attempt = 1): Promise<string | null> {
       return `/uploads/${name}`;
     }
 
+    if (process.env.VERCEL) {
+      // Сжимаем, чтобы уместить каталог в бесплатный лимит БД
+      try {
+        const sharp = (await import("sharp")).default;
+        buf = Buffer.from(
+          await sharp(buf).rotate().resize({ width: 900, withoutEnlargement: true })
+            .jpeg({ quality: 72 }).toBuffer(),
+        );
+        ext = ".jpg";
+      } catch {
+        /* sharp недоступен — сохраняем как есть */
+      }
+      const name = `${randomUUID()}${ext}`;
+      await prisma.upload.create({
+        data: { name, mime: "image/jpeg", data: new Uint8Array(buf) },
+      });
+      return `/uploads/${name}`;
+    }
+
+    const name = `${randomUUID()}${ext}`;
     mkdirSync(UPLOAD_DIR, { recursive: true });
     writeFileSync(path.join(UPLOAD_DIR, name), buf);
     return `/uploads/${name}`;
@@ -120,31 +134,56 @@ async function fixExistingColorNames(): Promise<void> {
 }
 
 /**
- * Миграция фото на прямые ссылки CDN Telegram (Vercel без USE_BLOB):
- * Blob-хранилище на бесплатном тарифе заблокировано за превышение лимитов
- * (все файлы отдают 403), поэтому карточки импортированных товаров
- * переводятся на исходные URL из channel-products.json.
+ * Переносит фото уже импортированных товаров в БД (Vercel):
+ * прежние схемы (Blob → его заблокировали; прямые CDN-ссылки → они
+ * протухают за часы) оставили карточки с недоступными картинками.
+ * Товар считается здоровым, когда все его фото — /uploads/<имя>,
+ * и это имя есть в таблице Upload; остальные пересобираются из свежих
+ * ссылок channel-products.json. Прогресс переживает таймаут сборки:
+ * записи в БД остаются, следующая сборка продолжит с места остановки.
  */
-async function migratePhotosToSourceUrls(items: ChannelProduct[]): Promise<void> {
+async function ingestPhotosToDb(items: ChannelProduct[]): Promise<void> {
   if (!process.env.VERCEL || process.env.USE_BLOB === "1") return;
+  const uploads = new Set(
+    (await prisma.upload.findMany({ select: { name: true } })).map((u) => u.name),
+  );
   const bySlug = new Map(items.map((i) => [i.slug, i]));
   const products = await prisma.product.findMany({
     include: { images: { orderBy: { sort: "asc" } } },
   });
   let fixed = 0;
+  let failed = 0;
   for (const p of products) {
     const src = bySlug.get(p.slug);
-    if (!src) continue; // ручные товары не трогаем
-    for (let idx = 0; idx < p.images.length; idx++) {
-      const img = p.images[idx];
-      if (!img.url.startsWith("/uploads/")) continue;
-      const orig = src.photos[idx] ?? src.photos[0];
-      if (!orig) continue;
-      await prisma.productImage.update({ where: { id: img.id }, data: { url: orig } });
-      fixed++;
+    if (!src) continue; // ручные товары чинит fixManualProductPhotos
+    const healthy =
+      p.images.length > 0 &&
+      p.images.every(
+        (i) => i.url.startsWith("/uploads/") && uploads.has(i.url.slice("/uploads/".length)),
+      );
+    if (healthy) continue;
+
+    const fresh: string[] = [];
+    for (const photo of src.photos) {
+      const saved = await downloadPhoto(photo);
+      if (saved) fresh.push(saved);
     }
+    if (fresh.length === 0) {
+      failed++; // свежие ссылки недоступны — оставляем как есть
+      continue;
+    }
+    await prisma.$transaction([
+      prisma.productImage.deleteMany({ where: { productId: p.id } }),
+      prisma.productImage.createMany({
+        data: fresh.map((url, i) => ({ productId: p.id, url, alt: p.name, sort: i })),
+      }),
+    ]);
+    fixed++;
+    if (fixed % 25 === 0) console.log(`[ingest] перенесено товаров: ${fixed}`);
   }
-  if (fixed > 0) console.log(`[repair] фото переведены на CDN-ссылки: ${fixed}`);
+  if (fixed > 0 || failed > 0) {
+    console.log(`[ingest] фото в БД: исправлено ${fixed} товаров, не удалось ${failed}`);
+  }
 }
 
 /**
@@ -156,6 +195,9 @@ async function fixManualProductPhotos(): Promise<void> {
   const file = path.join(process.cwd(), "scripts", "manual-photos.json");
   if (!existsSync(file)) return;
   const map: Record<string, string[]> = JSON.parse(readFileSync(file, "utf8"));
+  const uploads = new Set(
+    (await prisma.upload.findMany({ select: { name: true } })).map((u) => u.name),
+  );
   let fixed = 0;
   for (const [slug, photos] of Object.entries(map)) {
     const product = await prisma.product.findUnique({
@@ -163,23 +205,29 @@ async function fixManualProductPhotos(): Promise<void> {
       include: { images: true },
     });
     if (!product) continue;
-    // Чиним только битые загрузки (/uploads/...); если фото уже заменили —
-    // не трогаем.
-    const broken = product.images.filter((i) => i.url.startsWith("/uploads/"));
-    if (broken.length === 0 && product.images.length > 0) continue;
-    await prisma.productImage.deleteMany({
-      where: { productId: product.id, url: { startsWith: "/uploads/" } },
-    });
+    // Здоровый товар: все фото в БД (/uploads + запись в Upload).
+    const healthy =
+      product.images.length > 0 &&
+      (!process.env.VERCEL ||
+        product.images.every(
+          (i) => i.url.startsWith("/uploads/") && uploads.has(i.url.slice("/uploads/".length)),
+        ));
+    if (healthy) continue;
+
+    const fresh: { url: string; sort: number }[] = [];
     for (const [i, url] of photos.entries()) {
       const saved = await downloadPhoto(url);
-      if (saved) {
-        await prisma.productImage.create({
-          data: { productId: product.id, url: saved, alt: product.name, sort: i },
-        });
-      }
+      if (saved) fresh.push({ url: saved, sort: i });
     }
+    if (fresh.length === 0) continue; // ссылки недоступны — не трогаем текущие
+    await prisma.$transaction([
+      prisma.productImage.deleteMany({ where: { productId: product.id } }),
+      prisma.productImage.createMany({
+        data: fresh.map((f) => ({ productId: product.id, url: f.url, alt: product.name, sort: f.sort })),
+      }),
+    ]);
     fixed++;
-    console.log(`[manual] ${slug}: фото восстановлены (${photos.length})`);
+    console.log(`[manual] ${slug}: фото обновлены (${fresh.length})`);
   }
   if (fixed > 0) console.log(`[manual] исправлено товаров: ${fixed}`);
 }
@@ -208,9 +256,9 @@ async function main() {
 
   await removeDemoData();
   await fixExistingColorNames();
-  await migratePhotosToSourceUrls(items);
-  await fixManualProductPhotos();
   await removeBannedPhotos();
+  await ingestPhotosToDb(items);
+  await fixManualProductPhotos();
 
   const CATEGORY_DEFS = [
     { slug: "clothing", name: "Одежда", sort: 1 },
