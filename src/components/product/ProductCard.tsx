@@ -26,7 +26,7 @@ export function ProductCard({ product }: { product: ProductCardData }) {
             src={image.url}
             alt={image.alt || product.name}
             className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-110 group-hover:rotate-1"
-            loading="lazy"
+            decoding="async"
           />
         ) : (
           <div className="flex h-full items-center justify-center">

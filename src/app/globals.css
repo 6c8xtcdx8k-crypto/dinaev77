@@ -47,35 +47,20 @@ body {
     animation: shine 0.9s ease;
   }
 
-  /* Появление блоков при скролле (управляется компонентом Reveal) */
+  /* Лёгкое появление блоков сразу при загрузке страницы (чистый CSS,
+     без ожидания скролла или JS) — фотографии видны с первой отрисовки. */
   .reveal {
-    opacity: 0;
-    transform: translateY(26px);
-    transition: opacity 0.7s cubic-bezier(0.21, 0.61, 0.35, 1), transform 0.7s cubic-bezier(0.21, 0.61, 0.35, 1);
+    animation: reveal-up 0.45s cubic-bezier(0.21, 0.61, 0.35, 1) both;
   }
-  .reveal.in {
-    opacity: 1;
-    transform: none;
-  }
-  /* Ступенчатое появление детей */
+  /* Ступенчатое появление детей — задержки короткие, чтобы не прятать фото */
   .stagger > * {
-    opacity: 0;
-    transform: translateY(22px);
-    transition: opacity 0.6s cubic-bezier(0.21, 0.61, 0.35, 1), transform 0.6s cubic-bezier(0.21, 0.61, 0.35, 1);
+    animation: reveal-up 0.45s cubic-bezier(0.21, 0.61, 0.35, 1) both;
   }
-  .stagger.in > * {
-    opacity: 1;
-    transform: none;
-  }
-  .stagger.in > *:nth-child(1) { transition-delay: 0.05s; }
-  .stagger.in > *:nth-child(2) { transition-delay: 0.12s; }
-  .stagger.in > *:nth-child(3) { transition-delay: 0.19s; }
-  .stagger.in > *:nth-child(4) { transition-delay: 0.26s; }
-  .stagger.in > *:nth-child(5) { transition-delay: 0.33s; }
-  .stagger.in > *:nth-child(6) { transition-delay: 0.4s; }
-  .stagger.in > *:nth-child(7) { transition-delay: 0.47s; }
-  .stagger.in > *:nth-child(8) { transition-delay: 0.54s; }
-  .stagger.in > *:nth-child(n + 9) { transition-delay: 0.6s; }
+  .stagger > *:nth-child(2) { animation-delay: 0.05s; }
+  .stagger > *:nth-child(3) { animation-delay: 0.1s; }
+  .stagger > *:nth-child(4) { animation-delay: 0.15s; }
+  .stagger > *:nth-child(5) { animation-delay: 0.2s; }
+  .stagger > *:nth-child(n + 6) { animation-delay: 0.25s; }
 
   /* Подчёркивание ссылок навигации */
   .navlink {
@@ -95,6 +80,17 @@ body {
   }
 }
 
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* Уважение к reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -106,6 +102,7 @@ body {
   }
   .reveal,
   .stagger > * {
+    animation: none !important;
     opacity: 1 !important;
     transform: none !important;
   }
