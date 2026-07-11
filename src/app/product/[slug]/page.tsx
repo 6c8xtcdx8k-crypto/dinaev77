@@ -9,6 +9,7 @@ import { GENDER_LABELS, type Gender } from "@/lib/constants";
 import { ProductGallery } from "@/components/product/ProductGallery";
 import { VariantPicker } from "@/components/product/VariantPicker";
 import { FavoriteButton } from "@/components/product/FavoriteButton";
+import { ShareButton } from "@/components/product/ShareButton";
 import { RatingStars } from "@/components/product/RatingStars";
 import { ReviewForm } from "@/components/product/ReviewForm";
 import { ProductCard } from "@/components/product/ProductCard";
@@ -104,7 +105,10 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 </p>
               )}
             </div>
-            <FavoriteButton productId={product.id} initialFavorited={favorited} />
+            <div className="flex flex-col gap-2">
+              <FavoriteButton productId={product.id} initialFavorited={favorited} />
+              <ShareButton name={product.name} price={formatPrice(product.basePrice)} />
+            </div>
           </div>
 
           <section className="mt-8">
