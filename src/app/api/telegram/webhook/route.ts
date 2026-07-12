@@ -8,7 +8,7 @@ import { getPaymentMethods, qrUrlFor } from "@/lib/payment";
  *
  * Что умеет бот сам:
  *  - /start и кнопка «Открыть магазин» → Mini App;
- *  - /pay, «оплата», «реквизиты» → кошелёк USDT TRC-20 + QR-код;
+ *  - /pay, «оплата», «реквизиты» → номер карты + QR-код;
  *  - «оплатил», чек/фото → просьба подождать проверку + сигнал владельцу;
  *  - любой другой вопрос → подсказка с кнопкой магазина;
  *  - /id → id чата (для настройки ORDERS_CHAT_ID).
@@ -101,10 +101,10 @@ export async function POST(req: Request) {
     }
 
     // --- Реквизиты оплаты ---
-    if (lower.startsWith("/pay") || /реквизит|оплат|куда плат|кошел|usdt|крипт|карт|qr/.test(lower)) {
+    if (lower.startsWith("/pay") || /реквизит|оплат|куда плат|карт|qr/.test(lower)) {
       const methods = getPaymentMethods();
       if (methods.length > 0) {
-        await sendTelegramMessage(chatId, "Реквизиты для оплаты — выберите удобный способ:");
+        await sendTelegramMessage(chatId, "Реквизиты для оплаты:");
         for (const m of methods) {
           await sendTelegramPhoto(
             chatId,
@@ -125,7 +125,7 @@ export async function POST(req: Request) {
         chatId,
         `Я бот магазина <b>Styleberries</b> 🛍\n\n` +
           "• «Открыть магазин» — каталог, выбор размера и цвета, оформление заказа\n" +
-          "• После заказа я сразу пришлю реквизиты для оплаты (USDT TRC-20 + QR)\n" +
+          "• После заказа я сразу пришлю реквизиты для оплаты (карта + QR)\n" +
           "• Оплатили — пришлите чек, и я подтвержу заказ после проверки поступления\n\n" +
           "Команды: /pay — реквизиты, /help — помощь.",
         shopButton(),

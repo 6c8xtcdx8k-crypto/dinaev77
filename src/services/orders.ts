@@ -80,7 +80,7 @@ export async function createOrder(input: CheckoutInput): Promise<CheckoutResult>
           deliveryCost,
           subtotal,
           total,
-          paymentProvider: "manual", // оплата USDT/картой, подтверждает владелец
+          paymentProvider: "manual", // оплата переводом на карту, подтверждает владелец
           items: {
             create: lines.map((l) => ({
               variantId: l.variantId,
@@ -213,7 +213,7 @@ async function notifyTelegram(
 }
 
 /**
- * Бот присылает покупателю реквизиты оплаты: приветствие, кошелёк USDT TRC-20
+ * Бот присылает покупателю реквизиты оплаты: приветствие, номер карты
  * и QR-код. Работает автоматически, без участия владельца.
  */
 export async function sendPaymentRequisites(
