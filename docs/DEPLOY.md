@@ -19,7 +19,7 @@ Vercel Blob.
    - `AUTH_SECRET` — длинная случайная строка (32+ символов)
    - `ADMIN_EMAIL`, `ADMIN_PASSWORD` — доступ в админку
    - `TELEGRAM_BOT_TOKEN`, `TELEGRAM_WEBHOOK_SECRET` (случайная строка)
-   - `PAYMENT_USDT_TRC20`, `PAYMENT_CARD`, `PAYMENT_CARD_QR` (опционально)
+   - `PAYMENT_CARD`, `PAYMENT_CARD_QR` (опционально)
    - `ORDERS_CHAT_ID` — id чата владельца (бот подскажет по команде /id)
    - `NEXT_PUBLIC_BASE_URL` — `https://<проект>.vercel.app` (после первого
      деплоя, затем Redeploy)
