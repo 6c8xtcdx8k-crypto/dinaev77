@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { queryCatalog, getFilterFacets } from "@/services/catalog";
-import { ProductCard } from "@/components/product/ProductCard";
 import { FilterSidebar } from "@/components/catalog/FilterSidebar";
 import { SortSelect } from "@/components/catalog/SortSelect";
-import { Pagination } from "@/components/catalog/Pagination";
+import { InfiniteProducts } from "@/components/catalog/InfiniteProducts";
 import { IconSearch } from "@/components/ui/icons";
-import { Reveal } from "@/components/ui/Reveal";
 import { GENDER_LABELS, type Gender, type SortValue } from "@/lib/constants";
 
 export const metadata: Metadata = { title: "Каталог" };
@@ -46,7 +44,7 @@ export default async function CatalogPage({
     priceMax: priceMax ? Math.round(Number(priceMax) * 100) : undefined,
     inStock: asString(sp.inStock) === "1",
     sort: (asString(sp.sort) as SortValue) ?? "popular",
-    page: Number(asString(sp.page)) || 1,
+    page: 1, // дальше страницы подгружаются лентой при прокрутке
   };
 
   const [result, facets] = await Promise.all([
@@ -80,15 +78,13 @@ export default async function CatalogPage({
     { gender: "MEN", label: "Мужская" },
   ];
 
-  function makeHref(page: number): string {
-    const next = new URLSearchParams();
-    for (const [key, value] of Object.entries(sp)) {
-      if (key === "page" || value === undefined) continue;
-      asArray(value).forEach((v) => next.append(key, v));
-    }
-    if (page > 1) next.set("page", String(page));
-    return `/catalog?${next.toString()}`;
+  // Строка текущих фильтров — по ней лента запрашивает следующие страницы.
+  const query = new URLSearchParams();
+  for (const [key, value] of Object.entries(sp)) {
+    if (key === "page" || value === undefined) continue;
+    asArray(value).forEach((v) => query.append(key, v));
   }
+  const queryString = query.toString();
 
   return (
     <div className="container py-6">
@@ -150,14 +146,19 @@ export default async function CatalogPage({
               </p>
             </div>
           ) : (
-            <>
-              <Reveal variant="stagger" className="grid grid-cols-2 gap-4 sm:grid-cols-3 xl:grid-cols-4">
-                {result.items.map((p) => (
-                  <ProductCard key={p.id} product={p} />
-                ))}
-              </Reveal>
-              <Pagination page={result.page} totalPages={result.totalPages} makeHref={makeHref} />
-            </>
+            <InfiniteProducts
+              key={queryString}
+              initial={result.items.map((p) => ({
+                slug: p.slug,
+                name: p.name,
+                basePrice: p.basePrice,
+                ratingAvg: p.ratingAvg,
+                ratingCount: p.ratingCount,
+                images: p.images.map((i) => ({ url: i.url, alt: i.alt })),
+              }))}
+              totalPages={result.totalPages}
+              query={queryString}
+            />
           )}
         </div>
       </div>
