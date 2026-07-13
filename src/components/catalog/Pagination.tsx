@@ -16,11 +16,6 @@ export function Pagination({
 
   return (
     <nav className="mt-8 flex items-center justify-center gap-1" aria-label="Пагинация">
-      {page > 1 && (
-        <Link href={makeHref(page - 1)} className="btn-secondary !px-3 !py-1.5 text-sm">
-          ←
-        </Link>
-      )}
       {pages[0] > 1 && <span className="px-1 text-zinc-400">…</span>}
       {pages.map((p) => (
         <Link
@@ -35,11 +30,6 @@ export function Pagination({
         </Link>
       ))}
       {pages[pages.length - 1] < totalPages && <span className="px-1 text-zinc-400">…</span>}
-      {page < totalPages && (
-        <Link href={makeHref(page + 1)} className="btn-secondary !px-3 !py-1.5 text-sm">
-          →
-        </Link>
-      )}
     </nav>
   );
 }
