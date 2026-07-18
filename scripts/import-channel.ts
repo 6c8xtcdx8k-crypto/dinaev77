@@ -246,6 +246,112 @@ async function removeBannedPhotos(): Promise<void> {
   if (gone.count > 0) console.log(`[import] удалено фото с QR-кодами: ${gone.count}`);
 }
 
+// ---------- Обрезка водяных знаков поставщика Avrora ----------
+
+/** Товар из канала avrorasadovod: женская одежда, slug оканчивается на «-<postId>»
+ *  (без буквенного префикса канала), postId в диапазоне 43xxx–44xxx. На части их
+ *  старых фото впечатан штамп «AVRORA <адрес>» в левом нижнем углу. */
+function isAvroraItem(it: ChannelProduct): boolean {
+  const pid = it.postId ?? 0;
+  if (pid < 43000 || pid >= 45200) return false;
+  return new RegExp(`-${pid}$`).test(it.slug) && !new RegExp(`-[a-z]${pid}$`).test(it.slug);
+}
+
+async function loadImageBytes(name: string): Promise<Buffer | null> {
+  if (process.env.VERCEL && process.env.USE_BLOB !== "1") {
+    const row = await prisma.upload.findUnique({ where: { name } });
+    return row ? Buffer.from(row.data) : null;
+  }
+  const fp = path.join(UPLOAD_DIR, name);
+  return existsSync(fp) ? readFileSync(fp) : null;
+}
+
+async function saveImageBytes(name: string, buf: Buffer): Promise<void> {
+  if (process.env.VERCEL && process.env.USE_BLOB !== "1") {
+    await prisma.upload.upsert({
+      where: { name },
+      update: { data: new Uint8Array(buf), mime: "image/jpeg" },
+      create: { name, mime: "image/jpeg", data: new Uint8Array(buf) },
+    });
+    return;
+  }
+  writeFileSync(path.join(UPLOAD_DIR, name), buf);
+}
+
+/** Обрезает нижние `frac` изображения (там сидит штамп). */
+async function cropBottom(buf: Buffer, frac = 0.12): Promise<Buffer | null> {
+  try {
+    const sharp = (await import("sharp")).default;
+    const base = await sharp(buf).rotate().toBuffer(); // применяем EXIF-поворот
+    const meta = await sharp(base).metadata();
+    if (!meta.width || !meta.height) return null;
+    const keep = Math.max(1, Math.round(meta.height * (1 - frac)));
+    if (keep >= meta.height) return null;
+    return await sharp(base)
+      .extract({ left: 0, top: 0, width: meta.width, height: keep })
+      .jpeg({ quality: 80 })
+      .toBuffer();
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Разовая (идемпотентная) обрезка низа фотографий Avrora, чтобы убрать
+ * впечатанный штамп с названием и адресом поставщика. Обрабатывает уже
+ * сохранённые изображения (БД на Vercel или файлы на диске). Каждое фото
+ * режется один раз — id обработанных хранится в Setting, повторные сборки
+ * их пропускают (иначе картинка сжималась бы при каждом деплое).
+ */
+async function cropAvroraWatermarks(items: ChannelProduct[]): Promise<void> {
+  const slugs = items.filter(isAvroraItem).map((i) => i.slug);
+  if (slugs.length === 0) return;
+
+  const KEY = "avroraWmCropDone";
+  const doneRow = await prisma.setting.findUnique({ where: { key: KEY } });
+  const done = new Set<string>(doneRow ? JSON.parse(doneRow.value) : []);
+
+  const products = await prisma.product.findMany({
+    where: { slug: { in: slugs } },
+    include: { images: true },
+  });
+
+  let cropped = 0;
+  const flush = () =>
+    prisma.setting.upsert({
+      where: { key: KEY },
+      update: { value: JSON.stringify([...done]) },
+      create: { key: KEY, value: JSON.stringify([...done]) },
+    });
+
+  for (const p of products) {
+    for (const img of p.images) {
+      if (done.has(img.id)) continue;
+      if (!img.url.startsWith("/uploads/")) {
+        done.add(img.id); // прямая CDN-ссылка (протухла) — резать нечего
+        continue;
+      }
+      const name = img.url.slice("/uploads/".length);
+      const buf = await loadImageBytes(name);
+      if (!buf) continue; // ещё не сохранено в этой сборке — попробуем в следующей
+      const out = await cropBottom(buf, 0.12);
+      if (!out) {
+        done.add(img.id);
+        continue;
+      }
+      await saveImageBytes(name, out);
+      done.add(img.id);
+      cropped++;
+      if (cropped % 50 === 0) {
+        await flush();
+        console.log(`[wm-crop] обрезано: ${cropped}`);
+      }
+    }
+  }
+  await flush();
+  if (cropped > 0) console.log(`[wm-crop] Avrora: обрезан низ у ${cropped} фото (штамп удалён)`);
+}
+
 async function main() {
   if (!existsSync(DATA_FILE)) {
     console.log("[import] scripts/channel-products.json не найден — нечего импортировать");
@@ -345,6 +451,9 @@ async function main() {
   }
 
   console.log(`[import] готово: создано ${created}, уже было ${skipped}, с ошибкой ${failed}`);
+
+  // Убираем впечатанные штампы поставщика Avrora, обрезая низ их фото.
+  await cropAvroraWatermarks(items);
 }
 
 main()
