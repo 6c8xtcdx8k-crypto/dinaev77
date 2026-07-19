@@ -104,7 +104,10 @@ export async function POST(req: Request) {
     if (lower.startsWith("/pay") || /реквизит|оплат|куда плат|карт|qr/.test(lower)) {
       const methods = getPaymentMethods();
       if (methods.length > 0) {
-        await sendTelegramMessage(chatId, "Реквизиты для оплаты:");
+        await sendTelegramMessage(
+          chatId,
+          "Реквизиты для оплаты ниже. При переводе напишите в комментарии желаемый цвет — отправим именно его.",
+        );
         for (const m of methods) {
           await sendTelegramPhoto(
             chatId,

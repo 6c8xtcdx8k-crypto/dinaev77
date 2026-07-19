@@ -34,7 +34,8 @@ export default async function CheckoutSuccessPage({
         <p className="text-sm font-semibold text-brand-800">Как оплатить</p>
         <p className="mt-1 text-sm text-brand-800/80">
           Реквизиты для оплаты и QR-коды бот Styleberries уже отправил вам в чат.
-          После оплаты пришлите туда чек — заказ подтвердим после проверки.
+          При оплате напишите в комментарии к переводу желаемый цвет — отправим именно его.
+          После оплаты пришлите боту чек — заказ подтвердим после проверки.
         </p>
       </div>
 
