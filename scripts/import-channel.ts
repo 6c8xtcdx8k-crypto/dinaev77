@@ -285,6 +285,28 @@ async function resetAvroraOnce(): Promise<void> {
   });
 }
 
+/**
+ * Единоразовая замена партии Azizov (slug «-az<postId>»): при смене цены/метки
+ * старые товары удаляются, обычный импорт создаёт их заново из свежего стока.
+ * Флаг в Setting; поднимайте версию при каждом обновлении стока Azizov.
+ */
+async function resetAzizovOnce(): Promise<void> {
+  const KEY = "azizovReset_v1";
+  const flag = await prisma.setting.findUnique({ where: { key: KEY } });
+  if (flag) return;
+  const all = await prisma.product.findMany({ select: { id: true, slug: true } });
+  const ids = all.filter((p) => /-az\d+$/.test(p.slug)).map((p) => p.id);
+  if (ids.length > 0) {
+    await prisma.product.deleteMany({ where: { id: { in: ids } } });
+    console.log(`[azizov] удалено старых товаров: ${ids.length} — переимпорт свежих`);
+  }
+  await prisma.setting.upsert({
+    where: { key: KEY },
+    update: { value: "1" },
+    create: { key: KEY, value: "1" },
+  });
+}
+
 async function main() {
   if (!existsSync(DATA_FILE)) {
     console.log("[import] scripts/channel-products.json не найден — нечего импортировать");
@@ -299,6 +321,7 @@ async function main() {
   await ingestPhotosToDb(items);
   await fixManualProductPhotos();
   await resetAvroraOnce(); // разово удаляем старую партию Avrora — заменится чистой
+  await resetAzizovOnce(); // разово удаляем старую партию Azizov — заменится свежей (+800, «+9»)
 
   const CATEGORY_DEFS = [
     { slug: "clothing", name: "Одежда", sort: 1 },
