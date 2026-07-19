@@ -272,18 +272,23 @@ async function saveImageBytes(name: string, buf: Buffer): Promise<void> {
   writeFileSync(path.join(UPLOAD_DIR, name), buf);
 }
 
-/** Обрезает нижние `frac` изображения (там сидит штамп). */
+/** Обрезает нижние `frac` изображения (там сидит штамп). Портретные фото
+ *  Avrora имеют пропорцию ~3:4 (высота/ширина ≈ 1.33); после обрезки она
+ *  падает до ~1.13. Поэтому фото с пропорцией ниже 1.2 считаем уже
+ *  обрезанным (или не портретом) и НЕ трогаем — это защищает от повторной
+ *  («двойной») обрезки при перезапусках. */
 async function cropBottom(buf: Buffer, frac = 0.15): Promise<Buffer | null> {
   try {
     const sharp = (await import("sharp")).default;
     const base = await sharp(buf).rotate().toBuffer(); // применяем EXIF-поворот
     const meta = await sharp(base).metadata();
     if (!meta.width || !meta.height) return null;
+    if (meta.height / meta.width < 1.2) return null; // уже обрезано/не портрет
     const keep = Math.max(1, Math.round(meta.height * (1 - frac)));
     if (keep >= meta.height) return null;
     return await sharp(base)
       .extract({ left: 0, top: 0, width: meta.width, height: keep })
-      .jpeg({ quality: 80 })
+      .jpeg({ quality: 82 })
       .toBuffer();
   } catch {
     return null;
