@@ -297,7 +297,11 @@ async function notifyOrdersChat(
         const name = base
           ? `<a href="${base}/product/${l.slug}">${escapeHtml(l.name)}</a>`
           : escapeHtml(l.name);
-        return `• ${name} — ${escapeHtml(l.size)}, ${escapeHtml(l.color)} × ${l.qty} (${formatPrice(l.price * l.qty)})`;
+        return (
+          `• ${name}\n` +
+          `   Размер: <b>${escapeHtml(l.size)}</b> · Цвет: <b>${escapeHtml(l.color)}</b> · ` +
+          `${l.qty} шт. (${formatPrice(l.price * l.qty)})`
+        );
       })
       .join("\n");
     const delivery = "СДЭК (за счёт покупателя)";
