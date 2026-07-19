@@ -313,7 +313,7 @@ async function resetAzizovOnce(): Promise<void> {
  * Флаг в Setting; поднимайте версию при каждом обновлении стока.
  */
 async function resetMensOnce(): Promise<void> {
-  const KEY = "mensReset_v1";
+  const KEY = "mensReset_v2";
   const flag = await prisma.setting.findUnique({ where: { key: KEY } });
   if (flag) return;
   const all = await prisma.product.findMany({ select: { id: true, slug: true } });
