@@ -43,7 +43,10 @@ type ChannelProduct = {
  */
 async function downloadPhoto(url: string, attempt = 1): Promise<string | null> {
   try {
-    const res = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0" } });
+    const res = await fetch(url, {
+      headers: { "User-Agent": "Mozilla/5.0" },
+      signal: AbortSignal.timeout(12000), // не зависаем на мёртвых ссылках
+    });
     if (!res.ok) {
       if (attempt < 2) return downloadPhoto(url, attempt + 1);
       return null;
@@ -390,57 +393,62 @@ async function main() {
   let skipped = 0;
   let failed = 0;
 
-  for (const item of items) {
-    try {
-      const exists = await prisma.product.findUnique({ where: { slug: item.slug } });
-      if (exists) {
-        skipped++;
-        continue;
-      }
+  // Обрабатываем товары пулом (параллельно), а фото каждого качаем разом —
+  // это в разы ускоряет наполнение по сравнению с последовательной загрузкой.
+  const CONCURRENCY = 6;
+  let cursor = 0;
+  async function worker(): Promise<void> {
+    while (cursor < items.length) {
+      const item = items[cursor++];
+      try {
+        const exists = await prisma.product.findUnique({ where: { slug: item.slug } });
+        if (exists) {
+          skipped++;
+          continue;
+        }
 
-      const urls: string[] = [];
-      for (const photo of item.photos) {
-        const saved = await downloadPhoto(photo);
-        if (saved) urls.push(saved);
-      }
-      if (urls.length === 0) {
-        console.log(`[import] ${item.slug}: не удалось скачать ни одного фото — пропуск`);
+        const results = await Promise.all(item.photos.map((p) => downloadPhoto(p)));
+        const urls = results.filter((u): u is string => !!u);
+        if (urls.length === 0) {
+          console.log(`[import] ${item.slug}: не удалось скачать ни одного фото — пропуск`);
+          failed++;
+          continue;
+        }
+
+        await prisma.product.create({
+          data: {
+            slug: item.slug,
+            name: item.name,
+            description: item.description,
+            categoryId: categoryId(item),
+            gender: item.gender ?? "WOMEN",
+            basePrice: Math.round(item.priceRub * 100),
+            isActive: true,
+            images: {
+              create: urls.map((url, i) => ({ url, alt: item.name, sort: i })),
+            },
+            variants: {
+              create: item.colors.flatMap((color) =>
+                item.sizes.map((size) => ({
+                  sku: makeSku(item.slug, cleanColorName(color.name), size),
+                  size,
+                  color: cleanColorName(color.name),
+                  colorHex: color.hex,
+                  stock: STOCK_PER_VARIANT,
+                })),
+              ),
+            },
+          },
+        });
+        created++;
+        console.log(`[import] + ${item.name} (${item.priceRub} ₽, фото: ${urls.length})`);
+      } catch (err) {
         failed++;
-        continue;
+        console.error(`[import] ${item.slug}: ошибка —`, err instanceof Error ? err.message : err);
       }
-
-      await prisma.product.create({
-        data: {
-          slug: item.slug,
-          name: item.name,
-          description: item.description,
-          categoryId: categoryId(item),
-          gender: item.gender ?? "WOMEN",
-          basePrice: Math.round(item.priceRub * 100),
-          isActive: true,
-          images: {
-            create: urls.map((url, i) => ({ url, alt: item.name, sort: i })),
-          },
-          variants: {
-            create: item.colors.flatMap((color) =>
-              item.sizes.map((size) => ({
-                sku: makeSku(item.slug, cleanColorName(color.name), size),
-                size,
-                color: cleanColorName(color.name),
-                colorHex: color.hex,
-                stock: STOCK_PER_VARIANT,
-              })),
-            ),
-          },
-        },
-      });
-      created++;
-      console.log(`[import] + ${item.name} (${item.priceRub} ₽, фото: ${urls.length})`);
-    } catch (err) {
-      failed++;
-      console.error(`[import] ${item.slug}: ошибка —`, err instanceof Error ? err.message : err);
     }
   }
+  await Promise.all(Array.from({ length: CONCURRENCY }, worker));
 
   console.log(`[import] готово: создано ${created}, уже было ${skipped}, с ошибкой ${failed}`);
 
