@@ -270,7 +270,7 @@ async function saveImageBytes(name: string, buf: Buffer): Promise<void> {
 }
 
 /** Обрезает нижние `frac` изображения (там сидит штамп). */
-async function cropBottom(buf: Buffer, frac = 0.12): Promise<Buffer | null> {
+async function cropBottom(buf: Buffer, frac = 0.15): Promise<Buffer | null> {
   try {
     const sharp = (await import("sharp")).default;
     const base = await sharp(buf).rotate().toBuffer(); // применяем EXIF-поворот
@@ -326,7 +326,7 @@ async function cropAvroraWatermarks(_items: ChannelProduct[]): Promise<void> {
       const name = img.url.slice("/uploads/".length);
       const buf = await loadImageBytes(name);
       if (!buf) continue; // ещё не сохранено в этой сборке — попробуем в следующей
-      const out = await cropBottom(buf, 0.12);
+      const out = await cropBottom(buf, 0.15);
       if (!out) {
         done.add(img.id);
         continue;
