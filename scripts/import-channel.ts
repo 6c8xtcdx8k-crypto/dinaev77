@@ -261,7 +261,7 @@ async function removeBannedPhotos(): Promise<void> {
  * (позиции хранят снимки). При смене стока флаг можно поднять до _v2 и т.д.
  */
 async function resetAvroraOnce(): Promise<void> {
-  const KEY = "avroraCleanReset_v1";
+  const KEY = "avroraCleanReset_v2";
   const flag = await prisma.setting.findUnique({ where: { key: KEY } });
   if (flag) return;
   // Avrora: slug оканчивается «-<postId>» без буквенного префикса, а postId
