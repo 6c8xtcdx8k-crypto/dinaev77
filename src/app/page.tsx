@@ -121,8 +121,8 @@ export default async function HomePage() {
         ))}
       </Reveal>
 
-      <ProductRow title="Хиты продаж" href="/catalog" products={popular} accent />
-      <ProductRow title="Новинки" href="/catalog?sort=new" products={newArrivals} />
+      <ProductRow title="Новинки" href="/catalog" products={newArrivals} accent />
+      <ProductRow title="Хиты продаж" href="/catalog?sort=popular" products={popular} />
     </div>
   );
 }

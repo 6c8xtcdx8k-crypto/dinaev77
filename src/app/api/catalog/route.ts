@@ -19,7 +19,7 @@ export async function GET(req: Request) {
     priceMin: priceMin ? Math.round(Number(priceMin) * 100) : undefined,
     priceMax: priceMax ? Math.round(Number(priceMax) * 100) : undefined,
     inStock: sp.get("inStock") === "1",
-    sort: (sp.get("sort") as SortValue) ?? "popular",
+    sort: (sp.get("sort") as SortValue) ?? "new",
     page: Math.max(1, Number(sp.get("page")) || 1),
   });
 

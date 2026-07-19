@@ -49,10 +49,10 @@ export const DELIVERY_METHODS = {
 export type DeliveryMethod = keyof typeof DELIVERY_METHODS;
 
 export const SORT_OPTIONS = [
+  { value: "new", label: "Сначала новинки" },
   { value: "popular", label: "По популярности" },
   { value: "price_asc", label: "Сначала дешевле" },
   { value: "price_desc", label: "Сначала дороже" },
-  { value: "new", label: "Новинки" },
   { value: "rating", label: "По рейтингу" },
 ] as const;
 

@@ -43,13 +43,14 @@ function orderBy(sort: SortValue | undefined): Prisma.ProductOrderByWithRelation
       return [{ basePrice: "asc" }];
     case "price_desc":
       return [{ basePrice: "desc" }];
-    case "new":
-      return [{ createdAt: "desc" }];
+    case "popular":
+      return [{ salesCount: "desc" }, { ratingCount: "desc" }];
     case "rating":
       return [{ ratingAvg: "desc" }, { ratingCount: "desc" }];
-    case "popular":
+    case "new":
     default:
-      return [{ salesCount: "desc" }, { ratingCount: "desc" }];
+      // По умолчанию — сначала новинки (самые свежие товары вверху).
+      return [{ createdAt: "desc" }];
   }
 }
 

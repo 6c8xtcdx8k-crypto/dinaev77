@@ -7,7 +7,7 @@ import { SORT_OPTIONS } from "@/lib/constants";
 function SortSelectInner() {
   const router = useRouter();
   const params = useSearchParams();
-  const current = params.get("sort") ?? "popular";
+  const current = params.get("sort") ?? "new";
 
   return (
     <select
