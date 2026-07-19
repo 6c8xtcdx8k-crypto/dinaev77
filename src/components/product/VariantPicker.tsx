@@ -26,6 +26,7 @@ export function VariantPicker({ variants }: { variants: VariantData[] }) {
 
   const [color, setColor] = useState(colors[0]?.name ?? "");
   const [size, setSize] = useState<string | null>(null);
+  const [desiredColor, setDesiredColor] = useState("");
   const [pending, startTransition] = useTransition();
   const [message, setMessage] = useState<{ kind: "ok" | "error"; text: string } | null>(null);
 
@@ -49,7 +50,7 @@ export function VariantPicker({ variants }: { variants: VariantData[] }) {
     if (!selected) return;
     setMessage(null);
     startTransition(async () => {
-      const res = await addToCartAction(selected.id, 1);
+      const res = await addToCartAction(selected.id, 1, desiredColor.trim());
       if (res.ok) {
         setMessage({ kind: "ok", text: "Товар добавлен в корзину" });
         router.refresh();
@@ -120,6 +121,23 @@ export function VariantPicker({ variants }: { variants: VariantData[] }) {
             Осталось всего {selected.stock} шт.
           </p>
         )}
+      </div>
+
+      <div>
+        <label htmlFor="desiredColor" className="mb-2 block text-sm font-semibold">
+          Желаемый цвет <span className="font-normal text-zinc-400">(необязательно)</span>
+        </label>
+        <input
+          id="desiredColor"
+          value={desiredColor}
+          onChange={(e) => setDesiredColor(e.target.value)}
+          maxLength={100}
+          placeholder="Например: бежевый, чёрный…"
+          className="input"
+        />
+        <p className="mt-1 text-xs text-zinc-400">
+          Напишите, какой цвет вы хотите — отправим именно его.
+        </p>
       </div>
 
       <div className="flex items-center gap-3">

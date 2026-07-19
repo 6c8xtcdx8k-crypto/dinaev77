@@ -61,6 +61,11 @@ export default async function CartPage() {
                 <p className="mt-0.5 text-sm text-zinc-500">
                   Размер: {line.size} · Цвет: {line.color}
                 </p>
+                {line.desiredColor && (
+                  <p className="text-sm font-medium text-brand-600">
+                    Желаемый цвет: {line.desiredColor}
+                  </p>
+                )}
                 {line.stock < line.qty && (
                   <p className="mt-1 text-xs font-medium text-red-600">
                     Осталось только {line.stock} шт.

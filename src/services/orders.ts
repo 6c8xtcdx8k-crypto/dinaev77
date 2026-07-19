@@ -22,7 +22,6 @@ export type CheckoutInput = {
   customerPhone: string;
   deliveryMethod: DeliveryMethod;
   deliveryAddress: string;
-  desiredColor?: string;
 };
 
 export type CheckoutResult =
@@ -78,7 +77,6 @@ export async function createOrder(input: CheckoutInput): Promise<CheckoutResult>
           customerPhone: input.customerPhone,
           deliveryMethod: input.deliveryMethod,
           deliveryAddress: input.deliveryAddress,
-          desiredColor: input.desiredColor?.trim() ?? "",
           deliveryCost,
           subtotal,
           total,
@@ -90,6 +88,7 @@ export async function createOrder(input: CheckoutInput): Promise<CheckoutResult>
               productSlug: l.slug,
               size: l.size,
               color: l.color,
+              desiredColor: l.desiredColor,
               price: l.price,
               qty: l.qty,
             })),
@@ -116,7 +115,6 @@ export async function createOrder(input: CheckoutInput): Promise<CheckoutResult>
       total: order.total,
       deliveryMethod: input.deliveryMethod,
       deliveryAddress: order.deliveryAddress,
-      desiredColor: order.desiredColor,
     });
     const tpl = orderCreatedEmail({
       number: order.number,
@@ -269,15 +267,16 @@ async function notifyOrdersChat(
   orderId: string,
   orderNumber: number,
   userId: string | null,
-  lines: { name: string; slug: string; size: string; color: string; qty: number; price: number }[],
-  info: {
+  lines: {
     name: string;
-    phone: string;
-    total: number;
-    deliveryMethod: string;
-    deliveryAddress: string;
-    desiredColor?: string;
-  },
+    slug: string;
+    size: string;
+    color: string;
+    desiredColor: string;
+    qty: number;
+    price: number;
+  }[],
+  info: { name: string; phone: string; total: number; deliveryMethod: string; deliveryAddress: string },
 ): Promise<void> {
   const chatId = process.env.ORDERS_CHAT_ID;
   if (!chatId) return;
@@ -297,24 +296,24 @@ async function notifyOrdersChat(
         const name = base
           ? `<a href="${base}/product/${l.slug}">${escapeHtml(l.name)}</a>`
           : escapeHtml(l.name);
+        const wish = l.desiredColor?.trim()
+          ? `\n   Желаемый цвет: <b>${escapeHtml(l.desiredColor.trim())}</b>`
+          : "";
         return (
           `• ${name}\n` +
           `   Размер: <b>${escapeHtml(l.size)}</b> · Цвет: <b>${escapeHtml(l.color)}</b> · ` +
-          `${l.qty} шт. (${formatPrice(l.price * l.qty)})`
+          `${l.qty} шт. (${formatPrice(l.price * l.qty)})` +
+          wish
         );
       })
       .join("\n");
     const delivery = "СДЭК (за счёт покупателя)";
-    const color = info.desiredColor?.trim()
-      ? `Желаемый цвет: <b>${escapeHtml(info.desiredColor.trim())}</b>\n`
-      : "";
 
     await sendTelegramMessage(
       chatId,
       `🛒 <b>Новый заказ №${orderNumber}</b> — <b>${formatPrice(info.total)}</b>\n\n` +
         `${items}\n\n` +
         `Покупатель: ${escapeHtml(info.name)}, ${escapeHtml(info.phone)}\nTelegram: <b>${username}</b>\n` +
-        color +
         `${delivery}: ${escapeHtml(info.deliveryAddress)}\n\n` +
         (base ? `Админка: ${base}/admin/orders/${orderId}` : ""),
     );

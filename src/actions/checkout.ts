@@ -17,7 +17,6 @@ const checkoutSchema = z.object({
   customerPhone: z.string().min(10, "Укажите телефон"),
   deliveryMethod: z.enum(["CDEK"]),
   deliveryAddress: z.string().min(5, "Укажите город и адрес пункта СДЭК"),
-  desiredColor: z.string().max(100).optional().default(""),
 });
 
 export async function placeOrderAction(
@@ -34,7 +33,6 @@ export async function placeOrderAction(
     customerPhone: formData.get("customerPhone"),
     deliveryMethod: formData.get("deliveryMethod"),
     deliveryAddress: formData.get("deliveryAddress"),
-    desiredColor: formData.get("desiredColor") ?? "",
   });
   if (!parsed.success) return { error: parsed.error.errors[0].message };
 

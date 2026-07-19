@@ -6,7 +6,11 @@ import { getOrCreateCart } from "@/lib/cart";
 
 export type CartActionResult = { ok: boolean; error?: string };
 
-export async function addToCartAction(variantId: string, qty = 1): Promise<CartActionResult> {
+export async function addToCartAction(
+  variantId: string,
+  qty = 1,
+  desiredColor = "",
+): Promise<CartActionResult> {
   const variant = await prisma.variant.findUnique({ where: { id: variantId } });
   if (!variant) return { ok: false, error: "Вариант товара не найден" };
   if (variant.stock < 1) return { ok: false, error: "Товара нет в наличии" };
@@ -16,11 +20,16 @@ export async function addToCartAction(variantId: string, qty = 1): Promise<CartA
     where: { cartId_variantId: { cartId: cart.id, variantId } },
   });
 
+  const color = desiredColor.trim().slice(0, 100);
   const newQty = Math.min((existing?.qty ?? 0) + qty, variant.stock);
   if (existing) {
-    await prisma.cartItem.update({ where: { id: existing.id }, data: { qty: newQty } });
+    await prisma.cartItem.update({
+      where: { id: existing.id },
+      // если покупатель указал цвет — обновляем, иначе сохраняем прежний
+      data: { qty: newQty, ...(color ? { desiredColor: color } : {}) },
+    });
   } else {
-    await prisma.cartItem.create({ data: { cartId: cart.id, variantId, qty: newQty } });
+    await prisma.cartItem.create({ data: { cartId: cart.id, variantId, qty: newQty, desiredColor: color } });
   }
 
   revalidatePath("/cart");

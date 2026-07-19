@@ -63,6 +63,11 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
                 <p className="text-zinc-400">
                   {item.size} · {item.color} · {item.qty} шт.
                 </p>
+                {item.desiredColor && (
+                  <p className="text-xs font-medium text-brand-600">
+                    Желаемый цвет: {item.desiredColor}
+                  </p>
+                )}
               </div>
               <span className="font-semibold">{formatPrice(item.price * item.qty)}</span>
             </li>
@@ -95,11 +100,6 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
         <p className="mt-1 text-sm text-zinc-500">
           Получатель: {order.customerName}, {order.customerPhone}
         </p>
-        {order.desiredColor && (
-          <p className="mt-1 text-sm text-zinc-500">
-            Желаемый цвет: <span className="font-medium text-zinc-700">{order.desiredColor}</span>
-          </p>
-        )}
       </section>
 
       <section className="card mt-5 p-5">

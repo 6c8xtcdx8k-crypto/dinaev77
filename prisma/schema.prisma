@@ -134,6 +134,7 @@ model CartItem {
   variantId String
   variant   Variant @relation(fields: [variantId], references: [id], onDelete: Cascade)
   qty       Int     @default(1)
+  desiredColor String @default("") // желаемый цвет, указанный покупателем на карточке товара
 
   @@unique([cartId, variantId])
 }
@@ -154,7 +155,6 @@ model Order {
   deliveryMethod  String // CDEK
   deliveryAddress String
   deliveryCost    Int                  @default(0)
-  desiredColor    String               @default("") // желаемый цвет, указанный при оформлении
   // деньги (копейки)
   subtotal        Int
   total           Int
@@ -181,6 +181,7 @@ model OrderItem {
   productSlug String
   size        String
   color       String
+  desiredColor String  @default("") // желаемый цвет, указанный покупателем на карточке
   price       Int // цена за единицу на момент заказа, копейки
   qty         Int
 }

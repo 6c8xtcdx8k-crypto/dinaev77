@@ -28,10 +28,6 @@ export function CheckoutForm({
             <input name="customerEmail" type="email" defaultValue={defaults.email} placeholder="Email" required className="input" />
             <input name="customerPhone" type="tel" defaultValue={defaults.phone} placeholder="Телефон" required className="input" />
           </div>
-          <input name="desiredColor" placeholder="Желаемый цвет (необязательно)" className="input" />
-          <p className="text-xs text-zinc-400">
-            Укажите, какой цвет вы хотите — отправим именно его.
-          </p>
         </section>
 
         <section className="card space-y-3 p-5">
