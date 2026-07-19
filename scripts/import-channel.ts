@@ -249,107 +249,40 @@ async function removeBannedPhotos(): Promise<void> {
   if (gone.count > 0) console.log(`[import] удалено фото с QR-кодами: ${gone.count}`);
 }
 
-// ---------- Обрезка водяных знаков поставщика Avrora ----------
-
-async function loadImageBytes(name: string): Promise<Buffer | null> {
-  if (process.env.VERCEL && process.env.USE_BLOB !== "1") {
-    const row = await prisma.upload.findUnique({ where: { name } });
-    return row ? Buffer.from(row.data) : null;
-  }
-  const fp = path.join(UPLOAD_DIR, name);
-  return existsSync(fp) ? readFileSync(fp) : null;
-}
-
-async function saveImageBytes(name: string, buf: Buffer): Promise<void> {
-  if (process.env.VERCEL && process.env.USE_BLOB !== "1") {
-    await prisma.upload.upsert({
-      where: { name },
-      update: { data: new Uint8Array(buf), mime: "image/jpeg" },
-      create: { name, mime: "image/jpeg", data: new Uint8Array(buf) },
-    });
-    return;
-  }
-  writeFileSync(path.join(UPLOAD_DIR, name), buf);
-}
-
-/** Обрезает нижние `frac` изображения (там сидит штамп). Портретные фото
- *  Avrora имеют пропорцию ~3:4 (высота/ширина ≈ 1.33); после обрезки она
- *  падает до ~1.13. Поэтому фото с пропорцией ниже 1.2 считаем уже
- *  обрезанным (или не портретом) и НЕ трогаем — это защищает от повторной
- *  («двойной») обрезки при перезапусках. */
-async function cropBottom(buf: Buffer, frac = 0.15): Promise<Buffer | null> {
-  try {
-    const sharp = (await import("sharp")).default;
-    const base = await sharp(buf).rotate().toBuffer(); // применяем EXIF-поворот
-    const meta = await sharp(base).metadata();
-    if (!meta.width || !meta.height) return null;
-    if (meta.height / meta.width < 1.2) return null; // уже обрезано/не портрет
-    const keep = Math.max(1, Math.round(meta.height * (1 - frac)));
-    if (keep >= meta.height) return null;
-    return await sharp(base)
-      .extract({ left: 0, top: 0, width: meta.width, height: keep })
-      .jpeg({ quality: 82 })
-      .toBuffer();
-  } catch {
-    return null;
-  }
-}
+// ---------- Единоразовая замена старой партии Avrora на чистую ----------
 
 /**
- * Разовая (идемпотентная) обрезка низа фотографий Avrora, чтобы убрать
- * впечатанный штамп с названием и адресом поставщика. Обрабатывает уже
- * сохранённые изображения (БД на Vercel или файлы на диске). Каждое фото
- * режется один раз — id обработанных хранится в Setting, повторные сборки
- * их пропускают (иначе картинка сжималась бы при каждом деплое).
+ * Старые товары Avrora (43xxx–44xxx и первый повтор 45xxx) несли впечатанный
+ * штамп поставщика и были испорчены обрезкой; ссылки на их оригиналы мертвы.
+ * Удаляем ВСЕ товары Avrora из базы (slug вида «-<цифры>» без буквенного
+ * префикса — только у Avrora), после чего обычный импорт создаёт их заново
+ * из свежего чистого стока (channel-products.json) — уже без штампов и без
+ * обрезки. Выполняется один раз (флаг в Setting); история заказов не страдает
+ * (позиции хранят снимки). При смене стока флаг можно поднять до _v2 и т.д.
  */
-async function cropAvroraWatermarks(_items: ChannelProduct[]): Promise<void> {
-  const KEY = "avroraWmCropDone_v2"; // v2 = обрезка 15%; новый ключ => переобработка
-  const doneRow = await prisma.setting.findUnique({ where: { key: KEY } });
-  const done = new Set<string>(doneRow ? JSON.parse(doneRow.value) : []);
-
-  // Берём ВСЕ товары Avrora прямо из базы по виду slug («-<цифры>» без
-  // буквенного префикса — только у Avrora), а не только из текущего JSON.
-  // Так обрезаются и старые закэшированные товары, и свежие.
-  const all = await prisma.product.findMany({ include: { images: true } });
-  const products = all.filter(
-    (p) => /-\d+$/.test(p.slug) && !/-[a-z]\d+$/.test(p.slug),
-  );
-  if (products.length === 0) return;
-
-  let cropped = 0;
-  const flush = () =>
-    prisma.setting.upsert({
-      where: { key: KEY },
-      update: { value: JSON.stringify([...done]) },
-      create: { key: KEY, value: JSON.stringify([...done]) },
-    });
-
-  for (const p of products) {
-    for (const img of p.images) {
-      if (done.has(img.id)) continue;
-      if (!img.url.startsWith("/uploads/")) {
-        done.add(img.id); // прямая CDN-ссылка (протухла) — резать нечего
-        continue;
-      }
-      const name = img.url.slice("/uploads/".length);
-      const buf = await loadImageBytes(name);
-      if (!buf) continue; // ещё не сохранено в этой сборке — попробуем в следующей
-      const out = await cropBottom(buf, 0.15);
-      if (!out) {
-        done.add(img.id);
-        continue;
-      }
-      await saveImageBytes(name, out);
-      done.add(img.id);
-      cropped++;
-      if (cropped % 50 === 0) {
-        await flush();
-        console.log(`[wm-crop] обрезано: ${cropped}`);
-      }
-    }
+async function resetAvroraOnce(): Promise<void> {
+  const KEY = "avroraCleanReset_v1";
+  const flag = await prisma.setting.findUnique({ where: { key: KEY } });
+  if (flag) return;
+  // Avrora: slug оканчивается «-<postId>» без буквенного префикса, а postId
+  // у канала пятизначный (≥40000). Порог защищает товары, созданные владельцем
+  // вручную через админку (у них таких длинных числовых хвостов нет).
+  const all = await prisma.product.findMany({ select: { id: true, slug: true } });
+  const ids = all
+    .filter((p) => {
+      const m = p.slug.match(/-(\d+)$/);
+      return m !== null && !/-[a-z]\d+$/.test(p.slug) && Number(m[1]) >= 40000;
+    })
+    .map((p) => p.id);
+  if (ids.length > 0) {
+    await prisma.product.deleteMany({ where: { id: { in: ids } } });
+    console.log(`[avrora] удалено старых товаров: ${ids.length} — переимпорт чистых`);
   }
-  await flush();
-  if (cropped > 0) console.log(`[wm-crop] Avrora: обрезан низ у ${cropped} фото (штамп удалён)`);
+  await prisma.setting.upsert({
+    where: { key: KEY },
+    update: { value: "1" },
+    create: { key: KEY, value: "1" },
+  });
 }
 
 async function main() {
@@ -360,19 +293,12 @@ async function main() {
   const items: ChannelProduct[] = JSON.parse(readFileSync(DATA_FILE, "utf8"));
   console.log(`[import] товаров в файле: ${items.length}`);
 
-  // Режим только обрезки водяных знаков (без импорта) — для ручного запуска:
-  //   docker compose exec app tsx scripts/import-channel.ts --crop-only
-  if (process.argv.includes("--crop-only")) {
-    console.log("[import] режим: только обрезка водяных знаков Avrora");
-    await cropAvroraWatermarks(items);
-    return;
-  }
-
   await removeDemoData();
   await fixExistingColorNames();
   await removeBannedPhotos();
   await ingestPhotosToDb(items);
   await fixManualProductPhotos();
+  await resetAvroraOnce(); // разово удаляем старую партию Avrora — заменится чистой
 
   const CATEGORY_DEFS = [
     { slug: "clothing", name: "Одежда", sort: 1 },
@@ -464,9 +390,6 @@ async function main() {
   await Promise.all(Array.from({ length: CONCURRENCY }, worker));
 
   console.log(`[import] готово: создано ${created}, уже было ${skipped}, с ошибкой ${failed}`);
-
-  // Убираем впечатанные штампы поставщика Avrora, обрезая низ их фото.
-  await cropAvroraWatermarks(items);
 }
 
 main()
