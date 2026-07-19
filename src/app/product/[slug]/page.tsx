@@ -111,16 +111,6 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             </div>
           </div>
 
-          {totalStock > 0 && (
-            <div className="mt-5 rounded-xl border border-brand-200 bg-brand-50 p-4">
-              <p className="text-sm font-semibold text-brand-800">Как выбрать цвет</p>
-              <p className="mt-1 text-sm text-brand-800/80">
-                При оплате напишите в комментарии к переводу, какой цвет вы хотите —
-                и мы отправим именно его.
-              </p>
-            </div>
-          )}
-
           <section className="mt-8">
             <h2 className="mb-2 text-lg font-bold">Описание</h2>
             <p className="whitespace-pre-line text-sm leading-relaxed text-zinc-600">

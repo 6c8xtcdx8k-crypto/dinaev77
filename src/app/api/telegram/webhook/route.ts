@@ -106,7 +106,7 @@ export async function POST(req: Request) {
       if (methods.length > 0) {
         await sendTelegramMessage(
           chatId,
-          "Реквизиты для оплаты ниже. При переводе напишите в комментарии желаемый цвет — отправим именно его.",
+          "Реквизиты для оплаты ниже. После оплаты пришлите чек — подтвержу заказ после проверки.",
         );
         for (const m of methods) {
           await sendTelegramPhoto(

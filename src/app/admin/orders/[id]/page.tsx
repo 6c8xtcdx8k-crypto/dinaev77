@@ -106,6 +106,11 @@ export default async function AdminOrderPage({ params }: { params: Promise<{ id:
           {DELIVERY_METHODS[order.deliveryMethod as DeliveryMethod]?.label ?? order.deliveryMethod}:{" "}
           {order.deliveryAddress}
         </p>
+        {order.desiredColor && (
+          <p className="mt-1">
+            Желаемый цвет: <span className="font-semibold">{order.desiredColor}</span>
+          </p>
+        )}
       </section>
 
       <section className="card p-5">

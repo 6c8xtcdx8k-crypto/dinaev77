@@ -154,6 +154,7 @@ model Order {
   deliveryMethod  String // CDEK
   deliveryAddress String
   deliveryCost    Int                  @default(0)
+  desiredColor    String               @default("") // желаемый цвет, указанный при оформлении
   // деньги (копейки)
   subtotal        Int
   total           Int

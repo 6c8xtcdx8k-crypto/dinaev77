@@ -95,6 +95,11 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
         <p className="mt-1 text-sm text-zinc-500">
           Получатель: {order.customerName}, {order.customerPhone}
         </p>
+        {order.desiredColor && (
+          <p className="mt-1 text-sm text-zinc-500">
+            Желаемый цвет: <span className="font-medium text-zinc-700">{order.desiredColor}</span>
+          </p>
+        )}
       </section>
 
       <section className="card mt-5 p-5">

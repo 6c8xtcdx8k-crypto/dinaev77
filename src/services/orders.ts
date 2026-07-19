@@ -22,6 +22,7 @@ export type CheckoutInput = {
   customerPhone: string;
   deliveryMethod: DeliveryMethod;
   deliveryAddress: string;
+  desiredColor?: string;
 };
 
 export type CheckoutResult =
@@ -77,6 +78,7 @@ export async function createOrder(input: CheckoutInput): Promise<CheckoutResult>
           customerPhone: input.customerPhone,
           deliveryMethod: input.deliveryMethod,
           deliveryAddress: input.deliveryAddress,
+          desiredColor: input.desiredColor?.trim() ?? "",
           deliveryCost,
           subtotal,
           total,
@@ -114,6 +116,7 @@ export async function createOrder(input: CheckoutInput): Promise<CheckoutResult>
       total: order.total,
       deliveryMethod: input.deliveryMethod,
       deliveryAddress: order.deliveryAddress,
+      desiredColor: order.desiredColor,
     });
     const tpl = orderCreatedEmail({
       number: order.number,
@@ -244,10 +247,8 @@ export async function sendPaymentRequisites(
     await sendTelegramMessage(
       user.telegramId,
       `${hi}\n\nВаш заказ <b>№${orderNumber}</b> на <b>${formatPrice(total)}</b> принят. 🛍\n\n` +
-        `Оплатить можно способом ниже. <b>Важно:</b> при переводе напишите в комментарии, ` +
-        `какой цвет вы хотите — мы отправим именно его.\n\n` +
-        `После оплаты пришлите сюда чек — и дождитесь подтверждения: проверю поступление ` +
-        `и подтвержу заказ. Жду оплату 🙌`,
+        `Оплатить можно способом ниже. После оплаты пришлите сюда чек — и дождитесь ` +
+        `подтверждения: проверю поступление и подтвержу заказ. Жду оплату 🙌`,
     );
     for (const m of methods) {
       const caption =
@@ -269,7 +270,14 @@ async function notifyOrdersChat(
   orderNumber: number,
   userId: string | null,
   lines: { name: string; slug: string; size: string; color: string; qty: number; price: number }[],
-  info: { name: string; phone: string; total: number; deliveryMethod: string; deliveryAddress: string },
+  info: {
+    name: string;
+    phone: string;
+    total: number;
+    deliveryMethod: string;
+    deliveryAddress: string;
+    desiredColor?: string;
+  },
 ): Promise<void> {
   const chatId = process.env.ORDERS_CHAT_ID;
   if (!chatId) return;
@@ -293,12 +301,16 @@ async function notifyOrdersChat(
       })
       .join("\n");
     const delivery = "СДЭК (за счёт покупателя)";
+    const color = info.desiredColor?.trim()
+      ? `Желаемый цвет: <b>${escapeHtml(info.desiredColor.trim())}</b>\n`
+      : "";
 
     await sendTelegramMessage(
       chatId,
       `🛒 <b>Новый заказ №${orderNumber}</b> — <b>${formatPrice(info.total)}</b>\n\n` +
         `${items}\n\n` +
         `Покупатель: ${escapeHtml(info.name)}, ${escapeHtml(info.phone)}\nTelegram: <b>${username}</b>\n` +
+        color +
         `${delivery}: ${escapeHtml(info.deliveryAddress)}\n\n` +
         (base ? `Админка: ${base}/admin/orders/${orderId}` : ""),
     );
