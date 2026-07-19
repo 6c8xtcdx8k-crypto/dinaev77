@@ -12,11 +12,10 @@ services:
       UPLOAD_DIR: "/app/data/uploads"
     volumes:
       - sbdata:/app/data
-      # Файлы каталога монтируются с хоста: после git pull они сразу видны
-      # в контейнере, и обновление товаров идёт без пересборки образа.
-      - ./scripts/channel-products.json:/app/scripts/channel-products.json:ro
-      - ./scripts/banned-photos.json:/app/scripts/banned-photos.json:ro
-      - ./scripts/manual-photos.json:/app/scripts/manual-photos.json:ro
+      # Папка scripts монтируется с хоста: после git pull новый каталог И
+      # новый код импортёра сразу видны в контейнере — обновления идут без
+      # пересборки образа (импортёр выполняется через tsx, сборка не нужна).
+      - ./scripts:/app/scripts:ro
     expose:
       - "3000"
 

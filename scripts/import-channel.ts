@@ -298,7 +298,7 @@ async function cropBottom(buf: Buffer, frac = 0.15): Promise<Buffer | null> {
  * их пропускают (иначе картинка сжималась бы при каждом деплое).
  */
 async function cropAvroraWatermarks(_items: ChannelProduct[]): Promise<void> {
-  const KEY = "avroraWmCropDone";
+  const KEY = "avroraWmCropDone_v2"; // v2 = обрезка 15%; новый ключ => переобработка
   const doneRow = await prisma.setting.findUnique({ where: { key: KEY } });
   const done = new Set<string>(doneRow ? JSON.parse(doneRow.value) : []);
 
@@ -354,6 +354,14 @@ async function main() {
   }
   const items: ChannelProduct[] = JSON.parse(readFileSync(DATA_FILE, "utf8"));
   console.log(`[import] товаров в файле: ${items.length}`);
+
+  // Режим только обрезки водяных знаков (без импорта) — для ручного запуска:
+  //   docker compose exec app tsx scripts/import-channel.ts --crop-only
+  if (process.argv.includes("--crop-only")) {
+    console.log("[import] режим: только обрезка водяных знаков Avrora");
+    await cropAvroraWatermarks(items);
+    return;
+  }
 
   await removeDemoData();
   await fixExistingColorNames();
