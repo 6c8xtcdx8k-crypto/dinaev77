@@ -248,15 +248,6 @@ async function removeBannedPhotos(): Promise<void> {
 
 // ---------- Обрезка водяных знаков поставщика Avrora ----------
 
-/** Товар из канала avrorasadovod: женская одежда, slug оканчивается на «-<postId>»
- *  (без буквенного префикса канала), postId в диапазоне 43xxx–44xxx. На части их
- *  старых фото впечатан штамп «AVRORA <адрес>» в левом нижнем углу. */
-function isAvroraItem(it: ChannelProduct): boolean {
-  const pid = it.postId ?? 0;
-  if (pid < 43000 || pid >= 45200) return false;
-  return new RegExp(`-${pid}$`).test(it.slug) && !new RegExp(`-[a-z]${pid}$`).test(it.slug);
-}
-
 async function loadImageBytes(name: string): Promise<Buffer | null> {
   if (process.env.VERCEL && process.env.USE_BLOB !== "1") {
     const row = await prisma.upload.findUnique({ where: { name } });
@@ -303,18 +294,19 @@ async function cropBottom(buf: Buffer, frac = 0.12): Promise<Buffer | null> {
  * режется один раз — id обработанных хранится в Setting, повторные сборки
  * их пропускают (иначе картинка сжималась бы при каждом деплое).
  */
-async function cropAvroraWatermarks(items: ChannelProduct[]): Promise<void> {
-  const slugs = items.filter(isAvroraItem).map((i) => i.slug);
-  if (slugs.length === 0) return;
-
+async function cropAvroraWatermarks(_items: ChannelProduct[]): Promise<void> {
   const KEY = "avroraWmCropDone";
   const doneRow = await prisma.setting.findUnique({ where: { key: KEY } });
   const done = new Set<string>(doneRow ? JSON.parse(doneRow.value) : []);
 
-  const products = await prisma.product.findMany({
-    where: { slug: { in: slugs } },
-    include: { images: true },
-  });
+  // Берём ВСЕ товары Avrora прямо из базы по виду slug («-<цифры>» без
+  // буквенного префикса — только у Avrora), а не только из текущего JSON.
+  // Так обрезаются и старые закэшированные товары, и свежие.
+  const all = await prisma.product.findMany({ include: { images: true } });
+  const products = all.filter(
+    (p) => /-\d+$/.test(p.slug) && !/-[a-z]\d+$/.test(p.slug),
+  );
+  if (products.length === 0) return;
 
   let cropped = 0;
   const flush = () =>
