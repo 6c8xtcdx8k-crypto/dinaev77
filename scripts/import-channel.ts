@@ -313,20 +313,27 @@ async function main() {
   const categoryId = (item: ChannelProduct) =>
     catBySlug.get(item.category ?? "clothing") ?? catBySlug.get("clothing")!;
 
-  // Синхронизация категорий уже импортированных товаров (например,
-  // люксовые сумки выделены в отдельную категорию задним числом).
+  // Синхронизация категории И пола у уже импортированных товаров: пол мог
+  // быть переопределён задним числом (например, товары Azizov «костюм двойка»
+  // корректно разнесены по мужской/женской по фото и размерам).
+  let synced = 0;
   for (const item of items) {
     const existing = await prisma.product.findUnique({
       where: { slug: item.slug },
-      select: { id: true, categoryId: true },
+      select: { id: true, categoryId: true, gender: true },
     });
-    if (existing && existing.categoryId !== categoryId(item)) {
+    if (!existing) continue;
+    const wantCat = categoryId(item);
+    const wantGender = item.gender ?? "WOMEN";
+    if (existing.categoryId !== wantCat || existing.gender !== wantGender) {
       await prisma.product.update({
         where: { id: existing.id },
-        data: { categoryId: categoryId(item) },
+        data: { categoryId: wantCat, gender: wantGender },
       });
+      synced++;
     }
   }
+  if (synced > 0) console.log(`[import] синхронизировано категория/пол: ${synced}`);
 
   let created = 0;
   let skipped = 0;
