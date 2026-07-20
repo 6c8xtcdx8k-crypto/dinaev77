@@ -59,11 +59,6 @@ export default async function AdminOrderPage({ params }: { params: Promise<{ id:
                 <span className="text-zinc-400">
                   ({item.size}, {item.color}) × {item.qty}
                 </span>
-                {item.desiredColor && (
-                  <span className="mt-0.5 block text-xs font-medium text-brand-700">
-                    Желаемый цвет: {item.desiredColor}
-                  </span>
-                )}
               </span>
               <span className="font-medium">{formatPrice(item.price * item.qty)}</span>
             </li>

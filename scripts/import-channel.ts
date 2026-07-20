@@ -17,6 +17,7 @@ import path from "path";
 const prisma = new PrismaClient();
 
 const DATA_FILE = path.join(process.cwd(), "scripts", "channel-products.json");
+const COLORS_FILE = path.join(process.cwd(), "scripts", "product-colors.json");
 const UPLOAD_DIR = process.env.UPLOAD_DIR || path.join(process.cwd(), "data", "uploads");
 const STOCK_PER_VARIANT = Math.max(0, Number(process.env.IMPORT_STOCK ?? 10));
 const MAX_PHOTO_BYTES = 8 * 1024 * 1024;
@@ -329,6 +330,52 @@ async function resetMensOnce(): Promise<void> {
   });
 }
 
+/** Цвета-заглушки: у таких товаров реальный цвет определяем по фото. */
+const PLACEHOLDER_COLORS = new Set([
+  "Как на фото", "Как на фото.", "В ассортимент", "В ассортименте",
+  "Мультиколор", "Ассорти", "Разные", "",
+]);
+
+/**
+ * Проставляет реальный цвет товарам с цветом-заглушкой («Как на фото») по
+ * заранее вычисленной карте scripts/product-colors.json (анализ главного фото
+ * товара). Товары с уже указанным реальным или несколькими цветами (например,
+ * мужская одежда) не трогаются. Идемпотентно: после замены цвет уже не
+ * заглушка — повторный прогон его пропускает. История заказов не страдает:
+ * позиции хранят снимок цвета на момент покупки.
+ */
+async function syncColorsFromPhotos(): Promise<void> {
+  if (!existsSync(COLORS_FILE)) return;
+  let map: Record<string, { name: string; hex: string }>;
+  try {
+    map = JSON.parse(readFileSync(COLORS_FILE, "utf8"));
+  } catch {
+    return;
+  }
+  let updated = 0;
+  for (const [slug, col] of Object.entries(map)) {
+    if (!col?.name) continue;
+    const product = await prisma.product.findUnique({
+      where: { slug },
+      include: { variants: true },
+    });
+    if (!product || product.variants.length === 0) continue;
+    const distinct = [...new Set(product.variants.map((v) => v.color))];
+    // только у товаров с единственным цветом-заглушкой
+    if (distinct.length !== 1 || !PLACEHOLDER_COLORS.has(distinct[0])) continue;
+    for (const v of product.variants) {
+      await prisma.variant
+        .update({
+          where: { id: v.id },
+          data: { color: col.name, colorHex: col.hex, sku: makeSku(slug, col.name, v.size) },
+        })
+        .catch(() => {}); // редкий конфликт уникальности — пропускаем
+    }
+    updated++;
+  }
+  if (updated > 0) console.log(`[import] цвета по фото проставлены: ${updated}`);
+}
+
 async function main() {
   if (!existsSync(DATA_FILE)) {
     console.log("[import] scripts/channel-products.json не найден — нечего импортировать");
@@ -380,6 +427,8 @@ async function main() {
     }
   }
   if (synced > 0) console.log(`[import] синхронизировано категория/пол: ${synced}`);
+
+  await syncColorsFromPhotos();
 
   let created = 0;
   let skipped = 0;

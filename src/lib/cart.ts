@@ -51,7 +51,6 @@ export type CartLine = {
   imageUrl: string | null;
   size: string;
   color: string;
-  desiredColor: string;
   price: number; // цена продажи за единицу
   qty: number;
   stock: number;
@@ -79,7 +78,6 @@ export async function getCartLines(cartId: string): Promise<CartLine[]> {
     imageUrl: it.variant.product.images[0]?.url ?? null,
     size: it.variant.size,
     color: it.variant.color,
-    desiredColor: it.desiredColor,
     price: it.variant.product.basePrice,
     qty: it.qty,
     stock: it.variant.stock,

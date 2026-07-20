@@ -88,7 +88,6 @@ export async function createOrder(input: CheckoutInput): Promise<CheckoutResult>
               productSlug: l.slug,
               size: l.size,
               color: l.color,
-              desiredColor: l.desiredColor,
               price: l.price,
               qty: l.qty,
             })),
@@ -267,15 +266,7 @@ async function notifyOrdersChat(
   orderId: string,
   orderNumber: number,
   userId: string | null,
-  lines: {
-    name: string;
-    slug: string;
-    size: string;
-    color: string;
-    desiredColor: string;
-    qty: number;
-    price: number;
-  }[],
+  lines: { name: string; slug: string; size: string; color: string; qty: number; price: number }[],
   info: { name: string; phone: string; total: number; deliveryMethod: string; deliveryAddress: string },
 ): Promise<void> {
   const chatId = process.env.ORDERS_CHAT_ID;
@@ -296,14 +287,10 @@ async function notifyOrdersChat(
         const name = base
           ? `<a href="${base}/product/${l.slug}">${escapeHtml(l.name)}</a>`
           : escapeHtml(l.name);
-        const wish = l.desiredColor?.trim()
-          ? `\n   Желаемый цвет: <b>${escapeHtml(l.desiredColor.trim())}</b>`
-          : "";
         return (
           `• ${name}\n` +
           `   Размер: <b>${escapeHtml(l.size)}</b> · Цвет: <b>${escapeHtml(l.color)}</b> · ` +
-          `${l.qty} шт. (${formatPrice(l.price * l.qty)})` +
-          wish
+          `${l.qty} шт. (${formatPrice(l.price * l.qty)})`
         );
       })
       .join("\n");

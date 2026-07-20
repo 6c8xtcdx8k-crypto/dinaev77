@@ -63,11 +63,6 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
                 <p className="text-zinc-400">
                   {item.size} · {item.color} · {item.qty} шт.
                 </p>
-                {item.desiredColor && (
-                  <p className="text-xs font-medium text-brand-600">
-                    Желаемый цвет: {item.desiredColor}
-                  </p>
-                )}
               </div>
               <span className="font-semibold">{formatPrice(item.price * item.qty)}</span>
             </li>
