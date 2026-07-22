@@ -19,7 +19,13 @@ export type CatalogFilters = {
 function buildWhere(f: CatalogFilters): Prisma.ProductWhereInput {
   const where: Prisma.ProductWhereInput = { isActive: true };
 
-  if (f.category) where.category = { slug: f.category };
+  if (f.category) {
+    where.category = { slug: f.category };
+  } else if (f.gender === "WOMEN" || f.gender === "MEN") {
+    // Разделы «Женская/Мужская» — это одежда: сумки в них не показываем,
+    // даже если ссылка пришла из кэша без явной категории.
+    where.category = { slug: "clothing" };
+  }
   if (f.gender === "WOMEN" || f.gender === "MEN") {
     where.gender = { in: [f.gender, "UNISEX"] };
   }
