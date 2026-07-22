@@ -14,7 +14,7 @@
     "db:reset": "prisma db push --force-reset && tsx prisma/seed.ts",
     "smoke": "NODE_OPTIONS=--conditions=react-server tsx scripts/smoke-test.ts",
     "telegram:setup": "tsx scripts/setup-telegram.ts",
-    "vercel-build": "sed 's/provider = \"sqlite\"/provider = \"postgresql\"/' prisma/schema.prisma > prisma/schema.pg.prisma && prisma generate --schema prisma/schema.pg.prisma && prisma db push --skip-generate --schema prisma/schema.pg.prisma && tsx prisma/seed.ts && tsx scripts/import-channel.ts && next build"
+    "vercel-build": "sed 's/provider = \"sqlite\"/provider = \"postgresql\"/' prisma/schema.prisma > prisma/schema.pg.prisma && prisma generate --schema prisma/schema.pg.prisma && prisma db push --skip-generate --accept-data-loss --schema prisma/schema.pg.prisma && tsx prisma/seed.ts && tsx scripts/import-channel.ts && next build"
   },
   "dependencies": {
     "@prisma/client": "^6.10.0",

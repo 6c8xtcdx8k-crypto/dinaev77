@@ -384,6 +384,15 @@ async function main() {
   const items: ChannelProduct[] = JSON.parse(readFileSync(DATA_FILE, "utf8"));
   console.log(`[import] товаров в файле: ${items.length}`);
 
+  // Цвета по фото проставляем в самом начале и в своём try/catch: это касается
+  // только уже существующих товаров и не должно зависеть от загрузки фото ниже
+  // (которая может падать на протухших ссылках Telegram).
+  try {
+    await syncColorsFromPhotos();
+  } catch (err) {
+    console.error("[import] syncColorsFromPhotos:", err instanceof Error ? err.message : err);
+  }
+
   await removeDemoData();
   await fixExistingColorNames();
   await removeBannedPhotos();
@@ -427,8 +436,6 @@ async function main() {
     }
   }
   if (synced > 0) console.log(`[import] синхронизировано категория/пол: ${synced}`);
-
-  await syncColorsFromPhotos();
 
   let created = 0;
   let skipped = 0;
