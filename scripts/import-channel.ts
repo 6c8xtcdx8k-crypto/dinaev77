@@ -470,37 +470,8 @@ async function main() {
   console.log(`[import] товаров в файле: ${items.length}`);
   await mark("start", { items: items.length });
 
-  // Цвета по фото проставляем в самом начале и в своём try/catch: это касается
-  // только уже существующих товаров и не должно зависеть от загрузки фото ниже
-  // (которая может падать на протухших ссылках Telegram).
-  try {
-    await syncColorsFromPhotos();
-  } catch (err) {
-    console.error("[import] syncColorsFromPhotos:", err instanceof Error ? err.message : err);
-  }
-  // NB: обрезка водяных знаков у существующих фото временно отключена —
-  // выполняется отдельным проходом, чтобы не утяжелять сборку с импортом.
-  if (process.env.CROP_AVRORA === "1") {
-    try {
-      await cropExistingAvroraWatermarksOnce();
-    } catch (err) {
-      console.error("[import] cropExistingAvroraWatermarksOnce:", err instanceof Error ? err.message : err);
-    }
-  }
-
-  await removeDemoData();
-  await fixExistingColorNames();
-  await removeBannedPhotos();
-  await mark("before_ingest");
-  await ingestPhotosToDb(items);
-  await mark("after_ingest");
-  await fixManualProductPhotos();
-  await mark("after_manual");
-  await resetAvroraOnce(); // разово удаляем старую партию Avrora — заменится чистой
-  await resetAzizovOnce(); // разово удаляем старую партию Azizov — заменится свежей (+800, «+9»)
-  await resetMensOnce(); // разово удаляем старую партию mens — заменится свежей
-  await mark("after_resets");
-
+  // --- Категории и снимок существующих товаров: нужны для создания новинок,
+  //     поэтому делаем это ДО обслуживания (которое может упасть). ---
   const CATEGORY_DEFS = [
     { slug: "clothing", name: "Одежда", sort: 1 },
     { slug: "bags", name: "Сумки", sort: 2 },
@@ -514,33 +485,50 @@ async function main() {
   const categoryId = (item: ChannelProduct) =>
     catBySlug.get(item.category ?? "clothing") ?? catBySlug.get("clothing")!;
 
-  // Синхронизация категории, пола И названия у уже импортированных товаров:
-  // пол мог быть переопределён задним числом (например, товары Azizov «костюм
-  // двойка» разнесены по мужской/женской), а названия сумок уточнены по типу
-  // (клатч, шоппер, кросс-боди…) вместо общего «Женские сумки».
-  // Одним запросом грузим все товары и сверяем в памяти — тысячи
-  // последовательных findUnique исчерпывали соединение с Neon и роняли импорт.
   const existingProducts = await prisma.product.findMany({
     select: { id: true, slug: true, categoryId: true, gender: true, name: true },
   });
   const bySlugExisting = new Map(existingProducts.map((p) => [p.slug, p]));
   const existingSlugs = new Set(existingProducts.map((p) => p.slug));
-  let synced = 0;
-  for (const item of items) {
-    const existing = bySlugExisting.get(item.slug);
-    if (!existing) continue;
-    const wantCat = categoryId(item);
-    const wantGender = item.gender ?? "WOMEN";
-    if (existing.categoryId !== wantCat || existing.gender !== wantGender || existing.name !== item.name) {
-      await prisma.product.update({
-        where: { id: existing.id },
-        data: { categoryId: wantCat, gender: wantGender, name: item.name },
-      });
-      synced++;
+  await mark("snapshot", { existing: existingProducts.length });
+
+  // --- Обслуживание существующих товаров: best-effort. Любая его ошибка
+  //     (в т.ч. разрыв соединения с Neon) НЕ должна мешать созданию новинок. ---
+  try {
+    await syncColorsFromPhotos();
+    if (process.env.CROP_AVRORA === "1") await cropExistingAvroraWatermarksOnce();
+    await removeDemoData();
+    await fixExistingColorNames();
+    await removeBannedPhotos();
+    await ingestPhotosToDb(items);
+    await fixManualProductPhotos();
+    await resetAvroraOnce();
+    await resetAzizovOnce();
+    await resetMensOnce();
+
+    let synced = 0;
+    for (const item of items) {
+      const existing = bySlugExisting.get(item.slug);
+      if (!existing) continue;
+      const wantCat = categoryId(item);
+      const wantGender = item.gender ?? "WOMEN";
+      if (existing.categoryId !== wantCat || existing.gender !== wantGender || existing.name !== item.name) {
+        await prisma.product.update({
+          where: { id: existing.id },
+          data: { categoryId: wantCat, gender: wantGender, name: item.name },
+        });
+        synced++;
+      }
     }
+    if (synced > 0) console.log(`[import] синхронизировано категория/пол/название: ${synced}`);
+    await mark("maint_done", { synced });
+  } catch (err) {
+    console.error("[import] обслуживание пропущено из-за ошибки:", err instanceof Error ? err.message : err);
+    await mark("maint_error", { msg: err instanceof Error ? err.message : String(err) });
   }
-  if (synced > 0) console.log(`[import] синхронизировано категория/пол/название: ${synced}`);
-  await mark("after_sync");
+
+  // Свежее соединение перед созданием — обслуживание могло исчерпать текущее.
+  await prisma.$disconnect().catch(() => {});
 
   await mark("before_create");
   let created = 0;
