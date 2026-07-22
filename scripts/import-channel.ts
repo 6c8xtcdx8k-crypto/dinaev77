@@ -43,13 +43,22 @@ type ChannelProduct = {
  *   бесплатно и навсегда; Blob-режим возвращается переменной USE_BLOB=1;
  * - VPS/локально: на диск в UPLOAD_DIR, как раньше.
  */
+const dlFailSample: string[] = []; // диагностика причин неудачных загрузок
+function noteFail(reason: string): null {
+  if (dlFailSample.length < 12) dlFailSample.push(reason);
+  return null;
+}
+
 async function downloadPhoto(url: string, cropBottomFrac = 0, attempt = 1): Promise<string | null> {
   try {
     const res = await fetch(url, {
       headers: { "User-Agent": "Mozilla/5.0" },
-      signal: AbortSignal.timeout(8000), // не зависаем на мёртвых ссылках
+      signal: AbortSignal.timeout(20000), // сеть сборки Vercel медленнее — даём запас
     });
-    if (!res.ok) return null; // протухшую ссылку не ретраим — экономим время сборки
+    if (!res.ok) {
+      if (attempt < 3) return downloadPhoto(url, cropBottomFrac, attempt + 1);
+      return noteFail(`http ${res.status}`);
+    }
     const type = res.headers.get("content-type") ?? "";
     let buf = Buffer.from(await res.arrayBuffer());
     if (buf.length === 0 || buf.length > MAX_PHOTO_BYTES) return null;
@@ -95,9 +104,9 @@ async function downloadPhoto(url: string, cropBottomFrac = 0, attempt = 1): Prom
     mkdirSync(UPLOAD_DIR, { recursive: true });
     writeFileSync(path.join(UPLOAD_DIR, name), buf);
     return `/uploads/${name}`;
-  } catch {
-    if (attempt < 2) return downloadPhoto(url, cropBottomFrac, attempt + 1);
-    return null;
+  } catch (err) {
+    if (attempt < 3) return downloadPhoto(url, cropBottomFrac, attempt + 1);
+    return noteFail(err instanceof Error ? `${err.name}: ${err.message}`.slice(0, 60) : "err");
   }
 }
 
@@ -591,7 +600,7 @@ async function main() {
   }
   await Promise.all(Array.from({ length: CONCURRENCY }, worker));
 
-  await mark("done", { created, skipped, failed });
+  await mark("done", { created, skipped, failed, failSample: dlFailSample.slice(0, 12) });
   console.log(`[import] готово: создано ${created}, уже было ${skipped}, с ошибкой ${failed}`);
 }
 
