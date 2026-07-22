@@ -468,10 +468,14 @@ async function main() {
   } catch (err) {
     console.error("[import] syncColorsFromPhotos:", err instanceof Error ? err.message : err);
   }
-  try {
-    await cropExistingAvroraWatermarksOnce();
-  } catch (err) {
-    console.error("[import] cropExistingAvroraWatermarksOnce:", err instanceof Error ? err.message : err);
+  // NB: обрезка водяных знаков у существующих фото временно отключена —
+  // выполняется отдельным проходом, чтобы не утяжелять сборку с импортом.
+  if (process.env.CROP_AVRORA === "1") {
+    try {
+      await cropExistingAvroraWatermarksOnce();
+    } catch (err) {
+      console.error("[import] cropExistingAvroraWatermarksOnce:", err instanceof Error ? err.message : err);
+    }
   }
 
   await removeDemoData();
