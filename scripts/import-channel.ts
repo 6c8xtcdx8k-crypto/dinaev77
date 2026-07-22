@@ -33,6 +33,7 @@ type ChannelProduct = {
   sizes: string[];
   colors: { name: string; hex: string }[];
   photos: string[];
+  cropBottom?: number; // доля высоты для обрезки снизу (водяной знак поставщика)
 };
 
 /**
@@ -42,20 +43,27 @@ type ChannelProduct = {
  *   бесплатно и навсегда; Blob-режим возвращается переменной USE_BLOB=1;
  * - VPS/локально: на диск в UPLOAD_DIR, как раньше.
  */
-async function downloadPhoto(url: string, attempt = 1): Promise<string | null> {
+async function downloadPhoto(url: string, cropBottomFrac = 0, attempt = 1): Promise<string | null> {
   try {
     const res = await fetch(url, {
       headers: { "User-Agent": "Mozilla/5.0" },
       signal: AbortSignal.timeout(12000), // не зависаем на мёртвых ссылках
     });
     if (!res.ok) {
-      if (attempt < 2) return downloadPhoto(url, attempt + 1);
+      if (attempt < 2) return downloadPhoto(url, cropBottomFrac, attempt + 1);
       return null;
     }
     const type = res.headers.get("content-type") ?? "";
     let buf = Buffer.from(await res.arrayBuffer());
     if (buf.length === 0 || buf.length > MAX_PHOTO_BYTES) return null;
     let ext = type.includes("png") ? ".png" : type.includes("webp") ? ".webp" : ".jpg";
+
+    // Обрезаем нижнюю полосу с водяным знаком поставщика (AVRORA …).
+    // Режем только явно вертикальные фото, чтобы не переобрезать.
+    if (cropBottomFrac > 0) {
+      const c = await cropBottom(buf, cropBottomFrac);
+      if (c) buf = Buffer.from(c);
+    }
 
     if (process.env.USE_BLOB === "1" && process.env.BLOB_READ_WRITE_TOKEN) {
       const name = `${randomUUID()}${ext}`;
@@ -91,7 +99,29 @@ async function downloadPhoto(url: string, attempt = 1): Promise<string | null> {
     writeFileSync(path.join(UPLOAD_DIR, name), buf);
     return `/uploads/${name}`;
   } catch {
-    if (attempt < 2) return downloadPhoto(url, attempt + 1);
+    if (attempt < 2) return downloadPhoto(url, cropBottomFrac, attempt + 1);
+    return null;
+  }
+}
+
+/**
+ * Обрезает нижнюю долю изображения (водяной знак снизу). Возвращает null,
+ * если фото не вертикальное — тогда, скорее всего, оно уже обрезано или это
+ * не тот кадр (защита от повторной/лишней обрезки).
+ */
+async function cropBottom(buf: Buffer, frac: number): Promise<Buffer | null> {
+  try {
+    const sharp = (await import("sharp")).default;
+    const meta = await sharp(buf).metadata();
+    if (!meta.width || !meta.height) return null;
+    if (meta.height / meta.width < 1.28) return null; // уже обрезано / не вертикальное
+    const cut = Math.round(meta.height * frac);
+    return Buffer.from(
+      await sharp(buf)
+        .extract({ left: 0, top: 0, width: meta.width, height: meta.height - cut })
+        .toBuffer(),
+    );
+  } catch {
     return null;
   }
 }
@@ -376,6 +406,44 @@ async function syncColorsFromPhotos(): Promise<void> {
   if (updated > 0) console.log(`[import] цвета по фото проставлены: ${updated}`);
 }
 
+/** Товар из канала avrorasadovod: голый числовой суффикс без буквы поставщика. */
+function isAvroraSlug(slug: string): boolean {
+  return /-\d{4,6}$/.test(slug) && !/-(a|b|m|az|bl)\d+$/.test(slug);
+}
+
+/**
+ * Разово обрезает нижнюю полосу с водяным знаком «AVRORA …» у уже загруженных
+ * фото avrora (хранятся в таблице Upload). Гейт по флагу Setting; защита от
+ * повторной обрезки — по соотношению сторон (cropBottom режет только явно
+ * вертикальные кадры). Новые товары обрезаются при загрузке (downloadPhoto).
+ */
+async function cropExistingAvroraWatermarksOnce(): Promise<void> {
+  const KEY = "avroraWatermarkCrop_v1";
+  const done = await prisma.setting.findUnique({ where: { key: KEY } }).catch(() => null);
+  if (done) return;
+  const products = await prisma.product.findMany({
+    select: { slug: true, gender: true, images: { select: { url: true } } },
+  });
+  let cropped = 0;
+  for (const p of products) {
+    if (p.gender !== "WOMEN" || !isAvroraSlug(p.slug)) continue;
+    for (const img of p.images) {
+      const name = img.url.replace(/^\/uploads\//, "");
+      const up = await prisma.upload.findUnique({ where: { name } }).catch(() => null);
+      if (!up) continue;
+      const out = await cropBottom(Buffer.from(up.data), 0.09);
+      if (!out) continue; // не вертикальное / уже обрезано
+      const jpeg = await (await import("sharp")).default(out).jpeg({ quality: 78 }).toBuffer();
+      await prisma.upload
+        .update({ where: { name }, data: { data: new Uint8Array(jpeg) } })
+        .catch(() => {});
+      cropped++;
+    }
+  }
+  await prisma.setting.upsert({ where: { key: KEY }, update: { value: "1" }, create: { key: KEY, value: "1" } });
+  if (cropped > 0) console.log(`[import] обрезаны водяные знаки avrora у существующих фото: ${cropped}`);
+}
+
 async function main() {
   if (!existsSync(DATA_FILE)) {
     console.log("[import] scripts/channel-products.json не найден — нечего импортировать");
@@ -391,6 +459,11 @@ async function main() {
     await syncColorsFromPhotos();
   } catch (err) {
     console.error("[import] syncColorsFromPhotos:", err instanceof Error ? err.message : err);
+  }
+  try {
+    await cropExistingAvroraWatermarksOnce();
+  } catch (err) {
+    console.error("[import] cropExistingAvroraWatermarksOnce:", err instanceof Error ? err.message : err);
   }
 
   await removeDemoData();
@@ -456,7 +529,7 @@ async function main() {
           continue;
         }
 
-        const results = await Promise.all(item.photos.map((p) => downloadPhoto(p)));
+        const results = await Promise.all(item.photos.map((p) => downloadPhoto(p, item.cropBottom ?? 0)));
         const urls = results.filter((u): u is string => !!u);
         if (urls.length === 0) {
           console.log(`[import] ${item.slug}: не удалось скачать ни одного фото — пропуск`);
