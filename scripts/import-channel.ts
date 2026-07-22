@@ -45,7 +45,8 @@ type ChannelProduct = {
  */
 const dlFailSample: string[] = []; // диагностика причин неудачных загрузок
 function noteFail(reason: string): null {
-  if (dlFailSample.length < 12) dlFailSample.push(reason.slice(0, 180));
+  // берём хвост сообщения — там настоящая причина от драйвера БД
+  if (dlFailSample.length < 4) dlFailSample.push(reason.length > 400 ? reason.slice(-400) : reason);
   return null;
 }
 
@@ -106,7 +107,7 @@ async function downloadPhoto(url: string, cropBottomFrac = 0, attempt = 1): Prom
     return `/uploads/${name}`;
   } catch (err) {
     if (attempt < 3) return downloadPhoto(url, cropBottomFrac, attempt + 1);
-    return noteFail(err instanceof Error ? `${err.name}: ${err.message}`.slice(0, 60) : "err");
+    return noteFail(err instanceof Error ? `${err.name}: ${err.message}`.replace(/\s+/g, " ") : "err");
   }
 }
 
