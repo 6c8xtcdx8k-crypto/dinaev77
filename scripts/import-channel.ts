@@ -45,7 +45,7 @@ type ChannelProduct = {
  */
 const dlFailSample: string[] = []; // диагностика причин неудачных загрузок
 function noteFail(reason: string): null {
-  if (dlFailSample.length < 12) dlFailSample.push(reason);
+  if (dlFailSample.length < 12) dlFailSample.push(reason.slice(0, 180));
   return null;
 }
 
@@ -535,9 +535,6 @@ async function main() {
     console.error("[import] обслуживание пропущено из-за ошибки:", err instanceof Error ? err.message : err);
     await mark("maint_error", { msg: err instanceof Error ? err.message : String(err) });
   }
-
-  // Свежее соединение перед созданием — обслуживание могло исчерпать текущее.
-  await prisma.$disconnect().catch(() => {});
 
   await mark("before_create");
   let created = 0;
