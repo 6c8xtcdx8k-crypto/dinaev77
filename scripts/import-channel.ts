@@ -379,14 +379,15 @@ async function syncColorsFromPhotos(): Promise<void> {
   } catch {
     return;
   }
+  // Один запрос вместо сотен findUnique — иначе исчерпывается соединение с Neon.
+  const products = await prisma.product.findMany({
+    where: { slug: { in: Object.keys(map) } },
+    include: { variants: true },
+  });
   let updated = 0;
-  for (const [slug, col] of Object.entries(map)) {
-    if (!col?.name) continue;
-    const product = await prisma.product.findUnique({
-      where: { slug },
-      include: { variants: true },
-    });
-    if (!product || product.variants.length === 0) continue;
+  for (const product of products) {
+    const col = map[product.slug];
+    if (!col?.name || product.variants.length === 0) continue;
     const distinct = [...new Set(product.variants.map((v) => v.color))];
     // только у товаров с единственным цветом-заглушкой
     if (distinct.length !== 1 || !PLACEHOLDER_COLORS.has(distinct[0])) continue;
@@ -394,7 +395,7 @@ async function syncColorsFromPhotos(): Promise<void> {
       await prisma.variant
         .update({
           where: { id: v.id },
-          data: { color: col.name, colorHex: col.hex, sku: makeSku(slug, col.name, v.size) },
+          data: { color: col.name, colorHex: col.hex, sku: makeSku(product.slug, col.name, v.size) },
         })
         .catch(() => {}); // редкий конфликт уникальности — пропускаем
     }
@@ -498,6 +499,7 @@ async function main() {
   await resetAvroraOnce(); // разово удаляем старую партию Avrora — заменится чистой
   await resetAzizovOnce(); // разово удаляем старую партию Azizov — заменится свежей (+800, «+9»)
   await resetMensOnce(); // разово удаляем старую партию mens — заменится свежей
+  await mark("after_resets");
 
   const CATEGORY_DEFS = [
     { slug: "clothing", name: "Одежда", sort: 1 },
@@ -516,12 +518,16 @@ async function main() {
   // пол мог быть переопределён задним числом (например, товары Azizov «костюм
   // двойка» разнесены по мужской/женской), а названия сумок уточнены по типу
   // (клатч, шоппер, кросс-боди…) вместо общего «Женские сумки».
+  // Одним запросом грузим все товары и сверяем в памяти — тысячи
+  // последовательных findUnique исчерпывали соединение с Neon и роняли импорт.
+  const existingProducts = await prisma.product.findMany({
+    select: { id: true, slug: true, categoryId: true, gender: true, name: true },
+  });
+  const bySlugExisting = new Map(existingProducts.map((p) => [p.slug, p]));
+  const existingSlugs = new Set(existingProducts.map((p) => p.slug));
   let synced = 0;
   for (const item of items) {
-    const existing = await prisma.product.findUnique({
-      where: { slug: item.slug },
-      select: { id: true, categoryId: true, gender: true, name: true },
-    });
+    const existing = bySlugExisting.get(item.slug);
     if (!existing) continue;
     const wantCat = categoryId(item);
     const wantGender = item.gender ?? "WOMEN";
@@ -534,6 +540,7 @@ async function main() {
     }
   }
   if (synced > 0) console.log(`[import] синхронизировано категория/пол/название: ${synced}`);
+  await mark("after_sync");
 
   await mark("before_create");
   let created = 0;
@@ -548,8 +555,7 @@ async function main() {
     while (cursor < items.length) {
       const item = items[cursor++];
       try {
-        const exists = await prisma.product.findUnique({ where: { slug: item.slug } });
-        if (exists) {
+        if (existingSlugs.has(item.slug)) {
           skipped++;
           continue;
         }
