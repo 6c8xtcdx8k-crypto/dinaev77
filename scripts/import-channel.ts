@@ -72,18 +72,8 @@ async function downloadPhoto(url: string, cropBottomFrac = 0, attempt = 1): Prom
       if (c) buf = Buffer.from(c);
     }
 
-    if (process.env.USE_BLOB === "1" && process.env.BLOB_READ_WRITE_TOKEN) {
-      const name = `${randomUUID()}${ext}`;
-      const { put } = await import("@vercel/blob");
-      await put(`products/${name}`, buf, {
-        access: "public",
-        contentType: type || "image/jpeg",
-      });
-      return `/uploads/${name}`;
-    }
-
-    if (process.env.VERCEL) {
-      // Сжимаем, чтобы уместить каталог в бесплатный лимит БД
+    // Сжимаем (ширина ≤900, JPEG) — и для Blob, и для БД: меньше вес и трафик.
+    if (process.env.VERCEL || process.env.USE_BLOB === "1") {
       try {
         const sharp = (await import("sharp")).default;
         buf = Buffer.from(
@@ -94,6 +84,19 @@ async function downloadPhoto(url: string, cropBottomFrac = 0, attempt = 1): Prom
       } catch {
         /* sharp недоступен — сохраняем как есть */
       }
+    }
+
+    if (process.env.USE_BLOB === "1" && process.env.BLOB_READ_WRITE_TOKEN) {
+      const name = `${randomUUID()}${ext}`;
+      const { put } = await import("@vercel/blob");
+      await put(`products/${name}`, buf, {
+        access: "public",
+        contentType: "image/jpeg",
+      });
+      return `/uploads/${name}`;
+    }
+
+    if (process.env.VERCEL) {
       const name = `${randomUUID()}${ext}`;
       await prisma.upload.create({
         data: { name, mime: "image/jpeg", data: new Uint8Array(buf) },
