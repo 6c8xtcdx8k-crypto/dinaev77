@@ -47,12 +47,9 @@ async function downloadPhoto(url: string, cropBottomFrac = 0, attempt = 1): Prom
   try {
     const res = await fetch(url, {
       headers: { "User-Agent": "Mozilla/5.0" },
-      signal: AbortSignal.timeout(12000), // не зависаем на мёртвых ссылках
+      signal: AbortSignal.timeout(8000), // не зависаем на мёртвых ссылках
     });
-    if (!res.ok) {
-      if (attempt < 2) return downloadPhoto(url, cropBottomFrac, attempt + 1);
-      return null;
-    }
+    if (!res.ok) return null; // протухшую ссылку не ретраим — экономим время сборки
     const type = res.headers.get("content-type") ?? "";
     let buf = Buffer.from(await res.arrayBuffer());
     if (buf.length === 0 || buf.length > MAX_PHOTO_BYTES) return null;
@@ -114,7 +111,7 @@ async function cropBottom(buf: Buffer, frac: number): Promise<Buffer | null> {
     const sharp = (await import("sharp")).default;
     const meta = await sharp(buf).metadata();
     if (!meta.width || !meta.height) return null;
-    if (meta.height / meta.width < 1.28) return null; // уже обрезано / не вертикальное
+    if (meta.height / meta.width < 1.15) return null; // уже обрезано / не вертикальное
     const cut = Math.round(meta.height * frac);
     return Buffer.from(
       await sharp(buf)
@@ -424,24 +421,35 @@ async function cropExistingAvroraWatermarksOnce(): Promise<void> {
   const products = await prisma.product.findMany({
     select: { slug: true, gender: true, images: { select: { url: true } } },
   });
-  let cropped = 0;
+  // Собираем имена фото всех существующих товаров avrora.
+  const names: string[] = [];
   for (const p of products) {
     if (p.gender !== "WOMEN" || !isAvroraSlug(p.slug)) continue;
-    for (const img of p.images) {
-      const name = img.url.replace(/^\/uploads\//, "");
-      const up = await prisma.upload.findUnique({ where: { name } }).catch(() => null);
-      if (!up) continue;
-      const out = await cropBottom(Buffer.from(up.data), 0.09);
-      if (!out) continue; // не вертикальное / уже обрезано
-      const jpeg = await (await import("sharp")).default(out).jpeg({ quality: 78 }).toBuffer();
-      await prisma.upload
-        .update({ where: { name }, data: { data: new Uint8Array(jpeg) } })
-        .catch(() => {});
-      cropped++;
+    for (const img of p.images) names.push(img.url.replace(/^\/uploads\//, ""));
+  }
+  const sharp = (await import("sharp")).default;
+  let cropped = 0;
+  let cursor = 0;
+  const CONC = 8;
+  async function worker(): Promise<void> {
+    while (cursor < names.length) {
+      const name = names[cursor++];
+      try {
+        const up = await prisma.upload.findUnique({ where: { name } });
+        if (!up) continue;
+        const out = await cropBottom(Buffer.from(up.data), 0.09);
+        if (!out) continue; // не вертикальное / уже обрезано
+        const jpeg = await sharp(out).jpeg({ quality: 78 }).toBuffer();
+        await prisma.upload.update({ where: { name }, data: { data: new Uint8Array(jpeg) } });
+        cropped++;
+      } catch {
+        /* пропускаем проблемное фото */
+      }
     }
   }
+  await Promise.all(Array.from({ length: CONC }, worker));
   await prisma.setting.upsert({ where: { key: KEY }, update: { value: "1" }, create: { key: KEY, value: "1" } });
-  if (cropped > 0) console.log(`[import] обрезаны водяные знаки avrora у существующих фото: ${cropped}`);
+  console.log(`[import] обрезаны водяные знаки avrora у существующих фото: ${cropped}/${names.length}`);
 }
 
 async function main() {
