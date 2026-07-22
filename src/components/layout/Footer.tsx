@@ -22,7 +22,7 @@ export function Footer() {
           links={[
             ["Одежда", "/catalog?category=clothing"],
             ["Сумки", "/catalog?category=bags"],
-            ["Женская", "/catalog?gender=WOMEN"],
+            ["Женская", "/catalog?category=clothing&gender=WOMEN"],
             ["Новинки", "/catalog?sort=new"],
           ]}
         />
