@@ -452,6 +452,14 @@ async function cropExistingAvroraWatermarksOnce(): Promise<void> {
   console.log(`[import] обрезаны водяные знаки avrora у существующих фото: ${cropped}/${names.length}`);
 }
 
+/** Пишет прогресс импорта в Setting, чтобы читать снаружи через /api/import-status. */
+async function mark(stage: string, extra: Record<string, unknown> = {}): Promise<void> {
+  const value = JSON.stringify({ stage, ts: new Date().toISOString(), ...extra });
+  await prisma.setting
+    .upsert({ where: { key: "import_status" }, update: { value }, create: { key: "import_status", value } })
+    .catch(() => {});
+}
+
 async function main() {
   if (!existsSync(DATA_FILE)) {
     console.log("[import] scripts/channel-products.json не найден — нечего импортировать");
@@ -459,6 +467,7 @@ async function main() {
   }
   const items: ChannelProduct[] = JSON.parse(readFileSync(DATA_FILE, "utf8"));
   console.log(`[import] товаров в файле: ${items.length}`);
+  await mark("start", { items: items.length });
 
   // Цвета по фото проставляем в самом начале и в своём try/catch: это касается
   // только уже существующих товаров и не должно зависеть от загрузки фото ниже
@@ -481,8 +490,11 @@ async function main() {
   await removeDemoData();
   await fixExistingColorNames();
   await removeBannedPhotos();
+  await mark("before_ingest");
   await ingestPhotosToDb(items);
+  await mark("after_ingest");
   await fixManualProductPhotos();
+  await mark("after_manual");
   await resetAvroraOnce(); // разово удаляем старую партию Avrora — заменится чистой
   await resetAzizovOnce(); // разово удаляем старую партию Azizov — заменится свежей (+800, «+9»)
   await resetMensOnce(); // разово удаляем старую партию mens — заменится свежей
@@ -523,6 +535,7 @@ async function main() {
   }
   if (synced > 0) console.log(`[import] синхронизировано категория/пол/название: ${synced}`);
 
+  await mark("before_create");
   let created = 0;
   let skipped = 0;
   let failed = 0;
@@ -584,6 +597,7 @@ async function main() {
   }
   await Promise.all(Array.from({ length: CONCURRENCY }, worker));
 
+  await mark("done", { created, skipped, failed });
   console.log(`[import] готово: создано ${created}, уже было ${skipped}, с ошибкой ${failed}`);
 }
 
