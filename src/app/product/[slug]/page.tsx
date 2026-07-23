@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { getProductBySlug, getSimilarProducts } from "@/services/catalog";
+import { getProductBySlug, getSimilarProducts, queryCatalog } from "@/services/catalog";
 import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { formatPrice } from "@/lib/money";
@@ -13,6 +13,7 @@ import { ShareButton } from "@/components/product/ShareButton";
 import { RatingStars } from "@/components/product/RatingStars";
 import { ReviewForm } from "@/components/product/ReviewForm";
 import { ProductCard } from "@/components/product/ProductCard";
+import { InfiniteProducts } from "@/components/catalog/InfiniteProducts";
 import { BackButton } from "@/components/ui/BackButton";
 
 export const dynamic = "force-dynamic";
@@ -55,6 +56,25 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   ]);
 
   const totalStock = product.variants.reduce((s, v) => s + v.stock, 0);
+
+  // Весь ассортимент раздела товара (для просмотра внизу карточки):
+  // одежда — того же пола, сумки — весь раздел сумок.
+  const sectionCategory = product.category.slug; // clothing | bags | bags-lux
+  const sectionGender = sectionCategory === "clothing" ? product.gender : undefined;
+  const sectionResult = await queryCatalog({
+    category: sectionCategory,
+    gender: sectionGender,
+    sort: "new",
+    page: 1,
+  });
+  const sectionParams = new URLSearchParams({ category: sectionCategory, sort: "new" });
+  if (sectionGender) sectionParams.set("gender", sectionGender);
+  const sectionQuery = sectionParams.toString();
+  const genderWord = product.gender === "WOMEN" ? "женская" : product.gender === "MEN" ? "мужская" : "";
+  const sectionTitle =
+    sectionCategory === "clothing"
+      ? `Вся ${genderWord} одежда`.replace(/\s+/g, " ").trim()
+      : `Весь раздел: ${product.category.name}`;
 
   return (
     <div className="container py-6">
@@ -164,6 +184,36 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               <ProductCard key={p.id} product={p} />
             ))}
           </div>
+        </section>
+      )}
+
+      {/* Весь ассортимент раздела — можно листать не выходя из карточки */}
+      {sectionResult.items.length > 0 && (
+        <section className="mt-12">
+          <div className="mb-4 flex flex-wrap items-baseline justify-between gap-2">
+            <h2 className="text-xl font-bold">
+              {sectionTitle}{" "}
+              <span className="text-base font-normal text-zinc-400">
+                {sectionResult.total} товаров
+              </span>
+            </h2>
+            <Link href={`/catalog?${sectionQuery}`} className="text-sm font-semibold text-brand-600 hover:text-brand-700">
+              Открыть раздел →
+            </Link>
+          </div>
+          <InfiniteProducts
+            key={sectionQuery}
+            initial={sectionResult.items.map((p) => ({
+              slug: p.slug,
+              name: p.name,
+              basePrice: p.basePrice,
+              ratingAvg: p.ratingAvg,
+              ratingCount: p.ratingCount,
+              images: p.images.map((i) => ({ url: i.url, alt: i.alt })),
+            }))}
+            totalPages={sectionResult.totalPages}
+            query={sectionQuery}
+          />
         </section>
       )}
     </div>
