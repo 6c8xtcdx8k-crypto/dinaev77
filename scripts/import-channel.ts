@@ -50,7 +50,35 @@ function noteFail(reason: string): null {
   return null;
 }
 
+/** Сохраняет готовый JPEG (Blob → БД → диск) и возвращает /uploads/<имя>. */
+async function storeImage(buf: Buffer): Promise<string | null> {
+  if (buf.length === 0 || buf.length > MAX_PHOTO_BYTES) return null;
+  const name = `${randomUUID()}.jpg`;
+  if (process.env.USE_BLOB === "1" && process.env.BLOB_READ_WRITE_TOKEN) {
+    const { put } = await import("@vercel/blob");
+    await put(`products/${name}`, buf, { access: "public", contentType: "image/jpeg" });
+    return `/uploads/${name}`;
+  }
+  if (process.env.VERCEL) {
+    await prisma.upload.create({ data: { name, mime: "image/jpeg", data: new Uint8Array(buf) } });
+    return `/uploads/${name}`;
+  }
+  mkdirSync(UPLOAD_DIR, { recursive: true });
+  writeFileSync(path.join(UPLOAD_DIR, name), buf);
+  return `/uploads/${name}`;
+}
+
 async function downloadPhoto(url: string, cropBottomFrac = 0, attempt = 1): Promise<string | null> {
+  // Локальные фото из репозитория (заранее скачаны, обрезаны и сжаты) —
+  // не зависят от протухающих ссылок Telegram при сборке.
+  if (url.startsWith("local:")) {
+    try {
+      const buf = readFileSync(path.join(process.cwd(), "scripts", url.slice("local:".length)));
+      return await storeImage(buf);
+    } catch (err) {
+      return noteFail("local " + (err instanceof Error ? err.message : "read"));
+    }
+  }
   try {
     const res = await fetch(url, {
       headers: { "User-Agent": "Mozilla/5.0" },
@@ -86,28 +114,8 @@ async function downloadPhoto(url: string, cropBottomFrac = 0, attempt = 1): Prom
       }
     }
 
-    if (process.env.USE_BLOB === "1" && process.env.BLOB_READ_WRITE_TOKEN) {
-      const name = `${randomUUID()}${ext}`;
-      const { put } = await import("@vercel/blob");
-      await put(`products/${name}`, buf, {
-        access: "public",
-        contentType: "image/jpeg",
-      });
-      return `/uploads/${name}`;
-    }
-
-    if (process.env.VERCEL) {
-      const name = `${randomUUID()}${ext}`;
-      await prisma.upload.create({
-        data: { name, mime: "image/jpeg", data: new Uint8Array(buf) },
-      });
-      return `/uploads/${name}`;
-    }
-
-    const name = `${randomUUID()}${ext}`;
-    mkdirSync(UPLOAD_DIR, { recursive: true });
-    writeFileSync(path.join(UPLOAD_DIR, name), buf);
-    return `/uploads/${name}`;
+    void ext;
+    return storeImage(buf);
   } catch (err) {
     if (attempt < 3) return downloadPhoto(url, cropBottomFrac, attempt + 1);
     return noteFail(err instanceof Error ? `${err.name}: ${err.message}`.replace(/\s+/g, " ") : "err");
