@@ -417,6 +417,29 @@ async function syncColorsFromPhotos(): Promise<void> {
   if (updated > 0) console.log(`[import] цвета по фото проставлены: ${updated}`);
 }
 
+/**
+ * Убирает раздел «Люксовые сумки»: удаляет товары категории bags-lux и их
+ * фото из БД. Идемпотентно (после удаления товаров нет). Заодно освобождает
+ * место в БД. В JSON этих товаров уже нет, так что заново не создаются.
+ */
+async function removeBagsLux(): Promise<void> {
+  const cat = await prisma.category.findUnique({ where: { slug: "bags-lux" } });
+  if (!cat) return;
+  const products = await prisma.product.findMany({
+    where: { categoryId: cat.id },
+    select: { images: { select: { url: true } } },
+  });
+  if (products.length === 0) return;
+  const names = products
+    .flatMap((p) => p.images.map((i) => i.url.replace(/^\/uploads\//, "")))
+    .filter((n) => /^[\w.-]+$/.test(n));
+  await prisma.product.deleteMany({ where: { categoryId: cat.id } });
+  for (let i = 0; i < names.length; i += 500) {
+    await prisma.upload.deleteMany({ where: { name: { in: names.slice(i, i + 500) } } }).catch(() => {});
+  }
+  console.log(`[import] удалён раздел «Люксовые сумки»: товаров ${products.length}, фото ${names.length}`);
+}
+
 /** Товар из канала avrorasadovod: голый числовой суффикс без буквы поставщика. */
 function isAvroraSlug(slug: string): boolean {
   return /-\d{4,6}$/.test(slug) && !/-(a|b|m|az|bl)\d+$/.test(slug);
@@ -488,7 +511,6 @@ async function main() {
   const CATEGORY_DEFS = [
     { slug: "clothing", name: "Одежда", sort: 1 },
     { slug: "bags", name: "Сумки", sort: 2 },
-    { slug: "bags-lux", name: "Сумки люкс", sort: 3 },
   ];
   const catBySlug = new Map<string, string>();
   for (const c of CATEGORY_DEFS) {
@@ -508,6 +530,7 @@ async function main() {
   // --- Обслуживание существующих товаров: best-effort. Любая его ошибка
   //     (в т.ч. разрыв соединения с Neon) НЕ должна мешать созданию новинок. ---
   try {
+    await removeBagsLux(); // раздел «Люксовые сумки» убран — удаляем и освобождаем место
     await syncColorsFromPhotos();
     if (process.env.CROP_AVRORA === "1") await cropExistingAvroraWatermarksOnce();
     await removeDemoData();
