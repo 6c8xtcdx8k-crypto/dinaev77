@@ -43,7 +43,7 @@ model Category {
 model Product {
   id              String         @id @default(cuid())
   slug            String         @unique
-  article         String?        @unique // уникальный артикул товара (поиск в магазине и Google)
+  article         String?        // уникальный артикул товара (SB…), уникальность гарантирует генератор
   name            String
   description     String
   categoryId      String
