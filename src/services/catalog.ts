@@ -31,7 +31,13 @@ function buildWhere(f: CatalogFilters): Prisma.ProductWhereInput {
   }
   if (f.q) {
     const q = f.q.trim();
-    where.OR = [{ name: { contains: q } }, { description: { contains: q } }];
+    where.OR = [
+      { name: { contains: q } },
+      { description: { contains: q } },
+      // Поиск по артикулу: артикулы в верхнем регистре (SB100001),
+      // поэтому нормализуем запрос — «sb100001» и «100001» тоже находят.
+      { article: { contains: q.toUpperCase() } },
+    ];
   }
   // Фильтры по вариантам: размер/цвет/наличие должны совпадать в одном варианте.
   const variantAnd: Prisma.VariantWhereInput = {};

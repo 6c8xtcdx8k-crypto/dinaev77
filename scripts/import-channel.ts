@@ -500,6 +500,41 @@ async function mark(stage: string, extra: Record<string, unknown> = {}): Promise
     .catch(() => {});
 }
 
+/**
+ * Присваивает уникальный артикул каждому товару без артикула.
+ * Формат SB<номер> (SB100001, SB100002 …), номера продолжаются от максимума,
+ * порядок — по дате создания, чтобы существующие артикулы не менялись.
+ * Идемпотентно: у кого артикул уже есть — пропускаются.
+ */
+async function ensureArticles(): Promise<void> {
+  const withArt = await prisma.product.findMany({
+    where: { NOT: { article: null } },
+    select: { article: true },
+  });
+  let maxNo = 100000;
+  for (const p of withArt) {
+    const n = Number((p.article ?? "").replace(/\D/g, ""));
+    if (Number.isFinite(n) && n > maxNo) maxNo = n;
+  }
+  const missing = await prisma.product.findMany({
+    where: { article: null },
+    select: { id: true },
+    orderBy: { createdAt: "asc" },
+  });
+  let no = maxNo;
+  for (const p of missing) {
+    no++;
+    try {
+      await prisma.product.update({ where: { id: p.id }, data: { article: `SB${no}` } });
+    } catch {
+      // На случай гонки с уникальным индексом — берём следующий номер.
+      no++;
+      await prisma.product.update({ where: { id: p.id }, data: { article: `SB${no}` } });
+    }
+  }
+  if (missing.length > 0) console.log(`[article] назначено артикулов: ${missing.length}`);
+}
+
 async function main() {
   if (!existsSync(DATA_FILE)) {
     console.log("[import] scripts/channel-products.json не найден — нечего импортировать");
@@ -639,6 +674,9 @@ async function main() {
 
   await mark("done", { created, skipped, failed, failSample: dlFailSample.slice(0, 12) });
   console.log(`[import] готово: создано ${created}, уже было ${skipped}, с ошибкой ${failed}`);
+
+  // Артикулы для всех товаров (в т.ч. только что созданных и товаров из seed).
+  await ensureArticles();
 }
 
 main()

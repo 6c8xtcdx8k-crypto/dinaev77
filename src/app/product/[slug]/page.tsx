@@ -25,7 +25,13 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const product = await getProductBySlug(slug);
-  return { title: product?.name ?? "Товар не найден" };
+  if (!product) return { title: "Товар не найден" };
+  const art = product.article ? ` (арт. ${product.article})` : "";
+  return {
+    title: `${product.name}${art}`,
+    description: `${product.name}${art}. ${product.description}`.replace(/\s+/g, " ").slice(0, 160),
+    keywords: product.article ? [product.article, product.name] : [product.name],
+  };
 }
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -99,6 +105,9 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             {product.category.name} · {GENDER_LABELS[product.gender as Gender] ?? product.gender}
           </p>
           <h1 className="mt-1 text-2xl font-bold sm:text-3xl">{product.name}</h1>
+          {product.article && (
+            <p className="mt-1 text-xs text-zinc-400">Артикул: {product.article}</p>
+          )}
           <div className="mt-2">
             <RatingStars rating={product.ratingAvg} count={product.ratingCount} />
           </div>
