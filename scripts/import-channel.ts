@@ -531,6 +531,16 @@ async function main() {
   //     (в т.ч. разрыв соединения с Neon) НЕ должна мешать созданию новинок. ---
   try {
     await removeBagsLux(); // раздел «Люксовые сумки» убран — удаляем и освобождаем место
+    // VACUUM: делаем освобождённые удалением страницы пригодными для новых
+    // вставок (иначе БД на лимите не даёт «extend file» под новые фото).
+    if (process.env.VERCEL) {
+      try {
+        await prisma.$executeRawUnsafe('VACUUM "Upload"');
+        await prisma.$executeRawUnsafe('VACUUM "ProductImage"');
+      } catch (e) {
+        console.error("[import] vacuum:", e instanceof Error ? e.message : e);
+      }
+    }
     await syncColorsFromPhotos();
     if (process.env.CROP_AVRORA === "1") await cropExistingAvroraWatermarksOnce();
     await removeDemoData();
