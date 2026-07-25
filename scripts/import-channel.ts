@@ -69,15 +69,10 @@ async function storeImage(buf: Buffer): Promise<string | null> {
 }
 
 async function downloadPhoto(url: string, cropBottomFrac = 0, attempt = 1): Promise<string | null> {
-  // Локальные фото из репозитория (заранее скачаны, обрезаны и сжаты) —
-  // не зависят от протухающих ссылок Telegram при сборке.
-  if (url.startsWith("local:")) {
-    try {
-      const buf = readFileSync(path.join(process.cwd(), "scripts", url.slice("local:".length)));
-      return await storeImage(buf);
-    } catch (err) {
-      return noteFail("local " + (err instanceof Error ? err.message : "read"));
-    }
+  // Статические фото из public/: отдаются Vercel напрямую, в БД не пишутся —
+  // не зависят от протухающих ссылок Telegram и не упираются в лимит БД.
+  if (url.startsWith("static:")) {
+    return `/${url.slice("static:".length)}`; // -> /batch-photos/<name>.jpg
   }
   try {
     const res = await fetch(url, {
