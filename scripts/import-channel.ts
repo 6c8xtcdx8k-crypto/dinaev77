@@ -507,32 +507,22 @@ async function mark(stage: string, extra: Record<string, unknown> = {}): Promise
  * Идемпотентно: у кого артикул уже есть — пропускаются.
  */
 async function ensureArticles(): Promise<void> {
-  const withArt = await prisma.product.findMany({
-    where: { NOT: { article: null } },
-    select: { article: true },
-  });
-  let maxNo = 100000;
-  for (const p of withArt) {
-    const n = Number((p.article ?? "").replace(/\D/g, ""));
-    if (Number.isFinite(n) && n > maxNo) maxNo = n;
-  }
-  const missing = await prisma.product.findMany({
-    where: { article: null },
-    select: { id: true },
-    orderBy: { createdAt: "asc" },
-  });
-  let no = maxNo;
-  for (const p of missing) {
-    no++;
-    try {
-      await prisma.product.update({ where: { id: p.id }, data: { article: `SB${no}` } });
-    } catch {
-      // На случай гонки с уникальным индексом — берём следующий номер.
-      no++;
-      await prisma.product.update({ where: { id: p.id }, data: { article: `SB${no}` } });
-    }
-  }
-  if (missing.length > 0) console.log(`[article] назначено артикулов: ${missing.length}`);
+  // Одним SQL-запросом (быстро и надёжно): нумеруем товары без артикула,
+  // продолжая от максимального существующего номера (без коллизий), по дате.
+  // Формат SB<номер> (SB100001…). Синтаксис PostgreSQL — выполняется в сборке.
+  const affected = await prisma.$executeRawUnsafe(`
+    WITH mx AS (
+      SELECT COALESCE(MAX(NULLIF(regexp_replace(article, '\\D', '', 'g'), '')::bigint), 100000) AS m
+      FROM "Product" WHERE article IS NOT NULL
+    ),
+    numbered AS (
+      SELECT id, (SELECT m FROM mx) + row_number() OVER (ORDER BY "createdAt" ASC, id ASC) AS n
+      FROM "Product" WHERE article IS NULL
+    )
+    UPDATE "Product" p SET article = 'SB' || numbered.n
+    FROM numbered WHERE p.id = numbered.id
+  `);
+  if (affected > 0) console.log(`[article] назначено артикулов: ${affected}`);
 }
 
 async function main() {
