@@ -206,7 +206,9 @@ async function ingestPhotosToDb(items: ChannelProduct[]): Promise<void> {
     const healthy =
       p.images.length > 0 &&
       p.images.every(
-        (i) => i.url.startsWith("/uploads/") && uploads.has(i.url.slice("/uploads/".length)),
+        (i) =>
+          i.url.startsWith("http") || // внешний хостинг (Cloudinary) — уже здоров, не перекачиваем
+          (i.url.startsWith("/uploads/") && uploads.has(i.url.slice("/uploads/".length))),
       );
     if (healthy) continue;
 
@@ -257,7 +259,9 @@ async function fixManualProductPhotos(): Promise<void> {
       product.images.length > 0 &&
       (!process.env.VERCEL ||
         product.images.every(
-          (i) => i.url.startsWith("/uploads/") && uploads.has(i.url.slice("/uploads/".length)),
+          (i) =>
+            i.url.startsWith("http") || // внешний хостинг (Cloudinary) — не перекачиваем
+            (i.url.startsWith("/uploads/") && uploads.has(i.url.slice("/uploads/".length))),
         ));
     if (healthy) continue;
 
