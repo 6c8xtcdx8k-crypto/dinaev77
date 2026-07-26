@@ -1,0 +1,218 @@
+[
+  {
+    "slug": "spm-84",
+    "name": "Костюм двойка бренда HERMES (футболка+штаны идут вместе)",
+    "description": "Костюм двойка бренда HERMES (футболка+штаны идут вместе)\nКачество: Хлопок-двунитка\nРазмеры: M L XL 2XL 3XL\n#SPM",
+    "gender": "MEN",
+    "category": "clothing",
+    "priceRub": 2200,
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785095789/spm/84-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785095790/spm/84-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785095791/spm/84-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785095792/spm/84-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785095793/spm/84-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785095794/spm/84-5.jpg"
+    ]
+  },
+  {
+    "slug": "spm-102",
+    "name": "Джинсы по супер цене",
+    "description": "Джинсы по супер цене\nКачество: на высоте\nРазмеры: 29 30 31 32 33 34 36\n#SPM",
+    "gender": "MEN",
+    "category": "clothing",
+    "priceRub": 2199,
+    "sizes": [
+      "29",
+      "30",
+      "31",
+      "32",
+      "33",
+      "34",
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785095795/spm/102-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785095796/spm/102-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785095797/spm/102-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/video/upload/v1785095799/spm/102-v.mp4"
+    ]
+  },
+  {
+    "slug": "spm-60",
+    "name": "Костюм двойка бренда Hugo (футболка+штаны идут вместе)",
+    "description": "Костюм двойка бренда Hugo (футболка+штаны идут вместе)\nКачество: Хлопок-двунитка\nРазмеры: M L XL 2XL 3XL\n#SPM",
+    "gender": "MEN",
+    "category": "clothing",
+    "priceRub": 2200,
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785095802/spm/60-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785095802/spm/60-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785095803/spm/60-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785095804/spm/60-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785095805/spm/60-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785095806/spm/60-5.jpg"
+    ]
+  },
+  {
+    "slug": "spm-68",
+    "name": "Костюм двойка бренда HERMES (футболка+штаны идут вместе)",
+    "description": "Костюм двойка бренда HERMES (футболка+штаны идут вместе)\nКачество: Хлопок-двунитка\nРазмеры: M L XL 2XL 3XL\n#SPM",
+    "gender": "MEN",
+    "category": "clothing",
+    "priceRub": 2200,
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785095807/spm/68-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785095808/spm/68-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785095809/spm/68-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785095809/spm/68-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785095810/spm/68-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785095811/spm/68-5.jpg"
+    ]
+  },
+  {
+    "slug": "spm-76",
+    "name": "Костюм двойка бренда Polo (футболка+штаны идут вместе)",
+    "description": "Костюм двойка бренда Polo (футболка+штаны идут вместе)\nКачество: Хлопок-двунитка\nРазмеры: M L XL 2XL 3XL\n#SPM",
+    "gender": "MEN",
+    "category": "clothing",
+    "priceRub": 2200,
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785095812/spm/76-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785095813/spm/76-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785095814/spm/76-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785095814/spm/76-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785095815/spm/76-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785095817/spm/76-5.jpg"
+    ]
+  },
+  {
+    "slug": "spm-22",
+    "name": "Футболки Polo",
+    "description": "Футболки Polo\nКачество: ХБ с лайкрой\nРазмеры: 3XL\n#SPM",
+    "gender": "MEN",
+    "category": "clothing",
+    "priceRub": 1299,
+    "sizes": [
+      "3XL"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785095818/spm/22-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785095819/spm/22-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785095820/spm/22-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785095820/spm/22-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785095821/spm/22-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785095822/spm/22-5.jpg"
+    ]
+  },
+  {
+    "slug": "spm-46",
+    "name": "Футболки Polo",
+    "description": "Футболки Polo\nКачество: ХБ с лайкрой\nРазмеры: 3XL\n#SPM",
+    "gender": "MEN",
+    "category": "clothing",
+    "priceRub": 1299,
+    "sizes": [
+      "3XL"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785095823/spm/46-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785095824/spm/46-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785095825/spm/46-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785095826/spm/46-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785095827/spm/46-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785095828/spm/46-5.jpg"
+    ]
+  },
+  {
+    "slug": "spm-15",
+    "name": "Футболки Polo",
+    "description": "Футболки Polo\nКачество: холодок\nРазмеры: 46\n#SPM",
+    "gender": "MEN",
+    "category": "clothing",
+    "priceRub": 1300,
+    "sizes": [
+      "46"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785095829/spm/15-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785095830/spm/15-1.jpg"
+    ]
+  }
+]
