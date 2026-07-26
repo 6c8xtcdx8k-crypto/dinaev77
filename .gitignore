@@ -25,4 +25,4 @@ data/
 
 # генерируется vercel-build (провайдер postgres)
 prisma/schema.pg.prisma
-.scrape-marsel.mjs
+.scrape-*.mjs
