@@ -3924,8 +3924,8 @@
     "priceRub": 4300,
     "sizes": [
       "44",
-      "46",
-      "45"
+      "45",
+      "46"
     ],
     "colors": [
       {
@@ -4066,8 +4066,8 @@
       "41",
       "42",
       "43",
-      "46",
-      "45"
+      "45",
+      "46"
     ],
     "colors": [
       {
@@ -5725,6 +5725,421 @@
       "https://res.cloudinary.com/crhih1u5/image/upload/v1785053397/shoes/591-4.jpg",
       "https://res.cloudinary.com/crhih1u5/image/upload/v1785053398/shoes/591-5.jpg",
       "https://res.cloudinary.com/crhih1u5/video/upload/v1785053400/shoes/591-v.mp4"
+    ]
+  },
+  {
+    "slug": "shoe-1910",
+    "name": "Numeris",
+    "description": "Numeris\nКачество: ААА+\nРазмеры: 40 41 42 43 44 45\nЦена: 5500₽",
+    "gender": "UNISEX",
+    "category": "shoes",
+    "priceRub": 5500,
+    "sizes": [
+      "40",
+      "41",
+      "42",
+      "43",
+      "44",
+      "45"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052135/shoes/1910-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052136/shoes/1910-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052137/shoes/1910-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052138/shoes/1910-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052139/shoes/1910-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052140/shoes/1910-5.jpg",
+      "https://res.cloudinary.com/crhih1u5/video/upload/v1785052143/shoes/1910-v.mp4"
+    ]
+  },
+  {
+    "slug": "shoe-1919",
+    "name": "Numeris",
+    "description": "Numeris\nКачество: ААА+\nРазмеры: 38 39 41 42 44\nЦена: 5800₽",
+    "gender": "UNISEX",
+    "category": "shoes",
+    "priceRub": 5800,
+    "sizes": [
+      "38",
+      "39",
+      "41",
+      "42",
+      "44"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052146/shoes/1919-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052147/shoes/1919-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052148/shoes/1919-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052149/shoes/1919-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052150/shoes/1919-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052150/shoes/1919-5.jpg",
+      "https://res.cloudinary.com/crhih1u5/video/upload/v1785052152/shoes/1919-v.mp4"
+    ]
+  },
+  {
+    "slug": "shoe-1928",
+    "name": "Adidas Raf Simons",
+    "description": "Adidas Raf Simons\nКачество: ААА+\nРазмеры: 41 42 43 44\nЦена: 5500₽",
+    "gender": "UNISEX",
+    "category": "shoes",
+    "priceRub": 5500,
+    "sizes": [
+      "41",
+      "42",
+      "43",
+      "44"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052097/shoes/1928-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052098/shoes/1928-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052099/shoes/1928-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052100/shoes/1928-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052101/shoes/1928-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052102/shoes/1928-5.jpg",
+      "https://res.cloudinary.com/crhih1u5/video/upload/v1785052104/shoes/1928-v.mp4"
+    ]
+  },
+  {
+    "slug": "shoe-1856",
+    "name": "Nike Jordan 1 (синий)",
+    "description": "Nike Jordan 1 (синий)\nКачество: ААА+\nРазмеры: 41\nЦена: 4200₽",
+    "gender": "UNISEX",
+    "category": "shoes",
+    "priceRub": 4200,
+    "sizes": [
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052185/shoes/1856-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052186/shoes/1856-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052187/shoes/1856-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052189/shoes/1856-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052190/shoes/1856-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052191/shoes/1856-5.jpg",
+      "https://res.cloudinary.com/crhih1u5/video/upload/v1785052192/shoes/1856-v.mp4"
+    ]
+  },
+  {
+    "slug": "shoe-1633",
+    "name": "Numeris",
+    "description": "Numeris\nКачество: ААА+\nРазмеры: 45\nЦена: 5400₽",
+    "gender": "UNISEX",
+    "category": "shoes",
+    "priceRub": 5400,
+    "sizes": [
+      "45"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052364/shoes/1633-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052364/shoes/1633-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052365/shoes/1633-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052366/shoes/1633-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052367/shoes/1633-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052368/shoes/1633-5.jpg",
+      "https://res.cloudinary.com/crhih1u5/video/upload/v1785052369/shoes/1633-v.mp4"
+    ]
+  },
+  {
+    "slug": "shoe-1570",
+    "name": "Nike Initiator",
+    "description": "Nike Initiator\nКачество: ААА+\nРазмеры: 45\nЦена: 4500₽",
+    "gender": "UNISEX",
+    "category": "shoes",
+    "priceRub": 4500,
+    "sizes": [
+      "45"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052448/shoes/1570-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052450/shoes/1570-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052451/shoes/1570-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052452/shoes/1570-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052452/shoes/1570-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052454/shoes/1570-5.jpg",
+      "https://res.cloudinary.com/crhih1u5/video/upload/v1785052456/shoes/1570-v.mp4"
+    ]
+  },
+  {
+    "slug": "shoe-1535",
+    "name": "Louis Vuitton (синий)",
+    "description": "Louis Vuitton (синий)\nКачество: ААА+\nРазмеры: 42\nЦена: 4700₽",
+    "gender": "UNISEX",
+    "category": "shoes",
+    "priceRub": 4700,
+    "sizes": [
+      "42"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052465/shoes/1535-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052466/shoes/1535-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052466/shoes/1535-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052467/shoes/1535-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052468/shoes/1535-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052469/shoes/1535-5.jpg",
+      "https://res.cloudinary.com/crhih1u5/video/upload/v1785052471/shoes/1535-v.mp4"
+    ]
+  },
+  {
+    "slug": "shoe-1273",
+    "name": "New Balance 9060",
+    "description": "New Balance 9060\nКачество: ААА+\nРазмеры: 39\nЦена: 4200₽",
+    "gender": "UNISEX",
+    "category": "shoes",
+    "priceRub": 4200,
+    "sizes": [
+      "39"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052713/shoes/1273-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052714/shoes/1273-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052715/shoes/1273-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052716/shoes/1273-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052717/shoes/1273-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052720/shoes/1273-5.jpg",
+      "https://res.cloudinary.com/crhih1u5/video/upload/v1785052721/shoes/1273-v.mp4"
+    ]
+  },
+  {
+    "slug": "shoe-1066",
+    "name": "Adidas ZX 1000",
+    "description": "Adidas ZX 1000\nКачество: ААА+\nРазмеры: 44\nЦена: 3400₽",
+    "gender": "UNISEX",
+    "category": "shoes",
+    "priceRub": 3400,
+    "sizes": [
+      "44"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052869/shoes/1066-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052870/shoes/1066-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052872/shoes/1066-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052873/shoes/1066-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052874/shoes/1066-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785052875/shoes/1066-5.jpg",
+      "https://res.cloudinary.com/crhih1u5/video/upload/v1785052877/shoes/1066-v.mp4"
+    ]
+  },
+  {
+    "slug": "shoe-886",
+    "name": "New Balance x Loro Piana",
+    "description": "New Balance x Loro Piana\nКачество: ААА+\nРазмеры: 42 43\nЦена: 4000₽",
+    "gender": "UNISEX",
+    "category": "shoes",
+    "priceRub": 4000,
+    "sizes": [
+      "42",
+      "43"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785053066/shoes/886-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785053067/shoes/886-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785053068/shoes/886-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785053069/shoes/886-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785053070/shoes/886-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785053071/shoes/886-5.jpg",
+      "https://res.cloudinary.com/crhih1u5/video/upload/v1785053073/shoes/886-v.mp4"
+    ]
+  },
+  {
+    "slug": "shoe-734",
+    "name": "Nike Air Max Tailwind 4",
+    "description": "Nike Air Max Tailwind 4\nКачество: ААА+\nРазмеры: 42\nЦена: 4500₽",
+    "gender": "UNISEX",
+    "category": "shoes",
+    "priceRub": 4500,
+    "sizes": [
+      "42"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785053281/shoes/734-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785053283/shoes/734-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785053284/shoes/734-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785053285/shoes/734-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785053286/shoes/734-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785053288/shoes/734-5.jpg",
+      "https://res.cloudinary.com/crhih1u5/video/upload/v1785053289/shoes/734-v.mp4"
+    ]
+  },
+  {
+    "slug": "shoe-672",
+    "name": "Nike Air Force 1",
+    "description": "Nike Air Force 1\nКачество: ААА+\nРазмеры: 38 39 40 41\nЦена: 4800₽",
+    "gender": "UNISEX",
+    "category": "shoes",
+    "priceRub": 4800,
+    "sizes": [
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785053321/shoes/672-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785053322/shoes/672-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785053323/shoes/672-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785053324/shoes/672-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785053324/shoes/672-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785053325/shoes/672-5.jpg",
+      "https://res.cloudinary.com/crhih1u5/video/upload/v1785053327/shoes/672-v.mp4"
+    ]
+  },
+  {
+    "slug": "shoe-555",
+    "name": "Puma x ASAP Rocky",
+    "description": "Puma x ASAP Rocky\nКачество: ААА+\nРазмеры: 41 42 43 44\nЦена: 4700₽",
+    "gender": "UNISEX",
+    "category": "shoes",
+    "priceRub": 4700,
+    "sizes": [
+      "41",
+      "42",
+      "43",
+      "44"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785053456/shoes/555-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785053457/shoes/555-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785053458/shoes/555-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785053459/shoes/555-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785053460/shoes/555-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785053463/shoes/555-5.jpg",
+      "https://res.cloudinary.com/crhih1u5/video/upload/v1785053464/shoes/555-v.mp4"
+    ]
+  },
+  {
+    "slug": "shoe-493",
+    "name": "Nike V5 Rnr",
+    "description": "Nike V5 Rnr\nКачество: ААА+\nРазмеры: 37 38 39 43 45\nЦена: 4300₽",
+    "gender": "UNISEX",
+    "category": "shoes",
+    "priceRub": 4300,
+    "sizes": [
+      "37",
+      "38",
+      "39",
+      "43",
+      "45"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785053718/shoes/493-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785053719/shoes/493-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785053720/shoes/493-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785053721/shoes/493-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785053722/shoes/493-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785053722/shoes/493-5.jpg",
+      "https://res.cloudinary.com/crhih1u5/video/upload/v1785053724/shoes/493-v.mp4"
+    ]
+  },
+  {
+    "slug": "shoe-430",
+    "name": "Amiri",
+    "description": "Amiri\nКачество: ААА+\nРазмеры: 41 42 43\nЦена: 5000₽",
+    "gender": "UNISEX",
+    "category": "shoes",
+    "priceRub": 5000,
+    "sizes": [
+      "41",
+      "42",
+      "43"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785053758/shoes/430-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785053759/shoes/430-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785053760/shoes/430-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785053761/shoes/430-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785053762/shoes/430-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785053763/shoes/430-5.jpg",
+      "https://res.cloudinary.com/crhih1u5/video/upload/v1785053765/shoes/430-v.mp4"
     ]
   }
 ]
