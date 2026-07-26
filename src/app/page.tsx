@@ -1,9 +1,34 @@
 import Link from "next/link";
+import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
 import { ProductCard } from "@/components/product/ProductCard";
 import { Reveal } from "@/components/ui/Reveal";
 
 export const dynamic = "force-dynamic";
+
+// Товары для главной меняются редко — кешируем на 5 минут, чтобы не дёргать
+// базу на каждый заход (экономия месячного трафика Neon).
+const getHomeProducts = unstable_cache(
+  async () => {
+    const [newArrivals, popular] = await Promise.all([
+      prisma.product.findMany({
+        where: { isActive: true },
+        orderBy: { createdAt: "desc" },
+        take: 4,
+        include: { images: { orderBy: { sort: "asc" }, take: 1 } },
+      }),
+      prisma.product.findMany({
+        where: { isActive: true },
+        orderBy: { salesCount: "desc" },
+        take: 4,
+        include: { images: { orderBy: { sort: "asc" }, take: 1 } },
+      }),
+    ]);
+    return { newArrivals, popular };
+  },
+  ["home-products"],
+  { revalidate: 300 },
+);
 
 const TILES = [
   { href: "/catalog?category=clothing", title: "Одежда" },
@@ -23,20 +48,7 @@ const MARQUEE = [
 ];
 
 export default async function HomePage() {
-  const [newArrivals, popular] = await Promise.all([
-    prisma.product.findMany({
-      where: { isActive: true },
-      orderBy: { createdAt: "desc" },
-      take: 4,
-      include: { images: { orderBy: { sort: "asc" }, take: 1 } },
-    }),
-    prisma.product.findMany({
-      where: { isActive: true },
-      orderBy: { salesCount: "desc" },
-      take: 4,
-      include: { images: { orderBy: { sort: "asc" }, take: 1 } },
-    }),
-  ]);
+  const { newArrivals, popular } = await getHomeProducts();
 
   return (
     <div className="container space-y-14 py-8">

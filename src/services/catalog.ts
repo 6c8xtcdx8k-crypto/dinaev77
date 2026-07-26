@@ -1,4 +1,5 @@
 import "server-only";
+import { unstable_cache } from "next/cache";
 import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/db";
 import { CATALOG_PAGE_SIZE, type SortValue } from "@/lib/constants";
@@ -73,32 +74,47 @@ function orderBy(sort: SortValue | undefined): Prisma.ProductOrderByWithRelation
 export async function queryCatalog(f: CatalogFilters) {
   const where = buildWhere(f);
 
-  // basePrice — актуальная цена продажи, фильтруем по ней напрямую.
-  const all = await prisma.product.findMany({
-    where,
-    orderBy: orderBy(f.sort),
-    include: {
-      images: { orderBy: { sort: "asc" }, take: 1 },
-      variants: { select: { size: true, color: true, colorHex: true, stock: true } },
-    },
-  });
+  // basePrice — актуальная цена продажи, фильтруем по ней прямо в SQL.
+  if (f.priceMin !== undefined || f.priceMax !== undefined) {
+    where.basePrice = {
+      ...(f.priceMin !== undefined ? { gte: f.priceMin } : {}),
+      ...(f.priceMax !== undefined ? { lte: f.priceMax } : {}),
+    };
+  }
 
-  const withFinal = all.filter(
-    (p) =>
-      (f.priceMin === undefined || p.basePrice >= f.priceMin) &&
-      (f.priceMax === undefined || p.basePrice <= f.priceMax),
-  );
-
+  // Пагинацию делаем в базе (skip/take), а не выгружаем всю категорию в память:
+  // это резко снижает объём данных, вытягиваемых из Neon на каждый заход.
   const page = Math.max(1, f.page ?? 1);
-  const total = withFinal.length;
-  const totalPages = Math.max(1, Math.ceil(total / CATALOG_PAGE_SIZE));
-  const items = withFinal.slice((page - 1) * CATALOG_PAGE_SIZE, page * CATALOG_PAGE_SIZE);
+  const [total, items] = await Promise.all([
+    prisma.product.count({ where }),
+    prisma.product.findMany({
+      where,
+      orderBy: orderBy(f.sort),
+      include: {
+        images: { orderBy: { sort: "asc" }, take: 1 },
+        variants: { select: { size: true, color: true, colorHex: true, stock: true } },
+      },
+      skip: (page - 1) * CATALOG_PAGE_SIZE,
+      take: CATALOG_PAGE_SIZE,
+    }),
+  ]);
 
+  const totalPages = Math.max(1, Math.ceil(total / CATALOG_PAGE_SIZE));
   return { items, total, page, totalPages };
 }
 
-/** Доступные значения фильтров (размеры/цвета/границы цен) для текущей выборки. */
-export async function getFilterFacets(f: Pick<CatalogFilters, "category" | "gender">) {
+/**
+ * Доступные значения фильтров (размеры/цвета/границы цен) для текущей выборки.
+ * Требует полного скана категории, поэтому кешируем результат на 10 минут —
+ * набор размеров/цветов/цен меняется редко, а трафик из Neon экономит сильно.
+ */
+export const getFilterFacets = unstable_cache(
+  _getFilterFacets,
+  ["catalog-facets"],
+  { revalidate: 600 },
+);
+
+async function _getFilterFacets(f: Pick<CatalogFilters, "category" | "gender">) {
   const where = buildWhere(f);
   const products = await prisma.product.findMany({
     where,
