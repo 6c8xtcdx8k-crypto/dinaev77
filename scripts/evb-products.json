@@ -1,0 +1,4965 @@
+[
+  {
+    "slug": "evb-1144",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Люкс\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2200,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099594/evb/1144-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099595/evb/1144-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099596/evb/1144-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099597/evb/1144-3.jpg"
+    ]
+  },
+  {
+    "slug": "evb-1148",
+    "name": "Лоферы",
+    "description": "Лоферы\nКачество: Люкс\nРазмеры: 36 37 38\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 1950,
+    "sizes": [
+      "36",
+      "37",
+      "38"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099598/evb/1148-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099599/evb/1148-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099600/evb/1148-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099601/evb/1148-3.jpg"
+    ]
+  },
+  {
+    "slug": "evb-1161",
+    "name": "Мужская обувь",
+    "description": "Мужская обувь\nКачество: Натуральная кожа\nРазмеры: 41 42 43 44 45\n#EVB",
+    "gender": "MEN",
+    "category": "shoes",
+    "priceRub": 3200,
+    "sizes": [
+      "41",
+      "42",
+      "43",
+      "44",
+      "45"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099602/evb/1161-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/video/upload/v1785099605/evb/1161-v.mp4"
+    ]
+  },
+  {
+    "slug": "evb-1162",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Натуральная кожа\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 3300,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099606/evb/1162-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099608/evb/1162-1.jpg"
+    ]
+  },
+  {
+    "slug": "evb-1164",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Натуральная кожа\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 3300,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099612/evb/1164-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/video/upload/v1785099615/evb/1164-v.mp4"
+    ]
+  },
+  {
+    "slug": "evb-1118",
+    "name": "Кроссовки",
+    "description": "Кроссовки\nКачество: Люкс\nРазмеры: 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2450,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099617/evb/1118-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099619/evb/1118-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099620/evb/1118-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099621/evb/1118-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099622/evb/1118-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099624/evb/1118-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-1127",
+    "name": "Туфли",
+    "description": "Туфли\nКачество: Люкс\nРазмеры: 35\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2400,
+    "sizes": [
+      "35"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099627/evb/1127-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099628/evb/1127-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099629/evb/1127-2.jpg"
+    ]
+  },
+  {
+    "slug": "evb-1130",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Люкс\nРазмеры: 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 1950,
+    "sizes": [
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099629/evb/1130-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099632/evb/1130-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099633/evb/1130-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099633/evb/1130-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099634/evb/1130-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099635/evb/1130-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-1136",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Натуральная кожа\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2699,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099636/evb/1136-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099638/evb/1136-1.jpg"
+    ]
+  },
+  {
+    "slug": "evb-1138",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Натуральная кожа\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 3300,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099638/evb/1138-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099639/evb/1138-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/video/upload/v1785099644/evb/1138-v.mp4"
+    ]
+  },
+  {
+    "slug": "evb-1140",
+    "name": "Туфли",
+    "description": "Туфли\nКачество: Люкс\nРазмеры: 35\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 1950,
+    "sizes": [
+      "35"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099645/evb/1140-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099646/evb/1140-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099647/evb/1140-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099648/evb/1140-3.jpg"
+    ]
+  },
+  {
+    "slug": "evb-1093",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Натуральная кожа\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2800,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099650/evb/1093-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099651/evb/1093-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099652/evb/1093-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099653/evb/1093-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099654/evb/1093-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099655/evb/1093-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-1102",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Натуральная кожа\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2800,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099655/evb/1102-0.jpg"
+    ]
+  },
+  {
+    "slug": "evb-1103",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Натуральная кожа\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2800,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099657/evb/1103-0.jpg"
+    ]
+  },
+  {
+    "slug": "evb-1104",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Натуральная кожа\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 3300,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099657/evb/1104-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099658/evb/1104-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099661/evb/1104-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099662/evb/1104-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099663/evb/1104-4.jpg"
+    ]
+  },
+  {
+    "slug": "evb-1109",
+    "name": "Кроссовки",
+    "description": "Кроссовки\nКачество: Люкс\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2600,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099664/evb/1109-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099664/evb/1109-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099665/evb/1109-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099666/evb/1109-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099667/evb/1109-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099668/evb/1109-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-1115",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Хорошее\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2800,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099669/evb/1115-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099670/evb/1115-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099670/evb/1115-2.jpg"
+    ]
+  },
+  {
+    "slug": "evb-1073",
+    "name": "Туфли",
+    "description": "Туфли\nРазмеры: 38 39\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 1950,
+    "sizes": [
+      "38",
+      "39"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099672/evb/1073-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099673/evb/1073-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099674/evb/1073-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099675/evb/1073-3.jpg"
+    ]
+  },
+  {
+    "slug": "evb-1077",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Люкс\nРазмеры: 35\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2500,
+    "sizes": [
+      "35"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099676/evb/1077-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099677/evb/1077-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099678/evb/1077-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099679/evb/1077-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099681/evb/1077-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099682/evb/1077-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-1085",
+    "name": "Босоножки",
+    "description": "Босоножки\nКачество: Люкс\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2500,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099683/evb/1085-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099685/evb/1085-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099685/evb/1085-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099686/evb/1085-3.jpg"
+    ]
+  },
+  {
+    "slug": "evb-1089",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Люкс\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2400,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099688/evb/1089-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099689/evb/1089-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099690/evb/1089-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099691/evb/1089-3.jpg"
+    ]
+  },
+  {
+    "slug": "evb-1048",
+    "name": "Кроссовки",
+    "description": "Кроссовки\nКачество: Люкс\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2400,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099693/evb/1048-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099695/evb/1048-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099696/evb/1048-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099697/evb/1048-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099698/evb/1048-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-1057",
+    "name": "Туфли",
+    "description": "Туфли\nРазмеры: 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 1950,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099698/evb/1057-0.jpg"
+    ]
+  },
+  {
+    "slug": "evb-1058",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nРазмеры: 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2300,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099699/evb/1058-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099703/evb/1058-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099705/evb/1058-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099706/evb/1058-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099707/evb/1058-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099707/evb/1058-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-1064",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Натуральная кожа\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2400,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099708/evb/1064-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099709/evb/1064-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099710/evb/1064-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099711/evb/1064-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099712/evb/1064-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099713/evb/1064-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-1029",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Хорошее\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2050,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099714/evb/1029-0.jpg"
+    ]
+  },
+  {
+    "slug": "evb-1030",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Хорошее\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2050,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099715/evb/1030-0.jpg"
+    ]
+  },
+  {
+    "slug": "evb-1031",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nРазмеры: 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2300,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099716/evb/1031-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099716/evb/1031-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099717/evb/1031-2.jpg"
+    ]
+  },
+  {
+    "slug": "evb-1034",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Люкс\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2199,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099718/evb/1034-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099719/evb/1034-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099720/evb/1034-2.jpg"
+    ]
+  },
+  {
+    "slug": "evb-1037",
+    "name": "Кроссовки",
+    "description": "Кроссовки\nКачество: Люкс\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2500,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099721/evb/1037-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099722/evb/1037-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099723/evb/1037-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099724/evb/1037-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099725/evb/1037-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099726/evb/1037-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-1043",
+    "name": "Туфли",
+    "description": "Туфли\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2200,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099726/evb/1043-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099727/evb/1043-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099728/evb/1043-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099730/evb/1043-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099730/evb/1043-4.jpg"
+    ]
+  },
+  {
+    "slug": "evb-1000",
+    "name": "Туфли",
+    "description": "Туфли\nКачество: Люкс\nРазмеры: 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2400,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099732/evb/1000-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099733/evb/1000-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099734/evb/1000-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099734/evb/1000-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099735/evb/1000-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099736/evb/1000-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-1014",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Хорошее\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2400,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099737/evb/1014-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099739/evb/1014-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099739/evb/1014-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099740/evb/1014-3.jpg"
+    ]
+  },
+  {
+    "slug": "evb-1018",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Хорошее\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2400,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099741/evb/1018-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099743/evb/1018-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099744/evb/1018-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099745/evb/1018-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099746/evb/1018-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099747/evb/1018-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-973",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Люкс\nРазмеры: 36 37 38 39\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2199,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099749/evb/973-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099751/evb/973-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099753/evb/973-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099754/evb/973-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099756/evb/973-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099758/evb/973-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-979",
+    "name": "Туфли",
+    "description": "Туфли\nКачество: Люкс\nРазмеры: 35 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2400,
+    "sizes": [
+      "35",
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099759/evb/979-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099761/evb/979-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099762/evb/979-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099763/evb/979-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099765/evb/979-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099766/evb/979-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-988",
+    "name": "Туфли",
+    "description": "Туфли\nКачество: Люкс\nРазмеры: 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2300,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099767/evb/988-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099769/evb/988-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099770/evb/988-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099771/evb/988-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099772/evb/988-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099774/evb/988-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-953",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Люкс\nРазмеры: 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2199,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099776/evb/953-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099777/evb/953-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099779/evb/953-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099780/evb/953-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099782/evb/953-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099783/evb/953-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-962",
+    "name": "Туфли",
+    "description": "Туфли\nКачество: Люкс\nРазмеры: 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2400,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099785/evb/962-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099786/evb/962-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099788/evb/962-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099790/evb/962-3.jpg"
+    ]
+  },
+  {
+    "slug": "evb-966",
+    "name": "Туфли",
+    "description": "Туфли\nКачество: Люкс\nРазмеры: 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2400,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099791/evb/966-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099792/evb/966-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099794/evb/966-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099795/evb/966-3.jpg"
+    ]
+  },
+  {
+    "slug": "evb-970",
+    "name": "Туфли",
+    "description": "Туфли\nКачество: Люкс\nРазмеры: 35 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2199,
+    "sizes": [
+      "35",
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099797/evb/970-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099798/evb/970-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099800/evb/970-2.jpg"
+    ]
+  },
+  {
+    "slug": "evb-931",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Натуральная кожа\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2900,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099802/evb/931-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099804/evb/931-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099805/evb/931-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099807/evb/931-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099808/evb/931-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099810/evb/931-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-937",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Натуральная кожа\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 3300,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099811/evb/937-0.jpg"
+    ]
+  },
+  {
+    "slug": "evb-938",
+    "name": "Туфли",
+    "description": "Туфли\nКачество: Люкс\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2400,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099813/evb/938-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099814/evb/938-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099816/evb/938-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099817/evb/938-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099819/evb/938-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099820/evb/938-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-944",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Люкс\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2400,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099821/evb/944-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099823/evb/944-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099824/evb/944-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099826/evb/944-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099828/evb/944-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099829/evb/944-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-908",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Хорошее\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 3200,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099831/evb/908-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099832/evb/908-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099833/evb/908-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099834/evb/908-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099835/evb/908-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099836/evb/908-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-915",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Натуральная кожа\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 3300,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099837/evb/915-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099838/evb/915-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099839/evb/915-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099840/evb/915-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099842/evb/915-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099843/evb/915-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-924",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Натуральная кожа\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2699,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099844/evb/924-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099845/evb/924-1.jpg"
+    ]
+  },
+  {
+    "slug": "evb-927",
+    "name": "Туфли",
+    "description": "Туфли\nРазмеры: 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 1950,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099846/evb/927-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099847/evb/927-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099848/evb/927-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099849/evb/927-3.jpg"
+    ]
+  },
+  {
+    "slug": "evb-884",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Люкс\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 1950,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099851/evb/884-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099853/evb/884-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099854/evb/884-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099856/evb/884-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099857/evb/884-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099859/evb/884-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-890",
+    "name": "Кроссовки",
+    "description": "Кроссовки\nКачество: Люкс\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2200,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099860/evb/890-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099861/evb/890-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099862/evb/890-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099863/evb/890-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099864/evb/890-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099865/evb/890-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-896",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Натуральная кожа\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2900,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099867/evb/896-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099868/evb/896-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099870/evb/896-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099871/evb/896-3.jpg"
+    ]
+  },
+  {
+    "slug": "evb-901",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Хорошее\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2600,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099872/evb/901-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/video/upload/v1785099889/evb/901-v.mp4"
+    ]
+  },
+  {
+    "slug": "evb-902",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Люкс\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2200,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099890/evb/902-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099892/evb/902-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099892/evb/902-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099893/evb/902-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099894/evb/902-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099895/evb/902-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-861",
+    "name": "Кроссовки",
+    "description": "Кроссовки\nКачество: Люкс\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2200,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099898/evb/861-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099899/evb/861-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099900/evb/861-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099901/evb/861-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099902/evb/861-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099903/evb/861-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-870",
+    "name": "Кроссовки",
+    "description": "Кроссовки\nКачество: Люкс\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2200,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099904/evb/870-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099905/evb/870-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099906/evb/870-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099907/evb/870-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099908/evb/870-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099909/evb/870-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-876",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Натуральная кожа\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2900,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099910/evb/876-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099911/evb/876-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099912/evb/876-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099913/evb/876-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099914/evb/876-4.jpg"
+    ]
+  },
+  {
+    "slug": "evb-881",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Натуральная кожа\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2900,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099915/evb/881-0.jpg"
+    ]
+  },
+  {
+    "slug": "evb-882",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Хорошее\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 1950,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099915/evb/882-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/video/upload/v1785099919/evb/882-v.mp4"
+    ]
+  },
+  {
+    "slug": "evb-883",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Натуральная кожа\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2900,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099921/evb/883-0.jpg"
+    ]
+  },
+  {
+    "slug": "evb-837",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Люкс\nРазмеры: 35\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2100,
+    "sizes": [
+      "35"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099924/evb/837-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099925/evb/837-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099926/evb/837-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099927/evb/837-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099928/evb/837-4.jpg"
+    ]
+  },
+  {
+    "slug": "evb-842",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Люкс\nРазмеры: 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2199,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099929/evb/842-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099930/evb/842-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099931/evb/842-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099932/evb/842-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099933/evb/842-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099934/evb/842-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-848",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Люкс\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2100,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099935/evb/848-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099936/evb/848-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099938/evb/848-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099938/evb/848-3.jpg"
+    ]
+  },
+  {
+    "slug": "evb-852",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Люкс\nРазмеры: 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2200,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099939/evb/852-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099940/evb/852-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099941/evb/852-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099942/evb/852-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099943/evb/852-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099944/evb/852-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-815",
+    "name": "Туфли",
+    "description": "Туфли\nКачество: Люкс\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2299,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099946/evb/815-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099947/evb/815-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099948/evb/815-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099949/evb/815-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099950/evb/815-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099951/evb/815-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-821",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nРазмеры: 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2199,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099952/evb/821-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099954/evb/821-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099955/evb/821-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099956/evb/821-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099958/evb/821-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099959/evb/821-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-827",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nРазмеры: 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2150,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099960/evb/827-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099960/evb/827-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099961/evb/827-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099962/evb/827-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099963/evb/827-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099964/evb/827-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-833",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Люкс\nРазмеры: 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2299,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099965/evb/833-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099966/evb/833-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099967/evb/833-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099968/evb/833-3.jpg"
+    ]
+  },
+  {
+    "slug": "evb-795",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nРазмеры: 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2300,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099970/evb/795-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099971/evb/795-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099971/evb/795-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099973/evb/795-3.jpg"
+    ]
+  },
+  {
+    "slug": "evb-799",
+    "name": "Босоножки",
+    "description": "Босоножки\nКачество: Люкс\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2199,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099974/evb/799-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099974/evb/799-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099976/evb/799-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099977/evb/799-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099978/evb/799-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099979/evb/799-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-805",
+    "name": "Туфли",
+    "description": "Туфли\nКачество: Люкс\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2400,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099980/evb/805-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099981/evb/805-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099982/evb/805-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099983/evb/805-3.jpg"
+    ]
+  },
+  {
+    "slug": "evb-809",
+    "name": "Туфли",
+    "description": "Туфли\nКачество: Люкс\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2299,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099984/evb/809-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099985/evb/809-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099986/evb/809-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099987/evb/809-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099988/evb/809-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099989/evb/809-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-774",
+    "name": "Туфли",
+    "description": "Туфли\nКачество: Люкс\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2199,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099991/evb/774-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099992/evb/774-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099994/evb/774-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099995/evb/774-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099996/evb/774-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099997/evb/774-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-783",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Люкс\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2199,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099998/evb/783-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785099999/evb/783-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100000/evb/783-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100001/evb/783-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100002/evb/783-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100003/evb/783-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-789",
+    "name": "Босоножки",
+    "description": "Босоножки\nКачество: Люкс\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2199,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100004/evb/789-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100005/evb/789-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100006/evb/789-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100006/evb/789-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100008/evb/789-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100009/evb/789-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-754",
+    "name": "Туфли",
+    "description": "Туфли\nРазмеры: 35 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 1950,
+    "sizes": [
+      "35",
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100011/evb/754-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100011/evb/754-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100013/evb/754-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100014/evb/754-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100015/evb/754-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100016/evb/754-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-769",
+    "name": "Туфли",
+    "description": "Туфли\nКачество: Люкс\nРазмеры: 35\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 1950,
+    "sizes": [
+      "35"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100016/evb/769-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100017/evb/769-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100018/evb/769-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100019/evb/769-3.jpg"
+    ]
+  },
+  {
+    "slug": "evb-773",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nРазмеры: 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2000,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100020/evb/773-0.jpg"
+    ]
+  },
+  {
+    "slug": "evb-728",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Хорошее\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 3200,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100022/evb/728-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100023/evb/728-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100023/evb/728-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100024/evb/728-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100025/evb/728-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100026/evb/728-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-737",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Хорошее\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2600,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100027/evb/737-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100027/evb/737-1.jpg"
+    ]
+  },
+  {
+    "slug": "evb-739",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Хорошее\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2600,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100028/evb/739-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100029/evb/739-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100030/evb/739-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100031/evb/739-3.jpg"
+    ]
+  },
+  {
+    "slug": "evb-743",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Натуральная кожа\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 3300,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100032/evb/743-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/video/upload/v1785100041/evb/743-v.mp4"
+    ]
+  },
+  {
+    "slug": "evb-744",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Натуральная кожа\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2699,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100042/evb/744-0.jpg"
+    ]
+  },
+  {
+    "slug": "evb-745",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Натуральная кожа\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 3300,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100043/evb/745-0.jpg"
+    ]
+  },
+  {
+    "slug": "evb-746",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Натуральная кожа\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2900,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100044/evb/746-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/video/upload/v1785100054/evb/746-v.mp4"
+    ]
+  },
+  {
+    "slug": "evb-747",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Натуральная кожа\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 3000,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100057/evb/747-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/video/upload/v1785100064/evb/747-v.mp4"
+    ]
+  },
+  {
+    "slug": "evb-748",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Натуральная кожа\nРазмеры: 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2199,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100065/evb/748-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100066/evb/748-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100067/evb/748-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100068/evb/748-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100069/evb/748-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100070/evb/748-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-702",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Хорошее\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 3000,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100073/evb/702-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100074/evb/702-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100076/evb/702-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100077/evb/702-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100078/evb/702-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-711",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Хорошее\nРазмеры: 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2699,
+    "sizes": [
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100079/evb/711-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100080/evb/711-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100080/evb/711-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100081/evb/711-3.jpg"
+    ]
+  },
+  {
+    "slug": "evb-715",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Хорошее\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2500,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100082/evb/715-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100083/evb/715-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100083/evb/715-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100084/evb/715-3.jpg"
+    ]
+  },
+  {
+    "slug": "evb-719",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Хорошее\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 3200,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100085/evb/719-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100086/evb/719-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100087/evb/719-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100088/evb/719-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100088/evb/719-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100089/evb/719-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-682",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Хорошее\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 3000,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100092/evb/682-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100092/evb/682-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100093/evb/682-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100094/evb/682-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100095/evb/682-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100095/evb/682-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-691",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Хорошее\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2699,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100096/evb/691-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100097/evb/691-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100098/evb/691-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100099/evb/691-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100100/evb/691-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100101/evb/691-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-698",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Хорошее\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2600,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100102/evb/698-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100103/evb/698-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100104/evb/698-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100104/evb/698-3.jpg"
+    ]
+  },
+  {
+    "slug": "evb-659",
+    "name": "Туфли",
+    "description": "Туфли\nКачество: Люкс\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2299,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100106/evb/659-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100107/evb/659-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100108/evb/659-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100109/evb/659-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100110/evb/659-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100111/evb/659-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-669",
+    "name": "Туфли",
+    "description": "Туфли\nКачество: Люкс\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2299,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100112/evb/669-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100113/evb/669-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100114/evb/669-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100115/evb/669-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100115/evb/669-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100116/evb/669-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-678",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Хорошее\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2600,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100118/evb/678-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100119/evb/678-1.jpg"
+    ]
+  },
+  {
+    "slug": "evb-680",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Хорошее\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 3000,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100120/evb/680-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100121/evb/680-1.jpg"
+    ]
+  },
+  {
+    "slug": "evb-637",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Люкс\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2400,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100128/evb/637-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100129/evb/637-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100130/evb/637-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100131/evb/637-3.jpg"
+    ]
+  },
+  {
+    "slug": "evb-641",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Люкс\nРазмеры: 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2050,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100132/evb/641-0.jpg"
+    ]
+  },
+  {
+    "slug": "evb-642",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Хорошее\nРазмеры: 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2050,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100133/evb/642-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100133/evb/642-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100134/evb/642-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100135/evb/642-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100136/evb/642-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100137/evb/642-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-652",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Натуральная кожа\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2900,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100138/evb/652-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100139/evb/652-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100140/evb/652-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100141/evb/652-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100142/evb/652-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100143/evb/652-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-658",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Натуральная кожа\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2900,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100144/evb/658-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/video/upload/v1785100148/evb/658-v.mp4"
+    ]
+  },
+  {
+    "slug": "evb-605",
+    "name": "Туфли",
+    "description": "Туфли\nКачество: Люкс\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2299,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100150/evb/605-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100151/evb/605-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100152/evb/605-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100153/evb/605-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100153/evb/605-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100154/evb/605-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-614",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Люкс\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2600,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100155/evb/614-0.jpg"
+    ]
+  },
+  {
+    "slug": "evb-619",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Люкс\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2600,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100156/evb/619-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100157/evb/619-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100157/evb/619-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100158/evb/619-3.jpg"
+    ]
+  },
+  {
+    "slug": "evb-623",
+    "name": "Тапочки",
+    "description": "Тапочки\nКачество: Люкс\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2250,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100159/evb/623-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100160/evb/623-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100161/evb/623-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100162/evb/623-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100163/evb/623-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100164/evb/623-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-632",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Люкс\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2400,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100165/evb/632-0.jpg"
+    ]
+  },
+  {
+    "slug": "evb-633",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Люкс\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2400,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100166/evb/633-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100167/evb/633-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100167/evb/633-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100168/evb/633-3.jpg"
+    ]
+  },
+  {
+    "slug": "evb-578",
+    "name": "Туфли",
+    "description": "Туфли\nКачество: Люкс\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2350,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100170/evb/578-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100171/evb/578-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100172/evb/578-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100173/evb/578-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100174/evb/578-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100175/evb/578-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-587",
+    "name": "Туфли",
+    "description": "Туфли\nКачество: Люкс\nРазмеры: 35 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2299,
+    "sizes": [
+      "35",
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100176/evb/587-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100177/evb/587-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100178/evb/587-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100178/evb/587-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100179/evb/587-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100180/evb/587-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-596",
+    "name": "Босоножки",
+    "description": "Босоножки\nКачество: Люкс\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2199,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100181/evb/596-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100182/evb/596-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100182/evb/596-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100183/evb/596-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100184/evb/596-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100185/evb/596-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-566",
+    "name": "Туфли",
+    "description": "Туфли\nКачество: Люкс\nРазмеры: 36 38 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2199,
+    "sizes": [
+      "36",
+      "38",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100187/evb/566-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100188/evb/566-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100189/evb/566-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100190/evb/566-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100191/evb/566-4.jpg"
+    ]
+  },
+  {
+    "slug": "evb-577",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Натуральная кожа\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2899,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100192/evb/577-0.jpg"
+    ]
+  },
+  {
+    "slug": "evb-536",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Хорошее\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2500,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100193/evb/536-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100194/evb/536-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100195/evb/536-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100196/evb/536-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100196/evb/536-4.jpg"
+    ]
+  },
+  {
+    "slug": "evb-541",
+    "name": "Босоножки",
+    "description": "Босоножки\nКачество: Люкс\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2300,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100197/evb/541-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100198/evb/541-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100199/evb/541-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100200/evb/541-3.jpg"
+    ]
+  },
+  {
+    "slug": "evb-545",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Люкс\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2250,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100201/evb/545-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100202/evb/545-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100203/evb/545-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100204/evb/545-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100206/evb/545-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100207/evb/545-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-551",
+    "name": "Туфли",
+    "description": "Туфли\nКачество: Люкс\nРазмеры: 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 3200,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100208/evb/551-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100209/evb/551-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100210/evb/551-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100211/evb/551-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100212/evb/551-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-512",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Люкс\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2699,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100214/evb/512-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100215/evb/512-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100215/evb/512-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100216/evb/512-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100217/evb/512-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100218/evb/512-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-518",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Натуральная кожа\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2900,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100219/evb/518-0.jpg"
+    ]
+  },
+  {
+    "slug": "evb-519",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Натуральная кожа\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2900,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100220/evb/519-0.jpg"
+    ]
+  },
+  {
+    "slug": "evb-520",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Хорошее\nРазмеры: 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2400,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100221/evb/520-0.jpg"
+    ]
+  },
+  {
+    "slug": "evb-521",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Хорошее\nРазмеры: 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2400,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100222/evb/521-0.jpg"
+    ]
+  },
+  {
+    "slug": "evb-522",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Хорошее\nРазмеры: 35 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2900,
+    "sizes": [
+      "35",
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100222/evb/522-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100223/evb/522-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100224/evb/522-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100225/evb/522-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100226/evb/522-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100227/evb/522-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-531",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Хорошее\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2500,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100228/evb/531-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100229/evb/531-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100230/evb/531-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100231/evb/531-3.jpg"
+    ]
+  },
+  {
+    "slug": "evb-535",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Хорошее\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2600,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100232/evb/535-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/video/upload/v1785100236/evb/535-v.mp4"
+    ]
+  },
+  {
+    "slug": "evb-486",
+    "name": "Туфли",
+    "description": "Туфли\nКачество: Люкс\nРазмеры: 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2199,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100238/evb/486-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100239/evb/486-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100240/evb/486-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100241/evb/486-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100243/evb/486-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-495",
+    "name": "Туфли",
+    "description": "Туфли\nКачество: Люкс\nРазмеры: 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2299,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100244/evb/495-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100246/evb/495-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100247/evb/495-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100248/evb/495-3.jpg"
+    ]
+  },
+  {
+    "slug": "evb-499",
+    "name": "Туфли",
+    "description": "Туфли\nКачество: Люкс\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2350,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100248/evb/499-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100249/evb/499-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100250/evb/499-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100251/evb/499-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100252/evb/499-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100253/evb/499-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-508",
+    "name": "Туфли",
+    "description": "Туфли\nКачество: Люкс\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 3200,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100255/evb/508-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100256/evb/508-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100257/evb/508-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100258/evb/508-3.jpg"
+    ]
+  },
+  {
+    "slug": "evb-466",
+    "name": "Туфли",
+    "description": "Туфли\nКачество: Люкс\nРазмеры: 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 3200,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100260/evb/466-0.jpg"
+    ]
+  },
+  {
+    "slug": "evb-471",
+    "name": "Кеды",
+    "description": "Кеды\nКачество: Натуральная кожа\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2800,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100261/evb/471-0.jpg"
+    ]
+  },
+  {
+    "slug": "evb-472",
+    "name": "Балетки",
+    "description": "Балетки\nКачество: Натуральная кожа\nРазмеры: 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 3500,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100262/evb/472-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/video/upload/v1785100269/evb/472-v.mp4"
+    ]
+  },
+  {
+    "slug": "evb-473",
+    "name": "Туфли",
+    "description": "Туфли\nРазмеры: 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2199,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100270/evb/473-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100271/evb/473-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100272/evb/473-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100272/evb/473-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100273/evb/473-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100274/evb/473-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-482",
+    "name": "Туфли",
+    "description": "Туфли\nКачество: Люкс\nРазмеры: 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2299,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100275/evb/482-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100276/evb/482-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100277/evb/482-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100278/evb/482-3.jpg"
+    ]
+  },
+  {
+    "slug": "evb-445",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Люкс\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 1950,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100280/evb/445-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100281/evb/445-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100282/evb/445-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100283/evb/445-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100284/evb/445-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100285/evb/445-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-451",
+    "name": "Туфли",
+    "description": "Туфли\nКачество: Люкс\nРазмеры: 35\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 1999,
+    "sizes": [
+      "35"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100286/evb/451-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100287/evb/451-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100288/evb/451-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100289/evb/451-3.jpg"
+    ]
+  },
+  {
+    "slug": "evb-455",
+    "name": "Туфли",
+    "description": "Туфли\nКачество: Люкс\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2350,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100290/evb/455-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100291/evb/455-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100291/evb/455-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100292/evb/455-3.jpg"
+    ]
+  },
+  {
+    "slug": "evb-459",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Хорошее\nРазмеры: 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 3200,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100293/evb/459-0.jpg"
+    ]
+  },
+  {
+    "slug": "evb-460",
+    "name": "Туфли",
+    "description": "Туфли\nКачество: Люкс\nРазмеры: 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2199,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100294/evb/460-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100295/evb/460-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100296/evb/460-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100297/evb/460-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100298/evb/460-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100298/evb/460-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-417",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2050,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100300/evb/417-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100301/evb/417-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100302/evb/417-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100303/evb/417-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100304/evb/417-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100305/evb/417-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-426",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 1950,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100305/evb/426-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/video/upload/v1785100310/evb/426-v.mp4"
+    ]
+  },
+  {
+    "slug": "evb-427",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2400,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100311/evb/427-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100312/evb/427-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100313/evb/427-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100314/evb/427-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100315/evb/427-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100316/evb/427-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-439",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2450,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100317/evb/439-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100318/evb/439-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100318/evb/439-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100319/evb/439-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100320/evb/439-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100321/evb/439-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-392",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nРазмеры: 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2199,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100323/evb/392-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100324/evb/392-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100325/evb/392-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100325/evb/392-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100326/evb/392-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100327/evb/392-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-398",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Люкс\nРазмеры: 35 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 1950,
+    "sizes": [
+      "35",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100328/evb/398-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100329/evb/398-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100330/evb/398-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100331/evb/398-3.jpg"
+    ]
+  },
+  {
+    "slug": "evb-408",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Люкс\nРазмеры: 35 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 1950,
+    "sizes": [
+      "35",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100332/evb/408-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100334/evb/408-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100335/evb/408-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100336/evb/408-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100337/evb/408-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100338/evb/408-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-371",
+    "name": "Босоножки",
+    "description": "Босоножки\nКачество: Люкс\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2199,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100340/evb/371-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100341/evb/371-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100342/evb/371-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100343/evb/371-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100344/evb/371-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100345/evb/371-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-380",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Люкс\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2199,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100345/evb/380-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100346/evb/380-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100348/evb/380-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100349/evb/380-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100350/evb/380-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100351/evb/380-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-386",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Натуральная кожа\nРазмеры: 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2199,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100352/evb/386-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100353/evb/386-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100354/evb/386-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100355/evb/386-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100356/evb/386-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100358/evb/386-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-350",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nРазмеры: 35\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2299,
+    "sizes": [
+      "35"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100360/evb/350-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100361/evb/350-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100362/evb/350-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100364/evb/350-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100365/evb/350-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100365/evb/350-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-361",
+    "name": "Босоножки",
+    "description": "Босоножки\nКачество: Люкс\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2350,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100366/evb/361-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100367/evb/361-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100368/evb/361-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100369/evb/361-3.jpg"
+    ]
+  },
+  {
+    "slug": "evb-365",
+    "name": "Босоножки",
+    "description": "Босоножки\nКачество: Люкс\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2199,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100370/evb/365-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100371/evb/365-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100371/evb/365-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100372/evb/365-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100373/evb/365-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100374/evb/365-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-328",
+    "name": "Туфли",
+    "description": "Туфли\nКачество: Люкс\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2299,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100376/evb/328-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100377/evb/328-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100378/evb/328-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100379/evb/328-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100380/evb/328-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100381/evb/328-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-337",
+    "name": "Кроссовки",
+    "description": "Кроссовки\nКачество: Люкс\nРазмеры: 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2299,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100381/evb/337-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100382/evb/337-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100383/evb/337-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100384/evb/337-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100385/evb/337-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100386/evb/337-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-346",
+    "name": "Кроссовки",
+    "description": "Кроссовки\nКачество: Люкс\nРазмеры: 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2299,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100388/evb/346-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100389/evb/346-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100389/evb/346-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100390/evb/346-3.jpg"
+    ]
+  },
+  {
+    "slug": "evb-307",
+    "name": "Туфли",
+    "description": "Туфли\nКачество: Люкс\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2400,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100392/evb/307-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100393/evb/307-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100394/evb/307-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100395/evb/307-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100396/evb/307-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100397/evb/307-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-313",
+    "name": "Туфли",
+    "description": "Туфли\nКачество: Люкс\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2450,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100398/evb/313-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100398/evb/313-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100399/evb/313-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100400/evb/313-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100401/evb/313-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100402/evb/313-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-322",
+    "name": "Туфли",
+    "description": "Туфли\nКачество: Люкс\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2299,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100403/evb/322-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100404/evb/322-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100405/evb/322-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100406/evb/322-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100406/evb/322-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100407/evb/322-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-282",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nРазмеры: 35\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2299,
+    "sizes": [
+      "35"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100409/evb/282-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100410/evb/282-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100411/evb/282-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100412/evb/282-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100413/evb/282-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100414/evb/282-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-288",
+    "name": "Туфли",
+    "description": "Туфли\nКачество: Люкс\nРазмеры: 35\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2299,
+    "sizes": [
+      "35"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100415/evb/288-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100417/evb/288-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100418/evb/288-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100419/evb/288-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100419/evb/288-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100420/evb/288-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-296",
+    "name": "Туфли",
+    "description": "Туфли\nКачество: Люкс\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2400,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100421/evb/296-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100424/evb/296-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100425/evb/296-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100426/evb/296-3.jpg"
+    ]
+  },
+  {
+    "slug": "evb-301",
+    "name": "Туфли",
+    "description": "Туфли\nКачество: Люкс\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2400,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100426/evb/301-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100427/evb/301-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100428/evb/301-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100429/evb/301-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100430/evb/301-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100431/evb/301-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-260",
+    "name": "Кроссовки",
+    "description": "Кроссовки\nКачество: Люкс\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2350,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100433/evb/260-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100434/evb/260-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100435/evb/260-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100435/evb/260-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100436/evb/260-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100437/evb/260-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-269",
+    "name": "Босоножки",
+    "description": "Босоножки\nКачество: Люкс\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2299,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100438/evb/269-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100439/evb/269-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100440/evb/269-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100441/evb/269-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100442/evb/269-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100443/evb/269-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-278",
+    "name": "Босоножки",
+    "description": "Босоножки\nКачество: Люкс\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2299,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100444/evb/278-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100445/evb/278-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100446/evb/278-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100447/evb/278-3.jpg"
+    ]
+  },
+  {
+    "slug": "evb-238",
+    "name": "Босоножки",
+    "description": "Босоножки\nКачество: Люкс\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2299,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100453/evb/238-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100453/evb/238-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100454/evb/238-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100455/evb/238-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100456/evb/238-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100457/evb/238-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-248",
+    "name": "Босоножки",
+    "description": "Босоножки\nКачество: Люкс\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2299,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100457/evb/248-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100458/evb/248-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100459/evb/248-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100460/evb/248-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100462/evb/248-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100463/evb/248-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-254",
+    "name": "Кроссовки",
+    "description": "Кроссовки\nКачество: Люкс\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2499,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100464/evb/254-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100465/evb/254-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100466/evb/254-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100467/evb/254-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100468/evb/254-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100469/evb/254-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-210",
+    "name": "Босоножки",
+    "description": "Босоножки\nКачество: Люкс\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2450,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100470/evb/210-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100471/evb/210-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100472/evb/210-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100473/evb/210-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100474/evb/210-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100475/evb/210-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-219",
+    "name": "Босоножки",
+    "description": "Босоножки\nКачество: Люкс\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2450,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100475/evb/219-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100476/evb/219-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100477/evb/219-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100478/evb/219-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100479/evb/219-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100480/evb/219-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-225",
+    "name": "Туфли",
+    "description": "Туфли\nКачество: Люкс\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 3000,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100481/evb/225-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100482/evb/225-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100483/evb/225-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100484/evb/225-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100485/evb/225-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100486/evb/225-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-234",
+    "name": "Туфли",
+    "description": "Туфли\nКачество: Люкс\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2400,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100487/evb/234-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100488/evb/234-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100489/evb/234-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100490/evb/234-3.jpg"
+    ]
+  },
+  {
+    "slug": "evb-179",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2150,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100492/evb/179-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100493/evb/179-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100493/evb/179-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100494/evb/179-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100495/evb/179-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100497/evb/179-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-185",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nРазмеры: 35\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2299,
+    "sizes": [
+      "35"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100498/evb/185-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100499/evb/185-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100500/evb/185-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100501/evb/185-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100502/evb/185-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100502/evb/185-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-191",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nРазмеры: 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 3200,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100503/evb/191-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100504/evb/191-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100505/evb/191-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100506/evb/191-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100507/evb/191-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100508/evb/191-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-209",
+    "name": "Босоножки",
+    "description": "Босоножки\nКачество: Люкс\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2450,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100509/evb/209-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/video/upload/v1785100514/evb/209-v.mp4"
+    ]
+  },
+  {
+    "slug": "evb-152",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2299,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100518/evb/152-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100519/evb/152-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100520/evb/152-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100522/evb/152-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100523/evb/152-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100524/evb/152-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-161",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2199,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100525/evb/161-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100526/evb/161-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100526/evb/161-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100527/evb/161-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100528/evb/161-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100529/evb/161-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-167",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2299,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100530/evb/167-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100531/evb/167-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100532/evb/167-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100533/evb/167-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100534/evb/167-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100535/evb/167-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-173",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nРазмеры: 36\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2199,
+    "sizes": [
+      "36"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100536/evb/173-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100537/evb/173-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100538/evb/173-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100538/evb/173-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100539/evb/173-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100540/evb/173-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-134",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nРазмеры: 35\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2299,
+    "sizes": [
+      "35"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100542/evb/134-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100543/evb/134-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100544/evb/134-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100545/evb/134-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100546/evb/134-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100547/evb/134-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-143",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Люкс\nРазмеры: 36 37 38 39 40 41\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 2299,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100549/evb/143-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100550/evb/143-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100551/evb/143-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100552/evb/143-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100552/evb/143-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-110",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nКачество: Люкс\nРазмеры: 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 3200,
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100554/evb/110-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100555/evb/110-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100556/evb/110-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100557/evb/110-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100558/evb/110-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100559/evb/110-5.jpg"
+    ]
+  },
+  {
+    "slug": "evb-119",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nРазмеры: 35 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 1950,
+    "sizes": [
+      "35",
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100559/evb/119-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/video/upload/v1785100562/evb/119-v.mp4"
+    ]
+  },
+  {
+    "slug": "evb-121",
+    "name": "Женская обувь",
+    "description": "Женская обувь\nРазмеры: 35 36 37 38 39 40\n#EVB",
+    "gender": "WOMEN",
+    "category": "shoes",
+    "priceRub": 1950,
+    "sizes": [
+      "35",
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "colors": [
+      {
+        "name": "как на фото",
+        "hex": "#3a3a3a"
+      }
+    ],
+    "photos": [
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100563/evb/121-0.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100564/evb/121-1.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100565/evb/121-2.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100566/evb/121-3.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100566/evb/121-4.jpg",
+      "https://res.cloudinary.com/crhih1u5/image/upload/v1785100567/evb/121-5.jpg"
+    ]
+  }
+]

@@ -44,8 +44,9 @@ async function main() {
   const OMNI = path.join(process.cwd(), "scripts", "omni-products.json");
   const KRB = path.join(process.cwd(), "scripts", "krb-products.json"); // KrossBar: жен/муж
   const SPM = path.join(process.cwd(), "scripts", "spm-products.json"); // SportMen (одежда)
+  const EVB = path.join(process.cwd(), "scripts", "evb-products.json"); // EverBloom (обувь)
   const items: ExtraProduct[] = [];
-  for (const f of [FILE, SHOES, OMNI, KRB, SPM]) {
+  for (const f of [FILE, SHOES, OMNI, KRB, SPM, EVB]) {
     if (existsSync(f)) {
       const part: ExtraProduct[] = JSON.parse(readFileSync(f, "utf8"));
       items.push(...part);
