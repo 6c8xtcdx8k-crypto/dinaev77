@@ -38,12 +38,21 @@ function cleanColorName(name: string): string {
 }
 
 async function main() {
-  if (!existsSync(FILE)) {
-    console.log("[extra] scripts/extra-products.json не найден — пропуск");
+  // Читаем оба источника: одежда (extra-products.json) и обувь (shoes-products.json).
+  const SHOES = path.join(process.cwd(), "scripts", "shoes-products.json");
+  const items: ExtraProduct[] = [];
+  for (const f of [FILE, SHOES]) {
+    if (existsSync(f)) {
+      const part: ExtraProduct[] = JSON.parse(readFileSync(f, "utf8"));
+      items.push(...part);
+      console.log(`[extra] ${path.basename(f)}: ${part.length}`);
+    }
+  }
+  if (items.length === 0) {
+    console.log("[extra] нет файлов с товарами — пропуск");
     return;
   }
-  const items: ExtraProduct[] = JSON.parse(readFileSync(FILE, "utf8"));
-  console.log(`[extra] товаров в файле: ${items.length}`);
+  console.log(`[extra] всего товаров: ${items.length}`);
 
   const CATEGORY_DEFS = [
     { slug: "clothing", name: "Одежда", sort: 1 },
