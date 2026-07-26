@@ -38,10 +38,12 @@ function cleanColorName(name: string): string {
 }
 
 async function main() {
-  // Читаем оба источника: одежда (extra-products.json) и обувь (shoes-products.json).
+  // Источники: одежда (extra-products.json), обувь poxqn (shoes-products.json),
+  // обувь OmniSellers (omni-products.json).
   const SHOES = path.join(process.cwd(), "scripts", "shoes-products.json");
+  const OMNI = path.join(process.cwd(), "scripts", "omni-products.json");
   const items: ExtraProduct[] = [];
-  for (const f of [FILE, SHOES]) {
+  for (const f of [FILE, SHOES, OMNI]) {
     if (existsSync(f)) {
       const part: ExtraProduct[] = JSON.parse(readFileSync(f, "utf8"));
       items.push(...part);
