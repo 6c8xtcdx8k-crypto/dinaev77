@@ -45,6 +45,8 @@ function buildWhere(f: CatalogFilters): Prisma.ProductWhereInput {
     ];
   } else if (f.line === "other") {
     where.slug = { startsWith: "krb-" };
+  } else if (f.line === "everbloom") {
+    where.slug = { startsWith: "evb-" };
   }
   if (f.q) {
     const q = f.q.trim();

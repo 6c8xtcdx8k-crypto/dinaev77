@@ -65,6 +65,7 @@ export default async function CatalogPage({
   }
   if (line === "luxe") titleParts.push("Люкс");
   if (line === "other") titleParts.push("Другие");
+  if (line === "everbloom") titleParts.push("Ever Bloom");
   if (q) titleParts.push(`«${q}»`);
   const title = titleParts.length > 0 ? titleParts.join(" · ") : "Каталог";
 
