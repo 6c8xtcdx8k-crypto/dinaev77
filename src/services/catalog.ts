@@ -27,7 +27,11 @@ function buildWhere(f: CatalogFilters): Prisma.ProductWhereInput {
     where.category = { slug: "clothing" };
   }
   if (f.gender === "WOMEN" || f.gender === "MEN") {
-    where.gender = { in: [f.gender, "UNISEX"] };
+    // Для обуви разделы «Женские/Мужские кроссовки» строгие: показываем только
+    // товары своего пола (UNISEX-кроссовки живут в общем разделе «Обувь»).
+    // Для одежды оставляем UNISEX в обоих разделах, как и раньше.
+    where.gender =
+      f.category === "shoes" ? f.gender : { in: [f.gender, "UNISEX"] };
   }
   if (f.q) {
     const q = f.q.trim();

@@ -8,6 +8,8 @@ export const dynamic = "force-dynamic";
 const TILES = [
   { href: "/catalog?category=clothing", title: "Одежда" },
   { href: "/catalog?category=shoes", title: "Обувь" },
+  { href: "/catalog?category=shoes&gender=WOMEN", title: "Женские кроссовки" },
+  { href: "/catalog?category=shoes&gender=MEN", title: "Мужские кроссовки" },
   { href: "/catalog?category=bags", title: "Сумки" },
   { href: "/catalog?category=clothing&gender=WOMEN", title: "Женская" },
   { href: "/catalog?category=clothing&gender=MEN", title: "Мужская" },

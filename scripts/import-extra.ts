@@ -42,8 +42,9 @@ async function main() {
   // обувь OmniSellers (omni-products.json).
   const SHOES = path.join(process.cwd(), "scripts", "shoes-products.json");
   const OMNI = path.join(process.cwd(), "scripts", "omni-products.json");
+  const KRB = path.join(process.cwd(), "scripts", "krb-products.json"); // KrossBar: жен/муж
   const items: ExtraProduct[] = [];
-  for (const f of [FILE, SHOES, OMNI]) {
+  for (const f of [FILE, SHOES, OMNI, KRB]) {
     if (existsSync(f)) {
       const part: ExtraProduct[] = JSON.parse(readFileSync(f, "utf8"));
       items.push(...part);
