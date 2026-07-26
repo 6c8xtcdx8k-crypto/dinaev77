@@ -31,6 +31,7 @@ export default async function CatalogPage({
   const category = asString(sp.category);
   const gender = asString(sp.gender);
   const q = asString(sp.q);
+  const line = asString(sp.line);
   const priceMin = asString(sp.priceMin);
   const priceMax = asString(sp.priceMax);
 
@@ -38,6 +39,7 @@ export default async function CatalogPage({
     category,
     gender,
     q,
+    line,
     sizes: asArray(sp.size),
     colors: asArray(sp.color),
     priceMin: priceMin ? Math.round(Number(priceMin) * 100) : undefined,
@@ -61,6 +63,8 @@ export default async function CatalogPage({
     if (category === "bags") titleParts.push("Сумки");
     if (gender && gender in GENDER_LABELS) titleParts.push(GENDER_LABELS[gender as Gender]);
   }
+  if (line === "luxe") titleParts.push("Люкс");
+  if (line === "other") titleParts.push("Другие");
   if (q) titleParts.push(`«${q}»`);
   const title = titleParts.length > 0 ? titleParts.join(" · ") : "Каталог";
 

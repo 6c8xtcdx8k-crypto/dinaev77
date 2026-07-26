@@ -15,6 +15,7 @@ export type CatalogFilters = {
   inStock?: boolean;
   sort?: SortValue;
   page?: number;
+  line?: string; // линейка обуви: "luxe" (poxqn+OmniSellers) | "other" (KrossBar)
 };
 
 function buildWhere(f: CatalogFilters): Prisma.ProductWhereInput {
@@ -33,6 +34,17 @@ function buildWhere(f: CatalogFilters): Prisma.ProductWhereInput {
     // Для одежды оставляем UNISEX в обоих разделах, как и раньше.
     where.gender =
       f.category === "shoes" ? f.gender : { in: [f.gender, "UNISEX"] };
+  }
+
+  // Линейка обуви по поставщику (по префиксу slug):
+  //  luxe  — брендовые модели poxqn (shoe-) и OmniSellers (omni-)
+  //  other — KrossBar (krb-)
+  if (f.line === "luxe") {
+    where.AND = [
+      { OR: [{ slug: { startsWith: "shoe-" } }, { slug: { startsWith: "omni-" } }] },
+    ];
+  } else if (f.line === "other") {
+    where.slug = { startsWith: "krb-" };
   }
   if (f.q) {
     const q = f.q.trim();

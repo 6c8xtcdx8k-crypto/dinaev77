@@ -14,6 +14,7 @@ export async function GET(req: Request) {
     category: sp.get("category") ?? undefined,
     gender: sp.get("gender") ?? undefined,
     q: sp.get("q") ?? undefined,
+    line: sp.get("line") ?? undefined,
     sizes: sp.getAll("size"),
     colors: sp.getAll("color"),
     priceMin: priceMin ? Math.round(Number(priceMin) * 100) : undefined,
