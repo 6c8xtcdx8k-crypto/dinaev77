@@ -8,6 +8,7 @@ const NAV = [
   { href: "/catalog?category=clothing", label: "Одежда" },
   { href: "/catalog?category=shoes", label: "Обувь" },
   { href: "/catalog?category=bags", label: "Сумки" },
+  { href: "/catalog?category=electronics", label: "Электроника" },
   { href: "/catalog?category=clothing&gender=WOMEN", label: "Женская" },
   { href: "/catalog?category=clothing&gender=MEN", label: "Мужская" },
   { href: "/catalog?sort=new", label: "Новинки", accent: true },

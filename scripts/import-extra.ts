@@ -45,8 +45,9 @@ async function main() {
   const KRB = path.join(process.cwd(), "scripts", "krb-products.json"); // KrossBar: жен/муж
   const SPM = path.join(process.cwd(), "scripts", "spm-products.json"); // SportMen (одежда)
   const EVB = path.join(process.cwd(), "scripts", "evb-products.json"); // EverBloom (обувь)
+  const HAS = path.join(process.cwd(), "scripts", "has-products.json"); // HAS OPT (электроника)
   const items: ExtraProduct[] = [];
-  for (const f of [FILE, SHOES, OMNI, KRB, SPM, EVB]) {
+  for (const f of [FILE, SHOES, OMNI, KRB, SPM, EVB, HAS]) {
     if (existsSync(f)) {
       const part: ExtraProduct[] = JSON.parse(readFileSync(f, "utf8"));
       items.push(...part);
@@ -63,6 +64,7 @@ async function main() {
     { slug: "clothing", name: "Одежда", sort: 1 },
     { slug: "bags", name: "Сумки", sort: 2 },
     { slug: "shoes", name: "Обувь", sort: 4 },
+    { slug: "electronics", name: "Электроника", sort: 5 },
   ];
   const catBySlug = new Map<string, string>();
   for (const c of CATEGORY_DEFS) {
