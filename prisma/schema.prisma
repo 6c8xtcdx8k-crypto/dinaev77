@@ -54,6 +54,7 @@ model Product {
   ratingAvg       Float          @default(0)
   ratingCount     Int            @default(0)
   salesCount      Int            @default(0) // для сортировки «по популярности»
+  priority        Int            @default(0) // выше = раньше показывать (Люкс-обувь = 2)
   createdAt       DateTime       @default(now())
   updatedAt       DateTime       @updatedAt
   images          ProductImage[]

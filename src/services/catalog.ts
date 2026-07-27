@@ -29,11 +29,9 @@ function buildWhere(f: CatalogFilters): Prisma.ProductWhereInput {
     where.category = { slug: "clothing" };
   }
   if (f.gender === "WOMEN" || f.gender === "MEN") {
-    // Для обуви разделы «Женские/Мужские кроссовки» строгие: показываем только
-    // товары своего пола (UNISEX-кроссовки живут в общем разделе «Обувь»).
-    // Для одежды оставляем UNISEX в обоих разделах, как и раньше.
-    where.gender =
-      f.category === "shoes" ? f.gender : { in: [f.gender, "UNISEX"] };
+    // Разделы «Женская/Мужская» показывают товары своего пола + UNISEX
+    // (unisex-кроссовки Люкс попадают и в мужскую, и в женскую обувь).
+    where.gender = { in: [f.gender, "UNISEX"] };
   }
 
   // Линейка обуви по поставщику (по префиксу slug):
@@ -69,19 +67,22 @@ function buildWhere(f: CatalogFilters): Prisma.ProductWhereInput {
 }
 
 function orderBy(sort: SortValue | undefined): Prisma.ProductOrderByWithRelationInput[] {
+  // priority впереди любой сортировки: Люкс-обувь (priority=2) всегда показывается
+  // раньше остальной обуви. У прочих товаров priority=0 — порядок не меняется.
+  const base: Prisma.ProductOrderByWithRelationInput[] = [{ priority: "desc" }];
   switch (sort) {
     case "price_asc":
-      return [{ basePrice: "asc" }];
+      return [...base, { basePrice: "asc" }];
     case "price_desc":
-      return [{ basePrice: "desc" }];
+      return [...base, { basePrice: "desc" }];
     case "popular":
-      return [{ salesCount: "desc" }, { ratingCount: "desc" }];
+      return [...base, { salesCount: "desc" }, { ratingCount: "desc" }];
     case "rating":
-      return [{ ratingAvg: "desc" }, { ratingCount: "desc" }];
+      return [...base, { ratingAvg: "desc" }, { ratingCount: "desc" }];
     case "new":
     default:
       // По умолчанию — сначала новинки (самые свежие товары вверху).
-      return [{ createdAt: "desc" }];
+      return [...base, { createdAt: "desc" }];
   }
 }
 

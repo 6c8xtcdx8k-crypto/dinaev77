@@ -7,11 +7,8 @@ import { SearchBar } from "./SearchBar";
 const NAV = [
   { href: "/catalog?category=clothing", label: "Одежда" },
   { href: "/catalog?category=shoes", label: "Обувь" },
-  { href: "/catalog?category=shoes&line=luxe", label: "Люкс", accent: true },
-  { href: "/catalog?category=shoes&line=other", label: "Другие" },
-  { href: "/catalog?category=shoes&line=everbloom", label: "Ever Bloom" },
-  { href: "/catalog?category=shoes&gender=WOMEN", label: "Женские кроссовки" },
-  { href: "/catalog?category=shoes&gender=MEN", label: "Мужские кроссовки" },
+  { href: "/catalog?category=shoes&gender=WOMEN", label: "Женская обувь" },
+  { href: "/catalog?category=shoes&gender=MEN", label: "Мужская обувь" },
   { href: "/catalog?category=bags", label: "Сумки" },
   { href: "/catalog?category=clothing&gender=WOMEN", label: "Женская" },
   { href: "/catalog?category=clothing&gender=MEN", label: "Мужская" },

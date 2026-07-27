@@ -33,11 +33,8 @@ const getHomeProducts = unstable_cache(
 const TILES = [
   { href: "/catalog?category=clothing", title: "Одежда" },
   { href: "/catalog?category=shoes", title: "Обувь" },
-  { href: "/catalog?category=shoes&line=luxe", title: "Люкс" },
-  { href: "/catalog?category=shoes&line=other", title: "Другие" },
-  { href: "/catalog?category=shoes&line=everbloom", title: "Ever Bloom" },
-  { href: "/catalog?category=shoes&gender=WOMEN", title: "Женские кроссовки" },
-  { href: "/catalog?category=shoes&gender=MEN", title: "Мужские кроссовки" },
+  { href: "/catalog?category=shoes&gender=WOMEN", title: "Женская обувь" },
+  { href: "/catalog?category=shoes&gender=MEN", title: "Мужская обувь" },
   { href: "/catalog?category=bags", title: "Сумки" },
   { href: "/catalog?category=clothing&gender=WOMEN", title: "Женская" },
   { href: "/catalog?category=clothing&gender=MEN", title: "Мужская" },
