@@ -34,7 +34,6 @@ const TILES = [
   { href: "/catalog?category=clothing", title: "Одежда" },
   { href: "/catalog?category=shoes", title: "Обувь" },
   { href: "/catalog?category=bags", title: "Сумки" },
-  { href: "/catalog?category=electronics", title: "Электроника" },
   { href: "/catalog?category=clothing&gender=WOMEN", title: "Женская" },
   { href: "/catalog?category=clothing&gender=MEN", title: "Мужская" },
 ];

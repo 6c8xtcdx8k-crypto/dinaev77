@@ -61,7 +61,6 @@ export default async function CatalogPage({
     );
   } else {
     if (category === "bags") titleParts.push("Сумки");
-    if (category === "electronics") titleParts.push("Электроника");
     if (gender && gender in GENDER_LABELS) titleParts.push(GENDER_LABELS[gender as Gender]);
   }
   if (line === "luxe") titleParts.push("Люкс");
