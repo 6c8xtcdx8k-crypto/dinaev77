@@ -86,7 +86,13 @@ function orderBy(sort: SortValue | undefined): Prisma.ProductOrderByWithRelation
   }
 }
 
-export async function queryCatalog(f: CatalogFilters) {
+// Кешируем выдачу каталога на 3 минуты: под нагрузкой одинаковые страницы
+// отдаются из кеша, база опрашивается максимум раз в 3 минуты на комбинацию фильтров.
+export const queryCatalog = unstable_cache(_queryCatalog, ["catalog-query"], {
+  revalidate: 180,
+});
+
+async function _queryCatalog(f: CatalogFilters) {
   const where = buildWhere(f);
 
   // basePrice — актуальная цена продажи, фильтруем по ней прямо в SQL.
@@ -169,7 +175,12 @@ async function _getFilterFacets(f: Pick<CatalogFilters, "category" | "gender">) 
   };
 }
 
-export async function getProductBySlug(slug: string) {
+// Карточка товара кешируется на 5 минут — самый частый запрос при просмотре.
+export const getProductBySlug = unstable_cache(_getProductBySlug, ["product-by-slug"], {
+  revalidate: 300,
+});
+
+async function _getProductBySlug(slug: string) {
   return prisma.product.findUnique({
     where: { slug },
     include: {
@@ -184,7 +195,11 @@ export async function getProductBySlug(slug: string) {
   });
 }
 
-export async function getSimilarProducts(productId: string, categoryId: string, take = 4) {
+export const getSimilarProducts = unstable_cache(_getSimilarProducts, ["similar-products"], {
+  revalidate: 600,
+});
+
+async function _getSimilarProducts(productId: string, categoryId: string, take = 4) {
   return prisma.product.findMany({
     where: { categoryId, isActive: true, id: { not: productId } },
     orderBy: { salesCount: "desc" },
