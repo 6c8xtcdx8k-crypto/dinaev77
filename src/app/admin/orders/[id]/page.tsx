@@ -69,6 +69,12 @@ export default async function AdminOrderPage({ params }: { params: Promise<{ id:
             <dt className="text-zinc-500">Товары</dt>
             <dd>{formatPrice(order.subtotal)}</dd>
           </div>
+          {order.discount > 0 && (
+            <div className="flex justify-between text-emerald-600">
+              <dt>Скидка{order.promoCode ? ` (${order.promoCode})` : ""}</dt>
+              <dd>−{formatPrice(order.discount)}</dd>
+            </div>
+          )}
           {order.deliveryCost > 0 && (
             <div className="flex justify-between">
               <dt className="text-zinc-500">Доставка</dt>
@@ -106,6 +112,19 @@ export default async function AdminOrderPage({ params }: { params: Promise<{ id:
           {DELIVERY_METHODS[order.deliveryMethod as DeliveryMethod]?.label ?? order.deliveryMethod}:{" "}
           {order.deliveryAddress}
         </p>
+        {order.trackNumber && (
+          <p className="mt-1">
+            Трек СДЭК:{" "}
+            <a
+              href={`https://www.cdek.ru/ru/tracking?order_id=${encodeURIComponent(order.trackNumber)}`}
+              target="_blank"
+              rel="noopener"
+              className="font-semibold text-sky-600 hover:underline"
+            >
+              {order.trackNumber}
+            </a>
+          </p>
+        )}
       </section>
 
       <section className="card p-5">

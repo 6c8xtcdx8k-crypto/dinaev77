@@ -18,6 +18,7 @@ const checkoutSchema = z.object({
   deliveryMethod: z.enum(["CDEK"]),
   deliveryAddress: z.string().min(5, "Укажите город и адрес доставки"),
   deliveryCity: z.coerce.number().int().positive("Выберите город доставки"),
+  promoCode: z.string().trim().max(32).optional(),
 });
 
 export async function placeOrderAction(
@@ -35,6 +36,7 @@ export async function placeOrderAction(
     deliveryMethod: formData.get("deliveryMethod"),
     deliveryAddress: formData.get("deliveryAddress"),
     deliveryCity: formData.get("deliveryCity"),
+    promoCode: formData.get("promoCode") || undefined,
   });
   if (!parsed.success) return { error: parsed.error.errors[0].message };
 
@@ -51,6 +53,7 @@ export async function placeOrderAction(
     deliveryMethod: parsed.data.deliveryMethod as DeliveryMethod,
     deliveryAddress: parsed.data.deliveryAddress,
     deliveryCity: parsed.data.deliveryCity,
+    promoCode: parsed.data.promoCode,
   });
   if (!result.ok) return { error: result.error };
 

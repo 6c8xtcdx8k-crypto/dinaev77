@@ -341,10 +341,10 @@ export async function deleteVariantAction(variantId: string, productId: string):
 export async function setOrderStatusAction(
   orderId: string,
   status: OrderStatus,
-  comment = "",
+  trackNumber = "",
 ): Promise<{ ok: boolean; error?: string }> {
   await requireAdmin();
-  const res = await changeOrderStatus(orderId, status, comment);
+  const res = await changeOrderStatus(orderId, status, trackNumber);
   revalidatePath("/admin/orders");
   revalidatePath(`/admin/orders/${orderId}`);
   revalidatePath("/account");

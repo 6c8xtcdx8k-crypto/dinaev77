@@ -6,6 +6,7 @@ import { orderCreatedEmail, orderStatusEmail } from "@/services/email/templates"
 import { escapeHtml, sendTelegramMessage, sendTelegramPhoto } from "@/lib/telegram";
 import { getPaymentMethods, qrUrlFor } from "@/lib/payment";
 import { zoneForCity } from "@/lib/cdek-zones";
+import { validatePromo } from "@/lib/promo";
 import { formatPrice } from "@/lib/money";
 import { ORDER_STATUS_LABELS } from "@/lib/constants";
 import {
@@ -26,6 +27,7 @@ export type CheckoutInput = {
   deliveryMethod: DeliveryMethod;
   deliveryAddress: string;
   deliveryCity?: number; // код города CDEK (по нему определяется зона и стоимость)
+  promoCode?: string; // промокод (проверяется на сервере)
 };
 
 export type CheckoutResult =
@@ -50,10 +52,33 @@ export async function createOrder(input: CheckoutInput): Promise<CheckoutResult>
   // При заказе от порога — доставка бесплатная.
   const deliveryCost =
     subtotal >= FREE_DELIVERY_FROM ? 0 : deliveryZoneCost(zoneForCity(input.deliveryCity));
-  const total = subtotal + deliveryCost;
+
+  // Промокод проверяем на сервере — клиенту доверять нельзя. Само списание
+  // «использования» делаем в транзакции ниже (защита от гонок по лимиту).
+  const promo = input.promoCode ? await validatePromo(input.promoCode, subtotal) : null;
 
   try {
     const order = await prisma.$transaction(async (tx) => {
+      // 0. Применяем промокод: атомарно увеличиваем счётчик использований с
+      //    учётом лимита. Если код исчерпан прямо сейчас — скидку не даём.
+      let discount = 0;
+      let appliedPromo: string | null = null;
+      if (promo?.ok) {
+        const inc = await tx.promoCode.updateMany({
+          where: {
+            code: promo.code,
+            isActive: true,
+            OR: [{ usageLimit: 0 }, { usedCount: { lt: prisma.promoCode.fields.usageLimit } }],
+          },
+          data: { usedCount: { increment: 1 } },
+        });
+        if (inc.count > 0) {
+          discount = promo.discount;
+          appliedPromo = promo.code;
+        }
+      }
+      const total = subtotal - discount + deliveryCost;
+
       // 1. Проверяем и списываем остатки. updateMany с условием stock >= qty
       //    защищает от гонок: если товар разобрали — count будет 0.
       for (const line of lines) {
@@ -84,6 +109,8 @@ export async function createOrder(input: CheckoutInput): Promise<CheckoutResult>
           deliveryAddress: input.deliveryAddress,
           deliveryCost,
           subtotal,
+          discount,
+          promoCode: appliedPromo,
           total,
           paymentProvider: "manual", // оплата переводом на карту, подтверждает владелец
           items: {
@@ -124,6 +151,8 @@ export async function createOrder(input: CheckoutInput): Promise<CheckoutResult>
       number: order.number,
       customerName: order.customerName,
       total: order.total,
+      discount: order.discount,
+      promoCode: order.promoCode,
       items: lines.map((l) => ({
         productName: l.name,
         size: l.size,
@@ -152,7 +181,7 @@ export async function createOrder(input: CheckoutInput): Promise<CheckoutResult>
 export async function changeOrderStatus(
   orderId: string,
   next: OrderStatus,
-  comment = "",
+  trackNumber = "",
 ): Promise<{ ok: true } | { ok: false; error: string }> {
   const order = await prisma.order.findUnique({
     where: { id: orderId },
@@ -165,12 +194,17 @@ export async function changeOrderStatus(
     return { ok: false, error: `Недопустимый переход: ${order.status} → ${next}` };
   }
 
+  // Трек-номер имеет смысл только при передаче в доставку.
+  const track = next === "SHIPPED" ? trackNumber.trim() : "";
+  const comment = track ? `Трек-номер: ${track}` : "";
+
   await prisma.$transaction(async (tx) => {
     await tx.order.update({
       where: { id: orderId },
       data: {
         status: next,
         paymentStatus: next === "PAID" ? "PAID" : order.paymentStatus,
+        ...(track ? { trackNumber: track } : {}),
         statusHistory: { create: { status: next, comment } },
       },
     });
@@ -191,13 +225,48 @@ export async function changeOrderStatus(
   const tpl = orderStatusEmail({ number: order.number, customerName: order.customerName }, next);
   void sendEmail({ to: order.customerEmail, ...tpl });
   if (order.userId) {
-    void notifyTelegram(
-      order.userId,
-      `Заказ <b>№${order.number}</b>: новый статус — <b>${ORDER_STATUS_LABELS[next]}</b>.`,
-    );
+    void notifyTelegram(order.userId, orderStatusTelegramText(order.number, next, track));
   }
 
   return { ok: true };
+}
+
+/**
+ * Живой текст уведомления о смене статуса для Telegram-бота: своё сообщение
+ * под каждый статус, для «Передан в доставку» — трек-номер и ссылка на СДЭК.
+ */
+function orderStatusTelegramText(
+  orderNumber: number,
+  status: OrderStatus,
+  trackNumber: string,
+): string {
+  const num = `<b>№${orderNumber}</b>`;
+  switch (status) {
+    case "PAID":
+      return `✅ Оплата по заказу ${num} получена! Спасибо 🙌\nУже собираем ваш заказ.`;
+    case "PROCESSING":
+      return `📦 Заказ ${num} собираем и готовим к отправке. Скоро передадим в СДЭК.`;
+    case "SHIPPED": {
+      let msg = `🚚 Заказ ${num} передан в доставку СДЭК!`;
+      if (trackNumber) {
+        const track = escapeHtml(trackNumber);
+        const url = `https://www.cdek.ru/ru/tracking?order_id=${encodeURIComponent(trackNumber)}`;
+        msg +=
+          `\n\nТрек-номер: <code>${track}</code>\n` +
+          `Отследить посылку: ${url}`;
+      }
+      return msg;
+    }
+    case "DELIVERED":
+      return (
+        `🎉 Заказ ${num} доставлен в пункт выдачи! Спасибо, что выбрали Styleberries 💙\n\n` +
+        `Будем очень рады, если оставите отзыв о товаре.`
+      );
+    case "CANCELLED":
+      return `❌ Заказ ${num} отменён. Если это ошибка — напишите нам, поможем 🙏`;
+    default:
+      return `Заказ ${num}: новый статус — <b>${ORDER_STATUS_LABELS[status]}</b>.`;
+  }
 }
 
 /** Дублирует уведомление в Telegram, если пользователь пришёл из Mini App. */

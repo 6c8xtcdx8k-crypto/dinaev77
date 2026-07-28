@@ -5,6 +5,7 @@ import { placeOrderAction, type CheckoutFormState } from "@/actions/checkout";
 import { formatPrice } from "@/lib/money";
 import { FREE_DELIVERY_FROM } from "@/lib/constants";
 import { CdekDelivery } from "./CdekDelivery";
+import { PromoField } from "./PromoField";
 
 export function CheckoutForm({
   subtotal,
@@ -19,10 +20,15 @@ export function CheckoutForm({
   );
   const [deliveryCost, setDeliveryCost] = useState(0);
   const onCost = useCallback((k: number) => setDeliveryCost(k), []);
+  const [discount, setDiscount] = useState(0);
+  const onPromo = useCallback((d: number) => setDiscount(d), []);
+  const clearPromo = useCallback(() => setDiscount(0), []);
 
   const freeDelivery = subtotal >= FREE_DELIVERY_FROM;
   const effectiveDelivery = freeDelivery ? 0 : deliveryCost;
-  const total = subtotal + effectiveDelivery;
+  // Скидка не может превышать сумму товаров.
+  const appliedDiscount = Math.min(discount, subtotal);
+  const total = subtotal - appliedDiscount + effectiveDelivery;
   const toFree = FREE_DELIVERY_FROM - subtotal;
 
   return (
@@ -39,6 +45,7 @@ export function CheckoutForm({
 
         <input type="hidden" name="deliveryMethod" value="CDEK" />
         <CdekDelivery onCost={onCost} free={freeDelivery} />
+        <PromoField onApply={onPromo} onClear={clearPromo} />
       </div>
 
       <aside className="card h-fit p-5 lg:sticky lg:top-36">
@@ -48,6 +55,12 @@ export function CheckoutForm({
             <dt className="text-zinc-500">Товары</dt>
             <dd>{formatPrice(subtotal)}</dd>
           </div>
+          {appliedDiscount > 0 && (
+            <div className="flex justify-between text-emerald-600">
+              <dt>Скидка по промокоду</dt>
+              <dd>−{formatPrice(appliedDiscount)}</dd>
+            </div>
+          )}
           <div className="flex justify-between">
             <dt className="text-zinc-500">Доставка СДЭК</dt>
             <dd>

@@ -158,7 +158,11 @@ model Order {
   deliveryCost    Int                  @default(0)
   // деньги (копейки)
   subtotal        Int
+  discount        Int                  @default(0) // скидка по промокоду
+  promoCode       String?              // применённый промокод (снимок)
   total           Int
+  // трек-номер СДЭК (заполняется при передаче в доставку)
+  trackNumber     String?
   // оплата
   paymentProvider String               @default("mock")
   paymentStatus   String               @default("PENDING") // PENDING | PAID | FAILED | REFUNDED
@@ -223,4 +227,21 @@ model OrderStatusHistory {
   status    String
   comment   String   @default("")
   createdAt DateTime @default(now())
+}
+
+// ---------- Промокоды ----------
+
+// Скидочный промокод. Применяется на сумму товаров (subtotal), не на доставку.
+model PromoCode {
+  id          String    @id @default(cuid())
+  code        String    @unique // хранится в ВЕРХНЕМ регистре
+  type        String    @default("PERCENT") // PERCENT | FIXED
+  value       Int // PERCENT: проценты (10 = −10%); FIXED: копейки
+  minSubtotal Int       @default(0) // минимальная сумма товаров для применения, копейки
+  maxDiscount Int       @default(0) // потолок скидки для PERCENT, копейки; 0 = без потолка
+  usageLimit  Int       @default(0) // сколько раз можно использовать всего; 0 = без лимита
+  usedCount   Int       @default(0)
+  isActive    Boolean   @default(true)
+  expiresAt   DateTime? // срок действия; null = бессрочно
+  createdAt   DateTime  @default(now())
 }

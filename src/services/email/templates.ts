@@ -9,6 +9,8 @@ type OrderForEmail = {
   number: number;
   customerName: string;
   total: number;
+  discount?: number;
+  promoCode?: string | null;
   items: { productName: string; size: string; color: string; qty: number; price: number }[];
 };
 
@@ -50,6 +52,13 @@ export function orderCreatedEmail(order: OrderForEmail): { subject: string; html
       `Спасибо за заказ, ${esc(order.customerName)}!`,
       `<p>Мы приняли ваш заказ <strong>№${order.number}</strong> и ждём оплату.</p>
        ${itemsTable(order.items)}
+       ${
+         order.discount && order.discount > 0
+           ? `<p style="text-align:right;color:#047857;font-size:14px">Скидка${
+               order.promoCode ? ` (${esc(order.promoCode)})` : ""
+             }: −${formatPrice(order.discount)}</p>`
+           : ""
+       }
        <p style="text-align:right;font-size:16px"><strong>Итого: ${formatPrice(order.total)}</strong></p>`,
     ),
   };
