@@ -14,7 +14,13 @@ const zoneCost = (z: string) => DELIVERY_ZONES.find((x) => x.id === z)?.cost ?? 
  * пункта выдачи (из публичного списка CDEK). Стоимость определяется по зоне
  * города и добавляется к заказу. Работает без API-ключей CDEK.
  */
-export function CdekDelivery({ onCost }: { onCost: (kopecks: number) => void }) {
+export function CdekDelivery({
+  onCost,
+  free = false,
+}: {
+  onCost: (kopecks: number) => void;
+  free?: boolean;
+}) {
   const [q, setQ] = useState("");
   const [sugs, setSugs] = useState<City[]>([]);
   const [city, setCity] = useState<City | null>(null);
@@ -138,10 +144,16 @@ export function CdekDelivery({ onCost }: { onCost: (kopecks: number) => void }) 
       />
 
       {/* Стоимость */}
-      {city && (
+      {(city || free) && (
         <div className="flex items-center justify-between rounded-xl bg-brand-50 px-4 py-3">
           <span className="text-sm font-semibold text-brand-700">Доставка СДЭК</span>
-          <span className="font-bold text-brand-700">{formatPrice(cost)}</span>
+          <span className="font-bold text-brand-700">
+            {free ? (
+              <span className="text-emerald-600">Бесплатно</span>
+            ) : (
+              formatPrice(cost)
+            )}
+          </span>
         </div>
       )}
 

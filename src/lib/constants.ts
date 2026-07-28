@@ -63,6 +63,9 @@ export const DELIVERY_ZONES = [
 
 export type DeliveryZoneId = (typeof DELIVERY_ZONES)[number]["id"];
 
+/** Бесплатная доставка при сумме заказа от этого порога (копейки) = 10 000 ₽. */
+export const FREE_DELIVERY_FROM = 1_000_000;
+
 export function deliveryZoneCost(id: string | undefined): number {
   return DELIVERY_ZONES.find((z) => z.id === id)?.cost ?? 0;
 }

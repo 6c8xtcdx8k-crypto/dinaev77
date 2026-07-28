@@ -10,6 +10,7 @@ import { formatPrice } from "@/lib/money";
 import { ORDER_STATUS_LABELS } from "@/lib/constants";
 import {
   DELIVERY_METHODS,
+  FREE_DELIVERY_FROM,
   ORDER_STATUS_TRANSITIONS,
   deliveryZoneCost,
   type DeliveryMethod,
@@ -46,7 +47,9 @@ export async function createOrder(input: CheckoutInput): Promise<CheckoutResult>
 
   const subtotal = lines.reduce((sum, l) => sum + l.price * l.qty, 0);
   // Стоимость доставки — по зоне города, определяем на сервере (не доверяем клиенту).
-  const deliveryCost = deliveryZoneCost(zoneForCity(input.deliveryCity));
+  // При заказе от порога — доставка бесплатная.
+  const deliveryCost =
+    subtotal >= FREE_DELIVERY_FROM ? 0 : deliveryZoneCost(zoneForCity(input.deliveryCity));
   const total = subtotal + deliveryCost;
 
   try {

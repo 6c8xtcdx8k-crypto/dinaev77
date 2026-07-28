@@ -3,6 +3,7 @@
 import { useActionState, useCallback, useState } from "react";
 import { placeOrderAction, type CheckoutFormState } from "@/actions/checkout";
 import { formatPrice } from "@/lib/money";
+import { FREE_DELIVERY_FROM } from "@/lib/constants";
 import { CdekDelivery } from "./CdekDelivery";
 
 export function CheckoutForm({
@@ -19,7 +20,10 @@ export function CheckoutForm({
   const [deliveryCost, setDeliveryCost] = useState(0);
   const onCost = useCallback((k: number) => setDeliveryCost(k), []);
 
-  const total = subtotal + deliveryCost;
+  const freeDelivery = subtotal >= FREE_DELIVERY_FROM;
+  const effectiveDelivery = freeDelivery ? 0 : deliveryCost;
+  const total = subtotal + effectiveDelivery;
+  const toFree = FREE_DELIVERY_FROM - subtotal;
 
   return (
     <form action={formAction} className="grid gap-6 lg:grid-cols-[1fr_320px]">
@@ -34,7 +38,7 @@ export function CheckoutForm({
         </section>
 
         <input type="hidden" name="deliveryMethod" value="CDEK" />
-        <CdekDelivery onCost={onCost} />
+        <CdekDelivery onCost={onCost} free={freeDelivery} />
       </div>
 
       <aside className="card h-fit p-5 lg:sticky lg:top-36">
@@ -46,13 +50,27 @@ export function CheckoutForm({
           </div>
           <div className="flex justify-between">
             <dt className="text-zinc-500">Доставка СДЭК</dt>
-            <dd>{deliveryCost > 0 ? formatPrice(deliveryCost) : "—"}</dd>
+            <dd>
+              {freeDelivery ? (
+                <span className="font-semibold text-emerald-600">Бесплатно</span>
+              ) : deliveryCost > 0 ? (
+                formatPrice(deliveryCost)
+              ) : (
+                "—"
+              )}
+            </dd>
           </div>
           <div className="flex justify-between border-t border-zinc-100 pt-2 text-base font-bold">
             <dt>Итого</dt>
             <dd>{formatPrice(total)}</dd>
           </div>
         </dl>
+
+        {!freeDelivery && toFree > 0 && (
+          <p className="mt-3 rounded-lg bg-emerald-50 p-2.5 text-center text-xs font-medium text-emerald-700">
+            Добавьте товаров на {formatPrice(toFree)} — и доставка бесплатно 🎁
+          </p>
+        )}
 
         {state?.error && (
           <p className="mt-3 rounded-lg bg-red-50 p-3 text-sm font-medium text-red-700">
