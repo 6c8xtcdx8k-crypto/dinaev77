@@ -5,13 +5,18 @@ import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
 import { requireAdmin } from "@/lib/auth";
 import { getCart, getCartLines } from "@/lib/cart";
+import { getClientIp, rateLimit } from "@/lib/rate-limit";
 import { validatePromo, type PromoResult } from "@/lib/promo";
 
 /**
  * Предпросмотр промокода на витрине: считает сумму товаров из текущей
  * корзины (не доверяем клиенту) и возвращает размер скидки или ошибку.
+ * Лимит по IP — чтобы нельзя было перебирать промокоды.
  */
 export async function previewPromoAction(code: string): Promise<PromoResult> {
+  if (!(await rateLimit(`promo:${await getClientIp()}`, 20, 10 * 60 * 1000))) {
+    return { ok: false, error: "Слишком много попыток — попробуйте позже" };
+  }
   const cart = await getCart();
   if (!cart) return { ok: false, error: "Корзина пуста" };
   const lines = await getCartLines(cart.id);

@@ -9,7 +9,7 @@ export async function POST(req: Request) {
   if (!user || user.role !== "ADMIN") {
     return NextResponse.json({ error: "Доступ запрещён" }, { status: 403 });
   }
-  if (!rateLimit(`upload:${user.id}`, 60, 60 * 60 * 1000)) {
+  if (!(await rateLimit(`upload:${user.id}`, 60, 60 * 60 * 1000))) {
     return NextResponse.json({ error: "Слишком много загрузок — подождите" }, { status: 429 });
   }
 

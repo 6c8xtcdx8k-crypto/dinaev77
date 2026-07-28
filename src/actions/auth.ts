@@ -16,7 +16,7 @@ const registerSchema = z.object({
 
 export async function registerAction(_prev: FormState, formData: FormData): Promise<FormState> {
   // Защита от флуда аккаунтами.
-  if (!rateLimit(`register:${await getClientIp()}`, 5, 60 * 60 * 1000)) {
+  if (!(await rateLimit(`register:${await getClientIp()}`, 5, 60 * 60 * 1000))) {
     return { error: "Слишком много регистраций — попробуйте позже" };
   }
   const parsed = registerSchema.safeParse({
@@ -56,10 +56,11 @@ export async function loginAction(_prev: FormState, formData: FormData): Promise
   // Защита от перебора пароля: по IP и по конкретному аккаунту.
   const ip = await getClientIp();
   const email = parsed.data.email.toLowerCase();
-  if (
-    !rateLimit(`login-ip:${ip}`, 20, 10 * 60 * 1000) ||
-    !rateLimit(`login-acc:${email}`, 10, 10 * 60 * 1000)
-  ) {
+  const [ipOk, accOk] = await Promise.all([
+    rateLimit(`login-ip:${ip}`, 20, 10 * 60 * 1000),
+    rateLimit(`login-acc:${email}`, 10, 10 * 60 * 1000),
+  ]);
+  if (!ipOk || !accOk) {
     return { error: "Слишком много попыток входа — подождите 10 минут" };
   }
 

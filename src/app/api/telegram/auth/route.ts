@@ -11,7 +11,7 @@ import { getClientIp, rateLimit } from "@/lib/rate-limit";
  * Аккаунт создаётся при первом входе и привязывается к telegramId.
  */
 export async function POST(req: Request) {
-  if (!rateLimit(`tg-auth:${await getClientIp()}`, 20, 10 * 60 * 1000)) {
+  if (!(await rateLimit(`tg-auth:${await getClientIp()}`, 20, 10 * 60 * 1000))) {
     return NextResponse.json({ error: "too many requests" }, { status: 429 });
   }
   let initData: unknown;

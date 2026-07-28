@@ -3,10 +3,9 @@ node_modules/
 out/
 dist/
 
-# env
-.env
-.env.local
-.env.*.local
+# env (все варианты, кроме примера)
+.env*
+!.env.example
 
 # db
 prisma/*.db

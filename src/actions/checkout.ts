@@ -26,7 +26,7 @@ export async function placeOrderAction(
   formData: FormData,
 ): Promise<CheckoutFormState> {
   // Защита от флуда заказами (и спама в чат менеджеров).
-  if (!rateLimit(`order:${await getClientIp()}`, 5, 60 * 60 * 1000)) {
+  if (!(await rateLimit(`order:${await getClientIp()}`, 5, 60 * 60 * 1000))) {
     return { error: "Слишком много заказов подряд — попробуйте позже" };
   }
   const parsed = checkoutSchema.safeParse({

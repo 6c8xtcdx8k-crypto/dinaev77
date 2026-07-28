@@ -216,6 +216,16 @@ model Setting {
   updatedAt DateTime @updatedAt
 }
 
+// Счётчик rate-limit (общий для всех инстансов на Vercel). Фиксированное окно:
+// id = "<ключ>:<номер окна>", count растёт атомарно, expiresAt — для уборки.
+model RateLimit {
+  id        String   @id
+  count     Int      @default(0)
+  expiresAt DateTime
+
+  @@index([expiresAt])
+}
+
 // Загруженные из админки изображения товаров: хранятся в БД,
 // чтобы не зависеть от платного файлового хранилища на Vercel.
 model Upload {

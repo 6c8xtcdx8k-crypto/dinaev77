@@ -21,6 +21,7 @@ export async function getOrCreateCart() {
     jar.set(CART_COOKIE, token, {
       httpOnly: true,
       sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
       maxAge: 180 * 24 * 60 * 60,
       path: "/",
     });
