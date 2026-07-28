@@ -39,9 +39,9 @@ const TILES = [
 ];
 
 const MARQUEE = [
+  "Бесплатная доставка от 10 000 ₽",
   "Доставка по всей России через СДЭК",
   "Новая коллекция уже в каталоге",
-  "Одежда и сумки для женщин и мужчин",
   "Тысячи довольных покупателей",
 ];
 
@@ -110,6 +110,22 @@ export default async function HomePage() {
           ))}
         </div>
       </div>
+
+      {/* Баннер: бесплатная доставка */}
+      <Reveal>
+        <Link
+          href="/catalog"
+          className="group flex items-center justify-center gap-3 overflow-hidden rounded-2xl bg-gradient-to-r from-emerald-500 to-emerald-400 px-6 py-4 text-center shadow-card transition-all duration-300 hover:-translate-y-0.5 hover:shadow-card-hover"
+        >
+          <span className="text-2xl" aria-hidden>🎁</span>
+          <span className="text-base font-extrabold text-white sm:text-lg">
+            Бесплатная доставка СДЭК при заказе от 10 000 ₽
+          </span>
+          <span className="hidden text-white/90 transition-transform duration-300 group-hover:translate-x-1 sm:inline">
+            →
+          </span>
+        </Link>
+      </Reveal>
 
       {/* Категории — пастельные облака */}
       <Reveal variant="stagger" className="grid grid-cols-2 gap-4 lg:grid-cols-4">
