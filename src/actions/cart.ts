@@ -22,6 +22,7 @@ export async function addToCartAction(variantId: string, qty = 1): Promise<CartA
   } else {
     await prisma.cartItem.create({ data: { cartId: cart.id, variantId, qty: newQty } });
   }
+  await touchCart(cart.id);
 
   revalidatePath("/cart");
   revalidatePath("/", "layout"); // счётчик в шапке
@@ -44,6 +45,7 @@ export async function updateCartItemAction(itemId: string, qty: number): Promise
       data: { qty: Math.min(qty, item.variant.stock) },
     });
   }
+  await touchCart(cart.id);
 
   revalidatePath("/cart");
   revalidatePath("/", "layout");
@@ -53,7 +55,17 @@ export async function updateCartItemAction(itemId: string, qty: number): Promise
 export async function removeCartItemAction(itemId: string): Promise<CartActionResult> {
   const cart = await getOrCreateCart();
   await prisma.cartItem.deleteMany({ where: { id: itemId, cartId: cart.id } });
+  await touchCart(cart.id);
   revalidatePath("/cart");
   revalidatePath("/", "layout");
   return { ok: true };
+}
+
+/**
+ * Отмечает активность с корзиной: обновляет updatedAt и сбрасывает флаг
+ * напоминания. Так «брошенной» корзина считается только после паузы без
+ * действий, а если покупатель вернулся и что-то поменял — напомнить можно снова.
+ */
+async function touchCart(cartId: string): Promise<void> {
+  await prisma.cart.update({ where: { id: cartId }, data: { remindedAt: null } });
 }

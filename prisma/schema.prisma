@@ -120,13 +120,18 @@ model Favorite {
 
 // Корзина живёт и у гостя (по cookie-токену), и у авторизованного пользователя.
 model Cart {
-  id        String     @id @default(cuid())
-  token     String     @unique // значение cookie sb_cart
-  userId    String?
-  user      User?      @relation(fields: [userId], references: [id], onDelete: SetNull)
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  items     CartItem[]
+  id         String     @id @default(cuid())
+  token      String     @unique // значение cookie sb_cart
+  userId     String?
+  user       User?      @relation(fields: [userId], references: [id], onDelete: SetNull)
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  // Когда боту было отправлено напоминание о брошенной корзине.
+  // Сбрасывается в null при любой активности с корзиной (можно напомнить снова).
+  remindedAt DateTime?
+  items      CartItem[]
+
+  @@index([remindedAt, updatedAt])
 }
 
 model CartItem {
