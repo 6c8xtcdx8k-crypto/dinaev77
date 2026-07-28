@@ -17,7 +17,7 @@ const checkoutSchema = z.object({
   customerPhone: z.string().min(10, "Укажите телефон"),
   deliveryMethod: z.enum(["CDEK"]),
   deliveryAddress: z.string().min(5, "Укажите город и адрес доставки"),
-  deliveryZone: z.string().min(1, "Выберите регион доставки"),
+  deliveryCity: z.coerce.number().int().positive("Выберите город доставки"),
 });
 
 export async function placeOrderAction(
@@ -34,7 +34,7 @@ export async function placeOrderAction(
     customerPhone: formData.get("customerPhone"),
     deliveryMethod: formData.get("deliveryMethod"),
     deliveryAddress: formData.get("deliveryAddress"),
-    deliveryZone: formData.get("deliveryZone"),
+    deliveryCity: formData.get("deliveryCity"),
   });
   if (!parsed.success) return { error: parsed.error.errors[0].message };
 
@@ -50,7 +50,7 @@ export async function placeOrderAction(
     customerPhone: parsed.data.customerPhone,
     deliveryMethod: parsed.data.deliveryMethod as DeliveryMethod,
     deliveryAddress: parsed.data.deliveryAddress,
-    deliveryZone: parsed.data.deliveryZone,
+    deliveryCity: parsed.data.deliveryCity,
   });
   if (!result.ok) return { error: result.error };
 

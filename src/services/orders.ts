@@ -5,6 +5,7 @@ import { sendEmail } from "@/services/email";
 import { orderCreatedEmail, orderStatusEmail } from "@/services/email/templates";
 import { escapeHtml, sendTelegramMessage, sendTelegramPhoto } from "@/lib/telegram";
 import { getPaymentMethods, qrUrlFor } from "@/lib/payment";
+import { zoneForCity } from "@/lib/cdek-zones";
 import { formatPrice } from "@/lib/money";
 import { ORDER_STATUS_LABELS } from "@/lib/constants";
 import {
@@ -23,7 +24,7 @@ export type CheckoutInput = {
   customerPhone: string;
   deliveryMethod: DeliveryMethod;
   deliveryAddress: string;
-  deliveryZone?: string; // зона доставки СДЭК (для расчёта стоимости)
+  deliveryCity?: number; // код города CDEK (по нему определяется зона и стоимость)
 };
 
 export type CheckoutResult =
@@ -44,8 +45,8 @@ export async function createOrder(input: CheckoutInput): Promise<CheckoutResult>
   if (lines.length === 0) return { ok: false, error: "Корзина пуста" };
 
   const subtotal = lines.reduce((sum, l) => sum + l.price * l.qty, 0);
-  // Стоимость доставки берём по зоне на сервере (не доверяем клиенту).
-  const deliveryCost = deliveryZoneCost(input.deliveryZone);
+  // Стоимость доставки — по зоне города, определяем на сервере (не доверяем клиенту).
+  const deliveryCost = deliveryZoneCost(zoneForCity(input.deliveryCity));
   const total = subtotal + deliveryCost;
 
   try {
