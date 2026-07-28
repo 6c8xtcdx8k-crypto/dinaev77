@@ -16,7 +16,11 @@ const checkoutSchema = z.object({
   customerEmail: z.string().email("Некорректный email"),
   customerPhone: z.string().min(10, "Укажите телефон"),
   deliveryMethod: z.enum(["CDEK"]),
-  deliveryAddress: z.string().min(5, "Укажите город и адрес пункта СДЭК"),
+  deliveryAddress: z.string().min(5, "Укажите город и адрес доставки"),
+  // Код города CDEK — если задан, стоимость рассчитается автоматически.
+  // Если CDEK ещё не подключён, поле пустое и доставку согласует менеджер.
+  deliveryCity: z.coerce.number().int().nonnegative().optional(),
+  deliveryToDoor: z.string().optional(),
 });
 
 export async function placeOrderAction(
@@ -33,6 +37,8 @@ export async function placeOrderAction(
     customerPhone: formData.get("customerPhone"),
     deliveryMethod: formData.get("deliveryMethod"),
     deliveryAddress: formData.get("deliveryAddress"),
+    deliveryCity: formData.get("deliveryCity"),
+    deliveryToDoor: formData.get("deliveryToDoor"),
   });
   if (!parsed.success) return { error: parsed.error.errors[0].message };
 
@@ -43,8 +49,13 @@ export async function placeOrderAction(
   const result = await createOrder({
     cartId: cart.id,
     userId: user?.id ?? null,
-    ...parsed.data,
+    customerName: parsed.data.customerName,
+    customerEmail: parsed.data.customerEmail,
+    customerPhone: parsed.data.customerPhone,
     deliveryMethod: parsed.data.deliveryMethod as DeliveryMethod,
+    deliveryAddress: parsed.data.deliveryAddress,
+    deliveryCity: parsed.data.deliveryCity || undefined,
+    deliveryToDoor: parsed.data.deliveryToDoor === "1",
   });
   if (!result.ok) return { error: result.error };
 

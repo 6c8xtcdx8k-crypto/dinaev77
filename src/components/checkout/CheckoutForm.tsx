@@ -1,8 +1,9 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useCallback, useState } from "react";
 import { placeOrderAction, type CheckoutFormState } from "@/actions/checkout";
 import { formatPrice } from "@/lib/money";
+import { CdekDelivery } from "./CdekDelivery";
 
 export function CheckoutForm({
   subtotal,
@@ -15,8 +16,10 @@ export function CheckoutForm({
     placeOrderAction,
     undefined,
   );
+  const [deliveryCost, setDeliveryCost] = useState(0);
+  const onCost = useCallback((k: number) => setDeliveryCost(k), []);
 
-  const total = subtotal;
+  const total = subtotal + deliveryCost;
 
   return (
     <form action={formAction} className="grid gap-6 lg:grid-cols-[1fr_320px]">
@@ -30,30 +33,8 @@ export function CheckoutForm({
           </div>
         </section>
 
-        <section className="card space-y-3 p-5">
-          <h2 className="text-lg font-bold">Доставка</h2>
-          <input type="hidden" name="deliveryMethod" value="CDEK" />
-          <div className="flex items-center gap-3 rounded-xl border border-brand-300 bg-brand-50 p-3">
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white font-black text-brand-600 shadow-card">
-              С
-            </span>
-            <span className="flex-1">
-              <span className="block font-bold">СДЭК — пункт выдачи</span>
-              <span className="text-sm text-zinc-500">
-                Доставка по всей России до ближайшего пункта выдачи
-              </span>
-            </span>
-          </div>
-          <input
-            name="deliveryAddress"
-            placeholder="Город и адрес пункта выдачи СДЭК"
-            required
-            className="input"
-          />
-          <p className="text-xs text-zinc-400">
-            Ближайший пункт можно посмотреть на cdek.ru — впишите его адрес.
-          </p>
-        </section>
+        <input type="hidden" name="deliveryMethod" value="CDEK" />
+        <CdekDelivery onCost={onCost} />
       </div>
 
       <aside className="card h-fit p-5 lg:sticky lg:top-36">
@@ -62,6 +43,10 @@ export function CheckoutForm({
           <div className="flex justify-between">
             <dt className="text-zinc-500">Товары</dt>
             <dd>{formatPrice(subtotal)}</dd>
+          </div>
+          <div className="flex justify-between">
+            <dt className="text-zinc-500">Доставка СДЭК</dt>
+            <dd>{deliveryCost > 0 ? formatPrice(deliveryCost) : "—"}</dd>
           </div>
           <div className="flex justify-between border-t border-zinc-100 pt-2 text-base font-bold">
             <dt>Итого</dt>
@@ -78,6 +63,9 @@ export function CheckoutForm({
         <button type="submit" disabled={pending} className="btn-primary mt-4 w-full !py-3">
           {pending ? "Оформляем…" : "Оформить заказ"}
         </button>
+        <p className="mt-2 text-center text-xs text-zinc-400">
+          Стоимость доставки рассчитывается СДЭК и добавляется к заказу
+        </p>
       </aside>
     </form>
   );
