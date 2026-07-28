@@ -5,12 +5,12 @@ import { sendEmail } from "@/services/email";
 import { orderCreatedEmail, orderStatusEmail } from "@/services/email/templates";
 import { escapeHtml, sendTelegramMessage, sendTelegramPhoto } from "@/lib/telegram";
 import { getPaymentMethods, qrUrlFor } from "@/lib/payment";
-import { cdekCalc } from "@/lib/cdek";
 import { formatPrice } from "@/lib/money";
 import { ORDER_STATUS_LABELS } from "@/lib/constants";
 import {
   DELIVERY_METHODS,
   ORDER_STATUS_TRANSITIONS,
+  deliveryZoneCost,
   type DeliveryMethod,
   type OrderStatus,
 } from "@/lib/constants";
@@ -23,8 +23,7 @@ export type CheckoutInput = {
   customerPhone: string;
   deliveryMethod: DeliveryMethod;
   deliveryAddress: string;
-  deliveryCity?: number; // код города CDEK (для расчёта тарифа)
-  deliveryToDoor?: boolean; // курьером до двери вместо ПВЗ
+  deliveryZone?: string; // зона доставки СДЭК (для расчёта стоимости)
 };
 
 export type CheckoutResult =
@@ -33,30 +32,6 @@ export type CheckoutResult =
 
 export function deliveryCostFor(method: DeliveryMethod, _subtotal: number): number {
   return DELIVERY_METHODS[method]?.cost ?? 0;
-}
-
-/** Средний вес позиции, г. */
-const ITEM_WEIGHT_GR = 700;
-/** Запасной тариф, если CDEK недоступен (копейки). */
-const DELIVERY_FALLBACK = 30000;
-
-/**
- * Актуальная стоимость доставки CDEK (копейки), считается на сервере —
- * клиентскому значению не доверяем. Если API недоступен — запасной тариф.
- */
-async function cdekDeliveryCost(
-  cityCode: number | undefined,
-  qty: number,
-  toDoor?: boolean,
-): Promise<number> {
-  if (!cityCode) return 0;
-  try {
-    const t = await cdekCalc({ toCity: cityCode, weightGr: qty * ITEM_WEIGHT_GR, toDoor });
-    if (t?.cost != null) return Math.round(t.cost) * 100; // рубли → копейки
-  } catch {
-    /* CDEK недоступен */
-  }
-  return DELIVERY_FALLBACK;
 }
 
 /**
@@ -69,9 +44,8 @@ export async function createOrder(input: CheckoutInput): Promise<CheckoutResult>
   if (lines.length === 0) return { ok: false, error: "Корзина пуста" };
 
   const subtotal = lines.reduce((sum, l) => sum + l.price * l.qty, 0);
-  // Стоимость доставки считаем на сервере через CDEK (не доверяем клиенту).
-  const qty = lines.reduce((s, l) => s + l.qty, 0) || 1;
-  const deliveryCost = await cdekDeliveryCost(input.deliveryCity, qty, input.deliveryToDoor);
+  // Стоимость доставки берём по зоне на сервере (не доверяем клиенту).
+  const deliveryCost = deliveryZoneCost(input.deliveryZone);
   const total = subtotal + deliveryCost;
 
   try {

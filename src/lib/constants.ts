@@ -48,6 +48,23 @@ export const DELIVERY_METHODS = {
 
 export type DeliveryMethod = keyof typeof DELIVERY_METHODS;
 
+// Зоны доставки СДЭК по России. Стоимость (копейки) — ориентир для посылки
+// ~0.5–1 кг до пункта выдачи. Когда подключат CDEK API — цены станут точными.
+export const DELIVERY_ZONES = [
+  { id: "msk", label: "Москва и область", cost: 25000 },
+  { id: "spb", label: "Санкт-Петербург и область", cost: 30000 },
+  { id: "center", label: "Центр, Северо-Запад, Юг России", cost: 35000 },
+  { id: "volga_ural", label: "Поволжье, Урал", cost: 45000 },
+  { id: "siberia", label: "Сибирь", cost: 55000 },
+  { id: "far", label: "Дальний Восток, Крайний Север", cost: 70000 },
+] as const;
+
+export type DeliveryZoneId = (typeof DELIVERY_ZONES)[number]["id"];
+
+export function deliveryZoneCost(id: string | undefined): number {
+  return DELIVERY_ZONES.find((z) => z.id === id)?.cost ?? 0;
+}
+
 export const SORT_OPTIONS = [
   { value: "new", label: "Сначала новинки" },
   { value: "popular", label: "По популярности" },
