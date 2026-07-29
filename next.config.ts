@@ -6,6 +6,10 @@ const nextConfig: NextConfig = {
   // и только нужные node_modules.
   output: "standalone",
 
+  // Prisma + serverless-драйвер Neon подключаем в рантайме из node_modules,
+  // а не бандлим в сборку (рекомендация Prisma для driver adapters).
+  serverExternalPackages: ["@prisma/client", "@prisma/adapter-neon", "@neondatabase/serverless", "ws"],
+
   async headers() {
     return [
       {
