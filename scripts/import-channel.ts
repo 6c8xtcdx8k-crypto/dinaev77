@@ -377,6 +377,56 @@ async function resetMensOnce(): Promise<void> {
   });
 }
 
+/**
+ * Разовая наценка +500 ₽ на костюмы и сумки (по просьбе владельца).
+ * Ставит basePrice уже загруженным товарам равным priceRub из JSON, где +500
+ * уже заложено. Цель — товары, чьё название/описание содержит «костюм» или
+ * «сумк»; источники — channel-products.json (Avrora) и extra-products.json
+ * (mars). Обувь и прочее не затрагиваются. Идемпотентно (ставит абсолютную
+ * цену из JSON), флаг в Setting — чтобы после первого прогона не переписывать
+ * возможные ручные правки цены в админке. При новой смене наценки поднимите _v2.
+ */
+async function applySuitsBagsMarkupOnce(): Promise<void> {
+  const KEY = "suitsBagsMarkup_v1";
+  const flag = await prisma.setting.findUnique({ where: { key: KEY } }).catch(() => null);
+  if (flag) return;
+  const isTarget = (text: string) => /костюм|сумк/i.test(text);
+  const priceBySlug = new Map<string, number>();
+  for (const file of ["channel-products.json", "extra-products.json"]) {
+    const p = path.join(process.cwd(), "scripts", file);
+    if (!existsSync(p)) continue;
+    const arr: { slug: string; name?: string; description?: string; priceRub: number }[] =
+      JSON.parse(readFileSync(p, "utf8"));
+    for (const it of arr) {
+      if (isTarget(`${it.name ?? ""} ${it.description ?? ""}`)) {
+        priceBySlug.set(it.slug, Math.round(it.priceRub * 100));
+      }
+    }
+  }
+  const slugs = [...priceBySlug.keys()];
+  let updated = 0;
+  for (let i = 0; i < slugs.length; i += 200) {
+    const chunk = slugs.slice(i, i + 200);
+    const prods = await prisma.product.findMany({
+      where: { slug: { in: chunk } },
+      select: { id: true, slug: true, basePrice: true },
+    });
+    for (const pr of prods) {
+      const want = priceBySlug.get(pr.slug)!;
+      if (pr.basePrice !== want) {
+        await prisma.product.update({ where: { id: pr.id }, data: { basePrice: want } }).catch(() => {});
+        updated++;
+      }
+    }
+  }
+  await prisma.setting.upsert({
+    where: { key: KEY },
+    update: { value: "1" },
+    create: { key: KEY, value: "1" },
+  });
+  console.log(`[markup] +500₽ костюмы/сумки: обновлено цен ${updated}/${priceBySlug.size}`);
+}
+
 /** Цвета-заглушки: у таких товаров реальный цвет определяем по фото. */
 const PLACEHOLDER_COLORS = new Set([
   "Как на фото", "Как на фото.", "В ассортимент", "В ассортименте",
@@ -583,6 +633,7 @@ async function main() {
     await resetAvroraOnce();
     await resetAzizovOnce();
     await resetMensOnce();
+    await applySuitsBagsMarkupOnce(); // +500 ₽ на костюмы и сумки уже загруженным
 
     let synced = 0;
     for (const item of items) {
