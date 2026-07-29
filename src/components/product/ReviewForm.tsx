@@ -3,7 +3,15 @@
 import { useActionState, useState } from "react";
 import { addReviewAction, type ReviewFormState } from "@/actions/reviews";
 
-export function ReviewForm({ productId, isAuthed }: { productId: string; isAuthed: boolean }) {
+export function ReviewForm({
+  productId,
+  isAuthed,
+  canReview = true,
+}: {
+  productId: string;
+  isAuthed: boolean;
+  canReview?: boolean;
+}) {
   const [state, formAction, pending] = useActionState<ReviewFormState, FormData>(
     addReviewAction,
     undefined,
@@ -18,6 +26,14 @@ export function ReviewForm({ productId, isAuthed }: { productId: string; isAuthe
           Войдите
         </a>
         , чтобы оставить отзыв.
+      </p>
+    );
+  }
+
+  if (!canReview) {
+    return (
+      <p className="text-sm text-zinc-500">
+        Оставить отзыв можно после заказа этого товара.
       </p>
     );
   }

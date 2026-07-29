@@ -4,6 +4,7 @@ import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
+import { hasPurchasedProduct } from "@/lib/reviews";
 
 export type ReviewFormState = { error?: string; success?: boolean } | undefined;
 
@@ -30,6 +31,11 @@ export async function addReviewAction(
   const { productId, rating, text } = parsed.data;
   const product = await prisma.product.findUnique({ where: { id: productId } });
   if (!product) return { error: "Товар не найден" };
+
+  // Отзыв можно оставить только на купленный товар.
+  if (!(await hasPurchasedProduct(user.id, product.slug))) {
+    return { error: "Оставить отзыв можно только после заказа этого товара" };
+  }
 
   const existing = await prisma.review.findUnique({
     where: { productId_userId: { productId, userId: user.id } },

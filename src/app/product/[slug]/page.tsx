@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getProductBySlug, getSimilarProducts, queryCatalog } from "@/services/catalog";
 import { getCurrentUser } from "@/lib/auth";
+import { hasPurchasedProduct } from "@/lib/reviews";
 import { prisma } from "@/lib/db";
 import { formatPrice } from "@/lib/money";
 import { GENDER_LABELS, type Gender } from "@/lib/constants";
@@ -40,6 +41,9 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   if (!product || !product.isActive) notFound();
 
   const user = await getCurrentUser();
+
+  // Право оставить отзыв — только у купивших этот товар.
+  const canReview = user ? await hasPurchasedProduct(user.id, product.slug) : false;
 
   // История просмотров для раздела «Просмотренные» в кабинете.
   if (user) {
@@ -179,7 +183,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         <div>
           <h2 className="mb-4 text-xl font-bold">Оставить отзыв</h2>
           <div className="card p-5">
-            <ReviewForm productId={product.id} isAuthed={!!user} />
+            <ReviewForm productId={product.id} isAuthed={!!user} canReview={canReview} />
           </div>
         </div>
       </section>
